@@ -42,10 +42,11 @@ export default {
       statePredioUbigeo.value.departament = codigoDepartamento
       statePredioUbigeo.value.province = codigoProvincia
       statePredioUbigeo.value.district = idUbigeo
-      statePredio.value.nombreDepartamento = nombreDepartamento
-      statePredio.value.nombreProvincia = nombreProvincia
-      statePredio.value.nombreDistrito = nombreDistrito
+      statePredio.value.nombreDepartamento = nombreDepartamento || ''
+      statePredio.value.nombreProvincia = nombreProvincia || ''
+      statePredio.value.nombreDistrito = nombreDistrito || ''
       statePredio.value._id = _id
+      statePredio.value.idUbigeo = idUbigeo
       statePredio.value.observacion = direccion
       statePredio.value.direccion = observacion
       dataTablePredio.value.loading = false

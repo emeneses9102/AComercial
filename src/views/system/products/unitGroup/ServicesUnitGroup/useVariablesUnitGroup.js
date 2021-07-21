@@ -2,7 +2,8 @@
 import { ref } from '@vue/composition-api'
 
 // Importar configuracion de las columnas personalizadas
-import { columnAction } from '@/helpers/columnsTable'
+import { columnAction, columnStatus } from '@/helpers/columnsTable'
+import { clearServerQueryDefaultFilter, serverQueryDefault } from '@/helpers/serverQuery'
 
 // Constante para almacenar el id base de los modales del mantenimiento Grupo Unidad
 export const MODAL_ID = 'modal-unit-group'
@@ -24,13 +25,7 @@ export const columnsUnitGroup = ref([
     tdClass: 'align-middle',
     pdf: true,
   },
-  {
-    field: 'activo',
-    label: 'ESTADO',
-    thClass: 'align-middle',
-    tdClass: 'align-middle text-center',
-    pdf: true,
-  },
+  columnStatus,
 ])
 
 // Variable reactiva para almacenar las propiedades necesarias para el listado de la tabla Grupo Unidad
@@ -42,18 +37,13 @@ export const dataTableUnitGroup = ref({
 
 // Variable reactiva para manjear los consultas del lado del servidor de la tabla Grupo Unidad
 export const serverQueryUnitGroup = ref({
-  _id: 0,
+  ...serverQueryDefault,
   tabla: 'grupo',
-  pinicio: 1,
-  pfin: 10,
-  campofiltro: '',
-  filtro: '',
 })
 
 // Función para limpiar filtros en la consulta de la tabla Grupo Unidad
 export const clearFiltersUnitGroup = () => {
-  serverQueryUnitGroup.value.campofiltro = ''
-  serverQueryUnitGroup.value.filtro = ''
+  clearServerQueryDefaultFilter(serverQueryUnitGroup)
 }
 
 // Variable inicializadora para almacenar el estado de un registro, actualización, cambio de estado, eliminación en la tabla Grupo Unidad

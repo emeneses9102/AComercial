@@ -2,7 +2,7 @@
 import { ref } from '@vue/composition-api'
 
 // Importar configuracion de las columnas personalizadas
-import { columnAction } from '@/helpers/columnsTable'
+import { columnAction, columnStatus } from '@/helpers/columnsTable'
 import { clearServerQueryDefaultFilter, serverQueryDefault } from '@/helpers/serverQuery'
 
 // Constante para almacenar el id base de los modales del mantenimiento Unidad de Negocio
@@ -47,13 +47,7 @@ export const columnsBusinessUnit = ref([
     pdf: true,
     type: 'boolean',
   },
-  {
-    field: 'activo',
-    label: 'ESTADO',
-    thClass: 'align-middle',
-    tdClass: 'align-middle text-center',
-    pdf: true,
-  },
+  columnStatus,
 ])
 
 // Variable reactiva para almacenar las propiedades necesarias para el listado de la tabla Unidad de Negocio

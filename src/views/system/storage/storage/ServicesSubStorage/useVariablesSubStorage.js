@@ -2,7 +2,8 @@
 import { ref } from '@vue/composition-api'
 
 // Importar configuracion de las columnas personalizadas
-import { columnAction } from '@/helpers/columnsTable'
+import { columnAction, columnStatus } from '@/helpers/columnsTable'
+import { clearServerQueryDefaultFilter, serverQueryDefault } from '@/helpers/serverQuery'
 
 // Variables inicializadora para almacenar la configuración de cada columna de la tabla Sub Almacén
 export const initialColumnsSubStorage = [
@@ -18,10 +19,7 @@ export const initialColumnsSubStorage = [
     field: 'ubicacion',
     label: 'UBICACIÓN',
   },
-  {
-    field: 'activo',
-    label: 'ESTADO',
-  },
+  columnStatus,
 ]
 
 // Variable reactiva para almacenar la configuración de cada columna de la tabla Sub Almacén con Acciones
@@ -50,20 +48,15 @@ export const clearDataTableSubStorage = () => {
 
 // Variable reactiva para manjear los consultas del lado del servidor de la tabla Sub Almacén
 export const serverQuerySubStorage = ref({
-  _id: 0,
+  ...serverQueryDefault,
   tabla: 'dalmacen',
-  pinicio: 1,
   pfin: 5,
-  campofiltro: '',
-  filtro: '',
   campo: 'a.idalmacen',
-  indice: 0,
 })
 
 // Función para limpiar filtros en la consulta de la tabla Sub Almacén
 export const clearFiltersSubStorage = () => {
-  serverQuerySubStorage.value.campofiltro = ''
-  serverQuerySubStorage.value.filtro = ''
+  clearServerQueryDefaultFilter(serverQuerySubStorage)
 }
 
 // Variable inicializadora para almacenar el estado de un registro, actualización, cambio de estado, eliminación en la tabla Sub Almacén

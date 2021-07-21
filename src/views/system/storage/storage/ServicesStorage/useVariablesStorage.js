@@ -2,8 +2,9 @@
 import { ref } from '@vue/composition-api'
 
 // Importar configuracion de las columnas personalizadas
-import { columnAction } from '@/helpers/columnsTable'
+import { columnAction, columnStatus } from '@/helpers/columnsTable'
 import { initialStateCombo } from '@/helpers/combos'
+import { clearServerQueryDefaultFilter, serverQueryDefault } from '@/helpers/serverQuery'
 
 // Constante para almacenar el id base de los modales del mantenimiento Almacén
 export const MODAL_ID = 'modal-storage'
@@ -53,13 +54,7 @@ export const columnsStorage = ref([
     tdClass: 'align-middle',
     pdf: true,
   },
-  {
-    label: 'ESTADO',
-    field: 'activo',
-    thClass: 'align-middle',
-    tdClass: 'align-middle text-center',
-    pdf: true,
-  },
+  columnStatus,
 ])
 
 // Variable reactiva para almacenar las propiedades necesarias para el listado de la tabla Almacén
@@ -71,18 +66,13 @@ export const dataTableStorage = ref({
 
 // Variable reactiva para manjear los consultas del lado del servidor de la tabla Almacén
 export const serverQueryStorage = ref({
-  _id: 0,
+  ...serverQueryDefault,
   tabla: 'almacen',
-  pinicio: 1,
-  pfin: 10,
-  campofiltro: '',
-  filtro: '',
 })
 
 // Función para limpiar filtros en la consulta de la tabla Almacén
 export const clearFiltersStorage = () => {
-  serverQueryStorage.value.campofiltro = ''
-  serverQueryStorage.value.filtro = ''
+  clearServerQueryDefaultFilter(serverQueryStorage)
 }
 
 // Variable inicializadora para almacenar el estado de un registro, actualización, cambio de estado, eliminación en la tabla Almacén

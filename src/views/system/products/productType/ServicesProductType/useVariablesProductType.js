@@ -2,7 +2,8 @@
 import { ref } from '@vue/composition-api'
 
 // Importar configuracion de las columnas personalizadas
-import { columnAction } from '@/helpers/columnsTable'
+import { columnAction, columnStatus } from '@/helpers/columnsTable'
+import { clearServerQueryDefaultFilter, serverQueryDefault } from '@/helpers/serverQuery'
 
 // Constante para almacenar el id base de los modales del mantenimiento Tipo Producto
 export const MODAL_ID = 'modal-product-type'
@@ -24,13 +25,7 @@ export const columnsProductType = ref([
     tdClass: 'align-middle',
     pdf: true,
   },
-  {
-    field: 'activo',
-    label: 'ESTADO',
-    thClass: 'align-middle',
-    tdClass: 'align-middle text-center',
-    pdf: true,
-  },
+  columnStatus,
 ])
 
 // Variable reactiva para almacenar las propiedades necesarias para el listado de la tabla Tipo Producto
@@ -42,18 +37,13 @@ export const dataTableProductType = ref({
 
 // Variable reactiva para manjear los consultas del lado del servidor de la tabla Tipo Producto
 export const serverQueryProductType = ref({
-  _id: 0,
+  ...serverQueryDefault,
   tabla: 'tipoproducto',
-  pinicio: 1,
-  pfin: 10,
-  campofiltro: '',
-  filtro: '',
 })
 
 // Función para limpiar filtros en la consulta de la tabla Tipo Producto
 export const clearFiltersProductType = () => {
-  serverQueryProductType.value.campofiltro = ''
-  serverQueryProductType.value.filtro = ''
+  clearServerQueryDefaultFilter(serverQueryProductType)
 }
 
 // Variable inicializadora para almacenar el estado de un registro, actualización, cambio de estado, eliminación en la tabla Tipo Producto

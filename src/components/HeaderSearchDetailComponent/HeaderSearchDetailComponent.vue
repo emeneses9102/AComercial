@@ -56,12 +56,12 @@ export default {
   props: {
     columnsFilter: {
       type: Array,
-      require: true,
+      required: true,
       default: () => [],
     },
     columnFilterSelectedDefault: {
       type: String,
-      require: true,
+      required: true,
       default: () => '',
     },
   },

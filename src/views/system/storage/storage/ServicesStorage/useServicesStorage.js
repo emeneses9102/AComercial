@@ -14,12 +14,7 @@ export const loadItemsStorage = async (page = null, perPage = null) => {
 export const getStorageById = async _id => {
   const { data, status } = await getDataById(urlApiStorage, _id, titleNotificationStorage)
   if (status) {
-    stateStorage.value._id = data._id
-    stateStorage.value.nombre = data.nombre
-    stateStorage.value.idPredio = data.idPredio
-    stateStorage.value.idTipoAlmacen = data.idTipoAlmacen
-    stateStorage.value.idNegocio = data.idNegocio
-    stateStorage.value.observacion = data.observacion
+    stateStorage.value = { ...stateStorage.value, ...data }
   }
 }
 

@@ -29,14 +29,12 @@ export default {
   },
   setup(props, context) {
     // Función que se ejecutará cuando el usuario haga click en el botón editar o ver
-    const openModalFor = async ({ _id, nombre, abreviatura }, actionOpenModal) => {
+    const openModalFor = async (row, actionOpenModal) => {
       dataTableUnitGroup.value.loading = true
-      stateUnitGroup.value._id = _id
-      stateUnitGroup.value.nombre = nombre
-      stateUnitGroup.value.abreviatura = abreviatura
+      stateUnitGroup.value = { ...stateUnitGroup.value, ...row }
       clearStateUnitGroupDetail()
       clearFiltersUnitGroupDetail()
-      serverQueryUnitGroupDetail.value.indice = _id
+      serverQueryUnitGroupDetail.value.indice = row._id
       await loadItemsUnitGroupDetail(1)
       dataTableUnitGroup.value.loading = false
       context.root.$bvModal.show(actionOpenModal === 'edit' ? MODAL_ID : `${MODAL_ID}-show`)

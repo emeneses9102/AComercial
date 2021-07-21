@@ -1,6 +1,6 @@
 <template>
   <div>
-    <!-- <modal-save-partner /> -->
+    <modal-save-partner />
     <modal-search-partner />
     <modal-show-partner />
     <b-card>
@@ -22,13 +22,15 @@
 
 <script>
 import { BCard } from 'bootstrap-vue'
+import { onMounted } from '@vue/composition-api'
+import { endPointsCombo, loadCombos } from '@/helpers/combos'
 import HeaderMaintenanceComponent from '@/components/HeaderMaintenanceComponent/HeaderMaintenanceComponent.vue'
-// import ModalSavePartner from './ModalSavePartner/ModalSavePartner.vue'
+import ModalSavePartner from './ModalSavePartner/ModalSavePartner.vue'
 import ModalSearchPartner from './ModalSearchPartner/ModalSearchPartner.vue'
 import ModalShowPartner from './ModalShowPartner/ModalShowPartner.vue'
 import TablePartner from './TablePartner/TablePartner.vue'
 import {
-  MODAL_ID, clearStatePartner, columnsPartner, urlApiPartner, serverQueryPartner, columnsFilterPartner, titleReportPartner,
+  MODAL_ID, clearStatePartner, columnsPartner, urlApiPartner, serverQueryPartner, columnsFilterPartner, titleReportPartner, combosPartner, combosPartnerUbigeo,
 } from './ServicesPartner/useVariablesPartner'
 
 export default {
@@ -36,7 +38,7 @@ export default {
   components: {
     BCard,
     HeaderMaintenanceComponent,
-    // ModalSavePartner,
+    ModalSavePartner,
     ModalSearchPartner,
     ModalShowPartner,
     TablePartner,
@@ -46,6 +48,11 @@ export default {
     const clearModal = () => {
       clearStatePartner()
     }
+
+    onMounted(() => {
+      loadCombos(combosPartner, ['document'], `${endPointsCombo.tipoDocumento}/1`, 'Tipo de Documento')
+      loadCombos(combosPartnerUbigeo, ['departament'], endPointsCombo.departamento, 'Departamento')
+    })
 
     return {
       MODAL_ID,

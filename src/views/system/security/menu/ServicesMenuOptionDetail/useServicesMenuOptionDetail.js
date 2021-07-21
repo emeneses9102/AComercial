@@ -16,9 +16,7 @@ export const loadItemsMenuOptionDetail = async (page = null, perPage = null) => 
 export const getMenuOptionDetailById = async _id => {
   const { data, status } = await getDataById(urlApiMenuOptionDetail, _id, titleNotificationMenuOptionDetail)
   if (status) {
-    stateMenuOptionDetail.value._id = data._id
-    stateMenuOptionDetail.value.idMenu = data.idMenu
-    stateMenuOptionDetail.value.idOpcion = data.idOpcion
+    stateMenuOptionDetail.value = { ...stateMenuOptionDetail.value, ...data }
   }
 }
 

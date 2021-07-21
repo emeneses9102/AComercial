@@ -17,6 +17,7 @@ export const endPointsCombo = {
   provincia: '/comboubigeo/provincia',
   tipoAlmacen: '/combo/tipoalmacen',
   tipoComprobanteSunat: '/combo/snttipocomprobante',
+  tipoDocumento: '/combo/documento',
   unidadmedida: '/combo/unidadmedida',
 }
 
