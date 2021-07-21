@@ -91,4 +91,14 @@ export default [
       },
     ],
   },
+  {
+    title: 'Control',
+    icon: 'AlertOctagonIcon',
+    children: [
+      {
+        title: 'Mensaje Sistema',
+        route: 'systemMessage',
+      },
+    ],
+  },
 ]

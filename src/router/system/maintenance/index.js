@@ -38,7 +38,7 @@ export default [
     },
   },
   {
-    path: '/comprobante',
+    path: '/Comprobante',
     name: 'voucher',
     component: () => import('@/views/system/maintenance/voucher/Voucher.vue'),
     meta: {
@@ -54,7 +54,7 @@ export default [
     },
   },
   {
-    path: '/documento',
+    path: '/Documento',
     name: 'document',
     component: () => import('@/views/system/maintenance/document/Document.vue'),
     meta: {
@@ -63,7 +63,7 @@ export default [
       breadcrumb: [
         moduleBreadCrumb,
         {
-          text: 'documento',
+          text: 'Documento',
           active: true,
         },
       ],
