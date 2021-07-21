@@ -37,4 +37,20 @@ export default [
       ],
     },
   },
+  {
+    path: '/Comprobante',
+    name: 'voucher',
+    component: () => import('@/views/system/maintenance/voucher/Voucher.vue'),
+    meta: {
+      auth: true,
+      pageTitle: 'Comprobante',
+      breadcrumb: [
+        moduleBreadCrumb,
+        {
+          text: 'Comprobante',
+          active: true,
+        },
+      ],
+    },
+  },
 ]

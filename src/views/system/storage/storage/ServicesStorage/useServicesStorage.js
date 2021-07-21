@@ -1,5 +1,4 @@
 // Importar funciones y variables necesarias para crear los servicios del mantenimiento Almacén
-// import { ACTION_REGISTER } from '@/helpers/actionsApi'
 import { getDataById, loadTable, sendForm } from '@/helpers/manageTables'
 import {
   serverQueryStorage, dataTableStorage, stateStorage, urlApiStorage, titleNotificationStorage,
@@ -7,15 +6,6 @@ import {
 
 // Función para obtener los datos desde la API y actualizar los valores de dataTableStorage
 export const loadItemsStorage = async (page = null, perPage = null) => {
-  // if (page) serverQueryStorage.value.pinicio = page
-  // if (perPage) serverQueryStorage.value.pfin = perPage
-  // dataTableStorage.value.loading = true
-  // const { status, rows, totalRows } = await getData(urlApiStorage, serverQueryStorage.value, titleNotificationStorage)
-  // if (status) {
-  //   dataTableStorage.value.rows = rows
-  //   dataTableStorage.value.totalRows = totalRows
-  // }
-  // dataTableStorage.value.loading = false
   const status = await loadTable(serverQueryStorage, dataTableStorage, urlApiStorage, titleNotificationStorage, page, perPage)
   return status
 }
@@ -35,11 +25,6 @@ export const getStorageById = async _id => {
 
 // Función para gestionar un Almacén
 export const sendStorage = async (action, _id = null) => {
-  // if (_id) stateStorage.value._id = _id
-  // stateStorage.value.accion = action
-  // const response = await sendData(urlApiStorage, stateStorage.value, titleNotificationStorage)
-  // if (response.status && action === ACTION_REGISTER) stateStorage.value._id = response.data.id
-  // return response
   const response = await sendForm(stateStorage, urlApiStorage, titleNotificationStorage, action, _id)
   return response
 }
