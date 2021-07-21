@@ -2,7 +2,8 @@
 import { ref } from '@vue/composition-api'
 
 // Importar configuracion de las columnas personalizadas
-import { columnAction } from '@/helpers/columnsTable'
+import { columnAction, columnStatus } from '@/helpers/columnsTable'
+import { clearServerQueryDefaultFilter, serverQueryDefault } from '@/helpers/serverQuery'
 
 // Variables inicializadora para almacenar la configuración de cada columna de la tabla Detalle Característica
 export const initialColumnsFeatureDetail = [
@@ -18,10 +19,7 @@ export const initialColumnsFeatureDetail = [
     field: 'abreviatura',
     label: 'ABREVIATURA',
   },
-  {
-    field: 'activo',
-    label: 'ESTADO',
-  },
+  columnStatus,
 ]
 
 // Variable reactiva para almacenar la configuración de cada columna de la tabla Detalle Característica con Acciones
@@ -50,20 +48,15 @@ export const clearDataTableFeatureDetail = () => {
 
 // Variable reactiva para manjear los consultas del lado del servidor de la tabla Detalle Característica
 export const serverQueryFeatureDetail = ref({
-  _id: 0,
+  ...serverQueryDefault,
   tabla: 'dcaracteristica',
-  pinicio: 1,
   pfin: 5,
-  campofiltro: '',
-  filtro: '',
   campo: 'a.idcaracteristica',
-  indice: 0,
 })
 
 // Función para limpiar filtros en la consulta de la tabla Detalle Característica
 export const clearFiltersFeatureDetail = () => {
-  serverQueryFeatureDetail.value.campofiltro = ''
-  serverQueryFeatureDetail.value.filtro = ''
+  clearServerQueryDefaultFilter(serverQueryFeatureDetail)
 }
 
 // Variable inicializadora para almacenar el estado de un registro, actualización, cambio de estado, eliminación en la tabla Detalle Característica

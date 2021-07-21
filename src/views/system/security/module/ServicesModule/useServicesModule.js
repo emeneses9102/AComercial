@@ -14,10 +14,7 @@ export const loadItemsModule = async (page = null, perPage = null) => {
 export const getModuleById = async _id => {
   const { data, status } = await getDataById(urlApiModule, _id, titleNotificationModule)
   if (status) {
-    stateModule.value._id = data._id
-    stateModule.value.nombre = data.nombre
-    stateModule.value.idPadre = data.idPadre
-    stateModule.value.icono = data.icono
+    stateModule.value = { ...stateModule.value, ...data }
   }
 }
 

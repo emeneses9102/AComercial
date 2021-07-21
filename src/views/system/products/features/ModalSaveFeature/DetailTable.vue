@@ -42,10 +42,8 @@ export default {
     let timer = null
     const timeForLoad = 500
 
-    const openModalForEdit = ({ _id, nombre, abreviatura }) => {
-      stateFeatureDetail.value._id = _id
-      stateFeatureDetail.value.nombre = nombre
-      stateFeatureDetail.value.abreviatura = abreviatura
+    const openModalForEdit = ({ nombreCaracteristica, ...row }) => {
+      stateFeatureDetail.value = { ...stateFeatureDetail.value, ...row }
     }
 
     const onChangeField = (field, value) => {

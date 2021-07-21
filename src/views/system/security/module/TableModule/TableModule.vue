@@ -27,17 +27,12 @@ export default {
   },
   setup(props, context) {
     // Función que se ejecutará cuando el usuario haga click en el botón editar o ver
-    const openModalFor = async ({
-      _id, nombre, nombrePadre, icono,
-    }, actionOpenModal) => {
+    const openModalFor = async (row, actionOpenModal) => {
       dataTableModule.value.loading = true
       if (actionOpenModal === 'show') {
-        stateModule.value._id = _id
-        stateModule.value.nombre = nombre
-        stateModule.value.nombrePadre = nombrePadre
-        stateModule.value.icono = icono
+        stateModule.value = { ...stateModule.value, ...row }
       } else if (actionOpenModal === 'edit') {
-        await getModuleById(_id)
+        await getModuleById(row._id)
       }
       dataTableModule.value.loading = false
       context.root.$bvModal.show(actionOpenModal === 'edit' ? MODAL_ID : `${MODAL_ID}-show`)

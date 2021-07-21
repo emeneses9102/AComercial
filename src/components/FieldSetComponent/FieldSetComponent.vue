@@ -13,7 +13,7 @@ export default {
   props: {
     legend: {
       type: String,
-      require: true,
+      required: true,
       default: '',
     },
   },

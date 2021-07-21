@@ -14,10 +14,7 @@ export const loadItemsOption = async (page = null, perPage = null) => {
 export const getOptionById = async _id => {
   const { data, status } = await getDataById(urlApiOption, _id, titleNotificationOption)
   if (status) {
-    stateOption.value._id = data._id
-    stateOption.value.nombre = data.nombre
-    stateOption.value.etiqueta = data.etiqueta
-    stateOption.value.icono = data.icono
+    stateOption.value = { ...stateOption.value, ...data }
   }
 }
 

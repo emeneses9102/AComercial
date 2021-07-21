@@ -14,10 +14,7 @@ export const loadItemsRole = async (page = null, perPage = null) => {
 export const getRoleById = async _id => {
   const { data, status } = await getDataById(urlApiRole, _id, titleNotificationRole)
   if (status) {
-    stateRole.value._id = data._id
-    stateRole.value.nombre = data.nombre
-    stateRole.value.idPredio = data.idPredio
-    stateRole.value.idAlmacen = data.idAlmacen
+    stateRole.value = { ...stateRole.value, ...data }
   }
 }
 

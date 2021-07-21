@@ -2,7 +2,7 @@
 import { ref } from '@vue/composition-api'
 
 // Importar configuracion de las columnas personalizadas
-import { columnAction } from '@/helpers/columnsTable'
+import { columnAction, columnStatus } from '@/helpers/columnsTable'
 
 import { initialStateCombo } from '@/helpers/combos'
 import { clearServerQueryDefaultFilter, serverQueryDefault } from '@/helpers/serverQuery'
@@ -23,13 +23,7 @@ export const initialColumnsMenuOptionDetail = [
     tdClass: 'align-middle',
     pdf: true,
   },
-  {
-    field: 'activo',
-    label: 'ESTADO',
-    thClass: 'align-middle',
-    tdClass: 'align-middle text-center',
-    pdf: true,
-  },
+  columnStatus,
 ]
 
 // Variable reactiva para almacenar la configuración de cada columna de la tabla Detalle Menú Opción

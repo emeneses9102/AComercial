@@ -2,8 +2,9 @@
 import { ref } from '@vue/composition-api'
 
 // Importar configuracion de las columnas personalizadas
-import { columnAction } from '@/helpers/columnsTable'
+import { columnAction, columnStatus } from '@/helpers/columnsTable'
 import { initialStateCombo } from '@/helpers/combos'
+import { clearServerQueryDefaultFilter, serverQueryDefault } from '@/helpers/serverQuery'
 
 // Constante para almacenar el id base de los modales del mantenimiento Roles
 export const MODAL_ID = 'modal-role'
@@ -32,13 +33,7 @@ export const columnsRole = ref([
     tdClass: 'align-middle',
     pdf: true,
   },
-  {
-    field: 'activo',
-    label: 'ESTADO',
-    thClass: 'align-middle',
-    tdClass: 'align-middle text-center',
-    pdf: true,
-  },
+  columnStatus,
 ])
 
 // Variable reactiva para almacenar las propiedades necesarias para el listado de la tabla Roles
@@ -50,18 +45,13 @@ export const dataTableRole = ref({
 
 // Variable reactiva para manjear los consultas del lado del servidor de la tabla Roles
 export const serverQueryRole = ref({
-  _id: 0,
+  ...serverQueryDefault,
   tabla: 'roles',
-  pinicio: 1,
-  pfin: 10,
-  campofiltro: '',
-  filtro: '',
 })
 
 // Función para limpiar filtros en la consulta de la tabla Roles
 export const clearFiltersRole = () => {
-  serverQueryRole.value.campofiltro = ''
-  serverQueryRole.value.filtro = ''
+  clearServerQueryDefaultFilter(serverQueryRole)
 }
 
 // Variable inicializadora para almacenar el estado de un registro, actualización, cambio de estado, eliminación en la tabla Roles

@@ -27,19 +27,10 @@ export default {
   },
   setup(props, context) {
     // Función que se ejecutará cuando el usuario haga click en el botón editar o ver
-    const openModalFor = async ({
-      _id, nombre, razonSocial, ruc, rutaApi, tokenApi, usuarioSunat, claveSunat, produccion,
-    }, actionOpenModal) => {
+    const openModalFor = async (row, actionOpenModal) => {
       dataTableBusinessUnit.value.loading = true
-      stateBusinessUnit.value._id = _id
-      stateBusinessUnit.value.nombre = nombre
-      stateBusinessUnit.value.razonSocial = razonSocial
-      stateBusinessUnit.value.ruc = ruc
-      stateBusinessUnit.value.rutaApi = rutaApi
-      stateBusinessUnit.value.tokenApi = tokenApi
-      stateBusinessUnit.value.usuarioSunat = usuarioSunat
-      stateBusinessUnit.value.claveSunat = claveSunat
-      stateBusinessUnit.value.produccion = +produccion
+      stateBusinessUnit.value = { ...stateBusinessUnit.value, ...row }
+      stateBusinessUnit.value.produccion = +row.produccion
       dataTableBusinessUnit.value.loading = false
       context.root.$bvModal.show(actionOpenModal === 'edit' ? MODAL_ID : `${MODAL_ID}-show`)
     }

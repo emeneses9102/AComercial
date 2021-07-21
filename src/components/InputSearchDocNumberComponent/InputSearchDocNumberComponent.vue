@@ -13,23 +13,25 @@
     >
       <b-form-group
         label="N° Documento"
-        label-for="input-document-number"
+        :label-for="id"
       >
         <b-input-group>
           <b-form-input
-            id="input-document-number"
+            :id="id"
             :value="documentNumber"
-            @keyup="$emit('keyup', $event.target.value)"
+            type="number"
             :state="errors.length > 0 ? false:null"
-            readonly
+            @keyup="$emit('keyup', $event.target.value)"
+            @keydown.enter="searchDocumentNumber"
           />
           <b-input-group-append>
             <button-component
               class="py-25"
               icon-button="SearchIcon"
               margin-class="m-0"
-              :method-function="()=>searchDocumentNumber"
-              :disabled="buttonDisabled"
+              :method-function="searchDocumentNumber"
+              :disabled="buttonDisabled || loading"
+              :loading="loading"
             />
           </b-input-group-append>
         </b-input-group>
@@ -60,7 +62,7 @@ export default {
   },
   model: {
     prop: 'documentNumber',
-    event: 'keyup',    
+    event: 'keyup',
   },
   props: {
     // Propiedades permitidas para la distribución de columna en un componente b-row
@@ -93,38 +95,68 @@ export default {
     documentNumber: {
       type: String,
       default: '',
+    },
+    id: {
+      type: String,
+      required: '',
+      default: '',
+    },
+  },
+  data() {
+    return {
+      loading: false,
     }
   },
   computed: {
     rulesDocumentNumber: {
       get() {
-        if (this.documentType === 'ruc') return 'digits:11'
-        else if (this.documentType === 'dni') return 'digits:8'
+        if (this.documentType === 'DNI') return 'digits:8'
+        if (this.documentType === 'RUC') return 'digits:11'
+        return ''
       },
       set(newValue) {
-        this.documentType = newValuea
+        this.documentType = newValue
       },
     },
-  },
-  buttonDisabled: {
-    get() {
-      if (
-        (this.documentType === 'dni' && this.documentNumber.length === 8)
-        || (this.documentType === 'ruc' && this.documentNumber.length === 11)
-      ) {
+    buttonDisabled: {
+      get() {
+        if (
+          (this.documentType === 'DNI' && this.documentNumber.length === 8)
+          || (this.documentType === 'RUC' && this.documentNumber.length === 11)
+        ) {
+          return false
+        }
         return true
-      }
-      return false
+      },
     },
   },
   methods: {
-    async searchDocumentNumber(){
+    async searchDocumentNumber() {
+      this.loading = true
       const { status, data } = await getDataByDocumentNumber(this.documentNumber)
-      if (!status) return false
+      this.loading = false
+      if (!status) return
       if (data) {
-        this.$emit('data-found', data)
+        if (this.documentNumber.length === 11) {
+          let idDepartamento = 0
+          let idProvincia = 0
+          let idDistrito = 0
+          if (data.ubigeo[0] !== null && data.ubigeo[0] !== '-') {
+            idDepartamento = Number(data.ubigeo[0])
+            idProvincia = Number(data.ubigeo[1].slice(-2))
+            idDistrito = Number(data.ubigeo[2].slice(-2))
+          }
+          this.$emit('data-found', {
+            ...data,
+            idDepartamento,
+            idProvincia,
+            idDistrito,
+          })
+        } else {
+          this.$emit('data-found', data)
+        }
       }
-    }
+    },
   },
 }
 </script>

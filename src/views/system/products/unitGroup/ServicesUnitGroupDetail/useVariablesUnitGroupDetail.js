@@ -2,9 +2,10 @@
 import { ref } from '@vue/composition-api'
 
 // Importar configuracion de las columnas personalizadas
-import { columnAction } from '@/helpers/columnsTable'
+import { columnAction, columnStatus } from '@/helpers/columnsTable'
 
 import { initialStateCombo } from '@/helpers/combos'
+import { clearServerQueryDefaultFilter, serverQueryDefault } from '@/helpers/serverQuery'
 
 // Variables inicializadora para almacenar la configuración de cada columna de la tabla Detalle Grupo Unidad
 export const initialColumnsUnitGroupDetail = [
@@ -29,13 +30,7 @@ export const initialColumnsUnitGroupDetail = [
     tdClass: 'align-middle',
     pdf: true,
   },
-  {
-    field: 'activo',
-    label: 'ESTADO',
-    thClass: 'align-middle',
-    tdClass: 'align-middle text-center',
-    pdf: true,
-  },
+  columnStatus,
 ]
 
 // Variable reactiva para almacenar la configuración de cada columna de la tabla Detalle Grupo Unidad
@@ -64,20 +59,14 @@ export const clearDataTableUnitGroupDetail = () => {
 
 // Variable reactiva para manjear los consultas del lado del servidor de la tabla Detalle Grupo Unidad
 export const serverQueryUnitGroupDetail = ref({
-  _id: 0,
+  ...serverQueryDefault,
   tabla: 'unidad',
-  pinicio: 1,
   pfin: 5,
-  campofiltro: '',
-  filtro: '',
-  campo: 'a.idGrupoUnidad',
-  indice: 0,
 })
 
 // Función para limpiar filtros en la consulta de la tabla Detalle Grupo Unidad
 export const clearFiltersUnitGroupDetail = () => {
-  serverQueryUnitGroupDetail.value.campofiltro = ''
-  serverQueryUnitGroupDetail.value.filtro = ''
+  clearServerQueryDefaultFilter(serverQueryUnitGroupDetail)
 }
 
 // Variable inicializadora para almacenar el estado de un registro, actualización, cambio de estado, eliminación en la tabla Detalle Grupo Unidad
