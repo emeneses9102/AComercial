@@ -14,12 +14,7 @@ export const loadItemsMenu = async (page = null, perPage = null) => {
 export const getMenuById = async _id => {
   const { data, status } = await getDataById(urlApiMenu, _id, titleNotificationMenu)
   if (status) {
-    stateMenu.value._id = data._id
-    stateMenu.value.idModulo = data.idModulo
-    stateMenu.value.nombre = data.nombre
-    stateMenu.value.formulario = data.formulario
-    stateMenu.value.orden = data.orden
-    stateMenu.value.ruta = data.ruta
+    stateMenu.value = { ...stateMenu.value, ...data }
   }
 }
 

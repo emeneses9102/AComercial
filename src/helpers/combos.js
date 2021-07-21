@@ -14,6 +14,7 @@ export const endPointsCombo = {
   predios: '/combo/predios',
   provincia: '/comboubigeo/provincia',
   tipoAlmacen: '/combo/tipoalmacen',
+  tipoDocumento: '/combo/documento',
   unidadmedida: '/combo/unidadmedida',
 }
 

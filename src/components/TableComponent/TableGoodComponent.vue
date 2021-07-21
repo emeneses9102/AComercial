@@ -335,14 +335,17 @@ export default {
       }
     },
     openModalFor(row, openFor) {
+      const newRow = { ...row }
       /* eslint no-param-reassign: "error" */
-      delete row.originalIndex
-      delete row.vgt_id
-      delete row.activo
-      delete row.accion
-      delete row.numberRow
-      if (openFor === 'show') this.$emit('open-modal-for-show', row)
-      else if (openFor === 'edit') this.$emit('open-modal-for-edit', row)
+      delete newRow.originalIndex
+      delete newRow.vgt_id
+      delete newRow.id
+      delete newRow.activo
+      delete newRow.accion
+      delete newRow.numberRow
+      delete newRow.idUsuario
+      if (openFor === 'show') this.$emit('open-modal-for-show', newRow)
+      else if (openFor === 'edit') this.$emit('open-modal-for-edit', newRow)
     },
     search() {
       this.loadItems(1)

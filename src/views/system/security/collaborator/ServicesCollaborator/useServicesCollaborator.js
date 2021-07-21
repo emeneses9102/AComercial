@@ -14,11 +14,7 @@ export const loadItemsCollaborator = async (page = null, perPage = null) => {
 export const getCollaboratorById = async _id => {
   const { data, status } = await getDataById(urlApiCollaborator, _id, titleNotificationCollaborator)
   if (status) {
-    stateCollaborator.value._id = data._id
-    stateCollaborator.value.apellidoPaterno = data.apellidoPaterno
-    stateCollaborator.value.apellidoMaterno = data.apellidoMaterno
-    stateCollaborator.value.nombre = data.nombre
-    stateCollaborator.value.imagen = data.imagen
+    stateCollaborator.value = { ...stateCollaborator.value, ...data }
   }
 }
 

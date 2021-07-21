@@ -14,15 +14,7 @@ export const loadItemsBusinessUnit = async (page = null, perPage = null) => {
 export const getBusinessUnitById = async _id => {
   const { data, status } = await getDataById(urlApiBusinessUnit, _id, titleNotificationBusinessUnit)
   if (status) {
-    stateBusinessUnit.value._id = data._id
-    stateBusinessUnit.value.nombre = data.nombre
-    stateBusinessUnit.value.razonSocial = data.razonSocial
-    stateBusinessUnit.value.ruc = data.ruc
-    stateBusinessUnit.value.rutaapi = data.rutaapi
-    stateBusinessUnit.value.tokenapi = data.tokenapi
-    stateBusinessUnit.value.produccion = data.produccion
-    stateBusinessUnit.value.usuarioSunat = data.usuarioSunat
-    stateBusinessUnit.value.claveSunat = data.claveSunat
+    stateBusinessUnit.value = { ...stateBusinessUnit.value, ...data }
   }
 }
 

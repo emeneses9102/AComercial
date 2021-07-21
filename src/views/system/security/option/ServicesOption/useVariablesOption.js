@@ -2,7 +2,8 @@
 import { ref } from '@vue/composition-api'
 
 // Importar configuracion de las columnas personalizadas
-import { columnAction } from '@/helpers/columnsTable'
+import { columnAction, columnStatus } from '@/helpers/columnsTable'
+import { clearServerQueryDefaultFilter, serverQueryDefault } from '@/helpers/serverQuery'
 
 // Constante para almacenar el id base de los modales del mantenimiento Opción
 export const MODAL_ID = 'modal-option'
@@ -38,13 +39,7 @@ export const columnsOption = ref([
     tdClass: 'align-middle',
     pdf: true,
   },
-  {
-    field: 'activo',
-    label: 'ESTADO',
-    thClass: 'align-middle',
-    tdClass: 'align-middle text-center',
-    pdf: true,
-  },
+  columnStatus,
 ])
 
 // Variable reactiva para almacenar las propiedades necesarias para el listado de la tabla Opción
@@ -56,18 +51,13 @@ export const dataTableOption = ref({
 
 // Variable reactiva para manjear los consultas del lado del servidor de la tabla Opción
 export const serverQueryOption = ref({
-  _id: 0,
+  ...serverQueryDefault,
   tabla: 'opciones',
-  pinicio: 1,
-  pfin: 10,
-  campofiltro: '',
-  filtro: '',
 })
 
 // Función para limpiar filtros en la consulta de la tabla Opción
 export const clearFiltersOption = () => {
-  serverQueryOption.value.campofiltro = ''
-  serverQueryOption.value.filtro = ''
+  clearServerQueryDefaultFilter(serverQueryOption)
 }
 
 // Variable inicializadora para almacenar el estado de un registro, actualización, cambio de estado, eliminación en la tabla Opción

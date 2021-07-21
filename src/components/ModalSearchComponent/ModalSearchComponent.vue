@@ -143,7 +143,6 @@ export default {
       } else {
         this.$emit('update:serverQuery', { ...this.serverQuery, campofiltro: option })
       }
-      console.log(option)
     },
   },
   setup(props, context) {

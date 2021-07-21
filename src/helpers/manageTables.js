@@ -37,9 +37,9 @@ export const getDataById = async (urlApi, _id, titleNotification) => {
     return response
   }
   if (data) {
-    if (data.idUsuario) delete data.idUsuario
-    if (data.activo) delete data.activo
-    if (data.accion) delete data.accion
+    delete data.idUsuario
+    delete data.activo
+    delete data.accion
     response.status = true
     response.data = data
     return response

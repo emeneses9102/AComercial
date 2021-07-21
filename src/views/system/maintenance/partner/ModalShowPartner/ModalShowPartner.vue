@@ -5,7 +5,6 @@
     :title="`Ver ${titleNotificationPartner}`"
     no-close-on-backdrop
     size="lg"
-    modal-class="modal-padding"
   >
 
     <b-form>
