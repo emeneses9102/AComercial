@@ -8,10 +8,16 @@ const useFetchApiSimsac = async (path = '/', query = {}, body = {}) => {
   }
   try {
     if (Object.keys(body).length) {
-      const responseApi = await apis.apiSimsac.post(path, {
-        ...body,
-        idUsuario: store.state.authentication.user?._id,
-      })
+      let sendDataFormat
+      if (Object.keys(body).includes('idLogin')) {
+        sendDataFormat = { ...body }
+      } else {
+        sendDataFormat = {
+          ...body,
+          idUsuario: store.state.authentication.user?._id,
+        }
+      }
+      const responseApi = await apis.apiSimsac.post(path, sendDataFormat)
       response.data = responseApi.data
     } else {
       const serverQuery = []

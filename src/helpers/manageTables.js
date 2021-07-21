@@ -1,6 +1,7 @@
 /* eslint no-param-reassign: "error" */
 
 import useFetchApiSimsac from '@/hooks/useFetchApiSimsac'
+import store from '@/store'
 import { messageToast } from './messageExtensions'
 import { ACTION_STATUS, ACTION_DELETE, ACTION_REGISTER } from './actionsApi'
 
@@ -61,8 +62,10 @@ export const sendData = async (urlApi, body, titleNotification) => {
       _id: body._id,
       accion: body.accion,
     }
+    if (Object.keys(body).includes('idLogin')) newBody.idLogin = store.state.authentication.user?._id
   } else {
     newBody = { ...body }
+    if (Object.keys(body).includes('idLogin')) newBody.idLogin = store.state.authentication.user?._id
   }
   delete newBody.loading
 

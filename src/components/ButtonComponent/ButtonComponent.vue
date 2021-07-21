@@ -1,7 +1,7 @@
 <template>
   <b-button
     :variant="variant"
-    :disabled="loading"
+    :disabled="loading || disabled"
     :class="[marginClass]"
     :type="type"
     @click="methodFunction"
@@ -73,6 +73,11 @@ export default {
       type: String,
       required: false,
       default: 'm-25',
+    },
+    disabled: {
+      type: Boolean,
+      required: false,
+      default: false,
     },
   },
 }
