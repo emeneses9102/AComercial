@@ -33,6 +33,10 @@ export default [
         title: 'Unidad de Negocio',
         route: 'businessUnit',
       },
+      {
+        title: 'Comprobante',
+        route: 'voucher',
+      },
     ],
   },
   {
