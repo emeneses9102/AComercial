@@ -2,7 +2,7 @@
   <field-set-component legend="Listado">
     <header-search-detail-component
       :columns-filter="columnsFilterVoucherDetailCorrelative"
-      :column-filter-selected-default="'a.nombre'"
+      :column-filter-selected-default="'a.serie'"
       @on-change-field="onChangeField"
       @on-search-for-value="onSearchForValue"
     />

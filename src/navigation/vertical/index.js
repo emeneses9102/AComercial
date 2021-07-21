@@ -37,6 +37,10 @@ export default [
         title: 'Comprobante',
         route: 'voucher',
       },
+      {
+        title: 'Documento',
+        route: 'document',
+      },
     ],
   },
   {
