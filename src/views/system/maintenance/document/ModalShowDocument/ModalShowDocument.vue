@@ -58,7 +58,7 @@
 
 <script>
 import {
-  BModal, BForm, BRow, BCol, BFormGroup, BFormInput, BBadge,
+  BModal, BForm, BRow, BCol, BFormGroup, BFormInput,
 } from 'bootstrap-vue'
 import FieldSetComponent from '@/components/FieldSetComponent/FieldSetComponent.vue'
 import ButtonComponent from '@/components/ButtonComponent/ButtonComponent.vue'
@@ -73,7 +73,6 @@ export default {
     BCol,
     BFormGroup,
     BFormInput,
-    BBadge,
     FieldSetComponent,
     ButtonComponent,
   },
