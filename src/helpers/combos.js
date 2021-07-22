@@ -7,15 +7,18 @@ import { messageToast } from './messageExtensions'
 export const endPointsCombo = {
   almacen: '/combo/almacen',
   colaborador: '/combo/colaborador',
+  comprobanteSunat: '/combo/sntcomprobante',
   departamento: '/comboubigeo/departamento',
   distrito: '/comboubigeo/distrito',
   modulo: '/combo/modulos',
   negocio: '/combo/negocio',
   opcion: '/combo/opciones',
+  operacionSunat: '/combo/sntoperacion',
   predios: '/combo/predios',
   provincia: '/comboubigeo/provincia',
   rol: '/combo/roles',
   tipoAlmacen: '/combo/tipoalmacen',
+  tipoComprobanteSunat: '/combo/snttipocomprobante',
   tipoDocumento: '/combo/documento',
   unidadmedida: '/combo/unidadmedida',
 }

@@ -3,6 +3,8 @@ import routesProducts from './products'
 import routesMaintenance from './maintenance'
 import routeStorage from './storage'
 import routesSecurity from './security'
+import routesControl from './control'
+import routesBox from './box'
 
 // Exportar arreglo de las rutas registradas para la Gestión del Sistema
 export default [
@@ -10,4 +12,6 @@ export default [
   ...routesMaintenance,
   ...routeStorage,
   ...routesSecurity,
+  ...routesControl,
+  ...routesBox,
 ]

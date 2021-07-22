@@ -1,0 +1,71 @@
+<template>
+  <b-modal
+    :id="`${MODAL_ID}-show`"
+    centered
+    :title="`Ver ${titleNotificationPaymentMethod}`"
+    no-close-on-backdrop
+  >
+
+    <b-form>
+      <field-set-component legend="Datos Generales">
+        <b-row>
+          <!-- Nombre -->
+          <b-col
+            cols="12"
+          >
+            <b-form-group
+              label="Nombre"
+              label-for="payment-method-name"
+            >
+              <b-form-input
+                id="payment-method-name"
+                v-model.trim="statePaymentMethod.nombre"
+                type="text"
+                readonly
+              />
+            </b-form-group>
+          </b-col>
+        </b-row>
+      </field-set-component>
+    </b-form>
+
+    <template #modal-footer>
+      <button-component
+        variant="primary"
+        icon-button="PowerIcon"
+        text-default="Cerrar"
+        :method-function="()=>$bvModal.hide(`${MODAL_ID}-show`)"
+      />
+    </template>
+  </b-modal>
+</template>
+
+<script>
+import {
+  BModal, BForm, BRow, BCol, BFormGroup, BFormInput,
+} from 'bootstrap-vue'
+import FieldSetComponent from '@/components/FieldSetComponent/FieldSetComponent.vue'
+import ButtonComponent from '@/components/ButtonComponent/ButtonComponent.vue'
+import { MODAL_ID, titleNotificationPaymentMethod, statePaymentMethod } from '../ServicesPaymentMethod/useVariablesPaymentMethod'
+
+export default {
+  name: 'ModalShowPaymentMethod',
+  components: {
+    BModal,
+    BForm,
+    BRow,
+    BCol,
+    BFormGroup,
+    BFormInput,
+    FieldSetComponent,
+    ButtonComponent,
+  },
+  setup() {
+    return {
+      MODAL_ID,
+      titleNotificationPaymentMethod,
+      statePaymentMethod,
+    }
+  },
+}
+</script>

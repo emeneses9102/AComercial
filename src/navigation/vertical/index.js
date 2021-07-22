@@ -33,6 +33,14 @@ export default [
         title: 'Unidad de Negocio',
         route: 'businessUnit',
       },
+      {
+        title: 'Comprobante',
+        route: 'voucher',
+      },
+      {
+        title: 'Documento',
+        route: 'document',
+      },
     ],
   },
   {
@@ -84,6 +92,30 @@ export default [
       {
         title: 'Accesos',
         route: 'access',
+      },
+    ],
+  },
+  {
+    title: 'Control',
+    icon: 'AlertOctagonIcon',
+    children: [
+      {
+        title: 'Mensaje Sistema',
+        route: 'systemMessage',
+      },
+      {
+        title: 'Error del Sistema',
+        route: 'systemError',
+      },
+    ],
+  },
+  {
+    title: 'Caja',
+    icon: 'InboxIcon',
+    children: [
+      {
+        title: 'Medio Pago',
+        route: 'paymentMethod',
       },
     ],
   },
