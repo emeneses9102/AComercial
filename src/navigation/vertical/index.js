@@ -37,6 +37,10 @@ export default [
         title: 'Comprobante',
         route: 'voucher',
       },
+      {
+        title: 'Documento',
+        route: 'document',
+      },
     ],
   },
   {
@@ -84,6 +88,20 @@ export default [
       {
         title: 'Accesos',
         route: 'access',
+      },
+    ],
+  },
+  {
+    title: 'Control',
+    icon: 'AlertOctagonIcon',
+    children: [
+      {
+        title: 'Mensaje Sistema',
+        route: 'systemMessage',
+      },
+      {
+        title: 'Error del Sistema',
+        route: 'systemError',
       },
     ],
   },
