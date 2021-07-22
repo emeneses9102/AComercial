@@ -21,4 +21,20 @@ export default [
       ],
     },
   },
+  {
+    path: '/moneda',
+    name: 'currency',
+    component: () => import('@/views/system/box/currency/Currency.vue'),
+    meta: {
+      auth: true,
+      pageTitle: 'Moneda',
+      breadcrumb: [
+        moduleBreadCrumb,
+        {
+          text: 'Moneda',
+          active: true,
+        },
+      ],
+    },
+  },
 ]
