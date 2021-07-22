@@ -62,11 +62,12 @@ export const sendData = async (urlApi, body, titleNotification) => {
       _id: body._id,
       accion: body.accion,
     }
-    if (Object.keys(body).includes('idLogin')) newBody.idLogin = store.state.authentication.user?._id
   } else {
     newBody = { ...body }
-    if (Object.keys(body).includes('idLogin')) newBody.idLogin = store.state.authentication.user?._id
   }
+  if (Object.keys(body).includes('idLogin')) newBody.idLogin = store.state.authentication.user?._id
+  else newBody.idUsuario = store.state.authentication.user?._id
+
   delete newBody.loading
 
   const { data, error } = await useFetchApiSimsac(urlApi, null, newBody)

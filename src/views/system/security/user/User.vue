@@ -1,5 +1,10 @@
 <template>
   <div>
+    <modal-change-password
+      :id="stateUser._id"
+      :modal-id="`${MODAL_ID}-change-password`"
+      :user-to-change-password="stateUser.usuario"
+    />
     <modal-save-user />
     <modal-search-user />
     <modal-show-user />
@@ -25,12 +30,13 @@ import { BCard } from 'bootstrap-vue'
 import { onMounted } from '@vue/composition-api'
 import HeaderMaintenanceComponent from '@/components/HeaderMaintenanceComponent/HeaderMaintenanceComponent.vue'
 import { endPointsCombo, loadCombos } from '@/helpers/combos'
+import ModalChangePassword from '@/components/ModalChangePassword/ModalChangePassword.vue'
 import ModalSaveUser from './ModalSaveUser/ModalSaveUser.vue'
 import ModalSearchUser from './ModalSearchUser/ModalSearchUser.vue'
 import ModalShowUser from './ModalShowUser/ModalShowUser.vue'
 import TableUser from './TableUser/TableUser.vue'
 import {
-  MODAL_ID, clearStateUser, columnsUser, urlApiUser, titleNotificationUser, serverQueryUser, columnsFilterUser, titleReportUser, combosUser,
+  MODAL_ID, stateUser, clearStateUser, columnsUser, urlApiUser, titleNotificationUser, serverQueryUser, columnsFilterUser, titleReportUser, combosUser,
 } from './ServicesUser/useVariablesUser'
 import {
   clearStateUserBusinessDetail, clearDataTableUserBusinessDetail, clearFiltersUserBusinessDetail, combosUserBusinessDetail,
@@ -44,6 +50,7 @@ export default {
   components: {
     BCard,
     HeaderMaintenanceComponent,
+    ModalChangePassword,
     ModalSaveUser,
     ModalSearchUser,
     ModalShowUser,
@@ -70,6 +77,7 @@ export default {
 
     return {
       MODAL_ID,
+      stateUser,
       clearModal,
       columnsUser,
       urlApiUser,

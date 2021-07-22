@@ -1,5 +1,4 @@
 import apis from '@/libs/axios'
-import store from '@/store'
 
 const useFetchApiSimsac = async (path = '/', query = {}, body = {}) => {
   const response = {
@@ -8,16 +7,7 @@ const useFetchApiSimsac = async (path = '/', query = {}, body = {}) => {
   }
   try {
     if (Object.keys(body).length) {
-      let sendDataFormat
-      if (Object.keys(body).includes('idLogin')) {
-        sendDataFormat = { ...body }
-      } else {
-        sendDataFormat = {
-          ...body,
-          idUsuario: store.state.authentication.user?._id,
-        }
-      }
-      const responseApi = await apis.apiSimsac.post(path, sendDataFormat)
+      const responseApi = await apis.apiSimsac.post(path, body)
       response.data = responseApi.data
     } else {
       const serverQuery = []

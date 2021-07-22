@@ -7,8 +7,10 @@
     :data-table="dataTableUser"
     :load-items="loadItemsUser"
     :manage-row="sendUser"
+    :option-change-password="true"
     @open-modal-for-edit="row=>openModalFor(row, 'edit')"
     @open-modal-for-show="row=>openModalFor(row, 'show')"
+    @open-modal-for-change-password="row=>openModalFor(row, 'change-password')"
   />
 </template>
 
@@ -32,6 +34,12 @@ export default {
   setup(props, context) {
     // Función que se ejecutará cuando el usuario haga click en el botón editar o ver
     const openModalFor = async ({ nombres, nombre, ...row }, actionOpenModal) => {
+      if (actionOpenModal === 'change-password') {
+        stateUser.value._id = row._id
+        stateUser.value.usuario = row.usuario
+        context.root.$bvModal.show(`${MODAL_ID}-change-password`)
+        return
+      }
       dataTableUser.value.loading = true
       if (actionOpenModal === 'show') {
         stateUser.value = { ...stateUser.value, ...row }
