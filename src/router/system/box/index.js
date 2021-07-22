@@ -37,4 +37,20 @@ export default [
       ],
     },
   },
+  {
+    path: '/forma-pago',
+    name: 'paymentForm',
+    component: () => import('@/views/system/box/paymentForm/PaymentForm.vue'),
+    meta: {
+      auth: true,
+      pageTitle: 'Forma de Pago',
+      breadcrumb: [
+        moduleBreadCrumb,
+        {
+          text: 'Forma de Pago',
+          active: true,
+        },
+      ],
+    },
+  },
 ]

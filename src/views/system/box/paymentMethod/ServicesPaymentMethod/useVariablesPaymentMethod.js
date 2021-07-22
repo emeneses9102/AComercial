@@ -38,7 +38,7 @@ export const dataTablePaymentMethod = ref({
 // Variable reactiva para manjear los consultas del lado del servidor de la tabla Medio de Pago
 export const serverQueryPaymentMethod = ref({
   ...serverQueryDefault,
-  tabla: 'medioPago',
+  tabla: 'mediopago',
 })
 
 // Función para limpiar filtros en la consulta de la tabla Medio de Pago
@@ -71,7 +71,7 @@ export const columnsFilterPaymentMethod = [
 ]
 
 // Constante para almacenar la url base de la petición al mantenimiento Medio de Pago
-export const urlApiPaymentMethod = '/medioPago'
+export const urlApiPaymentMethod = '/mediopago'
 
 // Constante para almacenar el título de las notificaciónes del mantenimiento Medio de Pago
 export const titleNotificationPaymentMethod = 'Medio de Pago'

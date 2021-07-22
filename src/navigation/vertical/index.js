@@ -121,6 +121,10 @@ export default [
         title: 'Moneda',
         route: 'currency',
       },
+      {
+        title: 'Forma Pago',
+        route: 'paymentForm',
+      },
     ],
   },
 ]
