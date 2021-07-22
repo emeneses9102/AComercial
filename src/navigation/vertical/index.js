@@ -113,6 +113,10 @@ export default [
         title: 'Medio Pago',
         route: 'paymentMethod',
       },
+      {
+        title: 'Moneda',
+        route: 'currency',
+      },
     ],
   },
 ]
