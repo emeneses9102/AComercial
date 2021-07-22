@@ -27,6 +27,7 @@
             :state="errors.length > 0 ? false:null"
             placeholder="·················"
             @keyup="$emit('keyup', $event.target.value)"
+            @keydown.enter="()=>eventEnter()"
           />
 
           <b-input-group-append is-text>
@@ -96,6 +97,11 @@ export default {
     value: {
       type: String,
       default: '',
+    },
+    eventEnter: {
+      type: Function,
+      required: false,
+      default: () => {},
     },
   },
   computed: {

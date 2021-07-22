@@ -104,6 +104,20 @@
                 </div>
               </b-dropdown-item>
             </template>
+            <template v-if="permission.includes('CHANGE_PASSWORD')">
+              <b-dropdown-item
+                v-if="optionChangePassword"
+                @click="openModalFor(props.row, 'change-password')"
+              >
+                <div class="d-flex align-items-center">
+                  <feather-icon
+                    icon="LockIcon"
+                    class="mr-50"
+                  />
+                  <span class="d-inline-block">Cambiar Clave</span>
+                </div>
+              </b-dropdown-item>
+            </template>
             <template v-if="permission.includes('DELETE')">
               <b-dropdown-item
                 v-if="optionDelete"
@@ -281,6 +295,11 @@ export default {
       required: false,
       default: true,
     },
+    optionChangePassword: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
     optionDelete: {
       type: Boolean,
       required: false,
@@ -307,7 +326,7 @@ export default {
   },
   created() {
     // Cargar los permisos permitidos
-    this.permission = ['STATUS', 'SHOW', 'EDIT', 'DELETE']
+    this.permission = ['STATUS', 'SHOW', 'EDIT', 'DELETE', 'CHANGE_PASSWORD']
   },
   methods: {
     onPageChange(params) {
@@ -346,6 +365,7 @@ export default {
       delete newRow.idUsuario
       if (openFor === 'show') this.$emit('open-modal-for-show', newRow)
       else if (openFor === 'edit') this.$emit('open-modal-for-edit', newRow)
+      else if (openFor === 'change-password') this.$emit('open-modal-for-change-password', newRow)
     },
     search() {
       this.loadItems(1)

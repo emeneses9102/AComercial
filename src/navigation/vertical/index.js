@@ -86,6 +86,10 @@ export default [
         route: 'menu',
       },
       {
+        title: 'Usuario',
+        route: 'user',
+      },
+      {
         title: 'Accesos',
         route: 'access',
       },

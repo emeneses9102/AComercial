@@ -86,6 +86,22 @@ export default [
     },
   },
   {
+    path: '/usuario',
+    name: 'user',
+    component: () => import('@/views/system/security/user/User.vue'),
+    meta: {
+      auth: true,
+      pageTitle: 'Usuario',
+      breadcrumb: [
+        moduleBradCrumb,
+        {
+          text: 'Usuario',
+          active: true,
+        },
+      ],
+    },
+  },
+  {
     path: '/accesos',
     name: 'access',
     component: () => import('@/views/system/security/access/Access.vue'),

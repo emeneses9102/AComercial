@@ -6,6 +6,7 @@ import { messageToast } from './messageExtensions'
 // EndPoints para consumir datos de listas despegables (combos)
 export const endPointsCombo = {
   almacen: '/combo/almacen',
+  colaborador: '/combo/colaborador',
   comprobanteSunat: '/combo/sntcomprobante',
   departamento: '/comboubigeo/departamento',
   distrito: '/comboubigeo/distrito',
@@ -15,6 +16,7 @@ export const endPointsCombo = {
   operacionSunat: '/combo/sntoperacion',
   predios: '/combo/predios',
   provincia: '/comboubigeo/provincia',
+  rol: '/combo/roles',
   tipoAlmacen: '/combo/tipoalmacen',
   tipoComprobanteSunat: '/combo/snttipocomprobante',
   tipoDocumento: '/combo/documento',

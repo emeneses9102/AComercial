@@ -6,10 +6,10 @@
     >
       <b-form-group
         label="Campo"
-        label-for="header-search-field"
+        :label-for="`${id}-field`"
       >
         <vue-select
-          id="field"
+          :id="`${id}-field`"
           v-model="searchField"
           :reduce="option => option.field"
           label="title"
@@ -25,10 +25,10 @@
     >
       <b-form-group
         label="Valor"
-        label-for="header-search-value"
+        :label-for="`${id}-value`"
       >
         <b-form-input
-          id="header-search-value"
+          :id="`${id}-value`"
           v-model="searchValue"
           @keyup="searchForValue"
         />
@@ -54,6 +54,11 @@ export default {
     VueSelect,
   },
   props: {
+    id: {
+      type: String,
+      required: false,
+      default: 'header-search',
+    },
     columnsFilter: {
       type: Array,
       required: true,

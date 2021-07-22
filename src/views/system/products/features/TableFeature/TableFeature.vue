@@ -31,7 +31,6 @@ export default {
     // Función que se ejecutará cuando el usuario haga click en el botón editar o ver
     const openModalFor = async (row, actionOpenModal) => {
       dataTableFeature.value.loading = true
-      console.log(row)
       stateFeature.value = { ...stateFeature.value, ...row }
       clearStateFeatureDetail()
       clearFiltersFeatureDetail()
