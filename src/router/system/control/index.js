@@ -21,4 +21,20 @@ export default [
       ],
     },
   },
+  {
+    path: '/error-sistema',
+    name: 'systemError',
+    component: () => import('@/views/system/control/systemError/SystemError.vue'),
+    meta: {
+      auth: true,
+      pageTitle: 'Error del Sistema',
+      breadcrumb: [
+        moduleBreadCrumb,
+        {
+          text: 'Error del Sistema',
+          active: true,
+        },
+      ],
+    },
+  },
 ]

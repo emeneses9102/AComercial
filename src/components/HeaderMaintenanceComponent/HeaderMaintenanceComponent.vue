@@ -2,6 +2,7 @@
   <div class="d-flex justify-content-between align-items-center mb-1">
     <div class="d-flex align-items-center left">
       <button-component
+        v-if="optionNew"
         variant="primary"
         text-default="Nuevo"
         icon-button="FilePlusIcon"
@@ -89,6 +90,11 @@ export default {
       type: Function,
       required: false,
       default: null,
+    },
+    optionNew: {
+      type: Boolean,
+      required: false,
+      default: true,
     },
   },
   methods: {

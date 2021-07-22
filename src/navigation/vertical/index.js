@@ -99,6 +99,10 @@ export default [
         title: 'Mensaje Sistema',
         route: 'systemMessage',
       },
+      {
+        title: 'Error del Sistema',
+        route: 'systemError',
+      },
     ],
   },
 ]

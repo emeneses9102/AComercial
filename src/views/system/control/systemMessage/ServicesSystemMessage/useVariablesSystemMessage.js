@@ -104,4 +104,4 @@ export const urlApiSystemMessage = '/mensajes'
 export const titleNotificationSystemMessage = 'Mensaje Sistema'
 
 // Constante para almacenar el titulo de los reportes del mantenimiento Mensaje Sistema
-export const titleReportSystemMessage = 'REPORTE DE TIPO DE PRODUCTOS'
+export const titleReportSystemMessage = 'REPORTE DE MENSAJES DEL SISTEMA'
