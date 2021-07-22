@@ -105,4 +105,14 @@ export default [
       },
     ],
   },
+  {
+    title: 'Caja',
+    icon: 'InboxIcon',
+    children: [
+      {
+        title: 'Medio Pago',
+        route: 'paymentMethod',
+      },
+    ],
+  },
 ]
