@@ -62,7 +62,7 @@ export const serverQueryUnitGroupDetail = ref({
   ...serverQueryDefault,
   tabla: 'unidad',
   pfin: 5,
-  campo: 'a.idgrupo',
+  campo: 'a.idgrupounidad',
 })
 
 // Función para limpiar filtros en la consulta de la tabla Detalle Grupo Unidad

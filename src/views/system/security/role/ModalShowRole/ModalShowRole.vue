@@ -26,6 +26,23 @@
             </b-form-group>
           </b-col>
 
+          <!-- Predio -->
+          <b-col
+            cols="12"
+          >
+            <b-form-group
+              label="Predio"
+              label-for="role-predio"
+            >
+              <b-form-input
+                id="role-predio"
+                v-model.trim="stateRole.direccion"
+                type="text"
+                readonly
+              />
+            </b-form-group>
+          </b-col>
+
           <!-- Almacén -->
           <b-col
             cols="12"
@@ -37,23 +54,6 @@
               <b-form-input
                 id="role-storage"
                 v-model.trim="stateRole.nombreAlmacen"
-                type="text"
-                readonly
-              />
-            </b-form-group>
-          </b-col>
-
-          <!-- Predio -->
-          <b-col
-            cols="12"
-          >
-            <b-form-group
-              label="Predio"
-              label-for="role-predio"
-            >
-              <b-form-input
-                id="role-predio"
-                v-model.trim="stateRole.nombrePredio"
                 type="text"
                 readonly
               />

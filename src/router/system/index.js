@@ -1,4 +1,5 @@
 // Importar rutas por modulos
+import routesHome from './home'
 import routesProducts from './products'
 import routesMaintenance from './maintenance'
 import routeStorage from './storage'
@@ -8,6 +9,7 @@ import routesBox from './box'
 
 // Exportar arreglo de las rutas registradas para la Gestión del Sistema
 export default [
+  ...routesHome,
   ...routesProducts,
   ...routesMaintenance,
   ...routeStorage,

@@ -44,6 +44,7 @@
                   v-model="authentication.usuario"
                   name="login-user"
                   :state="errors.length > 0 ? false:null"
+                  :disabled="authentication.loading"
                   autofocus
                 />
                 <small class="text-danger">{{ errors[0] }}</small>
@@ -70,6 +71,7 @@
                     :type="passwordFieldType"
                     class="form-control-merge"
                     :state="errors.length > 0 ? false:null"
+                    :disabled="authentication.loading"
                     name="login-password"
                     placeholder="·················"
                   />

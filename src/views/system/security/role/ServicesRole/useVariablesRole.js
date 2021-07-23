@@ -28,7 +28,14 @@ export const columnsRole = ref([
   },
   {
     field: 'direccion',
-    label: 'DIRECCIÓN',
+    label: 'PREDIO',
+    thClass: 'align-middle',
+    tdClass: 'align-middle',
+    pdf: true,
+  },
+  {
+    field: 'nombreAlmacen',
+    label: 'ALMACÉN',
     thClass: 'align-middle',
     tdClass: 'align-middle',
     pdf: true,
