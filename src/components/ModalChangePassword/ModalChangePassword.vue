@@ -30,6 +30,7 @@
                     v-model.trim="$store.state.authentication.user.fullname"
                     type="text"
                     readonly
+                    tabindex="-1"
                     :state="errors.length > 0 ? false:null"
                   />
                   <small class="text-danger">{{ errors[0] }}</small>
@@ -42,6 +43,7 @@
               rules-validation="required"
               text-field="Clave"
               :event-enter="sendForm"
+              :auto-focus="true"
             />
           </b-row>
         </field-set-component>
@@ -68,6 +70,7 @@
                     v-model.trim="userToChangePassword"
                     type="text"
                     readonly
+                    tabindex="-1"
                     :state="errors.length > 0 ? false:null"
                   />
                   <small class="text-danger">{{ errors[0] }}</small>
@@ -171,7 +174,9 @@ export default {
       if (!successValidationChangePassword) return false
       stateChangePassword.value.usuario = store.state.authentication.user.usuario
       stateChangePassword.value._id = _id
-      await sendChangePassword()
+      const status = await sendChangePassword()
+      if (!status) return false
+      context.root.$bvModal.hide(props.modalId)
       return true
     }
 

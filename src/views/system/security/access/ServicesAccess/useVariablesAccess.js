@@ -92,8 +92,16 @@ export const combosAccess = ref({
 // Constante para almacenar las columas permitidas para el filtro de la tabla Accesos
 export const columnsFilterAccess = [
   {
-    title: 'Rol',
-    field: 'a.idRol',
+    title: 'ROL',
+    field: 'a.nombreRol',
+  },
+  {
+    title: 'MÓDULO',
+    field: 'a.nombreModulo',
+  },
+  {
+    title: 'MENÚ',
+    field: 'a.nombreMenu',
   },
 ]
 
