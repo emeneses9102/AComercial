@@ -42,7 +42,7 @@
               size="40"
               variant="light-primary"
               badge
-              :src="require('@/assets/images/logo/ico-simsac.png')"
+              :src="user.imagen || require('@/assets/images/logo/ico-simsac.png')"
               class="badge-minimal"
               badge-variant="success"
             />
@@ -75,7 +75,7 @@
     <div>
       <modal-change-password
         :id="$store.state.authentication.user._id"
-        :user-to-change-password="$store.state.authentication.user.usuario"
+        :user-to-change-password="$store.state.authentication.user.usuario || ''"
         :modal-id="modalId"
       />
     </div>

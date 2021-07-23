@@ -6,10 +6,14 @@ import { messageToast } from './messageExtensions'
 // EndPoints para consumir datos de listas despegables (combos)
 export const endPointsCombo = {
   almacen: '/combo/almacen',
+  caracteristica: '/combo/caracteristica',
   colaborador: '/combo/colaborador',
   comprobanteSunat: '/combo/sntcomprobante',
   departamento: '/comboubigeo/departamento',
+  detalleCaracteristica: '/comboadv/dcaracteristica',
   distrito: '/comboubigeo/distrito',
+  grupo: '/combo/grupo',
+  grupoUnidad: '/combo/grupounidad',
   modulo: '/combo/modulos',
   negocio: '/combo/negocio',
   opcion: '/combo/opciones',
@@ -20,6 +24,8 @@ export const endPointsCombo = {
   tipoAlmacen: '/combo/tipoalmacen',
   tipoComprobanteSunat: '/combo/snttipocomprobante',
   tipoDocumento: '/combo/documento',
+  tipoProducto: '/combo/tipoproducto',
+  tipoServicio: '/combo/tiposervicio',
   unidadmedida: '/combo/unidadmedida',
 }
 

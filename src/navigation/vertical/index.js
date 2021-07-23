@@ -19,6 +19,10 @@ export default [
         title: 'Grupo Unidad',
         route: 'unit-group',
       },
+      {
+        title: 'Artículos',
+        route: 'article',
+      },
     ],
   },
   {
