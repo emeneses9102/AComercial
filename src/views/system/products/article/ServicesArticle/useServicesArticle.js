@@ -2,7 +2,7 @@
 import { ACTION_REGISTER } from '@/helpers/actionsApi'
 import { getData, getDataById, sendData } from '@/helpers/manageTables'
 import {
-  serverQueryArticle, dataTableArticle, stateArticle, urlApiArticle, titleNotificationArticle,
+  serverQueryArticle, dataTableArticle, stateArticle, urlApiArticle, titleNotificationArticle, selectedArticleType,
 } from './useVariablesArticle'
 
 // Función para obtener los datos desde la API y actualizar los valores de dataTableArticle
@@ -22,24 +22,10 @@ export const loadItemsArticle = async (page = null, perPage = null) => {
 export const getArticleById = async _id => {
   const { data, status } = await getDataById(urlApiArticle, _id, titleNotificationArticle)
   if (status) {
-    stateArticle.value._id = data._id
-    stateArticle.value.nombre = data.nombre
-    stateArticle.value.descripcion = data.descripcion
-    stateArticle.value.idTipoProducto = data.idTipoProducto
-    stateArticle.value.idGrupoUnidad = data.idGrupoUnidad
-    stateArticle.value.idUnidad = data.idUnidad
-    stateArticle.value.sku = data.sku
-    stateArticle.value.precioCompra = data.precioCompra
-    stateArticle.value.precioVenta = data.precioVenta
-    stateArticle.value.precioMinimoVenta = data.precioMinimoVenta
-    stateArticle.value.stockMinimo = data.stockMinimo
-    stateArticle.value.stockMaximo = data.stockMaximo
-    stateArticle.value.flgStock = data.flgStock
-    stateArticle.value.flgServicio = data.flgServicio
-    stateArticle.value.flgReceta = data.flgReceta
-    stateArticle.value.flgSerie = data.flgSerie
-    stateArticle.value.idTipoServicio = data.idTipoServicio
-    stateArticle.value.imagen = data.imagen
+    stateArticle.value = { ...stateArticle.value, ...data }
+    if (stateArticle.value.flgStock) selectedArticleType.value = 'stock'
+    else if (stateArticle.value.flgServicio) selectedArticleType.value = 'servicio'
+    else selectedArticleType.value = ''
   }
 }
 

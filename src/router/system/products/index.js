@@ -69,4 +69,20 @@ export default [
       ],
     },
   },
+  {
+    path: '/articulos',
+    name: 'article',
+    component: () => import('@/views/system/products/article/Article.vue'),
+    meta: {
+      auth: true,
+      pageTitle: 'Artículo',
+      breadcrumb: [
+        moduleBreadCrumb,
+        {
+          text: 'Artículo',
+          active: true,
+        },
+      ],
+    },
+  },
 ]
