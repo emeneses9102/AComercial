@@ -30,7 +30,7 @@ import ModalSearchPartner from './ModalSearchPartner/ModalSearchPartner.vue'
 import ModalShowPartner from './ModalShowPartner/ModalShowPartner.vue'
 import TablePartner from './TablePartner/TablePartner.vue'
 import {
-  MODAL_ID, clearStatePartner, columnsPartner, urlApiPartner, serverQueryPartner, columnsFilterPartner, titleReportPartner, combosPartner, combosPartnerUbigeo,
+  MODAL_ID, clearStatePartner, columnsPartner, urlApiPartner, serverQueryPartner, columnsFilterPartner, titleReportPartner, combosPartner, combosPartnerUbigeo, clearCombosPartnerUbigeo, clearStatePartnerUbigeo,
 } from './ServicesPartner/useVariablesPartner'
 
 export default {
@@ -46,6 +46,8 @@ export default {
   setup() {
     // Función para limpiar los datos del Modal
     const clearModal = () => {
+      clearStatePartnerUbigeo()
+      clearCombosPartnerUbigeo()
       clearStatePartner()
     }
 

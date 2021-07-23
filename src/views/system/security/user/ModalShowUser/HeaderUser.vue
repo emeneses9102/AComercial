@@ -30,7 +30,7 @@
           >
             <b-form-input
               id="user-collaborator-name"
-              v-model.trim="stateUser.nombreColaborador"
+              v-model.trim="stateUser.nombre"
               type="text"
               readonly
             />

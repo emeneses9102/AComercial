@@ -1,5 +1,10 @@
 export default [
   {
+    title: 'Inicio',
+    icon: 'HomeIcon',
+    route: 'home',
+  },
+  {
     title: 'Productos',
     icon: 'BoxIcon',
     children: [

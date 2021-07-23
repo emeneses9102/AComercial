@@ -478,7 +478,7 @@ import { ACTION_REGISTER, ACTION_UPDATE } from '@/helpers/actionsApi'
 import ButtonComponent from '@/components/ButtonComponent/ButtonComponent.vue'
 import FieldSetComponent from '@/components/FieldSetComponent/FieldSetComponent.vue'
 import {
-  MODAL_ID, titleNotificationPartner, statePartner, clearStatePartner, combosPartner, combosPartnerUbigeo, statePartnerUbigeo,
+  MODAL_ID, titleNotificationPartner, statePartner, clearStatePartner, combosPartner, combosPartnerUbigeo, statePartnerUbigeo, clearCombosPartnerUbigeo, clearStatePartnerUbigeo,
 } from '../ServicesPartner/useVariablesPartner'
 import { loadItemsPartner, sendPartner } from '../ServicesPartner/useServicesPartner'
 
@@ -513,6 +513,8 @@ export default {
       if (loading) statePartner.value.loading = false
       if (!status) return false
       statePartner.value._id = data.id
+      clearStatePartnerUbigeo()
+      clearCombosPartnerUbigeo()
       clearStatePartner()
       document.getElementById('partner-name').focus()
       context.refs['validation-partner'].reset()

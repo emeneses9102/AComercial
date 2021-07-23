@@ -18,7 +18,7 @@ import TableGoodComponent from '@/components/TableComponent/TableGoodComponent.v
 import {
   MODAL_ID, stateRole, columnsRole, serverQueryRole, dataTableRole, titleNotificationRole,
 } from '../ServicesRole/useVariablesRole'
-import { loadItemsRole, sendRole } from '../ServicesRole/useServicesRole'
+import { getRoleById, loadItemsRole, sendRole } from '../ServicesRole/useServicesRole'
 
 export default {
   name: 'TableRole',
@@ -28,10 +28,13 @@ export default {
   setup(props, context) {
     // Función que se ejecutará cuando el usuario haga click en el botón editar o ver
     const openModalFor = async ({
-      direccion, ubigeo, almacen, idUbigeo, ...row
+      ubigeo, almacen, idUbigeo, ...row
     }, actionOpenModal) => {
       dataTableRole.value.loading = true
       stateRole.value = { ...stateRole.value, ...row }
+      if (actionOpenModal === 'edit') {
+        await getRoleById(row._id)
+      }
       dataTableRole.value.loading = false
       context.root.$bvModal.show(actionOpenModal === 'edit' ? MODAL_ID : `${MODAL_ID}-show`)
     }

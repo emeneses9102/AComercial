@@ -24,6 +24,7 @@
             :value="value"
             :type="passwordFieldType"
             class="form-control-merge"
+            :autofocus="autoFocus"
             :state="errors.length > 0 ? false:null"
             placeholder="·················"
             @keyup="$emit('keyup', $event.target.value)"
@@ -102,6 +103,11 @@ export default {
       type: Function,
       required: false,
       default: () => {},
+    },
+    autoFocus: {
+      type: Boolean,
+      required: false,
+      default: false,
     },
   },
   computed: {

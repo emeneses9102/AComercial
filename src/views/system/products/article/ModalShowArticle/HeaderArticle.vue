@@ -210,7 +210,7 @@
               >
                 <b-form-input
                   id="article-unit-group"
-                  v-model.trim="stateArticle.nombreUnidad"
+                  v-model.trim="stateArticle.nombreGrupoUnidad"
                   readonly
                 />
               </b-form-group>
@@ -228,7 +228,7 @@
               >
                 <b-form-input
                   id="article-unit-measure"
-                  v-model.trim="stateArticle.nombreUnidadMedida"
+                  v-model.trim="stateArticle.nombreUnidad"
                   readonly
                 />
               </b-form-group>
