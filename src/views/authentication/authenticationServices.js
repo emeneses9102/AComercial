@@ -36,7 +36,7 @@ const authenticationServices = () => {
       if (data._id) {
         messageToast('success', titleNotification, 'Ingresaste correctamente al sistema')
         store.dispatch('authentication/login', data)
-        router.push({ name: 'feature' })
+        router.push({ name: 'home' })
       } else {
         messageToast('danger', titleNotification, data.mensaje)
         authentication.value.loading = false
