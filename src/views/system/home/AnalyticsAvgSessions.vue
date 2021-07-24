@@ -66,7 +66,7 @@
           :options="salesBar.chartOptions"
           :series="[{
             name: 'Documentos',
-            data: [20,40,60,20],
+            data: [20, 40, 60, 20, 40, 20, 40, 10],
           }]"
         />
       </b-col>

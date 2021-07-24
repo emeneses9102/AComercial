@@ -5,7 +5,6 @@ export default [
     component: () => import('@/views/system/home/Analytics.vue'),
     meta: {
       auth: true,
-      pageTitle: 'Inicio',
     },
   },
 ]

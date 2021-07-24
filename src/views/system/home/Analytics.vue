@@ -18,7 +18,7 @@
           statistic-title="Ventas generadas"
           :chart-data="[{
             name: 'Porcentaje %',
-            data: [40, 80, 69, 91]
+            data: [40, 80, 69, 91, 10, 30, 50, 20, 100]
           }]"
         />
       </b-col>
@@ -74,3 +74,9 @@ export default {
   },
 }
 </script>
+
+<style lang="scss">
+.dark-layout .apexcharts-canvas .apexcharts-radialbar .apexcharts-radialbar-track .apexcharts-radialbar-area {
+    stroke: #161d31;
+}
+</style>
