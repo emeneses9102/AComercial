@@ -32,7 +32,7 @@
                   :options="combosArticleFeatureDetail.feature.data"
                   :loading="combosArticleFeatureDetail.feature.loading"
                   :clearable="false"
-                  :disabled="combosArticleFeatureDetail.feature.disabled"
+                  :disabled="combosArticleFeatureDetail.feature.disabled || !!stateArticleFeatureDetail._id"
                   @option:selected="featureSelected"
                 >
                   <template v-slot:no-options>
@@ -67,7 +67,7 @@
                   :options="combosArticleFeatureDetail.featureDetail.data"
                   :loading="combosArticleFeatureDetail.featureDetail.loading"
                   :clearable="false"
-                  :disabled="combosArticleFeatureDetail.featureDetail.disabled"
+                  :disabled="combosArticleFeatureDetail.featureDetail.disabled || !!stateArticleFeatureDetail._id"
                 >
                   <template v-slot:no-options>
                     No se encontraron resultados.
@@ -77,8 +77,33 @@
               </b-form-group>
             </validation-provider>
           </b-col>
+          <!-- Órden -->
           <b-col
             cols="12"
+            md="6"
+          >
+            <b-form-group
+              label="Órden"
+              label-for="article-feature-detail-order"
+            >
+              <validation-provider
+                #default="{ errors }"
+                name="Órden"
+                rules="required"
+              >
+                <b-form-input
+                  id="article-feature-detail-order"
+                  v-model.trim="stateArticleFeatureDetail.orden"
+                  type="number"
+                  :state="errors.length > 0 ? false:null"
+                />
+                <small class="text-danger">{{ errors[0] }}</small>
+              </validation-provider>
+            </b-form-group>
+          </b-col>
+          <b-col
+            cols="12"
+            md="6"
           >
             <div class="d-flex flex-wrap justify-content-end mt-1">
               <button-component
@@ -114,7 +139,7 @@
 
 <script>
 import {
-  BForm, BRow, BCol, BFormGroup,
+  BForm, BRow, BCol, BFormGroup, BFormInput,
 } from 'bootstrap-vue'
 import { ValidationObserver, ValidationProvider } from 'vee-validate'
 import vSelect from 'vue-select'
@@ -133,6 +158,7 @@ export default {
     BRow,
     BCol,
     BFormGroup,
+    BFormInput,
     vSelect,
     ValidationObserver,
     ValidationProvider,

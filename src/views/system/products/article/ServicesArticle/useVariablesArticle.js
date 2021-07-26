@@ -83,6 +83,14 @@ export const columnsArticle = ref([
     type: 'boolean',
   },
   {
+    field: 'flgSerie',
+    label: 'SERIE',
+    thClass: 'align-middle',
+    tdClass: 'align-middle text-center',
+    pdf: true,
+    type: 'boolean',
+  },
+  {
     field: 'stockMinimo',
     label: 'STOCK MIN.',
     thClass: 'align-middle',
@@ -125,6 +133,7 @@ const initialStateArticle = {
   descripcion: '',
   abreviatura: '',
   idCodUnico: 0,
+  codUnico: 0,
   nombreCodigoUnico: '',
   flgStock: 1,
   flgServicio: 0,

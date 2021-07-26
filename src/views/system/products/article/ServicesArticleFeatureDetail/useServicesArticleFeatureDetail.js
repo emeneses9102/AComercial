@@ -14,10 +14,8 @@ export const loadItemsArticleFeatureDetail = async (page = null, perPage = null)
 
 // Función para obtener un recurso por _id desde la Api y almacenarlo en la variable stateArticleFeatureDetail
 export const getArticleFeatureDetailById = async _id => {
-  const { data, status } = await getDataById(urlApiArticleFeatureDetail, _id, titleNotificationArticleFeatureDetail)
-  if (status) {
-    stateArticleFeatureDetail.value = { ...stateArticleFeatureDetail.value, ...data }
-  }
+  const response = await getDataById(urlApiArticleFeatureDetail, _id, titleNotificationArticleFeatureDetail)
+  return response
 }
 
 // Función para gestionar un Detalle Articulo Caracteristica

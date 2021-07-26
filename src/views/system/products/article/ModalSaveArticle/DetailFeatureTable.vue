@@ -16,8 +16,8 @@
       :load-items="loadItemsArticleFeatureDetail"
       :manage-row="sendArticleFeatureDetail"
       :pagination-enabled="!!stateArticle._id"
-      :option-edit="false"
       :option-show="false"
+      @open-modal-for-edit="row=>openModalFor(row, 'edit')"
     />
   </field-set-component>
 </template>
@@ -26,11 +26,12 @@
 import HeaderSearchDetailComponent from '@/components/HeaderSearchDetailComponent/HeaderSearchDetailComponent.vue'
 import FieldSetComponent from '@/components/FieldSetComponent/FieldSetComponent.vue'
 import TableGoodComponent from '@/components/TableComponent/TableGoodComponent.vue'
+import { endPointsCombo, loadCombos } from '@/helpers/combos'
 import { stateArticle } from '../ServicesArticle/useVariablesArticle'
 import {
-  columnsArticleFeatureDetail, serverQueryArticleFeatureDetail, dataTableArticleFeatureDetail, columnsFilterArticleFeatureDetail, titleNotificationArticleFeatureDetail,
+  columnsArticleFeatureDetail, serverQueryArticleFeatureDetail, dataTableArticleFeatureDetail, columnsFilterArticleFeatureDetail, titleNotificationArticleFeatureDetail, stateArticleFeatureDetail, combosArticleFeatureDetail,
 } from '../ServicesArticleFeatureDetail/useVariablesArticleFeatureDetail'
-import { loadItemsArticleFeatureDetail, sendArticleFeatureDetail } from '../ServicesArticleFeatureDetail/useServicesArticleFeatureDetail'
+import { getArticleFeatureDetailById, loadItemsArticleFeatureDetail, sendArticleFeatureDetail } from '../ServicesArticleFeatureDetail/useServicesArticleFeatureDetail'
 
 export default {
   name: 'DetailTableFeature',
@@ -42,6 +43,23 @@ export default {
   setup() {
     let timer = null
     const timeForLoad = 500
+
+    const openModalFor = async ({ _id }) => {
+      dataTableArticleFeatureDetail.value.loading = true
+      const { status, data } = await getArticleFeatureDetailById(_id)
+      if (!status) {
+        dataTableArticleFeatureDetail.value.loading = false
+        return false
+      }
+      await loadCombos(combosArticleFeatureDetail, ['featureDetail'], `${endPointsCombo.detalleCaracteristica}/1/${data.idCaracteristica}`, 'Valores Característica')
+      stateArticleFeatureDetail.value._id = data._id
+      stateArticleFeatureDetail.value.idArticulo = data.idArticulo
+      stateArticleFeatureDetail.value.idCaracteristica = data.idCaracteristica
+      stateArticleFeatureDetail.value.idDtlCaracteristica = data.idDtlCaracteristica
+      stateArticleFeatureDetail.value.orden = data.orden
+      dataTableArticleFeatureDetail.value.loading = false
+      return true
+    }
 
     const onChangeField = (field, value) => {
       serverQueryArticleFeatureDetail.value.campofiltro = field
@@ -68,6 +86,7 @@ export default {
       sendArticleFeatureDetail,
       columnsFilterArticleFeatureDetail,
       titleNotificationArticleFeatureDetail,
+      openModalFor,
       onChangeField,
       onSearchForValue,
     }
