@@ -28,6 +28,12 @@ export const initialColumnsArticleFeatureDetail = [
     thClass: 'align-middle',
     tdClass: 'align-middle',
   },
+  {
+    field: 'orden',
+    label: 'ORDEN',
+    thClass: 'align-middle',
+    tdClass: 'align-middle',
+  },
   columnStatus,
 ]
 
@@ -74,6 +80,7 @@ const initialStateArticleFeatureDetail = {
   idArticulo: 0,
   idCaracteristica: 0,
   idDtlCaracteristica: 0,
+  orden: 0,
   accion: 0,
   loading: false,
 }

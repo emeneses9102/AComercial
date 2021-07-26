@@ -1,5 +1,6 @@
 <template>
   <b-row class="mb-1">
+    <slot name="before" />
     <b-col
       cols="12"
       lg="4"
@@ -34,6 +35,7 @@
         />
       </b-form-group>
     </b-col>
+    <slot name="after" />
   </b-row>
 </template>
 
