@@ -6,6 +6,7 @@ import routeStorage from './storage'
 import routesSecurity from './security'
 import routesControl from './control'
 import routesBox from './box'
+import routesSunat from './sunat'
 
 // Exportar arreglo de las rutas registradas para la Gestión del Sistema
 export default [
@@ -16,4 +17,5 @@ export default [
   ...routesSecurity,
   ...routesControl,
   ...routesBox,
+  ...routesSunat,
 ]

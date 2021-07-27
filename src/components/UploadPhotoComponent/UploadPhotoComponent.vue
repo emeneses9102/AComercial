@@ -98,7 +98,7 @@ export default {
         if (!allowedExtensions.exec(e.target.value)) {
           messageToast('warning', 'Subir Imagen', 'Por favor ingrese una imagén con las siguientes extensiónes .jpeg|.jpg|.png')
         } else if (!checkSizeImage(e.target.files[0].size)) {
-          messageToast('warning', 'Subir Imagen', `Por favor ingrese una imagén de ${props.maxSize}mb`)
+          messageToast('warning', 'Subir Imagen', `Por favor ingrese una imagén de ${props.maxSize}MB`)
           inputFile.value = null
         } else {
           fileReader.readAsDataURL(e.target.files[0])
