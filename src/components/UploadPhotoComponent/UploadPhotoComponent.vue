@@ -58,7 +58,7 @@ export default {
     maxSize: {
       type: Number,
       required: false,
-      default: 2,
+      default: 1,
     },
     modeShow: {
       type: Boolean,

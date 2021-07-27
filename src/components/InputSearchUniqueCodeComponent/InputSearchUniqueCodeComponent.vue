@@ -271,18 +271,22 @@ export default {
     }
 
     const onChangeField = (field, value) => {
-      serverQueryUniqueCode.value.campofiltro = field
-      serverQueryUniqueCode.value.filtro = value
+      if (stateCodesSunat.value.segmentSunat && stateCodesSunat.value.familySunat && stateCodesSunat.value.classSunat) {
+        serverQueryUniqueCode.value.campofiltro = field
+        serverQueryUniqueCode.value.filtro = value
+      }
     }
 
     const onSearchForValue = (field, value) => {
-      dataTableUniqueCode.value.loading = true
-      clearTimeout(timer)
-      timer = setTimeout(() => {
-        serverQueryUniqueCode.value.campofiltro = field
-        serverQueryUniqueCode.value.filtro = value
-        loadItemsUniqueCode(1)
-      }, timeForLoad)
+      if (stateCodesSunat.value.segmentSunat && stateCodesSunat.value.familySunat && stateCodesSunat.value.classSunat) {
+        dataTableUniqueCode.value.loading = true
+        clearTimeout(timer)
+        timer = setTimeout(() => {
+          serverQueryUniqueCode.value.campofiltro = field
+          serverQueryUniqueCode.value.filtro = value
+          loadItemsUniqueCode(1)
+        }, timeForLoad)
+      }
     }
 
     const selectedSegmentSunat = ({ _id }) => {
