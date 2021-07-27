@@ -28,6 +28,22 @@ export default [
         title: 'Artículos',
         route: 'article',
       },
+      {
+        title: 'Segmentos SUNAT',
+        route: 'segmentSunat',
+      },
+      {
+        title: 'Familias SUNAT',
+        route: 'familySunat',
+      },
+      {
+        title: 'Clases SUNAT',
+        route: 'classSunat',
+      },
+      {
+        title: 'Código Único SUNAT',
+        route: 'uniqueCodeSunat',
+      },
     ],
   },
   {
