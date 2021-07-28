@@ -66,10 +66,35 @@
               </b-form-group>
             </validation-provider>
           </b-col>
+          <!-- Cantidad -->
           <b-col
             cols="12"
+            lg="6"
           >
-            <div class="d-flex flex-wrap justify-content-end">
+            <b-form-group
+              label="Cantidad *"
+              label-for="unit-group-detail-count"
+            >
+              <validation-provider
+                #default="{ errors }"
+                name="Cantidad"
+                rules="required"
+              >
+                <b-form-input
+                  id="unit-group-detail-count"
+                  v-model.number="stateUnitGroupDetail.cantidad"
+                  type="number"
+                  :state="errors.length > 0 ? false:null"
+                />
+                <small class="text-danger">{{ errors[0] }}</small>
+              </validation-provider>
+            </b-form-group>
+          </b-col>
+          <b-col
+            cols="12"
+            lg="6"
+          >
+            <div class="d-flex flex-wrap justify-content-end mt-1">
               <button-component
                 type="reset"
                 variant="outline-primary"
