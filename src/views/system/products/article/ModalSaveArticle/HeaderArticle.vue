@@ -86,14 +86,13 @@
           <b-row>
             <!-- Id Código Único -->
             <input-search-unique-code-component
-              colmd="6"
-              collg="6"
-              :id-unique-code="stateArticle.idCodUnico"
+              :name-unique-code="stateArticle.nombreCodigoUnico"
+              rules-validation="required"
               @on-unique-code-selected="uniqueCodeSelected"
             />
 
             <!-- Código Único -->
-            <b-col
+            <!-- <b-col
               cols="12"
               md="6"
             >
@@ -116,10 +115,10 @@
                   <small class="text-danger">{{ errors[0] }}</small>
                 </validation-provider>
               </b-form-group>
-            </b-col>
+            </b-col> -->
 
             <!-- Nombre Código Único -->
-            <b-col
+            <!-- <b-col
               cols="12"
             >
               <b-form-group
@@ -141,7 +140,7 @@
                   <small class="text-danger">{{ errors[0] }}</small>
                 </validation-provider>
               </b-form-group>
-            </b-col>
+            </b-col> -->
 
             <!-- Descripción del Artículo -->
             <b-col
@@ -159,7 +158,7 @@
                   <b-form-textarea
                     id="article-description"
                     v-model="stateArticle.descripcion"
-                    rows="4"
+                    rows="7"
                     no-resize
                     :state="errors.length > 0 ? false:null"
                   />
@@ -489,7 +488,6 @@
           cols="6"
           sm="6"
           lg="2"
-          offset-lg="2"
         >
           <b-form-group
             label="Precio Min. Venta *"

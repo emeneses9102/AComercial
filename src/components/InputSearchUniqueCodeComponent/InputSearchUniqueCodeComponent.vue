@@ -149,17 +149,17 @@
     >
       <validation-provider
         #default="{ errors }"
-        name="Código Unico"
+        name="Nombre Código Unico"
         :rules="rulesValidation"
       >
         <b-form-group
-          label="Código Unico"
+          label="Nombre Código Unico"
           label-for="input-unique-code-button"
         >
           <b-input-group>
             <b-form-input
               id="input-unique-code-button"
-              v-model="idUniqueCode"
+              v-model="nameUniqueCode"
               :state="errors.length > 0 ? false:null"
               readonly
             />
@@ -243,10 +243,10 @@ export default {
       required: false,
       default: '',
     },
-    idUniqueCode: {
-      type: Number,
+    nameUniqueCode: {
+      type: String,
       required: true,
-      default: 0,
+      default: '',
     },
     disabledButton: {
       type: Boolean,
