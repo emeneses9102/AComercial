@@ -68,6 +68,21 @@
           lg="9"
         >
           <b-row>
+            <!-- Nombre Código Único -->
+            <b-col
+              cols="12"
+            >
+              <b-form-group
+                label="Nombre Código Único"
+                label-for="article-name-unique-code"
+              >
+                <b-form-input
+                  id="article-name-unique-code"
+                  v-model="stateArticle.nombreCodigoUnico"
+                  readonly
+                />
+              </b-form-group>
+            </b-col>
             <!-- Descripción del Artículo -->
             <b-col
               cols="12"
@@ -79,156 +94,8 @@
                 <b-form-textarea
                   id="article-description"
                   v-model="stateArticle.descripcion"
-                  rows="3"
+                  rows="7"
                   no-resize
-                  readonly
-                />
-              </b-form-group>
-            </b-col>
-
-            <!-- Tipo de Articulo -->
-            <b-col
-              cols="6"
-              sm="6"
-              md="6"
-              lg="4"
-            >
-              <b-form-group
-                label="Tipo de Articulo"
-                label-for="article-type"
-              >
-                <div class="d-flex align-items-center flex-wrap">
-                  <div
-                    class="d-flex align-items-center mr-1"
-                    style="height: 2.714rem;"
-                  >
-                    <b-badge
-                      :variant="stateArticle.flgStock ? 'light-success' : 'light-danger'"
-                    >
-                      <feather-icon
-                        :icon="stateArticle.flgStock ? 'CheckIcon' : 'SlashIcon'"
-                        size="16"
-                      />
-                    </b-badge>
-                    <span class="d-inline-block ml-50">Stock</span>
-                  </div>
-                  <div
-                    class="d-flex align-items-center mr-1"
-                    style="height: 2.714rem;"
-                  >
-                    <b-badge
-                      :variant="stateArticle.flgServicio ? 'light-success' : 'light-danger'"
-                    >
-                      <feather-icon
-                        :icon="stateArticle.flgServicio ? 'CheckIcon' : 'SlashIcon'"
-                        size="16"
-                      />
-                    </b-badge>
-                    <span class="d-inline-block ml-50">Servicio</span>
-                  </div>
-                </div>
-              </b-form-group>
-            </b-col>
-
-            <!-- Receta -->
-            <b-col
-              cols="6"
-              sm="6"
-              md="6"
-              lg="2"
-            >
-              <b-form-group
-                label="Receta"
-                label-for="article-recipe"
-              >
-                <div class="d-flex align-items-center flex-wrap">
-                  <div
-                    class="d-flex align-items-center"
-                    style="height: 2.714rem;"
-                  >
-                    <b-badge
-                      :variant="stateArticle.flgReceta ? 'light-success' : 'light-danger'"
-                    >
-                      <feather-icon
-                        :icon="stateArticle.flgReceta ? 'CheckIcon' : 'SlashIcon'"
-                        size="16"
-                      />
-                    </b-badge>
-                    <span class="d-inline-block ml-50">Receta</span>
-                  </div>
-                </div>
-              </b-form-group>
-            </b-col>
-
-            <!-- Tipo Producto -->
-            <b-col
-              cols="12"
-              sm="12"
-              md="12"
-              lg="6"
-            >
-              <b-form-group
-                label="Tipo Producto"
-                label-for="productType"
-              >
-                <b-form-input
-                  id="productType"
-                  v-model="stateArticle.nombreTipoProducto"
-                  readonly
-                />
-              </b-form-group>
-            </b-col>
-
-            <!-- Tipo Servicio -->
-            <b-col
-              cols="12"
-              sm="12"
-              md="12"
-              lg="6"
-            >
-              <b-form-group
-                label="Tipo Servicio"
-                label-for="serviceType"
-              >
-                <b-form-input
-                  id="serviceType"
-                  v-model="stateArticle.nombreTipoServicio"
-                  readonly
-                />
-              </b-form-group>
-            </b-col>
-
-            <!-- Grupo Unidad -->
-            <b-col
-              cols="12"
-              sm="6"
-              lg="6"
-            >
-              <b-form-group
-                label="Grupo Unidad"
-                label-for="article-unit-group"
-              >
-                <b-form-input
-                  id="article-unit-group"
-                  v-model.trim="stateArticle.nombreGrupoUnidad"
-                  readonly
-                />
-              </b-form-group>
-            </b-col>
-
-            <!-- Unidad Medida -->
-            <b-col
-              cols="12"
-              sm="6"
-              lg="6"
-            >
-              <b-form-group
-                label="Unidad Medida"
-                label-for="article-unit-measure"
-              >
-                <b-form-input
-                  id="article-unit-measure"
-                  v-model.trim="stateArticle.nombreUnidad"
                   readonly
                 />
               </b-form-group>
@@ -240,6 +107,169 @@
       <b-row
         class="mt-25"
       >
+        <!-- Tipo de Articulo -->
+        <b-col
+          cols="6"
+          sm="6"
+          md="6"
+          lg="3"
+        >
+          <b-form-group
+            label="Tipo de Articulo"
+            label-for="article-type"
+          >
+            <div class="d-flex align-items-center flex-wrap">
+              <div
+                class="d-flex align-items-center mr-1"
+                style="height: 2.714rem;"
+              >
+                <b-badge
+                  :variant="stateArticle.flgStock ? 'light-success' : 'light-danger'"
+                >
+                  <feather-icon
+                    :icon="stateArticle.flgStock ? 'CheckIcon' : 'SlashIcon'"
+                    size="16"
+                  />
+                </b-badge>
+                <span class="d-inline-block ml-50">Stock</span>
+              </div>
+              <div
+                class="d-flex align-items-center mr-1"
+                style="height: 2.714rem;"
+              >
+                <b-badge
+                  :variant="stateArticle.flgServicio ? 'light-success' : 'light-danger'"
+                >
+                  <feather-icon
+                    :icon="stateArticle.flgServicio ? 'CheckIcon' : 'SlashIcon'"
+                    size="16"
+                  />
+                </b-badge>
+                <span class="d-inline-block ml-50">Servicio</span>
+              </div>
+            </div>
+          </b-form-group>
+        </b-col>
+
+        <!-- Receta y Serie -->
+        <b-col
+          cols="6"
+          sm="6"
+          md="6"
+          lg="3"
+        >
+          <b-form-group
+            label="Receta"
+            label-for="article-recipe"
+          >
+            <div class="d-flex align-items-center flex-wrap">
+              <!-- Receta -->
+              <div
+                class="d-flex align-items-center mr-1"
+                style="height: 2.714rem;"
+              >
+                <b-badge
+                  :variant="stateArticle.flgReceta ? 'light-success' : 'light-danger'"
+                >
+                  <feather-icon
+                    :icon="stateArticle.flgReceta ? 'CheckIcon' : 'SlashIcon'"
+                    size="16"
+                  />
+                </b-badge>
+                <span class="d-inline-block ml-50">Receta</span>
+              </div>
+              <!-- Serie -->
+              <div
+                class="d-flex align-items-center"
+                style="height: 2.714rem;"
+              >
+                <b-badge
+                  :variant="stateArticle.flgSerie ? 'light-success' : 'light-danger'"
+                >
+                  <feather-icon
+                    :icon="stateArticle.flgSerie ? 'CheckIcon' : 'SlashIcon'"
+                    size="16"
+                  />
+                </b-badge>
+                <span class="d-inline-block ml-50">Serie</span>
+              </div>
+            </div>
+          </b-form-group>
+        </b-col>
+
+        <!-- Tipo Producto -->
+        <b-col
+          cols="12"
+          sm="12"
+          md="12"
+          lg="6"
+        >
+          <b-form-group
+            label="Tipo Producto"
+            label-for="productType"
+          >
+            <b-form-input
+              id="productType"
+              v-model="stateArticle.nombreTipoProducto"
+              readonly
+            />
+          </b-form-group>
+        </b-col>
+
+        <!-- Tipo Servicio -->
+        <b-col
+          cols="12"
+          sm="12"
+          md="12"
+          lg="6"
+        >
+          <b-form-group
+            label="Tipo Servicio"
+            label-for="serviceType"
+          >
+            <b-form-input
+              id="serviceType"
+              v-model="stateArticle.nombreTipoServicio"
+              readonly
+            />
+          </b-form-group>
+        </b-col>
+
+        <!-- Grupo Unidad -->
+        <b-col
+          cols="12"
+          sm="6"
+          lg="6"
+        >
+          <b-form-group
+            label="Grupo Unidad"
+            label-for="article-unit-group"
+          >
+            <b-form-input
+              id="article-unit-group"
+              v-model.trim="stateArticle.nombreGrupoUnidad"
+              readonly
+            />
+          </b-form-group>
+        </b-col>
+
+        <!-- Unidad Medida -->
+        <b-col
+          cols="12"
+          sm="6"
+          lg="6"
+        >
+          <b-form-group
+            label="Unidad Medida"
+            label-for="article-unit-measure"
+          >
+            <b-form-input
+              id="article-unit-measure"
+              v-model.trim="stateArticle.nombreUnidad"
+              readonly
+            />
+          </b-form-group>
+        </b-col>
         <!-- Precio Compra -->
         <b-col
           cols="6"
@@ -281,7 +311,6 @@
           cols="6"
           sm="6"
           lg="2"
-          offset-lg="2"
         >
           <b-form-group
             label="Precio Min Venta"
