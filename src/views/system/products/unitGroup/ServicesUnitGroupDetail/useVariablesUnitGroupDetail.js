@@ -30,6 +30,13 @@ export const initialColumnsUnitGroupDetail = [
     tdClass: 'align-middle',
     pdf: true,
   },
+  {
+    field: 'cantidad',
+    label: 'CANTIDAD',
+    thClass: 'align-middle',
+    tdClass: 'align-middle',
+    pdf: true,
+  },
   columnStatus,
 ]
 
@@ -76,6 +83,7 @@ const initialStateUnitGroupDetail = {
   nombre: '',
   idGrupoUnidad: 0,
   idUnidadSunat: 0,
+  cantidad: 0,
   accion: 0,
   loading: false,
 }
