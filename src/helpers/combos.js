@@ -23,6 +23,7 @@ export const endPointsCombo = {
   opcion: '/combo/opciones',
   opcionesDisponiblesPorIdRolIdMenu: '/combo/copciones',
   operacionSunat: '/combo/sntoperacion',
+  permisosPorIdRol: '/accesos/menuroles',
   predios: '/combo/predios',
   provincia: '/comboubigeo/provincia',
   rol: '/combo/roles',
