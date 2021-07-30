@@ -193,7 +193,6 @@ export default {
 
     watch([idRole, idModule, idMenu], async () => {
       if (idRole.value && idModule.value && idMenu.value) {
-        console.log('los 3 estan seleccionado')
         stateAccess.value._id = await verifyExistenceOfAccess(idRole.value, idModule.value, idMenu.value)
         if (stateAccess.value._id) {
           loadItemsAccessOptionDetail(1)
