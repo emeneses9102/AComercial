@@ -39,6 +39,7 @@
               id="feature-abbreviation"
               v-model.trim="stateFeature.abreviatura"
               type="text"
+              maxlength="3"
             />
           </b-form-group>
         </b-col>

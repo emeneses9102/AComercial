@@ -1,5 +1,10 @@
 export default [
   {
+    title: 'Inicio',
+    icon: 'HomeIcon',
+    route: 'home',
+  },
+  {
     title: 'Productos',
     icon: 'BoxIcon',
     children: [
@@ -18,6 +23,10 @@ export default [
       {
         title: 'Grupo Unidad',
         route: 'unit-group',
+      },
+      {
+        title: 'Artículos',
+        route: 'article',
       },
     ],
   },
@@ -128,6 +137,28 @@ export default [
       {
         title: 'Sesión Caja',
         route: 'boxSession',
+      },
+    ],
+  },
+  {
+    title: 'SUNAT',
+    icon: 'ClipboardIcon',
+    children: [
+      {
+        title: 'Segmentos SUNAT',
+        route: 'segmentSunat',
+      },
+      {
+        title: 'Familias SUNAT',
+        route: 'familySunat',
+      },
+      {
+        title: 'Clases SUNAT',
+        route: 'classSunat',
+      },
+      {
+        title: 'Código Único SUNAT',
+        route: 'uniqueCodeSunat',
       },
     ],
   },

@@ -10,13 +10,14 @@
         no-close-on-backdrop
       >
         <b-row>
+          <slot name="before" />
           <b-col
             cols="12"
           >
             <validation-provider
               #default="{ errors }"
               name="Columna"
-              rules="required"
+              :rules="rulesColumn"
             >
               <b-form-group
                 label="Columna"
@@ -45,7 +46,7 @@
               <validation-provider
                 #default="{ errors }"
                 name="Filtro"
-                rules="required"
+                :rules="rulesValue"
               >
                 <b-form-input
                   id="modal-search-search-value"
@@ -59,6 +60,7 @@
               </validation-provider>
             </b-form-group>
           </b-col>
+          <slot name="after" />
         </b-row>
 
         <template #modal-footer>
@@ -130,10 +132,25 @@ export default {
       required: true,
       default: () => {},
     },
+    executeLoadItemsWhereClearFilters: {
+      type: Boolean,
+      required: false,
+      default: true,
+    },
     loadItems: {
       type: Function,
       required: true,
       default: () => {},
+    },
+    rulesColumn: {
+      type: String,
+      required: false,
+      default: 'required',
+    },
+    rulesValue: {
+      type: String,
+      required: false,
+      default: 'required',
     },
   },
   methods: {
@@ -159,7 +176,9 @@ export default {
       props.clearFilters()
       context.refs['validation-modal-search'].reset()
       context.root.$bvModal.hide(`${props.modalId}-search`)
-      await props.loadItems(1)
+      if (props.executeLoadItemsWhereClearFilters) {
+        await props.loadItems(1)
+      }
     }
 
     return {

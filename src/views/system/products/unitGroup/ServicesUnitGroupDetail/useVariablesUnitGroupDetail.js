@@ -30,6 +30,13 @@ export const initialColumnsUnitGroupDetail = [
     tdClass: 'align-middle',
     pdf: true,
   },
+  {
+    field: 'cantidad',
+    label: 'CANTIDAD',
+    thClass: 'align-middle',
+    tdClass: 'align-middle',
+    pdf: true,
+  },
   columnStatus,
 ]
 
@@ -62,6 +69,7 @@ export const serverQueryUnitGroupDetail = ref({
   ...serverQueryDefault,
   tabla: 'unidad',
   pfin: 5,
+  campo: 'a.idgrupounidad',
 })
 
 // Función para limpiar filtros en la consulta de la tabla Detalle Grupo Unidad
@@ -75,6 +83,7 @@ const initialStateUnitGroupDetail = {
   nombre: '',
   idGrupoUnidad: 0,
   idUnidadSunat: 0,
+  cantidad: 0,
   accion: 0,
   loading: false,
 }

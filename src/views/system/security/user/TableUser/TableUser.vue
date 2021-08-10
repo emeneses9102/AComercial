@@ -33,7 +33,7 @@ export default {
   },
   setup(props, context) {
     // Función que se ejecutará cuando el usuario haga click en el botón editar o ver
-    const openModalFor = async ({ nombres, nombre, ...row }, actionOpenModal) => {
+    const openModalFor = async ({ nombres, ...row }, actionOpenModal) => {
       if (actionOpenModal === 'change-password') {
         stateUser.value._id = row._id
         stateUser.value.usuario = row.usuario

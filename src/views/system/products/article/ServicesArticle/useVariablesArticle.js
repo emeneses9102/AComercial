@@ -2,7 +2,9 @@
 import { ref } from '@vue/composition-api'
 
 // Importar configuracion de las columnas personalizadas
-import { columnAction } from '@/helpers/columnsTable'
+import { columnAction, columnStatus } from '@/helpers/columnsTable'
+import { clearServerQueryDefaultFilter, serverQueryDefault } from '@/helpers/serverQuery'
+import { initialStateCombo } from '@/helpers/combos'
 
 // Constante para almacenar el id base de los modales del mantenimiento Artículo
 export const MODAL_ID = 'modal-article'
@@ -81,6 +83,14 @@ export const columnsArticle = ref([
     type: 'boolean',
   },
   {
+    field: 'flgSerie',
+    label: 'SERIE',
+    thClass: 'align-middle',
+    tdClass: 'align-middle text-center',
+    pdf: true,
+    type: 'boolean',
+  },
+  {
     field: 'stockMinimo',
     label: 'STOCK MIN.',
     thClass: 'align-middle',
@@ -94,13 +104,7 @@ export const columnsArticle = ref([
     tdClass: 'align-middle text-right',
     pdf: true,
   },
-  {
-    field: 'activo',
-    label: 'ESTADO',
-    thClass: 'align-middle',
-    tdClass: 'align-middle text-center',
-    pdf: true,
-  },
+  columnStatus,
 ])
 
 // Variable reactiva para almacenar las propiedades necesarias para el listado de la tabla Artículo
@@ -112,18 +116,13 @@ export const dataTableArticle = ref({
 
 // Variable reactiva para manjear los consultas del lado del servidor de la tabla Artículo
 export const serverQueryArticle = ref({
-  _id: 0,
+  ...serverQueryDefault,
   tabla: 'articulos',
-  pinicio: 1,
-  pfin: 10,
-  campofiltro: '',
-  filtro: '',
 })
 
 // Función para limpiar filtros en la consulta de la tabla Artículo
 export const clearFiltersArticle = () => {
-  serverQueryArticle.value.campofiltro = ''
-  serverQueryArticle.value.filtro = ''
+  clearServerQueryDefaultFilter(serverQueryArticle)
 }
 
 // Variable inicializadora para almacenar el estado de un registro, actualización, cambio de estado, eliminación en la tabla Artículo
@@ -132,15 +131,22 @@ const initialStateArticle = {
   sku: '',
   nombre: '',
   descripcion: '',
+  abreviatura: '',
+  idCodUnico: 0,
+  codUnico: 0,
+  nombreCodigoUnico: '',
   flgStock: 1,
   flgServicio: 0,
   flgReceta: 0,
   flgSerie: 0,
   idTipoProducto: 0,
+  nombreTipoProducto: '',
   idTipoServicio: 0,
-  idGrupoUnidad: 15,
+  nombreTipoServicio: '',
+  idGrupoUnidad: 0,
   nombreGrupoUnidad: '',
-  idUnidad: 11,
+  idUnidad: 0,
+  nombreUnidad: '',
   precioCompra: 0,
   precioVenta: 0,
   precioMinimoVenta: 0,
@@ -151,6 +157,13 @@ const initialStateArticle = {
   loading: false,
 }
 
+// Variable Reactiva para almacenar el valor de un radioButton (Stock | Servicio)
+export const selectedArticleType = ref('stock')
+
+export const resetSelectedArticleType = () => {
+  selectedArticleType.value = 'stock'
+}
+
 // Variable reactiva para almacenar el estado de un registro, actualización, cambio de estado, eliminación en la tabla Artículo
 export const stateArticle = ref({ ...initialStateArticle })
 
@@ -158,6 +171,14 @@ export const stateArticle = ref({ ...initialStateArticle })
 export const clearStateArticle = () => {
   stateArticle.value = { ...initialStateArticle }
 }
+
+// Variable reactiva para almacenar el listado de los combos del mantenimiento Articulo
+export const combosArticle = ref({
+  productType: { ...initialStateCombo },
+  serviceType: { ...initialStateCombo },
+  unitGroup: { ...initialStateCombo },
+  unitMeasure: { ...initialStateCombo },
+})
 
 // Constante para almacenar las columas permitidas para el filtro de la table Artículos
 export const columnsFilterArticle = [

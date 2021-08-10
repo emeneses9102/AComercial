@@ -85,7 +85,7 @@
             <b-form-textarea
               id="storage-observation"
               v-model="stateStorage.observacion"
-              rows="3"
+              rows="2"
               no-resize
               readonly
             />

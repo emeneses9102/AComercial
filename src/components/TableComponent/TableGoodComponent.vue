@@ -15,7 +15,7 @@
     }"
     @on-page-change="onPageChange"
     @on-per-page-change="onPerPageChange"
-    @on-row-click="param=>$emit('on-row-click', param)"
+    @on-row-click="onRowClick"
   >
     <!-- Ranura para mostrar elemento -->
     <div
@@ -389,6 +389,18 @@ export default {
     },
     search() {
       this.loadItems(1)
+    },
+    onRowClick({ row }) {
+      const newRow = { ...row }
+      /* eslint no-param-reassign: "error" */
+      delete newRow.originalIndex
+      delete newRow.vgt_id
+      delete newRow.id
+      delete newRow.activo
+      delete newRow.accion
+      delete newRow.numberRow
+      delete newRow.idUsuario
+      this.$emit('on-row-click', newRow)
     },
   },
 }

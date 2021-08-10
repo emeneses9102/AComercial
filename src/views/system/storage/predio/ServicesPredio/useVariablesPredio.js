@@ -27,6 +27,13 @@ export const columnsPredio = ref([
     pdf: true,
   },
   {
+    field: 'nombreUbigeo',
+    label: 'NOMBRE UBIGEO',
+    thClass: 'align-middle',
+    tdClass: 'align-middle',
+    pdf: true,
+  },
+  {
     field: 'observacion',
     label: 'OBSERVACIÓN',
     thClass: 'align-middle',

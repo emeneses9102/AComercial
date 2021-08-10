@@ -7,5 +7,13 @@ export default [
     meta: {
       layout: 'full',
     },
+    beforeEnter: (to, from, next) => {
+      // Verificar si en el localstorage almacenamos las credenciales
+      if (localStorage.getItem(process.env.VUE_APP_NAME_VAR_SECURITY_ENCRYPT)) {
+        next('/')
+      }
+      // De no pasar la condicion anterior permitira el acceso al login
+      next()
+    },
   },
 ]

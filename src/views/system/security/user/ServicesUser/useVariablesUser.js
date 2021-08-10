@@ -90,7 +90,7 @@ const initialStateUser = {
   _id: 0,
   usuario: '',
   idColaborador: 0,
-  nombreColaborador: '',
+  nombre: '',
   idRol: 0,
   nombrerol: '',
   correo: '',
