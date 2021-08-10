@@ -125,6 +125,10 @@ export default [
         title: 'Forma Pago',
         route: 'paymentForm',
       },
+      {
+        title: 'Sesión Caja',
+        route: 'boxSession',
+      },
     ],
   },
 ]
