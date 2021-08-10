@@ -76,6 +76,20 @@
                 </div>
               </b-dropdown-item>
             </template>
+            <template v-if="permission.includes('OPEN_BOX')">
+              <b-dropdown-item
+                v-if="optionOpenBox"
+                @click="openModalFor(props.row, 'open-box')"
+              >
+                <div class="d-flex align-items-center">
+                  <feather-icon
+                    icon="InboxIcon"
+                    class="mr-50"
+                  />
+                  <span class="d-inline-block">Caja</span>
+                </div>
+              </b-dropdown-item>
+            </template>
             <template v-if="permission.includes('SHOW')">
               <b-dropdown-item
                 v-if="optionShow"
@@ -285,6 +299,11 @@ export default {
       required: false,
       default: true,
     },
+    optionOpenBox: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
     optionShow: {
       type: Boolean,
       required: false,
@@ -326,7 +345,7 @@ export default {
   },
   created() {
     // Cargar los permisos permitidos
-    this.permission = ['STATUS', 'SHOW', 'EDIT', 'DELETE', 'CHANGE_PASSWORD']
+    this.permission = ['STATUS', 'SHOW', 'EDIT', 'DELETE', 'CHANGE_PASSWORD', 'OPEN_BOX']
   },
   methods: {
     onPageChange(params) {
@@ -366,6 +385,7 @@ export default {
       if (openFor === 'show') this.$emit('open-modal-for-show', newRow)
       else if (openFor === 'edit') this.$emit('open-modal-for-edit', newRow)
       else if (openFor === 'change-password') this.$emit('open-modal-for-change-password', newRow)
+      else if (openFor === 'open-box') this.$emit('open-modal-for-open-box', newRow)
     },
     search() {
       this.loadItems(1)

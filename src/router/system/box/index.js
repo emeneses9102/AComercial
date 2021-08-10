@@ -53,4 +53,20 @@ export default [
       ],
     },
   },
+  {
+    path: '/sesion-caja',
+    name: 'boxSession',
+    component: () => import('@/views/system/box/boxSession/BoxSession.vue'),
+    meta: {
+      auth: true,
+      pageTitle: 'Sesión Caja',
+      breadcrumb: [
+        moduleBreadCrumb,
+        {
+          text: 'Sesión Caja',
+          active: true,
+        },
+      ],
+    },
+  },
 ]
