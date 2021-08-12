@@ -2,12 +2,12 @@
   <b-row
     class="mb-0 pb-0"
   >
+    <!--Client Section-->
     <b-col
       cols="2"
     >
       <div>
         <b-card
-          title="Cliente"
           tag="article"
           style="height: 850px"
           class="mb-2"
@@ -15,12 +15,69 @@
           <b-row>
             <b-col
               cols="12"
-              style="height: 700px"
+              style="height: 660px"
             >
-              icons
+              <b-row>
+                <b-col
+                  cols="12"
+                >
+                  <p
+                    class="mb-0 title-client"
+                  >
+                    Cliente N° #####
+                  </p>
+                  <p><b>Edgar Meneses</b></p>
+                </b-col>
+                <b-col
+                  cols="12"
+                  class="mt-2"
+                >
+                  <p
+                    class="mb-0"
+                  >
+                    ID
+                  </p>
+                  <p><b>33045094X</b></p>
+                </b-col>
+                <b-col
+                  cols="12"
+                  class="mt-2"
+                >
+                  <p
+                    class="mb-0"
+                  >
+                    Dirección
+                  </p>
+                  <p><b>Jr Las Peras 124, Lince</b></p>
+                </b-col>
+                <b-col
+                  cols="12"
+                  class="mt-2"
+                >
+                  <p
+                    class="mb-0"
+                  >
+                    Teléfono
+                  </p>
+                  <p><b>971256364</b></p>
+                </b-col>
+                <b-col
+                  cols="12"
+                  class="mt-2"
+                >
+                  <p
+                    class="mb-0"
+                  >
+                    Correo
+                  </p>
+                  <p><b>edgar.meneses@simsac.pe</b></p>
+                </b-col>
+              </b-row>
             </b-col>
+            <!--Button Section-->
             <b-col
               class="m-0"
+              cols="12"
             >
               <b-button
                 class="btn-product"
@@ -46,6 +103,15 @@
                   icon="UserPlusIcon"
                   size="24"
                 />
+              </b-button>
+            </b-col>
+            <b-col>
+              <b-button
+                variant="success"
+                size="lg"
+                class="btn-block btn-pay"
+              >
+                Pagar
               </b-button>
             </b-col>
           </b-row>
@@ -246,43 +312,48 @@
               style="font-size:1.2rem"
             />
           </b-card-text>
-          <b-row>
-            <b-col
-              cols="12"
-            >
-              <b-card
-                style="height: 50px"
+          <div
+            class="overflow-auto"
+            style="height: 750px; padding: 0 20px"
+          >
+            <b-row>
+              <b-col
+                cols="12"
               >
-                <b-row
-                  style="box-shadow:0px 7px 15px 0px rgba(0,0,0,0.75); padding: 10px 5px 5px 0px; border-radius:10px"
+                <b-card
+                  style="height: 50px"
                 >
-                  <b-col
-                    cols="7"
+                  <b-row
+                    style="box-shadow:0px 7px 15px 0px rgba(0,0,0,0.75); padding: 10px 5px 5px 0px; border-radius:10px"
                   >
-                    <p>Nike Zapatilla</p>
-                    <p>139.90 $</p>
-                  </b-col>
-                  <b-col
-                    cols="3"
-                  >
-                    <p>Ref: ####</p>
-                    <p>Code: ####</p>
-                  </b-col>
-                  <b-col
-                    cols="2"
-                    class="pt-1 px-0"
-                  >
-                    <button class="btn btn-circle btn-plus">
-                      +
-                    </button>
-                    <button class="btn btn-circle btn-delete">
-                      x
-                    </button>
-                  </b-col>
-                </b-row>
-              </b-card>
-            </b-col>
-          </b-row>
+                    <b-col
+                      cols="7"
+                    >
+                      <p>Nike Zapatilla</p>
+                      <p>139.90 $</p>
+                    </b-col>
+                    <b-col
+                      cols="3"
+                    >
+                      <p>Ref: ####</p>
+                      <p>Code: ####</p>
+                    </b-col>
+                    <b-col
+                      cols="2"
+                      class="pt-1 px-0"
+                    >
+                      <button class="btn btn-circle btn-plus">
+                        +
+                      </button>
+                      <button class="btn btn-circle btn-delete">
+                        x
+                      </button>
+                    </b-col>
+                  </b-row>
+                </b-card>
+              </b-col>
+            </b-row>
+          </div>
         </b-card>
       </div>
     </b-col>
@@ -297,12 +368,30 @@
             <b-card
               title=""
               tag="article"
-              style="height: 600px"
+              style="height: 550px"
               class="mb-2"
             >
               <b-row
-                style="margin-top:50px"
+                style=""
               >
+                <b-col
+                  cols="6"
+                >
+                  <p
+                    class="h3"
+                  >
+                    <b>TICKET: </b>12456971
+                  </p>
+                </b-col>
+                <b-col
+                  cols="6"
+                >
+                  <p
+                    class="font-weight-bolder h1 text-right"
+                  >
+                    <b>12:23</b>
+                  </p>
+                </b-col>
                 <b-col
                   cols="12"
                   class="mt-5"
@@ -435,7 +524,7 @@
             <b-card
               title=""
               tag="article"
-              style="height: 235px"
+              style="height: 285px"
               class="mb-2"
             >
               <b-row>
@@ -451,6 +540,36 @@
                     class="mb-0 font-weight-bolder"
                   >
                     IVA 25%
+                  </p>
+                  <p
+                    class="mb-0 font-weight-bolder"
+                  >
+                    Descuento
+                  </p>
+                  <p
+                    class="mb-0 font-weight-bolder"
+                  >
+                    Descuento
+                  </p>
+                  <p
+                    class="mb-0 font-weight-bolder"
+                  >
+                    Descuento
+                  </p>
+                  <p
+                    class="mb-0 font-weight-bolder"
+                  >
+                    Descuento
+                  </p>
+                  <p
+                    class="mb-0 font-weight-bolder"
+                  >
+                    Descuento
+                  </p>
+                  <p
+                    class="mb-0 font-weight-bolder"
+                  >
+                    Descuento
                   </p>
                   <p
                     class="mb-0 font-weight-bolder"
@@ -477,13 +596,43 @@
                   >
                     0,00
                   </p>
+                  <p
+                    class="mb-0 font-weight-bolder"
+                  >
+                    0,00
+                  </p>
+                  <p
+                    class="mb-0 font-weight-bolder"
+                  >
+                    0,00
+                  </p>
+                  <p
+                    class="mb-0 font-weight-bolder"
+                  >
+                    0,00
+                  </p>
+                  <p
+                    class="mb-0 font-weight-bolder"
+                  >
+                    0,00
+                  </p>
+                  <p
+                    class="mb-0 font-weight-bolder"
+                  >
+                    0,00
+                  </p>
+                  <p
+                    class="mb-0 font-weight-bolder"
+                  >
+                    0,00
+                  </p>
                 </b-col>
                 <b-col
                   cols="12"
                   class="text-right"
                 >
                   <p
-                    class="  mt-5 font-weight-bolder"
+                    class="  mt-1 font-weight-bolder"
                   >
                     TOTAL
                   </p>
@@ -571,5 +720,18 @@ export default {
   height: 150px;
   border-radius: 65px;
   font-size: 2.5em;
+}
+.title-client{
+  color: #28c76f;
+  font-weight: bold;
+  font-size: 1.2em;
+}
+.btn-pay{
+  font-size: 3.5em;
+  border-color: #24c06a!important;
+  background-color: #28c76f !important;
+}
+.btn-pay:active{
+  background-color: rgb(33, 167, 93)6f !important;
 }
 </style>
