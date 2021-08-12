@@ -69,4 +69,20 @@ export default [
       ],
     },
   },
+  {
+    path: '/punto-venta',
+    name: 'pointSale',
+    component: () => import('@/views/system/box/pointSale/PointSale.vue'),
+    meta: {
+      auth: true,
+      pageTitle: 'Punto de Venta',
+      breadcrumb: [
+        moduleBreadCrumb,
+        {
+          text: 'Punto de Venta',
+          active: true,
+        },
+      ],
+    },
+  },
 ]
