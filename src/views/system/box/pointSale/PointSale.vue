@@ -5,17 +5,20 @@
     <!--Client Section-->
     <b-col
       cols="2"
+      lg="2"
+      md="6"
+      sm="6"
     >
       <div>
         <b-card
           tag="article"
-          style="height: 850px"
-          class="mb-2"
+          style="height: 880px"
+          class="mb-2 card-1"
         >
           <b-row>
             <b-col
               cols="12"
-              style="height: 660px"
+              style="height: 690px"
             >
               <b-row>
                 <b-col
@@ -73,6 +76,20 @@
                   <p><b>edgar.meneses@simsac.pe</b></p>
                 </b-col>
               </b-row>
+              <!--Datos de Facturación-->
+              <b-row
+                class="mt-4"
+              >
+                <b-col
+                  cols="12"
+                >
+                  <p
+                    class="mb-0 title-client"
+                  >
+                    Datos de Facturación
+                  </p>
+                </b-col>
+              </b-row>
             </b-col>
             <!--Button Section-->
             <b-col
@@ -80,7 +97,7 @@
               cols="12"
             >
               <b-button
-                class="btn-product"
+                class="btn-product px-md-1"
                 variant=""
               >
                 <feather-icon
@@ -89,7 +106,7 @@
                 />
               </b-button>
               <b-button
-                class="btn-product"
+                class="btn-product px-md-1"
               >
                 <feather-icon
                   icon="Edit2Icon"
@@ -97,7 +114,7 @@
                 />
               </b-button>
               <b-button
-                class="btn-product"
+                class="btn-product px-md-1"
               >
                 <feather-icon
                   icon="UserPlusIcon"
@@ -111,7 +128,7 @@
                 size="lg"
                 class="btn-block btn-pay"
               >
-                Pagar
+                Facturar
               </b-button>
             </b-col>
           </b-row>
@@ -120,6 +137,9 @@
     </b-col>
     <b-col
       cols="3"
+      lg="3"
+      md="6"
+      sm="6"
     >
       <b-row>
         <b-col
@@ -129,15 +149,17 @@
             <b-card
               title="Producto"
               tag="article"
-              style="height: 400px"
-              class="mb-2"
+              style="height: 430px"
+              class="mb-2 card-2"
             >
               <b-row>
                 <b-col
                   cols="9"
+                  md="8"
+                  sm="7"
                 >
                   <b-img
-                    src="https://cdnmedia.triathlon.com.pe/media/catalog/product/cache/1/image/1200x/040ec09b1e35df139433887a97daa66f/c/d/cd5463-001.jpg"
+                    src="https://cdn.lumingo.com/medias/0100318233-000000000004521178-0-c1200Wx1200H?context=bWFzdGVyfGltYWdlc3wxOTk3Nzl8aW1hZ2UvanBlZ3xpbWFnZXMvaGI1L2hmYS84ODY4MTkyNzE0NzgyLmpwZ3xiMWY1YTVmZGYwMjk4MzRlNWEzZTU1MTViZDE1YjdkODllZTdlNDkzMGNkZjNkNzMzYmQ5N2MxOWI0NWE1ZTZj"
                     fluid
                     width="200"
                     alt="Zapatilla"
@@ -145,10 +167,12 @@
                 </b-col>
                 <b-col
                   cols="3"
+                  md="4"
+                  sm="5"
                 >
                   <p
                     class="display-4 font-weight-bolder"
-                    style="margin-top: 100px"
+                    style="margin-top: 80%"
                   >
                     x 1
                   </p>
@@ -205,7 +229,7 @@
               title=""
               tag="article"
               style="height: 355px"
-              class="mb-2"
+              class="mb-2 card-4"
             >
               <b-row>
                 <b-col
@@ -302,7 +326,7 @@
         <b-card
           title=""
           tag="article"
-          style="height: 850px"
+          style="height: 880px"
           class="mb-2"
         >
           <b-card-text>
@@ -328,26 +352,31 @@
                   >
                     <b-col
                       cols="7"
+                      md="5"
                     >
                       <p>Nike Zapatilla</p>
                       <p>139.90 $</p>
                     </b-col>
                     <b-col
                       cols="3"
+                      md="5"
                     >
-                      <p>Ref: ####</p>
-                      <p>Code: ####</p>
+                      <p>Ref: ######</p>
+                      <p>Code: ######</p>
                     </b-col>
                     <b-col
                       cols="2"
-                      class="pt-1 px-0"
+                      md="2"
+                      class="px-0 "
                     >
-                      <button class="btn btn-circle btn-plus">
-                        +
-                      </button>
-                      <button class="btn btn-circle btn-delete">
-                        x
-                      </button>
+                      <b-button
+                        variant="gradient-danger"
+                        class="btn-icon rounded-circle"
+                        size="lg"
+                        style="margin-top:8px;font-weight: bold"
+                      >
+                        <feather-icon icon="XIcon" />
+                      </b-button>
                     </b-col>
                   </b-row>
                 </b-card>
@@ -368,8 +397,8 @@
             <b-card
               title=""
               tag="article"
-              style="height: 550px"
-              class="mb-2"
+              style="height: 500px"
+              class="mb-2 card-6"
             >
               <b-row
                 style=""
@@ -378,7 +407,7 @@
                   cols="6"
                 >
                   <p
-                    class="h3"
+                    class="h3 mt-1"
                   >
                     <b>TICKET: </b>12456971
                   </p>
@@ -386,15 +415,23 @@
                 <b-col
                   cols="6"
                 >
-                  <p
-                    class="font-weight-bolder h1 text-right"
-                  >
-                    <b>12:23</b>
-                  </p>
+                  <div>
+                    <p
+                      class="text-right m-0"
+                      style="font-size:12px"
+                    >
+                      12 AGO 2021</p>
+                    <p
+                      class="font-weight-bolder h1 text-right"
+                      style="font-size:2.5em"
+                    >
+                      <b>12:23</b>
+                    </p>
+                  </div>
                 </b-col>
                 <b-col
                   cols="12"
-                  class="mt-5"
+                  class="mt-3 mt-md-2"
                 >
                   <b-button
                     class="btn btn-primary btn-cuadrado"
@@ -456,62 +493,64 @@
                 <b-col
                   cols="12"
                 >
-                  <b-button
-                    class="btn btn-primary btn-cuadrado"
-                  >
-                    <feather-icon
-                      icon="ImageIcon"
-                      size="24"
-                    />
-                  </b-button>
-                  <b-button
-                    class="btn btn-primary btn-cuadrado"
-                  >
-                    <feather-icon
-                      icon="MonitorIcon"
-                      size="24"
-                    />
-                  </b-button>
-                  <b-button
-                    class="btn btn-primary btn-cuadrado"
-                  >
-                    <feather-icon
-                      icon="SettingsIcon"
-                      size="24"
-                    />
-                  </b-button>
-                  <b-button
-                    class="btn btn-primary btn-cuadrado"
-                  >
-                    <feather-icon
-                      icon="SpeakerIcon"
-                      size="24"
-                    />
-                  </b-button>
-                  <b-button
-                    class="btn btn-primary btn-cuadrado"
-                  >
-                    <feather-icon
-                      icon="YoutubeIcon"
-                      size="24"
-                    />
-                  </b-button>
-                  <b-button
-                    class="btn btn-primary btn-cuadrado"
-                  >
-                    <feather-icon
-                      icon="AirplayIcon"
-                      size="24"
-                    />
-                  </b-button>
-                  <b-button
-                    class="btn btn-primary btn-cuadrado"
-                  >
-                    <feather-icon
-                      icon="PieChartIcon"
-                      size="24"
-                    />
-                  </b-button>
+                  <div>
+                    <b-button
+                      class="btn btn-primary btn-cuadrado"
+                    >
+                      <feather-icon
+                        icon="ImageIcon"
+                        size="24"
+                      />
+                    </b-button>
+                    <b-button
+                      class="btn btn-primary btn-cuadrado"
+                    >
+                      <feather-icon
+                        icon="MonitorIcon"
+                        size="24"
+                      />
+                    </b-button>
+                    <b-button
+                      class="btn btn-primary btn-cuadrado"
+                    >
+                      <feather-icon
+                        icon="SettingsIcon"
+                        size="24"
+                      />
+                    </b-button>
+                    <b-button
+                      class="btn btn-primary btn-cuadrado"
+                    >
+                      <feather-icon
+                        icon="SpeakerIcon"
+                        size="24"
+                      />
+                    </b-button>
+                    <b-button
+                      class="btn btn-primary btn-cuadrado"
+                    >
+                      <feather-icon
+                        icon="YoutubeIcon"
+                        size="24"
+                      />
+                    </b-button>
+                    <b-button
+                      class="btn btn-primary btn-cuadrado"
+                    >
+                      <feather-icon
+                        icon="AirplayIcon"
+                        size="24"
+                      />
+                    </b-button>
+                    <b-button
+                      class="btn btn-primary btn-cuadrado"
+                    >
+                      <feather-icon
+                        icon="PieChartIcon"
+                        size="24"
+                      />
+                    </b-button>
+                  </div>
                 </b-col>
               </b-row>
             </b-card>
@@ -524,8 +563,8 @@
             <b-card
               title=""
               tag="article"
-              style="height: 285px"
-              class="mb-2"
+              style="height: 365px"
+              class="mb-2 card-7"
             >
               <b-row>
                 <b-col
@@ -540,6 +579,11 @@
                     class="mb-0 font-weight-bolder"
                   >
                     IVA 25%
+                  </p>
+                  <p
+                    class="mb-0 font-weight-bolder"
+                  >
+                    Descuento
                   </p>
                   <p
                     class="mb-0 font-weight-bolder"
@@ -626,20 +670,55 @@
                   >
                     0,00
                   </p>
+                  <p
+                    class="mb-0 font-weight-bolder text-danger"
+                  >
+                    -(0,00)
+                  </p>
+                </b-col>
+                <b-col
+                  cols="6"
+                  class="text-left mt-1"
+                >
+                  <p
+                    class="mb-0 font-weight-bolder"
+                  >
+                    Pagado
+                  </p>
+                  <p
+                    class="mb-0 font-weight-bolder"
+                  >
+                    Vuelto
+                  </p>
+                </b-col>
+                <b-col
+                  cols="6"
+                  class="text-right mt-1"
+                >
+                  <p
+                    class="mb-0 font-weight-bolder"
+                  >
+                    0,00
+                  </p>
+                  <p
+                    class="mb-0 font-weight-bolder"
+                  >
+                    0,00
+                  </p>
                 </b-col>
                 <b-col
                   cols="12"
-                  class="text-right"
+                  class="text-left"
                 >
                   <p
-                    class="  mt-1 font-weight-bolder"
+                    class="  mt-2 font-weight-bolder mb-0"
                   >
                     TOTAL
                   </p>
                   <p
-                    class="display-3 ml-2 font-weight-bolder"
+                    class="display-3 ml-2 font-weight-bolder text-right p-total"
                   >
-                    139.90
+                    <span>$</span>  139.90
                   </p>
                 </b-col>
               </b-row>
@@ -703,21 +782,22 @@ export default {
   border-color: #fff !important;
 }
 .btn-number{
-  width: 75px;
-  height: 75px;
+  width: 80px;
+  height: 80px;
   margin: 2px;
   border-radius: 50%;
-  background-color: #989898  !important;
-  border-color: #615f5f86 !important;
+  background-color: #1b1b1b  !important;
+  border-color: #000000 !important;
+  color: #24c06a !important;
   border-width: 3px;
   font-size: 2em;
 }
 .btn-double{
-  width: 150px;
+  width: 160px;
   border-radius: 65px ;
 }
 .btn-h{
-  height: 150px;
+  height: 160px;
   border-radius: 65px;
   font-size: 2.5em;
 }
@@ -733,5 +813,254 @@ export default {
 }
 .btn-pay:active{
   background-color: rgb(33, 167, 93)6f !important;
+}
+.card-4{
+  background-color: #565454;
+}
+
+@media (max-width: 1880px)  {
+  .btn-cuadrado{
+  width: 75px;
+  height: 75px;
+  margin: 8px
+  }
+  .btn-pay{
+  font-size: 2.5em;
+  border-color: #24c06a!important;
+  background-color: #28c76f !important;
+  }
+  .btn-product{
+  width: 60px;
+  height: 60px;
+  margin: 8px 4px;
+  background-color: #fff !important;
+  color: #989898 !important;
+  border-color: #fff !important;
+  }
+}
+
+@media (max-width: 1690px)  {
+  .btn-cuadrado{
+  width: 65px;
+  height: 65px;
+  margin: 6px
+  }
+  .btn-product{
+  width: 55px;
+  height: 55px;
+  margin: 8px 2px;
+  background-color: #fff !important;
+  color: #989898 !important;
+  border-color: #fff !important;
+  }
+}
+
+@media (max-width: 1600px)  {
+  .btn-cuadrado{
+  width: 62px;
+  height: 62px;
+  margin: 6px
+  }
+  .btn-pay{
+  font-size: 2em;
+  border-color: #24c06a!important;
+  background-color: #28c76f !important;
+  }
+  .btn-product{
+  width: 53px;
+  height: 53px;
+  margin: 15px 1px;
+  background-color: #fff !important;
+  color: #989898 !important;
+  border-color: #fff !important;
+  }
+  .btn-number{
+  width: 65px;
+  height: 65px;
+  margin: 2px;
+  border-radius: 50%;
+  border-width: 3px;
+  font-size: 2em;
+}
+.btn-double{
+  width: 130px;
+  border-radius: 65px ;
+}
+.btn-h{
+  height: 130px;
+  border-radius: 65px;
+  font-size: 2.5em;
+}
+}
+
+@media (max-width: 1440px)  {
+  .btn-cuadrado{
+  width: 58px;
+  height: 58px;
+  margin: 5px
+  }
+  .btn-pay{
+  font-size: 1.8em;
+  }
+  .btn-product{
+  width: 45px;
+  height: 45px;
+  margin: 15px 2px;
+  background-color: #fff !important;
+  color: #989898 !important;
+  border-color: #fff !important;
+  }
+  .btn-number{
+  width: 60px;
+  height: 60px;
+  margin: 2px;
+  border-radius: 50%;
+  border-width: 3px;
+  font-size: 2em;
+}
+.btn-double{
+  width: 120px;
+  border-radius: 65px ;
+}
+.btn-h{
+  height: 120px;
+  border-radius: 65px;
+  font-size: 2.5em;
+}
+}
+
+@media (max-width: 1366px)  {
+  .btn-cuadrado{
+  width: 56px;
+  height: 56px;
+  margin: 3px
+  }
+  .btn-pay{
+  font-size: 1.5em;
+  }
+  .btn-product{
+  width: 41px;
+  height: 41px;
+  margin: 20px 2px;
+  background-color: #fff !important;
+  color: #989898 !important;
+  border-color: #fff !important;
+  }
+  .btn-number{
+  width: 55px;
+  height: 55px;
+  margin: 2px;
+  border-radius: 50%;
+  border-width: 3px;
+  font-size: 2em;
+}
+.btn-double{
+  width: 110px;
+  border-radius: 65px ;
+}
+.btn-h{
+  height: 110px;
+  border-radius: 65px;
+  font-size: 2.5em;
+}
+}
+
+@media (max-width: 1280px)  {
+  .btn-cuadrado{
+  width: 51px;
+  height: 52px;
+  margin: 3px;
+  padding: 5px;
+  }
+  .btn-product{
+  width: 38px;
+  height: 38px;
+  margin: 20px 1px;
+  background-color: #fff !important;
+  color: #989898 !important;
+  border-color: #fff !important;
+  }
+  .card-6{
+    height: 450px !important;
+  }
+  .card-7{
+    height: 415px !important;
+  }
+  .btn-number{
+  width: 52px;
+  height: 52px;
+  margin: 2px;
+  border-radius: 50%;
+  border-width: 3px;
+  font-size: 2em;
+}
+.btn-double{
+  width: 104px;
+  border-radius: 65px ;
+}
+.btn-h{
+  height: 104px;
+  border-radius: 65px;
+  font-size: 2.5em;
+}
+.p-total{
+  font-size: 4em !important;
+  margin-top: 35px;
+}
+}
+
+@media (max-width: 1200px)  {
+  .btn-cuadrado{
+  width: 50px;
+  height: 50px;
+  margin: 3px;
+  padding: 5px;
+  }
+  .btn-pay{
+  font-size: 1.5em;
+  border-color: #24c06a!important;
+  background-color: #28c76f !important;
+  }
+  .btn-product{
+  width: 38px;
+  height: 38px;
+  margin: 25px 2px;
+  background-color: #fff !important;
+  color: #989898 !important;
+  border-color: #fff !important;
+  }
+  .card-1{
+    height: 870px !important;
+  }
+  .card-6{
+    height: 420px !important;
+  }
+  .card-7{
+    height: 435px !important;
+  }
+  .card-2{
+    height: 430px !important;
+  }
+  .card-4{
+    height: 345px !important;
+    padding-top: 20px !important;
+  }
+  .btn-number{
+  width: 55px;
+  height: 55px;
+  margin: 2px;
+  border-radius: 50%;
+  border-width: 3px;
+  font-size: 2em;
+}
+.btn-double{
+  width: 110px;
+  border-radius: 65px ;
+}
+.btn-h{
+  height: 110px;
+  border-radius: 65px;
+  font-size: 2.5em;
+}
 }
 </style>
