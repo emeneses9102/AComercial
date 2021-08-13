@@ -19,6 +19,7 @@
             <b-col
               cols="12"
               style="height: 690px"
+              class="s-cliente"
             >
               <b-row>
                 <b-col
@@ -93,7 +94,7 @@
             </b-col>
             <!--Button Section-->
             <b-col
-              class="m-0"
+              class="m-0 p-md-0 px-md-50"
               cols="12"
             >
               <b-button
@@ -171,7 +172,7 @@
                   sm="5"
                 >
                   <p
-                    class="display-4 font-weight-bolder"
+                    class="display-4 font-weight-bolder amount-article"
                     style="margin-top: 80%"
                   >
                     x 1
@@ -195,7 +196,7 @@
                   Cod: ########
                 </p>
                 <p
-                  class="h1 mt-1 w-100 font-weight-bolder"
+                  class="h1 mt-1 w-100 font-weight-bolder p-total"
                 >
                   $/. 139.90
                 </p>
@@ -229,7 +230,7 @@
               title=""
               tag="article"
               style="height: 355px"
-              class="mb-2 card-4"
+              class="mb-2 card-4 card-number"
             >
               <b-row>
                 <b-col
@@ -327,7 +328,7 @@
           title=""
           tag="article"
           style="height: 880px"
-          class="mb-2"
+          class="mb-2 card-5"
         >
           <b-card-text>
             <b-form-input
@@ -343,6 +344,7 @@
             <b-row>
               <b-col
                 cols="12"
+                class="p-md-0"
               >
                 <b-card
                   style="height: 50px"
@@ -407,7 +409,7 @@
                   cols="6"
                 >
                   <p
-                    class="h3 mt-1"
+                    class="h3 mt-1 label-ticket"
                   >
                     <b>TICKET: </b>12456971
                   </p>
@@ -716,7 +718,7 @@
                     TOTAL
                   </p>
                   <p
-                    class="display-3 ml-2 font-weight-bolder text-right p-total"
+                    class="display-3 ml-2 font-weight-bolder text-right label-total"
                   >
                     <span>$</span>  139.90
                   </p>
@@ -769,9 +771,9 @@ export default {
   color: red;
 }
 .btn-cuadrado{
-  width: 80px;
-  height: 80px;
-  margin: 8px
+  width: 75px;
+  height: 75px;
+  margin: 10px
 }
 .btn-product{
   width: 62px;
@@ -782,9 +784,9 @@ export default {
   border-color: #fff !important;
 }
 .btn-number{
-  width: 80px;
-  height: 80px;
-  margin: 2px;
+  width: 75px;
+  height: 75px;
+  margin: 3px;
   border-radius: 50%;
   background-color: #1b1b1b  !important;
   border-color: #000000 !important;
@@ -793,11 +795,11 @@ export default {
   font-size: 2em;
 }
 .btn-double{
-  width: 160px;
+  width: 150px;
   border-radius: 65px ;
 }
 .btn-h{
-  height: 160px;
+  height: 150px;
   border-radius: 65px;
   font-size: 2.5em;
 }
@@ -1004,8 +1006,9 @@ export default {
   font-size: 2.5em;
 }
 .p-total{
-  font-size: 4em !important;
-  margin-top: 35px;
+  text-align: center;
+  font-size: 3.5em !important;
+  margin-top: 40px;
 }
 }
 
@@ -1062,5 +1065,150 @@ export default {
   border-radius: 65px;
   font-size: 2.5em;
 }
+.label-ticket{
+    font-size: 1.7em;
+  }
+}
+
+@media (max-width: 1172px)  {
+.btn-cuadrado{
+  width: 38px;
+  height: 38px;
+  margin: 3px;
+  padding: 5px;
+  }
+  .card-6{
+    height: 320px !important;
+  }
+  .label-ticket{
+    font-size: 1.5em;
+  }
+  .btn-number{
+  width: 49px;
+  height: 49px;
+  margin: 2px;
+  border-radius: 50%;
+  border-width: 3px;
+  font-size: 1.3em;
+}
+.btn-double{
+  width: 100px;
+  border-radius: 65px ;
+}
+.btn-h{
+  height: 100px;
+  border-radius: 65px;
+  font-size: 2.5em;
+}
+.card-4{
+    height: 280px !important;
+  }
+.card-number{
+    padding-top: 10px !important;
+  }
+  .card-1{
+    height: 775px !important;
+  }
+  .btn-pay{
+  font-size: 1.3em;
+  border-color: #24c06a!important;
+  background-color: #28c76f !important;
+  }
+  .btn-product{
+  width: 35px;
+  height: 35px;
+  margin: 8px 2px;
+  background-color: #fff !important;
+  color: #989898 !important;
+  border-color: #fff !important;
+  }
+  .s-cliente{
+    height: 650px !important;
+  }
+  .card-5{
+    height: 775px !important;
+  }
+  .card-2{
+    height: 400px !important;
+  }
+  .label-total{
+    margin-top: 60px;
+    font-size: 3.8em !important;
+  }
+}
+@media (max-width: 1079px)  {
+.btn-cuadrado{
+  width: 38px;
+  height: 38px;
+  margin: 3px;
+  padding: 5px;
+  }
+  .card-6{
+    height: 320px !important;
+  }
+  .label-ticket{
+    font-size: 1.5em;
+  }
+  .btn-number{
+  width: 43px;
+  height: 43px;
+  margin: 2px;
+  border-radius: 50%;
+  border-width: 3px;
+  font-size: 0.8em;
+  padding: 1.2em;
+}
+.btn-double{
+  width: 86px;
+  border-radius: 65px ;
+}
+.btn-h{
+  height: 86px;
+  border-radius: 65px;
+  font-size: 2em;
+  padding: 0em;
+}
+.card-4{
+    height: 280px !important;
+  }
+.card-number{
+    padding-top: 10px !important;
+  }
+  .card-1{
+    height: 775px !important;
+  }
+  .btn-pay{
+  font-size: 1.3em;
+  padding: 0.8em 1em;
+  border-color: #24c06a!important;
+  background-color: #28c76f !important;
+  }
+  .btn-product{
+  width: 30px;
+  height: 30px;
+  margin: 12px 2px;
+  background-color: #fff !important;
+  color: #989898 !important;
+  border-color: #fff !important;
+  }
+  .s-cliente{
+    height: 650px !important;
+  }
+  .card-5{
+    height: 775px !important;
+  }
+  .card-2{
+    height: 400px !important;
+  }
+  .label-total{
+    margin-top: 60px;
+    font-size: 3.2em !important;
+  }
+  .p-total{
+    font-size: 3.2em !important;
+  }
+  .amount-article{
+    font-size: 3em !important;
+  }
 }
 </style>
