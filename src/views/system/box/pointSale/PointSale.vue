@@ -369,11 +369,11 @@
                     <b-col
                       cols="2"
                       md="2"
-                      class="px-0 "
+                      class="px-0 mt-md-2 "
                     >
                       <b-button
                         variant="gradient-danger"
-                        class="btn-icon rounded-circle"
+                        class="btn-icon rounded-circle btn-delete"
                         size="lg"
                         style="margin-top:8px;font-weight: bold"
                       >
