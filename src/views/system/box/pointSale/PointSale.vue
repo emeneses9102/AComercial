@@ -30,7 +30,9 @@
                   >
                     Cliente N° #####
                   </p>
-                  <p><b>Edgar Meneses</b></p>
+                  <p class="mt-50">
+                    <b>Edgar Meneses</b>
+                  </p>
                 </b-col>
                 <b-col
                   cols="12"
@@ -45,7 +47,7 @@
                 </b-col>
                 <b-col
                   cols="12"
-                  class="mt-2"
+                  class="mt-2 mt-md-0"
                 >
                   <p
                     class="mb-0"
@@ -56,7 +58,7 @@
                 </b-col>
                 <b-col
                   cols="12"
-                  class="mt-2"
+                  class="mt-2 mt-md-0"
                 >
                   <p
                     class="mb-0"
@@ -67,7 +69,7 @@
                 </b-col>
                 <b-col
                   cols="12"
-                  class="mt-2"
+                  class="mt-2 mt-md-0"
                 >
                   <p
                     class="mb-0"
@@ -1144,8 +1146,8 @@ export default {
     font-size: 1.5em;
   }
   .btn-number{
-  width: 43px;
-  height: 43px;
+  width: 45px;
+  height: 45px;
   margin: 2px;
   border-radius: 50%;
   border-width: 3px;
@@ -1153,11 +1155,11 @@ export default {
   padding: 1.2em;
 }
 .btn-double{
-  width: 86px;
+  width: 90px;
   border-radius: 65px ;
 }
 .btn-h{
-  height: 86px;
+  height: 90px;
   border-radius: 65px;
   font-size: 2em;
   padding: 0em;
