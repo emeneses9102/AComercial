@@ -369,13 +369,13 @@
                     <b-col
                       cols="2"
                       md="2"
-                      class="px-0 mt-md-2 "
+                      class="px-0 mt-50 "
                     >
                       <b-button
                         variant="gradient-danger"
                         class="btn-icon rounded-circle btn-delete"
                         size="lg"
-                        style="margin-top:8px;font-weight: bold"
+                        style="font-weight: bold"
                       >
                         <feather-icon icon="XIcon" />
                       </b-button>
@@ -491,68 +491,62 @@
                       size="24"
                     />
                   </b-button>
-                </b-col>
-                <b-col
-                  cols="12"
-                >
-                  <div>
-                    <b-button
-                      class="btn btn-primary btn-cuadrado"
-                    >
-                      <feather-icon
-                        icon="ImageIcon"
-                        size="24"
-                      />
-                    </b-button>
-                    <b-button
-                      class="btn btn-primary btn-cuadrado"
-                    >
-                      <feather-icon
-                        icon="MonitorIcon"
-                        size="24"
-                      />
-                    </b-button>
-                    <b-button
-                      class="btn btn-primary btn-cuadrado"
-                    >
-                      <feather-icon
-                        icon="SettingsIcon"
-                        size="24"
-                      />
-                    </b-button>
-                    <b-button
-                      class="btn btn-primary btn-cuadrado"
-                    >
-                      <feather-icon
-                        icon="SpeakerIcon"
-                        size="24"
-                      />
-                    </b-button>
-                    <b-button
-                      class="btn btn-primary btn-cuadrado"
-                    >
-                      <feather-icon
-                        icon="YoutubeIcon"
-                        size="24"
-                      />
-                    </b-button>
-                    <b-button
-                      class="btn btn-primary btn-cuadrado"
-                    >
-                      <feather-icon
-                        icon="AirplayIcon"
-                        size="24"
-                      />
-                    </b-button>
-                    <b-button
-                      class="btn btn-primary btn-cuadrado"
-                    >
-                      <feather-icon
-                        icon="PieChartIcon"
-                        size="24"
-                      />
-                    </b-button>
-                  </div>
+                  <b-button
+                    class="btn btn-primary btn-cuadrado"
+                  >
+                    <feather-icon
+                      icon="ImageIcon"
+                      size="24"
+                    />
+                  </b-button>
+                  <b-button
+                    class="btn btn-primary btn-cuadrado"
+                  >
+                    <feather-icon
+                      icon="MonitorIcon"
+                      size="24"
+                    />
+                  </b-button>
+                  <b-button
+                    class="btn btn-primary btn-cuadrado"
+                  >
+                    <feather-icon
+                      icon="SettingsIcon"
+                      size="24"
+                    />
+                  </b-button>
+                  <b-button
+                    class="btn btn-primary btn-cuadrado"
+                  >
+                    <feather-icon
+                      icon="SpeakerIcon"
+                      size="24"
+                    />
+                  </b-button>
+                  <b-button
+                    class="btn btn-primary btn-cuadrado"
+                  >
+                    <feather-icon
+                      icon="YoutubeIcon"
+                      size="24"
+                    />
+                  </b-button>
+                  <b-button
+                    class="btn btn-primary btn-cuadrado"
+                  >
+                    <feather-icon
+                      icon="AirplayIcon"
+                      size="24"
+                    />
+                  </b-button>
+                  <b-button
+                    class="btn btn-primary btn-cuadrado"
+                  >
+                    <feather-icon
+                      icon="PieChartIcon"
+                      size="24"
+                    />
+                  </b-button>
                 </b-col>
               </b-row>
             </b-card>
@@ -1136,7 +1130,7 @@ export default {
     font-size: 3.8em !important;
   }
 }
-@media (max-width: 1079px)  {
+@media (max-width: 1080px)  {
 .btn-cuadrado{
   width: 38px;
   height: 38px;
@@ -1209,6 +1203,9 @@ export default {
   }
   .amount-article{
     font-size: 3em !important;
+  }
+  .btn-delete{
+    margin-top: 0 !important;
   }
 }
 </style>
