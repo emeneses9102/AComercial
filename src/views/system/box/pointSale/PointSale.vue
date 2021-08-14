@@ -30,7 +30,9 @@
                   >
                     Cliente N° #####
                   </p>
-                  <p><b>Edgar Meneses</b></p>
+                  <p class="mt-50">
+                    <b>Edgar Meneses</b>
+                  </p>
                 </b-col>
                 <b-col
                   cols="12"
@@ -45,7 +47,7 @@
                 </b-col>
                 <b-col
                   cols="12"
-                  class="mt-2"
+                  class="mt-2 mt-md-0"
                 >
                   <p
                     class="mb-0"
@@ -56,7 +58,7 @@
                 </b-col>
                 <b-col
                   cols="12"
-                  class="mt-2"
+                  class="mt-2 mt-md-0"
                 >
                   <p
                     class="mb-0"
@@ -67,7 +69,7 @@
                 </b-col>
                 <b-col
                   cols="12"
-                  class="mt-2"
+                  class="mt-2 mt-md-0"
                 >
                   <p
                     class="mb-0"
