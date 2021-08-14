@@ -1144,8 +1144,8 @@ export default {
     font-size: 1.5em;
   }
   .btn-number{
-  width: 43px;
-  height: 43px;
+  width: 45px;
+  height: 45px;
   margin: 2px;
   border-radius: 50%;
   border-width: 3px;
@@ -1153,11 +1153,11 @@ export default {
   padding: 1.2em;
 }
 .btn-double{
-  width: 86px;
+  width: 90px;
   border-radius: 65px ;
 }
 .btn-h{
-  height: 86px;
+  height: 90px;
   border-radius: 65px;
   font-size: 2em;
   padding: 0em;
