@@ -77,4 +77,12 @@ export default [
       auth: true,
     },
   },
+  {
+    path: '/punto-venta-two',
+    name: 'pointSaleTwo',
+    component: () => import('@/views/system/box/pointSaleTwo/PointSaleTwo.vue'),
+    meta: {
+      auth: true,
+    },
+  },
 ]
