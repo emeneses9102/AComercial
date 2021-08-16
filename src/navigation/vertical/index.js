@@ -142,6 +142,10 @@ export default [
         title: 'Punto de Venta',
         route: 'pointSale',
       },
+      {
+        title: 'Punto de Venta 2',
+        route: 'pointSaleTwo',
+      },
     ],
   },
   {
