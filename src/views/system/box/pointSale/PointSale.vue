@@ -2,6 +2,9 @@
   <b-row
     class="mb-0 pb-0"
   >
+    <div>
+      <modal-search-client />
+    </div>
     <!--Client Section-->
     <b-col
       cols="2"
@@ -437,14 +440,10 @@
                   cols="12"
                   class="mt-3 mt-md-2"
                 >
-                  <b-button
-                    class="btn btn-primary btn-cuadrado"
-                  >
-                    <feather-icon
-                      icon="AirplayIcon"
-                      size="24"
-                    />
-                  </b-button>
+                  <button-point-sale
+                    :modal-id="MODAL_ID"
+                    icon="UsersIcon"
+                  />
                   <b-button
                     class="btn btn-primary btn-cuadrado"
                   >
@@ -733,8 +732,14 @@
 import {
   BRow, BCol, BCard, BCardText, BImg, BFormInput, BButton,
 } from 'bootstrap-vue'
+import ButtonPointSale from '@/components/ButtonPointSale/ButtonPointSale.vue'
+import {
+  MODAL_ID,
+} from './ServicesPointSale/useVariablesPointSale'
+import ModalSearchClient from './ModalSearchClient/ModalSearchClient.vue'
 
 export default {
+  name: 'PointSale',
   components: {
     BRow,
     BImg,
@@ -743,11 +748,19 @@ export default {
     BCardText,
     BFormInput,
     BButton,
+    ModalSearchClient,
+    ButtonPointSale,
+  },
+  setup() {
+    return {
+      MODAL_ID,
+    }
   },
 }
 </script>
 
 <style lang="scss">
+@import '@core/scss/vue/libs/vue-select.scss';
 .btn-circle{
   width: 35px;
   height: 35px;
@@ -769,7 +782,7 @@ export default {
 .btn-cuadrado{
   width: 75px;
   height: 75px;
-  margin: 10px
+  margin: 10px;
 }
 .btn-product{
   width: 62px;
