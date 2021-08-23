@@ -3,7 +3,7 @@
     class="mb-0 pb-0"
   >
     <div>
-      <modal-search-client />
+      <modal-list-client />
     </div>
     <!--Client Section-->
     <b-col
@@ -440,7 +440,7 @@
                   cols="12"
                   class="mt-3 mt-md-2"
                 >
-                  <button-point-sale
+                  <container-buttons
                     :modal-id="MODAL_ID"
                     icon="UsersIcon"
                   />
@@ -732,11 +732,11 @@
 import {
   BRow, BCol, BCard, BCardText, BImg, BFormInput, BButton,
 } from 'bootstrap-vue'
-import ButtonPointSale from '@/components/ButtonPointSale/ButtonPointSale.vue'
+import ContainerButtons from '@/components/ContainerButtons/ContainerButtons.vue'
 import {
   MODAL_ID,
 } from './ServicesPointSale/useVariablesPointSale'
-import ModalSearchClient from './ModalSearchClient/ModalSearchClient.vue'
+import ModalListClient from './ModalListClient/ModalListClient.vue'
 
 export default {
   name: 'PointSale',
@@ -748,8 +748,8 @@ export default {
     BCardText,
     BFormInput,
     BButton,
-    ModalSearchClient,
-    ButtonPointSale,
+    ContainerButtons,
+    ModalListClient,
   },
   setup() {
     return {
