@@ -1,0 +1,79 @@
+// $color-light: green;
+$size-button: 70px;
+$font-size: 2rem;
+$bg-card-numeric: #666;
+$bg-button-key: darkslategrey;
+$bg-button-key-active: #28c76f;
+
+.pointsale-board-numeric {
+  background-color: $bg-card-input !important;
+  border: 3px solid $border-color;
+
+  .card-body {
+    padding: 1em .5em;
+    display: grid;
+    justify-content: center;
+    grid-template-columns: auto auto auto auto;
+    gap: .25em;
+  }
+
+}
+
+.btn-board-numeric {
+  background-color: $bg-card-dark;
+  border: 3px solid $border-color;
+  color: $color-light !important;
+  border-radius: 50%;
+  width: var(--size-button-board-numeric);
+  height: var(--size-button-board-numeric);
+  outline: none !important;
+  font-size: var(--font-size-button-board-numeric);
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 900;
+
+  @media screen and (max-width: map-get($pointsale-media-query, pointsale-laptop-middle)) {
+    --size-button-board-numeric: 64px;
+    --font-size-button-board-numeric: 1.75rem;
+  }
+
+  @media screen and (max-width: map-get($pointsale-media-query, pointsale-laptop)){
+    --size-button-board-numeric: 60px;
+    --font-size-button-board-numeric: 1.5rem;
+  }
+
+  &--enter {
+    grid-area: 3 / 4 / span 2 / span 1;
+    height: 100%;
+    border-radius: 2em;
+  }
+
+  &--zero {
+    grid-area: 4 / 1 / auto / span 2;
+    width: 100%;
+    border-radius: 2em;
+  }
+
+  &--key {
+    background-color: $bg-button-key !important;
+    
+    &:active {
+      background-color: darken($bg-button-key, 5) !important;
+    }
+  }
+  
+  &.active {
+    background-color: $bg-button-key-active !important;
+    color: darken($bg-button-key-active, 32) !important;
+
+    &:active {
+      background-color: darken($bg-button-key-active, 10) !important;
+    }
+  }
+
+  &:active {
+    background-color: darken($bg-card-dark, 5);
+  }
+}
