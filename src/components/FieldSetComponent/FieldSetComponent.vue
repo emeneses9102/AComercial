@@ -44,7 +44,7 @@ export default {
     // Verificar si la prop collapse tiene el valor colapse
     initialHieghtBody() {
       if (this.collapse === 'collapse') {
-        return 'height: 0px;'
+        return 'height: 0px; transform: scaleY(0);'
       }
       return ''
     },
@@ -54,10 +54,15 @@ export default {
     collapseBody() {
       if (getComputedStyle(this.$refs['fieldset-component__body']).height === '0px' || getComputedStyle(this.$refs['fieldset-component__body']).height === '') {
         this.$refs['fieldset-component__body'].style.height = `${this.$refs['fieldset-component__body'].scrollHeight}px`
+        this.$refs['fieldset-component__body'].style.transform = 'scaleY(1)'
+        setTimeout(() => {
+          this.$refs['fieldset-component__body'].removeAttribute('style')
+        }, 1000)
       } else {
         this.$refs['fieldset-component__body'].style.height = `${this.$refs['fieldset-component__body'].scrollHeight}px`
         setTimeout(() => {
           this.$refs['fieldset-component__body'].style.height = '0px'
+          this.$refs['fieldset-component__body'].style.transform = 'scaleY(0)'
         }, 10)
       }
     },
@@ -87,8 +92,9 @@ export default {
   }
 
   &__body {
-    overflow: hidden;
-    transition: height .3s ease-in-out;
+    // overflow: hidden;
+    transform-origin: top center;
+    transition: height .3s ease-in-out, transform .3s ease-in-out;
   }
 
   &__button {
