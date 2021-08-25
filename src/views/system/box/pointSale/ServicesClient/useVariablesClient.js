@@ -3,7 +3,7 @@ import { ref } from '@vue/composition-api'
 
 // Importar configuracion de las columnas personalizadas
 import { columnAction, columnStatus } from '@/helpers/columnsTable'
-import { initialStateCombo } from '@/helpers/combos'
+import { initialStateCombo, resetCombos } from '@/helpers/combos'
 import { clearServerQueryDefaultFilter, serverQueryDefault } from '@/helpers/serverQuery'
 
 // Variables inicializadora para almacenar la configuración de cada columna de la tabla Cliente
@@ -93,11 +93,17 @@ export const clearFiltersClient = () => {
 // Variable inicializadora para almacenar el estado de un registro, actualización, cambio de estado, eliminación en la tabla Cliente
 const initialStateClient = {
   _id: 0,
+  idDocumento: 0,
   apellidoPaterno: '',
   apellidoMaterno: '',
   nombres: '',
   numeroRuc: '',
   numeroDocumento: '',
+  idUbigeo: 0,
+  nombreUbigeo: '',
+  direccion: '',
+  telefono: '',
+  correo: '',
   accion: 0,
   loading: false,
 }
@@ -110,8 +116,33 @@ export const clearStateClient = () => {
   stateClient.value = { ...initialStateClient }
 }
 export const combosClient = ref({
-  predios: { ...initialStateCombo },
+  document: { ...initialStateCombo },
 })
+
+// Variable inicializadora para almacenar el ubigeo seleccionado en el mantenimiento Socio
+const initialStateClientUbigeo = {
+  departament: 0,
+  province: 0,
+  district: 0,
+}
+
+// Variable reactiva para almacenar el ubigeo seleccionado en el mantenimiento Socio
+export const stateClientUbigeo = ref({ ...initialStateClientUbigeo })
+
+// Función para limpiar el ubigeo seleccionado
+export const clearStateClientUbigeo = () => {
+  stateClientUbigeo.value = { ...initialStateClientUbigeo }
+}
+
+// Variable reactiva para almacenar los combos que se manejaran en el mantenimiento Socio
+export const combosClientUbigeo = ref({
+  departament: { ...initialStateCombo },
+  province: { ...initialStateCombo },
+  district: { ...initialStateCombo },
+})
+export const clearCombosClientUbigeo = () => {
+  resetCombos(combosClientUbigeo, ['province', 'district'])
+}
 
 // Constante para almacenar las columnas permitidas para el filtro del mantenimiento Socios
 export const columnsFilterClient = [
