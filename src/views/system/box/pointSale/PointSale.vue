@@ -732,11 +732,15 @@
 import {
   BRow, BCol, BCard, BCardText, BImg, BFormInput, BButton,
 } from 'bootstrap-vue'
+import { onMounted } from '@vue/composition-api'
+import { endPointsCombo, loadCombos } from '@/helpers/combos'
 import ContainerButtons from '@/components/ContainerButtons/ContainerButtons.vue'
 import {
   MODAL_ID,
 } from './ServicesPointSale/useVariablesPointSale'
+
 import ModalListClient from './ModalListClient/ModalListClient.vue'
+import { combosClient, combosClientUbigeo } from './ServicesClient/useVariablesClient'
 
 export default {
   name: 'PointSale',
@@ -752,6 +756,11 @@ export default {
     ModalListClient,
   },
   setup() {
+    onMounted(() => {
+      loadCombos(combosClient, ['document'], `${endPointsCombo.tipoDocumento}/1`, 'Tipo de Documento')
+      loadCombos(combosClientUbigeo, ['departament'], endPointsCombo.departamento, 'Departamento')
+    })
+
     return {
       MODAL_ID,
     }
