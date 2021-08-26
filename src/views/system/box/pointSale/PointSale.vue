@@ -142,191 +142,7 @@
       </div>
     </b-col>
     <b-col
-      cols="3"
-      lg="3"
-      md="6"
-      sm="6"
-    >
-      <b-row>
-        <b-col
-          cols="12"
-        >
-          <div>
-            <b-card
-              title="Producto"
-              tag="article"
-              style="height: 430px"
-              class="mb-2 card-2"
-            >
-              <b-row>
-                <b-col
-                  cols="9"
-                  md="8"
-                  sm="7"
-                >
-                  <b-img
-                    src="https://cdn.lumingo.com/medias/0100318233-000000000004521178-0-c1200Wx1200H?context=bWFzdGVyfGltYWdlc3wxOTk3Nzl8aW1hZ2UvanBlZ3xpbWFnZXMvaGI1L2hmYS84ODY4MTkyNzE0NzgyLmpwZ3xiMWY1YTVmZGYwMjk4MzRlNWEzZTU1MTViZDE1YjdkODllZTdlNDkzMGNkZjNkNzMzYmQ5N2MxOWI0NWE1ZTZj"
-                    fluid
-                    width="200"
-                    alt="Zapatilla"
-                  />
-                </b-col>
-                <b-col
-                  cols="3"
-                  md="4"
-                  sm="5"
-                >
-                  <p
-                    class="display-4 font-weight-bolder amount-article"
-                    style="margin-top: 80%"
-                  >
-                    x 1
-                  </p>
-                </b-col>
-              </b-row>
-              <b-card-text>
-                <p
-                  class="h4 text-success mt-1 w-900"
-                >
-                  NIKE HOMBRE CD5463-001 NIKE COURT VISION LO
-                </p>
-                <p
-                  class="mt-1 mb-0"
-                >
-                  Ref: ########
-                </p>
-                <p
-                  class="mt-0"
-                >
-                  Cod: ########
-                </p>
-                <p
-                  class="h1 mt-1 w-100 font-weight-bolder p-total"
-                >
-                  $/. 139.90
-                </p>
-              </b-card-text>
-            </b-card>
-          </div>
-        </b-col>
-        <b-col
-          cols="12"
-        >
-          <div>
-            <b-card
-              tag="article"
-              style="height: 60px"
-              class="mb-2 pt-0"
-              bg-variant="dark"
-            >
-              <b-card-text
-                class="h1 text-white p-0"
-              >
-                35
-              </b-card-text>
-            </b-card>
-          </div>
-        </b-col>
-        <b-col
-          cols="12"
-        >
-          <div>
-            <b-card
-              title=""
-              tag="article"
-              style="height: 355px"
-              class="mb-2 card-4 card-number"
-            >
-              <b-row>
-                <b-col
-                  cols="9"
-                  class=" text-center pr-0"
-                  style=""
-                >
-                  <b-button
-                    class="btn btn-primary btn-number"
-                  >
-                    1
-                  </b-button>
-                  <b-button
-                    class="btn btn-primary btn-number"
-                  >
-                    2
-                  </b-button>
-                  <b-button
-                    class="btn btn-primary btn-number"
-                  >
-                    3
-                  </b-button>
-                  <b-button
-                    class="btn btn-primary btn-number"
-                  >
-                    4
-                  </b-button>
-                  <b-button
-                    class="btn btn-primary btn-number"
-                  >
-                    5
-                  </b-button>
-                  <b-button
-                    class="btn btn-primary btn-number"
-                  >
-                    6
-                  </b-button>
-                  <b-button
-                    class="btn btn-primary btn-number"
-                  >
-                    7
-                  </b-button>
-                  <b-button
-                    class="btn btn-primary btn-number"
-                  >
-                    8
-                  </b-button>
-                  <b-button
-                    class="btn btn-primary btn-number"
-                  >
-                    9
-                  </b-button>
-                  <b-button
-                    class="btn btn-primary btn-number btn-double"
-                  >
-                    0
-                  </b-button>
-                  <b-button
-                    class="btn btn-primary btn-number"
-                  >
-                    ,
-                  </b-button>
-                </b-col>
-                <b-col
-                  cols="3"
-                  class="pl-0"
-                >
-                  <b-button
-                    class="btn btn-primary btn-number"
-                  >
-                    &#8701;
-                  </b-button>
-                  <b-button
-                    class="btn btn-primary btn-number"
-                  >
-                    C
-                  </b-button>
-                  <b-button
-                    class="btn btn-primary btn-number btn-h"
-                  >
-                    &#8626;
-                  </b-button>
-                </b-col>
-              </b-row>
-            </b-card>
-          </div>
-        </b-col>
-      </b-row>
-    </b-col>
-    <b-col
-      cols="4"
+      cols="7"
     >
       <div>
         <b-card
@@ -358,31 +174,53 @@
                     style="box-shadow:0px 7px 15px 0px rgba(0,0,0,0.75); padding: 10px 5px 5px 0px; border-radius:10px"
                   >
                     <b-col
-                      cols="7"
-                      md="5"
+                      cols="2"
+                      lg="2"
+                      md="1"
+                    >
+                      <b-img
+                        src="https://cdn.lumingo.com/medias/0100318233-000000000004521178-0-c1200Wx1200H?context=bWFzdGVyfGltYWdlc3wxOTk3Nzl8aW1hZ2UvanBlZ3xpbWFnZXMvaGI1L2hmYS84ODY4MTkyNzE0NzgyLmpwZ3xiMWY1YTVmZGYwMjk4MzRlNWEzZTU1MTViZDE1YjdkODllZTdlNDkzMGNkZjNkNzMzYmQ5N2MxOWI0NWE1ZTZj"
+                        fluid
+                        width="200"
+                        alt="Zapatilla"
+                      />
+                    </b-col>
+                    <b-col
+                      cols="4"
+                      class="text-center pt-2"
                     >
                       <p>Nike Zapatilla</p>
                       <p>139.90 $</p>
                     </b-col>
                     <b-col
-                      cols="3"
-                      md="5"
+                      cols="4"
+                      class="text-center pt-2 "
                     >
                       <p>Ref: ######</p>
                       <p>Code: ######</p>
                     </b-col>
                     <b-col
-                      cols="2"
+                      cols="1"
+                      lg="2"
                       md="2"
-                      class="px-0 mt-50 "
+                      sm="2"
+                      class="px-0 mt-50 pt-2  "
                     >
                       <b-button
-                        variant="gradient-danger"
-                        class="btn-icon rounded-circle btn-delete"
+                        variant="relief-danger"
+                        class="btn-icon  btn-delete mr-1 mr-md-50"
                         size="lg"
                         style="font-weight: bold"
                       >
                         <feather-icon icon="XIcon" />
+                      </b-button>
+                      <b-button
+                        variant="relief-success"
+                        class="btn-icon  btn-delete"
+                        size="lg"
+                        style="font-weight: bold"
+                      >
+                        <feather-icon icon="SearchIcon" />
                       </b-button>
                     </b-col>
                   </b-row>
