@@ -16,7 +16,6 @@ $font-size-product-name: 1.45rem;
     padding: .5em 1em;
     outline: none;
     font-size: 1.5rem;
-    margin-bottom: 1em;
     border: 3px solid #111;
     color: white;
     text-align: center;
@@ -47,6 +46,15 @@ $font-size-product-name: 1.45rem;
   padding: .75em 1em;
   border-radius: .5em;
   margin-bottom: .5em;
+  cursor: pointer;
+
+  &--selected {
+    background-color: lighten($bg-product-item, $amount: 60);
+
+    .dark-layout & {
+      background-color: darken($bg-product-item, 10);
+    }
+  }
   
   .dark-layout & {
     box-shadow: 0 4px 2px -2px darken($bg-product-item, 20);

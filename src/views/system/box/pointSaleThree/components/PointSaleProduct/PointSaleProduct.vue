@@ -5,7 +5,7 @@
       <div class="product-container-img">
         <div class="product-card-img">
           <b-img
-            :src="require('@/assets/images/elements/macbook-pro.png')"
+            :src="stateProductSelected.imagen || require('@/assets/images/icons/no-photos.svg')"
             alt="Macbook Pro"
             class="product-img"
             draggable="false"
@@ -13,7 +13,7 @@
         </div>
       </div>
       <p class="product-name">
-        MacBook Pro 13 Pulg.
+        {{ stateProductSelected.nombre }}
       </p>
       <div class="d-flex justify-content-between align-items-center">
         <div>
@@ -21,20 +21,23 @@
             Ref: ###########
           </p>
           <p class="product-code">
-            Código: 654891354984
+            Código: {{ stateProductSelected.codigo }}
           </p>
           <p class="product-price">
-            S/. 6599.00
+            S/. {{ stateProductSelected.precio.toFixed(2) }}
           </p>
         </div>
-        <div class="product-discount">
+        <div
+          v-if="stateProductSelected.descuento"
+          class="product-discount"
+        >
           <span class="product-discount-circle" />
-          <span class="product-discount-percentage">10 %</span>
+          <span class="product-discount-percentage">{{ stateProductSelected.descuento }} %</span>
         </div>
       </div>
     </b-card>
     <b-card class="pointsale-product-quantity">
-      1
+      {{ stateProductSelected.cantidad || 'Ingrese cantidad' }}
     </b-card>
   </fragment>
 </template>
@@ -44,6 +47,7 @@ import {
   BCard, BImg,
 } from 'bootstrap-vue'
 import { Fragment } from 'vue-fragment'
+import { stateProductSelected } from '../../ServicesPointSale/useVariablesPointSale'
 
 export default {
   name: 'PointSaleProduct',
@@ -51,6 +55,11 @@ export default {
     BCard,
     BImg,
     Fragment,
+  },
+  setup() {
+    return {
+      stateProductSelected,
+    }
   },
 }
 </script>

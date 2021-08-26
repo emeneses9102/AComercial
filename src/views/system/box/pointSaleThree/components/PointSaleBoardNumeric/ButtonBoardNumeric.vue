@@ -1,6 +1,7 @@
 <template>
   <button
     class="btn-board-numeric"
+    @click="methodFunction"
   >
     {{ text }}
   </button>
@@ -14,6 +15,11 @@ export default {
       type: String,
       required: true,
       default: 'N',
+    },
+    methodFunction: {
+      type: Function,
+      required: false,
+      default: () => {},
     },
   },
 }

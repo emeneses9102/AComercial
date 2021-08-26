@@ -39,14 +39,6 @@ export default {
     PointSaleTools,
     PointSaleAmount,
   },
-  // created() {
-  //   const { isNavMenuHidden } = useAppConfig()
-  //   isNavMenuHidden.value = true
-  // },
-  // destroyed() {
-  //   const { isNavMenuHidden } = useAppConfig()
-  //   isNavMenuHidden.value = false
-  // },
 }
 </script>
 
