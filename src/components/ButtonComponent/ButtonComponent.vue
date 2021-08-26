@@ -15,6 +15,7 @@
         <feather-icon
           v-if="iconButton"
           :icon="iconButton"
+          :size="iconSize"
         />
       </template>
       <span :class="[responsive ? 'd-none d-sm-inline-block ml-0 ml-sm-50' : 'd-inline-block ml-50']">{{ textDefault }}</span>
@@ -53,6 +54,11 @@ export default {
       type: String,
       required: false,
       default: '',
+    },
+    iconSize: {
+      type: String,
+      required: false,
+      default: '24',
     },
     loading: {
       type: Boolean,

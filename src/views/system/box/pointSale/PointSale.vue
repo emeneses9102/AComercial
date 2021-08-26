@@ -24,64 +24,7 @@
               style="height: 690px"
               class="s-cliente"
             >
-              <b-row>
-                <b-col
-                  cols="12"
-                >
-                  <p
-                    class="mb-0 title-client"
-                  >
-                    Cliente N° #####
-                  </p>
-                  <p class="mt-50">
-                    <b>Edgar Meneses</b>
-                  </p>
-                </b-col>
-                <b-col
-                  cols="12"
-                  class="mt-2"
-                >
-                  <p
-                    class="mb-0"
-                  >
-                    ID
-                  </p>
-                  <p><b>33045094X</b></p>
-                </b-col>
-                <b-col
-                  cols="12"
-                  class="mt-2 mt-md-0"
-                >
-                  <p
-                    class="mb-0"
-                  >
-                    Dirección
-                  </p>
-                  <p><b>Jr Las Peras 124, Lince</b></p>
-                </b-col>
-                <b-col
-                  cols="12"
-                  class="mt-2 mt-md-0"
-                >
-                  <p
-                    class="mb-0"
-                  >
-                    Teléfono
-                  </p>
-                  <p><b>971256364</b></p>
-                </b-col>
-                <b-col
-                  cols="12"
-                  class="mt-2 mt-md-0"
-                >
-                  <p
-                    class="mb-0"
-                  >
-                    Correo
-                  </p>
-                  <p><b>edgar.meneses@simsac.pe</b></p>
-                </b-col>
-              </b-row>
+              <point-sale-client />
               <!--Datos de Facturación-->
               <b-row
                 class="mt-4"
@@ -97,37 +40,33 @@
                 </b-col>
               </b-row>
             </b-col>
-            <!--Button Section-->
-            <b-col
-              class="m-0 p-md-0 px-md-50"
-              cols="12"
-            >
-              <b-button
-                class="btn-product px-md-1"
-                variant=""
-              >
-                <feather-icon
-                  icon="SearchIcon"
-                  size="24"
-                />
-              </b-button>
-              <b-button
-                class="btn-product px-md-1"
-              >
-                <feather-icon
-                  icon="Edit2Icon"
-                  size="24"
-                />
-              </b-button>
-              <b-button
-                class="btn-product px-md-1"
-              >
-                <feather-icon
-                  icon="UserPlusIcon"
-                  size="24"
-                />
-              </b-button>
-            </b-col>
+            <button-component
+              margin-class=""
+              icon-button="SearchIcon"
+              class="btn-product col-3 px-md-1"
+              icon-size="24"
+              variant="secondary"
+              title-tool-tip="Buscar Cliente"
+              :method-function="()=>$bvModal.show('modal-query-partner')"
+            />
+            <button-component
+              margin-class="mr-1"
+              icon-button="Edit2Icon"
+              icon-size="24"
+              variant="secondary"
+              class="btn-product col-3 px-md-1"
+              title-tool-tip="Registrar Cliente"
+              :method-function="()=>$bvModal.show('modal-partner')"
+            />
+            <button-component
+              margin-class=""
+              icon-button="UserXIcon"
+              icon-size="24"
+              variant="secondary"
+              class="btn-product col-3 px-md-1"
+              title-tool-tip="Retirar Cliente"
+              :method-function="()=>clearStateClient()"
+            />
             <b-col>
               <b-button
                 variant="success"
@@ -570,14 +509,15 @@
 import {
   BRow, BCol, BCard, BCardText, BImg, BFormInput, BButton,
 } from 'bootstrap-vue'
+import ButtonComponent from '@/components/ButtonComponent/ButtonComponent.vue'
 import { onMounted } from '@vue/composition-api'
 import { endPointsCombo, loadCombos } from '@/helpers/combos'
 import ContainerButtons from '@/components/ContainerButtons/ContainerButtons.vue'
 import {
-  MODAL_ID,
+  MODAL_ID, clearStateClient,
 } from './ServicesPointSale/useVariablesPointSale'
-
 import ModalListClient from './ModalListClient/ModalListClient.vue'
+import PointSaleClient from './components/PointSaleClient/PointSaleClient.vue'
 import { combosClient, combosClientUbigeo } from './ServicesClient/useVariablesClient'
 
 export default {
@@ -592,6 +532,8 @@ export default {
     BButton,
     ContainerButtons,
     ModalListClient,
+    PointSaleClient,
+    ButtonComponent,
   },
   setup() {
     onMounted(() => {
@@ -601,6 +543,7 @@ export default {
 
     return {
       MODAL_ID,
+      clearStateClient,
     }
   },
 }
@@ -632,9 +575,9 @@ export default {
   margin: 10px;
 }
 .btn-product{
-  width: 62px;
-  height: 62px;
-  margin: 8px;
+  width: 62px !important;
+  height: 62px !important;
+  margin: 8px !important;
   background-color: #fff !important;
   color: #989898 !important;
   border-color: #fff !important;
