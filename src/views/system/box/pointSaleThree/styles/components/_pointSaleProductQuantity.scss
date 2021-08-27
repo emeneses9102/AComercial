@@ -1,0 +1,16 @@
+.pointsale-product-quantity {
+  font-size: 2rem;
+  background-color: $bg-card-input !important;
+  border: 4px solid $border-color !important;
+
+  .card-body {
+    padding: .25em .75em;
+    font-weight: 900;
+    color: #F1F1F1 !important;
+    
+    @media screen and (min-width: #{map-get($pointsale-media-query, pointsale-laptop-middle)}) {
+      padding: .5em .75em;
+    }
+  }
+
+}

@@ -97,6 +97,38 @@ export const clearStateClient = () => {
   stateClient.value = { ...initialStateClient }
 }
 
+// Variable reactiva para almacenar el buscador de codigo de producto
+export const searchProductById = ref('')
+// Variable inicializadora para almacenar el carrito de compras
+const initialStateListProducts = []
+
+// Variable reactiva para almacenar el carrito de compras
+export const stateListProducts = ref([...initialStateListProducts])
+
+// Función para regresar al estado inicial la variable reactiva que almacena el carrito de compras
+export const clearStateListProducts = () => {
+  stateListProducts.value = [...initialStateListProducts]
+}
+
+// Variable inicializadora para almacenar los datos del producto seleccionado
+const initialStateProductSelected = {
+  _id: 0,
+  nombre: '-----------',
+  imagen: '',
+  ref: '##########',
+  cantidad: 1,
+  precio: 0,
+  descuento: 0,
+}
+
+// Variable reactiva para almacenar los datos del producto seleccionado
+export const stateProductSelected = ref({ ...initialStateProductSelected })
+
+// Función para regresar al estado inicial la variable reactiva que almacena el cliente seleccionado
+export const clearStateProductSelected = () => {
+  stateProductSelected.value = { ...initialStateProductSelected }
+}
+
 // Constante para almacenar la url base de la petición al mantenimiento Medio de Pago
 export const urlApiPointSale = '/mediopago'
 

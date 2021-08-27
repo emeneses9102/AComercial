@@ -1,0 +1,118 @@
+@import '@/assets/scss/variables/_variables.scss';
+
+.pointsale-product-detail {
+  .card-body {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
+.product {
+
+  &-container-img {
+    flex: 1;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid $primary;
+    border-radius: .25em;
+    padding: 1em;
+  }
+
+  &-card-img {
+    height: 100%;
+    width: 100%;
+  }
+
+  &-img {
+    width: 100%;
+    user-select: none;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+  }
+
+  &-name {
+    background-color: lighten($primary, 20);
+    color: darken($primary, 16);
+    margin-top: 1em;
+    border-radius: .25em;
+    text-align: center;
+    user-select: none;
+    font-size: 1.25rem;
+    padding: .5em 1em;
+    font-weight: 900;
+  }
+
+  &-ref,
+  &-code {
+    font-weight: 600;
+  }
+
+  &-ref {
+    @media screen and (max-width: #{map-get($pointsale-media-query, pointsale-laptop-middle)}) {
+      display: none;
+    }
+  }
+
+  &-code {
+    margin-bottom: 1.5em;
+  }
+
+  &-price {
+    font-size: 1.65rem;
+    font-weight: 900;
+    color: black;
+
+    .dark-layout & {
+      color: white;
+    }
+
+    @media screen and (min-width: #{map-get($pointsale-media-query, pointsale-laptop-middle)}) {
+      font-size: 2rem;
+    }
+
+  }
+
+  &-discount {
+    position: relative;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 3px solid red;
+    padding: .5em .5em;
+    border-radius: 1em;
+    border-top-left-radius: 100%;
+    border-bottom-left-radius: 100%;
+    color: white;
+    width: 74px;
+    transform: rotate(35deg);
+    user-select: none;
+
+    .dark-layout & {
+      background-color: lighten(red, 14);
+    }
+    
+    &-circle {
+      display: block;
+      border-radius: 50%;
+      width: 16px;
+      height: 16px;
+      border: 3px solid red;
+    }
+
+    &-percentage {
+      display: block;
+      color: red;
+      font-weight: 900;
+      font-size: 14px;
+
+      .dark-layout & {
+        color: white;
+      }
+    }
+
+  }
+
+}
