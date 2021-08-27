@@ -84,90 +84,7 @@
       cols="7"
     >
       <div>
-        <b-card
-          title=""
-          tag="article"
-          style="height: 880px"
-          class="mb-2 card-5"
-        >
-          <b-card-text>
-            <b-form-input
-              class="control search-product bg-dark text-white"
-              placeholder="INGRESE O SCANEE UN PRODUCTO"
-              style="font-size:1.2rem"
-            />
-          </b-card-text>
-          <div
-            class="overflow-auto"
-            style="height: 750px; padding: 0 20px"
-          >
-            <b-row>
-              <b-col
-                cols="12"
-                class="p-md-0"
-              >
-                <b-card
-                  style="height: 50px"
-                >
-                  <b-row
-                    style="box-shadow:0px 7px 15px 0px rgba(0,0,0,0.75); padding: 10px 5px 5px 0px; border-radius:10px"
-                  >
-                    <b-col
-                      cols="2"
-                      lg="2"
-                      md="1"
-                    >
-                      <b-img
-                        src="https://cdn.lumingo.com/medias/0100318233-000000000004521178-0-c1200Wx1200H?context=bWFzdGVyfGltYWdlc3wxOTk3Nzl8aW1hZ2UvanBlZ3xpbWFnZXMvaGI1L2hmYS84ODY4MTkyNzE0NzgyLmpwZ3xiMWY1YTVmZGYwMjk4MzRlNWEzZTU1MTViZDE1YjdkODllZTdlNDkzMGNkZjNkNzMzYmQ5N2MxOWI0NWE1ZTZj"
-                        fluid
-                        width="200"
-                        alt="Zapatilla"
-                      />
-                    </b-col>
-                    <b-col
-                      cols="4"
-                      class="text-center pt-2"
-                    >
-                      <p>Nike Zapatilla</p>
-                      <p>139.90 $</p>
-                    </b-col>
-                    <b-col
-                      cols="4"
-                      class="text-center pt-2 "
-                    >
-                      <p>Ref: ######</p>
-                      <p>Code: ######</p>
-                    </b-col>
-                    <b-col
-                      cols="1"
-                      lg="2"
-                      md="2"
-                      sm="2"
-                      class="px-0 mt-50 pt-2  "
-                    >
-                      <b-button
-                        variant="relief-danger"
-                        class="btn-icon  btn-delete mr-1 mr-md-50"
-                        size="lg"
-                        style="font-weight: bold"
-                      >
-                        <feather-icon icon="XIcon" />
-                      </b-button>
-                      <b-button
-                        variant="relief-success"
-                        class="btn-icon  btn-delete"
-                        size="lg"
-                        style="font-weight: bold"
-                      >
-                        <feather-icon icon="SearchIcon" />
-                      </b-button>
-                    </b-col>
-                  </b-row>
-                </b-card>
-              </b-col>
-            </b-row>
-          </div>
-        </b-card>
+        <point-sale-list />
       </div>
     </b-col>
     <b-col
@@ -220,6 +137,13 @@
                   <container-buttons
                     :modal-id="MODAL_ID"
                     icon="UsersIcon"
+                  />
+                  <button-component
+                    icon-button="SearchIcon"
+                    margin-class="ml-1"
+                    :method-function="()=>$bvModal.show('modal-query-article')"
+                    class="btn-cuadrado"
+                    variant="secondary"
                   />
                   <b-button
                     class="btn btn-primary btn-cuadrado"
@@ -507,7 +431,7 @@
 <script>
 
 import {
-  BRow, BCol, BCard, BCardText, BImg, BFormInput, BButton,
+  BRow, BCol, BCard, BButton,
 } from 'bootstrap-vue'
 import ButtonComponent from '@/components/ButtonComponent/ButtonComponent.vue'
 import { onMounted } from '@vue/composition-api'
@@ -518,21 +442,20 @@ import {
 } from './ServicesPointSale/useVariablesPointSale'
 import ModalListClient from './ModalListClient/ModalListClient.vue'
 import PointSaleClient from './components/PointSaleClient/PointSaleClient.vue'
+import PointSaleList from './components/PointSaleList/PointSaleList.vue'
 import { combosClient, combosClientUbigeo } from './ServicesClient/useVariablesClient'
 
 export default {
   name: 'PointSale',
   components: {
     BRow,
-    BImg,
     BCol,
     BCard,
-    BCardText,
-    BFormInput,
     BButton,
     ContainerButtons,
     ModalListClient,
     PointSaleClient,
+    PointSaleList,
     ButtonComponent,
   },
   setup() {

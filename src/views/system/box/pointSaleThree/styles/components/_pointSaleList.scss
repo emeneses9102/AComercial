@@ -1,0 +1,153 @@
+$bg-product-item: #20ee7d !default;
+$color-product-item: #212121 !default;
+$bg-product-item: #33394c;
+$color-product-item: #444;
+
+$font-size-product-name: 1.45rem;
+
+.pointsale-list {
+
+  &__input-code {
+    background-color: #666;
+    display: block;
+    width: 100%;
+    border-radius: .25em;
+    border: none;
+    padding: .5em 1em;
+    outline: none;
+    font-size: 1.5rem;
+    border: 3px solid #111;
+    color: white;
+    text-align: center;
+    
+    &::placeholder {
+      text-align: center;
+      font-weight: 600;
+      color: white;
+    }
+
+    @media screen and (max-width: #{map-get($pointsale-media-query, pointsale-laptop)}) {
+      font-size: 1rem;
+    }
+  }
+
+  &-products {
+    display: block;
+    overflow-y: auto;
+    max-height: calc(100vh - 20rem);
+  }
+
+}
+
+.product-item {
+  display: flex;
+  justify-content: space-between;
+  box-shadow: 0 4px 2px -2px lighten($bg-product-item, 50);
+  padding: .75em 1em;
+  border-radius: .5em;
+  margin-bottom: .5em;
+  cursor: pointer;
+
+  &--selected {
+    background-color: lighten($bg-product-item, $amount: 60);
+
+    .dark-layout & {
+      background-color: darken($bg-product-item, 10);
+    }
+  }
+  
+  .dark-layout & {
+    box-shadow: 0 4px 2px -2px darken($bg-product-item, 20);
+  }
+
+  &-left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  &__name,
+  &__price,
+  &__quantity,
+  &__codes {
+    color: $color-product-item;
+
+    .dark-layout & {
+      $color-product-item: #C2C2C2;
+      color: $color-product-item;
+    }
+  }
+
+  &__name {
+    font-weight: var(--font-weight-item-title);
+    font-size: var(--font-size-item-title);
+    margin-bottom: .25em;
+    user-select: none;
+    max-width: 340px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    @media screen and (max-width: #{map-get($pointsale-media-query, pointsale-laptop-middle)}) {
+      --font-size-item-title: 1rem;
+    }
+  }
+
+  &__info {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+
+    @media screen and (max-width: #{map-get($pointsale-media-query, pointsale-laptop-middle)}) {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+  }
+
+  &__price,
+  &__quantity {
+    
+    font-weight: var(--font-weight-item-text);
+    font-size: var(--font-size-item-text);
+    user-select: none;
+
+    @media screen and (max-width: #{map-get($pointsale-media-query, pointsale-laptop-middle)}) {
+      --font-size-item-text: 1rem;
+    }
+
+  }
+
+  &-right {
+    display: flex;
+    align-items: center;
+  }
+
+  &__codes {
+    
+    display: none;
+
+    @media screen and (min-width: #{map-get($pointsale-media-query, pointsale-laptop-middle)}) {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      margin-right: 1em;
+
+      p {
+        margin-bottom: .25em;
+        font-weight: 600;
+        user-select: none;
+      }
+
+    }
+
+  }
+
+  &__actions {
+    text-align: right;
+    button {
+      @media screen and (max-width: #{map-get($pointsale-media-query, pointsale-laptop)}) {
+        padding: .75em !important;
+      }
+    }
+  }
+
+}
