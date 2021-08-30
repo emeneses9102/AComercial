@@ -1,4 +1,4 @@
-<template class="pt-0">
+<template>
   <div
     class="overflow-auto product-item"
     :class="[stateProductSelected._id === codigo ? 'product-item--selected' : 'hola']"
@@ -38,7 +38,9 @@
                 <b>Descuento:</b> S/.0
               </p>
               <p class="mb-50">
-                <b>SubTotal:</b>  S/. {{ subtotal.toFixed(2) }}
+                <b>SubTotal:</b>
+                <span>S/. {{ estado === true? precio.toFixed(2) : subtotal.toFixed(2) }}</span>
+
               </p>
               <b-form-input
                 v-if="estadoAmount"
@@ -129,6 +131,7 @@ export default {
     return {
       cantidadDefault: '1',
       estadoAmount: false,
+      estado: true,
     }
   },
   methods: {
@@ -138,6 +141,7 @@ export default {
     sendFunction() {
       changeAmount(this.codigo, this.cantidadDefault, this.precio)
       this.ActiveInput(this.estadoAmount)
+      this.estado = false
     },
   },
   setup(props) {
