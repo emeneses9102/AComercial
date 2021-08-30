@@ -62,7 +62,7 @@ export const updateQuantity = (operation, _id) => {
 }
 
 export const updateSubtotal = _id => {
-  console.log('mensaje')
+  console.log(_id)
   const newStateListProducts = stateListProducts.value.map(product => (
     product._id === _id
       ? {
@@ -82,4 +82,19 @@ export const removeProduct = async _id => {
     stateListProducts.value = [...newStateListProducts]
     clearStateProductSelected()
   }
+}
+
+// Función para eliminar un item de la lista
+export const changeAmount = (_id, amount, price) => {
+  console.log(amount)
+  const newStateListProducts = stateListProducts.value.map(product => (
+    product._id === _id
+      ? {
+        ...product,
+        cantidad: amount,
+        subtotal: amount * price,
+      }
+      : product
+  ))
+  stateListProducts.value = [...newStateListProducts]
 }

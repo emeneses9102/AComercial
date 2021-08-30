@@ -1,4 +1,4 @@
-<template>
+<template class="pt-0">
   <div
     class="overflow-auto product-item"
     :class="[stateProductSelected._id === codigo ? 'product-item--selected' : 'hola']"
@@ -37,27 +37,27 @@
               <p>
                 <b>Descuento:</b> S/.0
               </p>
-              <p>
+              <p class="mb-50">
                 <b>SubTotal:</b>  S/. {{ subtotal.toFixed(2) }}
               </p>
+              <b-form-input
+                v-if="estadoAmount"
+                id="currency-moneda"
+                v-model.number="cantidadDefault"
+                type="number"
+                @keydown.enter="()=>sendFunction()"
+              />
             </div>
           </div>
         </b-col>
         <b-col class="d-flex  align-items-center  justify-content-center">
           <div class="product-item__actions">
             <button-component
-              icon-button="PlusIcon"
+              icon-button="Edit2Icon"
               variant="primary"
               icon-size="20"
               class="p-1"
-              :method-function="()=>updateQuantity('+', codigo)"
-            />
-            <button-component
-              icon-button="PlusIcon"
-              variant="success"
-              icon-size="20"
-              class="p-1"
-              :method-function="()=>updateSubtotal(codigo)"
+              :method-function="()=>ActiveInput()"
             />
             <button-component
               icon-button="XIcon"
@@ -75,11 +75,13 @@
 
 <script>
 import {
-  BCard, BRow, BCol, BImg,
+  BCard, BRow, BCol, BImg, BFormInput,
 } from 'bootstrap-vue'
 import ButtonComponent from '@/components/ButtonComponent/ButtonComponent.vue'
 import { stateProductSelected } from '../../ServicesPointSale/useVariablesPointSale'
-import { updateQuantity, removeProduct, updateSubtotal } from '../../ServicesPointSale/useServicesPointSale'
+import {
+  removeProduct, updateSubtotal, changeAmount,
+} from '../../ServicesPointSale/useServicesPointSale'
 
 export default {
   name: 'PointSaleListItem',
@@ -89,6 +91,7 @@ export default {
     BRow,
     BCol,
     BImg,
+    BFormInput,
   },
   props: {
     nombre: {
@@ -122,6 +125,21 @@ export default {
       default: 0,
     },
   },
+  data() {
+    return {
+      cantidadDefault: '1',
+      estadoAmount: false,
+    }
+  },
+  methods: {
+    ActiveInput(estadoAmount) {
+      this.estadoAmount = !estadoAmount
+    },
+    sendFunction() {
+      changeAmount(this.codigo, this.cantidadDefault, this.precio)
+      this.ActiveInput(this.estadoAmount)
+    },
+  },
   setup(props) {
     const selectedItem = () => {
       stateProductSelected.value._id = props.codigo
@@ -137,9 +155,9 @@ export default {
     return {
       selectedItem,
       stateProductSelected,
-      updateQuantity,
       updateSubtotal,
       removeProduct,
+      changeAmount,
     }
   },
 }

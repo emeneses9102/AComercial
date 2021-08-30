@@ -12,7 +12,7 @@ export const messageToast = (variant, title, message) => {
 
 // Función para generar un mensaje de confirmación
 export const confirmSwal = async (title, action) => {
-  let text = '¿Este es un ejemplo?'
+  let text = '¿Desea eliminar este producto?'
   let confirmButtonText = 'Si'
 
   if (action === ACTION_DELETE) {
