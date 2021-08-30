@@ -21,7 +21,7 @@
         }"
         class="scrollable-container media-list scroll-area"
       >
-        <b-card>
+        <b-card class="mb-0">
           <point-sale-list-item
             v-for="product in stateListProducts"
             :key="product._id"
@@ -30,6 +30,7 @@
             :nombre="product.nombre"
             :precio="product.precioVenta"
             :cantidad="product.cantidad"
+            :subtotal="product.subtotal"
           />
         </b-card>
         <!-- <point-sale-list-item />
@@ -90,6 +91,7 @@ export default {
         imagen,
         precioVenta,
         cantidad: 1,
+        subtotal: 1.00,
       }
       addProductToList(newValue)
     }

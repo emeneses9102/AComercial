@@ -4,41 +4,61 @@
     :class="[stateProductSelected._id === codigo ? 'product-item--selected' : 'hola']"
     @click="selectedItem"
   >
-    <b-card>
+    <b-card class="mb-0">
       <b-row
-        style="box-shadow:0px 7px 15px 0px rgba(0,0,0,0.75); padding: 10px 5px 5px 0px; border-radius:10px"
+        style="box-shadow:0px 3px 10px 0px rgba(0,0,0,0.65); padding: 5px 5px 5px 0px; border-radius:10px"
       >
         <b-col>
           <b-img
             src="https://cdn.lumingo.com/medias/0100318233-000000000004521178-0-c1200Wx1200H?context=bWFzdGVyfGltYWdlc3wxOTk3Nzl8aW1hZ2UvanBlZ3xpbWFnZXMvaGI1L2hmYS84ODY4MTkyNzE0NzgyLmpwZ3xiMWY1YTVmZGYwMjk4MzRlNWEzZTU1MTViZDE1YjdkODllZTdlNDkzMGNkZjNkNzMzYmQ5N2MxOWI0NWE1ZTZj"
             fluid
-            width="200"
+            width="110"
             alt="Zapatilla"
           />
         </b-col>
         <b-col>
-          <div class="product-item-left mt-3">
-            <p class="product-item__name">
+          <div class="product-item-left mt-1">
+            <p class="product-item__name font-weight-bold">
               {{ nombre }}
             </p>
             <div class="product-item__info mt-75">
               <p class="product-item__price">
-                Precio S/. {{ precio.toFixed(2) }}
+                <b>Precio: </b>  S/. {{ precio.toFixed(2) }}
               </p>
-              <span class="product-item__quantity mt-50">Cantidad: {{ cantidad }}</span>
+              <p class="product-item__quantity mt-50">
+                <b>Cantidad: </b>  {{ cantidad }}
+              </p>
             </div>
           </div>
         </b-col>
         <b-col>
-          <div class="product-item-right mt-3">
+          <div class="product-item-right mt-1">
             <div class="product-item__codes">
-              <p>Descuento: </p>
-              <p>SubTotal: </p>
+              <p>
+                <b>Descuento:</b> S/.0
+              </p>
+              <p>
+                <b>SubTotal:</b>  S/. {{ subtotal.toFixed(2) }}
+              </p>
             </div>
           </div>
         </b-col>
-        <b-col>
-          <div class="product-item__actions mt-3">
+        <b-col class="d-flex  align-items-center  justify-content-center">
+          <div class="product-item__actions">
+            <button-component
+              icon-button="PlusIcon"
+              variant="primary"
+              icon-size="20"
+              class="p-1"
+              :method-function="()=>updateQuantity('+', codigo)"
+            />
+            <button-component
+              icon-button="PlusIcon"
+              variant="success"
+              icon-size="20"
+              class="p-1"
+              :method-function="()=>updateSubtotal(codigo)"
+            />
             <button-component
               icon-button="XIcon"
               variant="danger"
@@ -59,7 +79,7 @@ import {
 } from 'bootstrap-vue'
 import ButtonComponent from '@/components/ButtonComponent/ButtonComponent.vue'
 import { stateProductSelected } from '../../ServicesPointSale/useVariablesPointSale'
-import { removeProduct } from '../../ServicesPointSale/useServicesPointSale'
+import { updateQuantity, removeProduct, updateSubtotal } from '../../ServicesPointSale/useServicesPointSale'
 
 export default {
   name: 'PointSaleListItem',
@@ -96,6 +116,11 @@ export default {
       required: false,
       default: '',
     },
+    subtotal: {
+      type: Number,
+      required: false,
+      default: 0,
+    },
   },
   setup(props) {
     const selectedItem = () => {
@@ -106,11 +131,14 @@ export default {
       stateProductSelected.value.precio = props.precio
       stateProductSelected.value.descuento = props.descuento
       stateProductSelected.value.cantidad = props.cantidad
+      stateProductSelected.value.subtotal = props.subtotal
     }
 
     return {
       selectedItem,
       stateProductSelected,
+      updateQuantity,
+      updateSubtotal,
       removeProduct,
     }
   },

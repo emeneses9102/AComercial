@@ -52,11 +52,28 @@ export const addProductToList = newProduct => {
 export const updateQuantity = (operation, _id) => {
   const newStateListProducts = stateListProducts.value.map(product => (
     product._id === _id
-      ? { ...product, cantidad: operation === '+' ? product.cantidad + 1 : product.cantidad - 1 }
+      ? {
+        ...product,
+        cantidad: operation === '+' ? product.cantidad + 1 : product.cantidad - 1,
+      }
       : product
   ))
   stateListProducts.value = [...newStateListProducts]
 }
+
+export const updateSubtotal = _id => {
+  console.log('mensaje')
+  const newStateListProducts = stateListProducts.value.map(product => (
+    product._id === _id
+      ? {
+        ...product,
+        subtotal: 10,
+      }
+      : product
+  ))
+  stateListProducts.value = [...newStateListProducts]
+}
+
 // Función para eliminar un item de la lista
 export const removeProduct = async _id => {
   const result = await confirmSwal('Producto', null, '¿Desea eliminar el producto de la lista?', 'Si, elimínalo')
