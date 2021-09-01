@@ -58,7 +58,7 @@ export default {
     iconSize: {
       type: String,
       required: false,
-      default: '24',
+      default: '14',
     },
     loading: {
       type: Boolean,
