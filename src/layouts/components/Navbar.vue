@@ -23,6 +23,15 @@
       </div>
 
       <b-navbar-nav class="nav align-items-center ml-auto">
+        <template v-if="$route.name === 'pointSaleThree'">
+          <button-component
+            variant="outline-success"
+            text-default="Sistema"
+            margin-class="mr-2"
+            block
+            :method-function="()=>$router.push({ name: 'home' })"
+          />
+        </template>
         <full-screen />
         <b-nav-item-dropdown
           right
@@ -89,6 +98,7 @@ import {
 import { Fragment } from 'vue-fragment'
 import DarkToggler from '@core/layouts/components/app-navbar/components/DarkToggler.vue'
 import ModalChangePassword from '@/components/ModalChangePassword/ModalChangePassword.vue'
+import ButtonComponent from '@/components/ButtonComponent/ButtonComponent.vue'
 import { mapState } from 'vuex'
 import FullScreen from './FullScreen.vue'
 
@@ -105,6 +115,7 @@ export default {
     DarkToggler,
     FullScreen,
     ModalChangePassword,
+    ButtonComponent,
   },
   props: {
     toggleVerticalMenuActive: {

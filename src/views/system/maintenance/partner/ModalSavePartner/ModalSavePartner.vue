@@ -5,6 +5,7 @@
     :title="`${statePartner._id ? 'Modificar' : 'Registrar'} ${titleNotificationPartner}`"
     no-close-on-backdrop
     size="lg"
+    @show="showModalSavePartner"
   >
     <validation-observer
       ref="validation-partner"
@@ -470,8 +471,8 @@ import {
 } from 'bootstrap-vue'
 import { VueSelect } from 'vue-select'
 import { ValidationObserver, ValidationProvider } from 'vee-validate'
-import { provide, ref } from '@vue/composition-api'
-import { endPointsCombo, loadCombos } from '@/helpers/combos'
+import { provide, ref, onMounted } from '@vue/composition-api'
+import { endPointsCombo, loadCombos, resetCombos } from '@/helpers/combos'
 import InputSearchDocNumberComponent from '@/components/InputSearchDocNumberComponent/InputSearchDocNumberComponent.vue'
 import UbigeoComponent from '@/components/UbigeoComponent/UbigeoComponent.vue'
 import { ACTION_REGISTER, ACTION_UPDATE } from '@/helpers/actionsApi'
@@ -562,6 +563,19 @@ export default {
       }
     }
 
+    const showModalSavePartner = () => {
+      if (!statePartner.value._id) {
+        clearStatePartner()
+        clearStatePartnerUbigeo()
+        resetCombos(combosPartnerUbigeo, ['province', 'district'])
+      }
+    }
+
+    onMounted(() => {
+      loadCombos(combosPartner, ['document'], `${endPointsCombo.tipoDocumento}/1`, 'Tipo de Documento')
+      loadCombos(combosPartnerUbigeo, ['departament'], endPointsCombo.departamento, 'Departamento')
+    })
+
     provide('ubigeo', statePartnerUbigeo)
     provide('combosUbigeo', combosPartnerUbigeo)
 
@@ -575,6 +589,7 @@ export default {
       selectedDocumentType,
       getDataByNumberDocument,
       getDataByRuc,
+      showModalSavePartner,
     }
   },
 }

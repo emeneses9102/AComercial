@@ -22,15 +22,13 @@
 
 <script>
 import { BCard } from 'bootstrap-vue'
-import { onMounted } from '@vue/composition-api'
-import { endPointsCombo, loadCombos } from '@/helpers/combos'
 import HeaderMaintenanceComponent from '@/components/HeaderMaintenanceComponent/HeaderMaintenanceComponent.vue'
 import ModalSavePartner from './ModalSavePartner/ModalSavePartner.vue'
 import ModalSearchPartner from './ModalSearchPartner/ModalSearchPartner.vue'
 import ModalShowPartner from './ModalShowPartner/ModalShowPartner.vue'
 import TablePartner from './TablePartner/TablePartner.vue'
 import {
-  MODAL_ID, clearStatePartner, columnsPartner, urlApiPartner, serverQueryPartner, columnsFilterPartner, titleReportPartner, combosPartner, combosPartnerUbigeo, clearCombosPartnerUbigeo, clearStatePartnerUbigeo,
+  MODAL_ID, clearStatePartner, columnsPartner, urlApiPartner, serverQueryPartner, columnsFilterPartner, titleReportPartner, clearCombosPartnerUbigeo, clearStatePartnerUbigeo,
 } from './ServicesPartner/useVariablesPartner'
 
 export default {
@@ -50,11 +48,6 @@ export default {
       clearCombosPartnerUbigeo()
       clearStatePartner()
     }
-
-    onMounted(() => {
-      loadCombos(combosPartner, ['document'], `${endPointsCombo.tipoDocumento}/1`, 'Tipo de Documento')
-      loadCombos(combosPartnerUbigeo, ['departament'], endPointsCombo.departamento, 'Departamento')
-    })
 
     return {
       MODAL_ID,
