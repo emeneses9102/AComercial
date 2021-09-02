@@ -11,10 +11,14 @@ export const messageToast = (variant, title, message) => {
 }
 
 // Función para generar un mensaje de confirmación
-export const confirmSwal = async (title, action) => {
-  let text = '¿Desea eliminar este producto?'
+export const confirmSwal = async (title, action, messageCustom = null, confirmText = null) => {
+  let text = '¿Este es un ejemplo?'
   let confirmButtonText = 'Si'
 
+  if (messageCustom) {
+    text = messageCustom
+    confirmButtonText = confirmText
+  }
   if (action === ACTION_DELETE) {
     text = '¿Está seguro que desea eliminar este registro?'
     confirmButtonText = 'Si, eliminalo'
