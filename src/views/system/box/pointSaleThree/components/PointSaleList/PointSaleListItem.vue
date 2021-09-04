@@ -47,7 +47,7 @@
 
 <script>
 import ButtonComponent from '@/components/ButtonComponent/ButtonComponent.vue'
-import { stateProductSelected } from '../../ServicesPointSale/useVariablesPointSale'
+import { keySelectedOfBoard, optionsOfKeysOnBoard, stateProductSelected } from '../../ServicesPointSale/useVariablesPointSale'
 import { updateQuantity, removeProduct } from '../../ServicesPointSale/useServicesPointSale'
 
 export default {
@@ -85,12 +85,13 @@ export default {
   setup(props) {
     const selectedItem = () => {
       stateProductSelected.value._id = props.codigo
-      stateProductSelected.value.ref = props.sku
+      stateProductSelected.value.sku = props.sku
       stateProductSelected.value.nombre = props.nombre
       stateProductSelected.value.imagen = props.imagen
       stateProductSelected.value.precio = props.precio
       stateProductSelected.value.descuento = props.descuento
-      stateProductSelected.value.cantidad = props.cantidad
+      stateProductSelected.value.cantidad = props.cantidad.toString()
+      keySelectedOfBoard.value = optionsOfKeysOnBoard.cantidad
     }
 
     return {

@@ -7,11 +7,6 @@
         type="text"
         placeholder="Ingresar o escane el código"
       >
-      <button-component
-        icon-button="SearchIcon"
-        margin-class="ml-1"
-        :method-function="()=>$bvModal.show('modal-query-article')"
-      />
       <modal-query-article
         @on-article-selected="articleSelected"
       />
@@ -32,26 +27,6 @@
           :precio="product.precioVenta"
           :cantidad="product.cantidad"
         />
-        <!-- <point-sale-list-item />
-        <point-sale-list-item />
-        <point-sale-list-item />
-        <point-sale-list-item />
-        <point-sale-list-item />
-        <point-sale-list-item />
-        <point-sale-list-item />
-        <point-sale-list-item />
-        <point-sale-list-item />
-        <point-sale-list-item />
-        <point-sale-list-item />
-        <point-sale-list-item />
-        <point-sale-list-item />
-        <point-sale-list-item />
-        <point-sale-list-item />
-        <point-sale-list-item />
-        <point-sale-list-item />
-        <point-sale-list-item />
-        <point-sale-list-item />
-        <point-sale-list-item /> -->
       </vue-perfect-scrollbar>
     </div>
   </b-card>
@@ -62,7 +37,6 @@ import {
   BCard,
 } from 'bootstrap-vue'
 import VuePerfectScrollbar from 'vue-perfect-scrollbar'
-import ButtonComponent from '@/components/ButtonComponent/ButtonComponent.vue'
 import ModalQueryArticle from '@/components/ModalQueryArticle/ModalQueryArticle.vue'
 import PointSaleListItem from './PointSaleListItem.vue'
 import { searchProductById, stateListProducts } from '../../ServicesPointSale/useVariablesPointSale'
@@ -74,7 +48,6 @@ export default {
     BCard,
     VuePerfectScrollbar,
     PointSaleListItem,
-    ButtonComponent,
     ModalQueryArticle,
   },
   setup() {
@@ -107,8 +80,7 @@ export default {
 <style lang="scss">
 .scroll-area {
   position: relative;
-  height: calc(100vh - 20rem);
-  // height: calc(100% - 1px);
+  max-height: calc(100vh - 20rem);
   padding-right: .5em;
 }
 </style>

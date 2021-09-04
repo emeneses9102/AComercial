@@ -18,10 +18,10 @@
       <div class="d-flex justify-content-between align-items-center">
         <div>
           <p class="product-ref">
-            Ref: ###########
+            SKU: {{ stateProductSelected.sku || '###########' }}
           </p>
           <p class="product-code">
-            Código: {{ stateProductSelected.codigo }}
+            Código: {{ stateProductSelected._id || '###########' }}
           </p>
           <p class="product-price">
             S/. {{ stateProductSelected.precio.toFixed(2) }}

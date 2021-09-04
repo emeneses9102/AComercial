@@ -1,6 +1,7 @@
 <template>
   <button
     class="btn-board-numeric"
+    :disabled="disabled"
     @click="methodFunction"
   >
     {{ text }}
@@ -20,6 +21,11 @@ export default {
       type: Function,
       required: false,
       default: () => {},
+    },
+    disabled: {
+      type: Boolean,
+      required: false,
+      default: false,
     },
   },
 }

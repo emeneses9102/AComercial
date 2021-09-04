@@ -61,6 +61,11 @@
         icon-button="AirplayIcon"
         icon-size="32"
       />
+      <button-component
+        icon-button="GridIcon"
+        icon-size="32"
+        :method-function="()=>$bvModal.show('modal-query-article')"
+      />
     </div>
   </b-card>
 </template>

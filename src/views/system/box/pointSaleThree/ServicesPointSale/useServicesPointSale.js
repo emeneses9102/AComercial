@@ -25,12 +25,25 @@ export const addProductToList = newProduct => {
 }
 
 // Función para actualizar la cantidad del producto de lista, recibira como parametro la opracion - || +
-export const updateQuantity = (operation, _id) => {
-  const newStateListProducts = stateListProducts.value.map(product => (
-    product._id === _id
-      ? { ...product, cantidad: operation === '+' ? product.cantidad + 1 : product.cantidad - 1 }
-      : product
-  ))
+export const updateQuantity = (operation, _id, quantity) => {
+  const newStateListProducts = stateListProducts.value.map(product => {
+    if (product._id === _id) {
+      switch (operation) {
+        case '+':
+          return { ...product, cantidad: product.cantidad + 1 }
+        case '-':
+          if (product.cantidad > 1) {
+            return { ...product, cantidad: product.cantidad - 1 }
+          }
+          return product
+        case 'UPDATE':
+          return { ...product, cantidad: Number(quantity) }
+        default:
+          return product
+      }
+    }
+    return product
+  })
   stateListProducts.value = [...newStateListProducts]
 }
 

@@ -25,7 +25,7 @@ const initialStateProductSelected = {
   _id: 0,
   nombre: '-----------',
   imagen: '',
-  ref: '##########',
+  sku: '##########',
   cantidad: 1,
   precio: 0,
   descuento: 0,
