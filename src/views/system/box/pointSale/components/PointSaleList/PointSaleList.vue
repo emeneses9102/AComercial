@@ -3,17 +3,13 @@
     style="height: 880px"
   >
     <div class="d-flex justify-content-between align-items-center mb-2">
-      <input
-        v-model="searchProductById"
-        class="control search-product bg-dark text-white form-control"
-        type="text"
-        placeholder="Ingresar o escane el código"
-        style="font-size:1.2rem"
-      >
       <modal-query-article
         @on-article-selected="articleSelected"
       />
     </div>
+    <point-sale-search-product
+      @on-article-selected="articleSelected"
+    />
     <div class="pointsale-list-products">
       <vue-perfect-scrollbar
         :settings="{
@@ -65,6 +61,7 @@ import {
 import VuePerfectScrollbar from 'vue-perfect-scrollbar'
 import ModalQueryArticle from '@/components/ModalQueryArticle/ModalQueryArticle.vue'
 import PointSaleListItem from './PointSaleListItem.vue'
+import PointSaleSearchProduct from '../PointSaleSearchProduct/PointSaleSearchProduct.vue'
 import { searchProductById, stateListProducts } from '../../ServicesPointSale/useVariablesPointSale'
 import { addProductToList } from '../../ServicesPointSale/useServicesPointSale'
 
@@ -75,6 +72,7 @@ export default {
     VuePerfectScrollbar,
     PointSaleListItem,
     ModalQueryArticle,
+    PointSaleSearchProduct,
   },
   setup() {
     const articleSelected = ({
