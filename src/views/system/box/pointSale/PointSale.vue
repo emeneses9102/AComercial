@@ -3,7 +3,7 @@
     class="mb-0 pb-0"
   >
     <div>
-      <modal-search-client />
+      <modal-list-client />
     </div>
     <!--Client Section-->
     <b-col
@@ -24,64 +24,7 @@
               style="height: 690px"
               class="s-cliente"
             >
-              <b-row>
-                <b-col
-                  cols="12"
-                >
-                  <p
-                    class="mb-0 title-client"
-                  >
-                    Cliente N° #####
-                  </p>
-                  <p class="mt-50">
-                    <b>Edgar Meneses</b>
-                  </p>
-                </b-col>
-                <b-col
-                  cols="12"
-                  class="mt-2"
-                >
-                  <p
-                    class="mb-0"
-                  >
-                    ID
-                  </p>
-                  <p><b>33045094X</b></p>
-                </b-col>
-                <b-col
-                  cols="12"
-                  class="mt-2 mt-md-0"
-                >
-                  <p
-                    class="mb-0"
-                  >
-                    Dirección
-                  </p>
-                  <p><b>Jr Las Peras 124, Lince</b></p>
-                </b-col>
-                <b-col
-                  cols="12"
-                  class="mt-2 mt-md-0"
-                >
-                  <p
-                    class="mb-0"
-                  >
-                    Teléfono
-                  </p>
-                  <p><b>971256364</b></p>
-                </b-col>
-                <b-col
-                  cols="12"
-                  class="mt-2 mt-md-0"
-                >
-                  <p
-                    class="mb-0"
-                  >
-                    Correo
-                  </p>
-                  <p><b>edgar.meneses@simsac.pe</b></p>
-                </b-col>
-              </b-row>
+              <point-sale-client />
               <!--Datos de Facturación-->
               <b-row
                 class="mt-4"
@@ -97,37 +40,33 @@
                 </b-col>
               </b-row>
             </b-col>
-            <!--Button Section-->
-            <b-col
-              class="m-0 p-md-0 px-md-50"
-              cols="12"
-            >
-              <b-button
-                class="btn-product px-md-1"
-                variant=""
-              >
-                <feather-icon
-                  icon="SearchIcon"
-                  size="24"
-                />
-              </b-button>
-              <b-button
-                class="btn-product px-md-1"
-              >
-                <feather-icon
-                  icon="Edit2Icon"
-                  size="24"
-                />
-              </b-button>
-              <b-button
-                class="btn-product px-md-1"
-              >
-                <feather-icon
-                  icon="UserPlusIcon"
-                  size="24"
-                />
-              </b-button>
-            </b-col>
+            <button-component
+              margin-class=""
+              icon-button="SearchIcon"
+              class="btn-product col-3 px-md-1"
+              icon-size="24"
+              variant="secondary"
+              title-tool-tip="Buscar Cliente"
+              :method-function="()=>$bvModal.show('modal-query-partner')"
+            />
+            <button-component
+              margin-class="mr-1"
+              icon-button="Edit2Icon"
+              icon-size="24"
+              variant="secondary"
+              class="btn-product col-3 px-md-1"
+              title-tool-tip="Registrar Cliente"
+              :method-function="()=>$bvModal.show('modal-partner')"
+            />
+            <button-component
+              margin-class=""
+              icon-button="UserXIcon"
+              icon-size="24"
+              variant="secondary"
+              class="btn-product col-3 px-md-1"
+              title-tool-tip="Retirar Cliente"
+              :method-function="()=>clearStateClient()"
+            />
             <b-col>
               <b-button
                 variant="success"
@@ -142,255 +81,10 @@
       </div>
     </b-col>
     <b-col
-      cols="3"
-      lg="3"
-      md="6"
-      sm="6"
-    >
-      <b-row>
-        <b-col
-          cols="12"
-        >
-          <div>
-            <b-card
-              title="Producto"
-              tag="article"
-              style="height: 430px"
-              class="mb-2 card-2"
-            >
-              <b-row>
-                <b-col
-                  cols="9"
-                  md="8"
-                  sm="7"
-                >
-                  <b-img
-                    src="https://cdn.lumingo.com/medias/0100318233-000000000004521178-0-c1200Wx1200H?context=bWFzdGVyfGltYWdlc3wxOTk3Nzl8aW1hZ2UvanBlZ3xpbWFnZXMvaGI1L2hmYS84ODY4MTkyNzE0NzgyLmpwZ3xiMWY1YTVmZGYwMjk4MzRlNWEzZTU1MTViZDE1YjdkODllZTdlNDkzMGNkZjNkNzMzYmQ5N2MxOWI0NWE1ZTZj"
-                    fluid
-                    width="200"
-                    alt="Zapatilla"
-                  />
-                </b-col>
-                <b-col
-                  cols="3"
-                  md="4"
-                  sm="5"
-                >
-                  <p
-                    class="display-4 font-weight-bolder amount-article"
-                    style="margin-top: 80%"
-                  >
-                    x 1
-                  </p>
-                </b-col>
-              </b-row>
-              <b-card-text>
-                <p
-                  class="h4 text-success mt-1 w-900"
-                >
-                  NIKE HOMBRE CD5463-001 NIKE COURT VISION LO
-                </p>
-                <p
-                  class="mt-1 mb-0"
-                >
-                  Ref: ########
-                </p>
-                <p
-                  class="mt-0"
-                >
-                  Cod: ########
-                </p>
-                <p
-                  class="h1 mt-1 w-100 font-weight-bolder p-total"
-                >
-                  $/. 139.90
-                </p>
-              </b-card-text>
-            </b-card>
-          </div>
-        </b-col>
-        <b-col
-          cols="12"
-        >
-          <div>
-            <b-card
-              tag="article"
-              style="height: 60px"
-              class="mb-2 pt-0"
-              bg-variant="dark"
-            >
-              <b-card-text
-                class="h1 text-white p-0"
-              >
-                35
-              </b-card-text>
-            </b-card>
-          </div>
-        </b-col>
-        <b-col
-          cols="12"
-        >
-          <div>
-            <b-card
-              title=""
-              tag="article"
-              style="height: 355px"
-              class="mb-2 card-4 card-number"
-            >
-              <b-row>
-                <b-col
-                  cols="9"
-                  class=" text-center pr-0"
-                  style=""
-                >
-                  <b-button
-                    class="btn btn-primary btn-number"
-                  >
-                    1
-                  </b-button>
-                  <b-button
-                    class="btn btn-primary btn-number"
-                  >
-                    2
-                  </b-button>
-                  <b-button
-                    class="btn btn-primary btn-number"
-                  >
-                    3
-                  </b-button>
-                  <b-button
-                    class="btn btn-primary btn-number"
-                  >
-                    4
-                  </b-button>
-                  <b-button
-                    class="btn btn-primary btn-number"
-                  >
-                    5
-                  </b-button>
-                  <b-button
-                    class="btn btn-primary btn-number"
-                  >
-                    6
-                  </b-button>
-                  <b-button
-                    class="btn btn-primary btn-number"
-                  >
-                    7
-                  </b-button>
-                  <b-button
-                    class="btn btn-primary btn-number"
-                  >
-                    8
-                  </b-button>
-                  <b-button
-                    class="btn btn-primary btn-number"
-                  >
-                    9
-                  </b-button>
-                  <b-button
-                    class="btn btn-primary btn-number btn-double"
-                  >
-                    0
-                  </b-button>
-                  <b-button
-                    class="btn btn-primary btn-number"
-                  >
-                    ,
-                  </b-button>
-                </b-col>
-                <b-col
-                  cols="3"
-                  class="pl-0"
-                >
-                  <b-button
-                    class="btn btn-primary btn-number"
-                  >
-                    &#8701;
-                  </b-button>
-                  <b-button
-                    class="btn btn-primary btn-number"
-                  >
-                    C
-                  </b-button>
-                  <b-button
-                    class="btn btn-primary btn-number btn-h"
-                  >
-                    &#8626;
-                  </b-button>
-                </b-col>
-              </b-row>
-            </b-card>
-          </div>
-        </b-col>
-      </b-row>
-    </b-col>
-    <b-col
-      cols="4"
+      cols="7"
     >
       <div>
-        <b-card
-          title=""
-          tag="article"
-          style="height: 880px"
-          class="mb-2 card-5"
-        >
-          <b-card-text>
-            <b-form-input
-              class="control search-product bg-dark text-white"
-              placeholder="INGRESE O SCANEE UN PRODUCTO"
-              style="font-size:1.2rem"
-            />
-          </b-card-text>
-          <div
-            class="overflow-auto"
-            style="height: 750px; padding: 0 20px"
-          >
-            <b-row>
-              <b-col
-                cols="12"
-                class="p-md-0"
-              >
-                <b-card
-                  style="height: 50px"
-                >
-                  <b-row
-                    style="box-shadow:0px 7px 15px 0px rgba(0,0,0,0.75); padding: 10px 5px 5px 0px; border-radius:10px"
-                  >
-                    <b-col
-                      cols="7"
-                      md="5"
-                    >
-                      <p>Nike Zapatilla</p>
-                      <p>139.90 $</p>
-                    </b-col>
-                    <b-col
-                      cols="3"
-                      md="5"
-                    >
-                      <p>Ref: ######</p>
-                      <p>Code: ######</p>
-                    </b-col>
-                    <b-col
-                      cols="2"
-                      md="2"
-                      class="px-0 mt-50 "
-                    >
-                      <b-button
-                        variant="gradient-danger"
-                        class="btn-icon rounded-circle btn-delete"
-                        size="lg"
-                        style="font-weight: bold"
-                      >
-                        <feather-icon icon="XIcon" />
-                      </b-button>
-                    </b-col>
-                  </b-row>
-                </b-card>
-              </b-col>
-            </b-row>
-          </div>
-        </b-card>
+        <point-sale-list />
       </div>
     </b-col>
     <b-col
@@ -422,49 +116,28 @@
                 <b-col
                   cols="6"
                 >
-                  <div>
-                    <p
-                      class="text-right m-0"
-                      style="font-size:12px"
-                    >
-                      12 AGO 2021</p>
-                    <p
-                      class="font-weight-bolder h1 text-right"
-                      style="font-size:2.5em"
-                    >
-                      <b>12:23</b>
-                    </p>
-                  </div>
+                  <point-sale-date />
                 </b-col>
                 <b-col
                   cols="12"
                   class="mt-3 mt-md-2"
                 >
-                  <button-point-sale
+                  <container-buttons
                     :modal-id="MODAL_ID"
                     icon="UsersIcon"
+                  />
+                  <button-component
+                    icon-button="SearchIcon"
+                    margin-class="ml-1"
+                    :method-function="()=>$bvModal.show('modal-query-article')"
+                    class="btn-cuadrado"
+                    variant="secondary"
                   />
                   <b-button
                     class="btn btn-primary btn-cuadrado"
                   >
                     <feather-icon
                       icon="ArchiveIcon"
-                      size="24"
-                    />
-                  </b-button>
-                  <b-button
-                    class="btn btn-primary btn-cuadrado"
-                  >
-                    <feather-icon
-                      icon="BarChartIcon"
-                      size="24"
-                    />
-                  </b-button>
-                  <b-button
-                    class="btn btn-primary btn-cuadrado"
-                  >
-                    <feather-icon
-                      icon="CoffeeIcon"
                       size="24"
                     />
                   </b-button>
@@ -563,162 +236,7 @@
               style="height: 365px"
               class="mb-2 card-7"
             >
-              <b-row>
-                <b-col
-                  cols="6"
-                >
-                  <p
-                    class="mb-0 font-weight-bolder"
-                  >
-                    Sub Total
-                  </p>
-                  <p
-                    class="mb-0 font-weight-bolder"
-                  >
-                    IVA 25%
-                  </p>
-                  <p
-                    class="mb-0 font-weight-bolder"
-                  >
-                    Descuento
-                  </p>
-                  <p
-                    class="mb-0 font-weight-bolder"
-                  >
-                    Descuento
-                  </p>
-                  <p
-                    class="mb-0 font-weight-bolder"
-                  >
-                    Descuento
-                  </p>
-                  <p
-                    class="mb-0 font-weight-bolder"
-                  >
-                    Descuento
-                  </p>
-                  <p
-                    class="mb-0 font-weight-bolder"
-                  >
-                    Descuento
-                  </p>
-                  <p
-                    class="mb-0 font-weight-bolder"
-                  >
-                    Descuento
-                  </p>
-                  <p
-                    class="mb-0 font-weight-bolder"
-                  >
-                    Descuento
-                  </p>
-                  <p
-                    class="mb-0 font-weight-bolder"
-                  >
-                    Descuento
-                  </p>
-                </b-col>
-                <b-col
-                  cols="6"
-                  class="text-right"
-                >
-                  <p
-                    class="mb-0 font-weight-bolder"
-                  >
-                    110,52
-                  </p>
-                  <p
-                    class="mb-0 font-weight-bolder"
-                  >
-                    29,38
-                  </p>
-                  <p
-                    class="mb-0 font-weight-bolder"
-                  >
-                    0,00
-                  </p>
-                  <p
-                    class="mb-0 font-weight-bolder"
-                  >
-                    0,00
-                  </p>
-                  <p
-                    class="mb-0 font-weight-bolder"
-                  >
-                    0,00
-                  </p>
-                  <p
-                    class="mb-0 font-weight-bolder"
-                  >
-                    0,00
-                  </p>
-                  <p
-                    class="mb-0 font-weight-bolder"
-                  >
-                    0,00
-                  </p>
-                  <p
-                    class="mb-0 font-weight-bolder"
-                  >
-                    0,00
-                  </p>
-                  <p
-                    class="mb-0 font-weight-bolder"
-                  >
-                    0,00
-                  </p>
-                  <p
-                    class="mb-0 font-weight-bolder text-danger"
-                  >
-                    -(0,00)
-                  </p>
-                </b-col>
-                <b-col
-                  cols="6"
-                  class="text-left mt-1"
-                >
-                  <p
-                    class="mb-0 font-weight-bolder"
-                  >
-                    Pagado
-                  </p>
-                  <p
-                    class="mb-0 font-weight-bolder"
-                  >
-                    Vuelto
-                  </p>
-                </b-col>
-                <b-col
-                  cols="6"
-                  class="text-right mt-1"
-                >
-                  <p
-                    class="mb-0 font-weight-bolder"
-                  >
-                    0,00
-                  </p>
-                  <p
-                    class="mb-0 font-weight-bolder"
-                  >
-                    0,00
-                  </p>
-                </b-col>
-                <b-col
-                  cols="12"
-                  class="text-left"
-                >
-                  <p
-                    class="  mt-2 font-weight-bolder mb-0"
-                  >
-                    TOTAL
-                  </p>
-                  <p
-                    class="display-3 ml-2 font-weight-bolder text-right label-total"
-                  >
-                    <span>$</span>  139.90
-                  </p>
-                </b-col>
-              </b-row>
+              <point-sale-totals />
             </b-card>
           </div>
         </b-col>
@@ -730,30 +248,46 @@
 <script>
 
 import {
-  BRow, BCol, BCard, BCardText, BImg, BFormInput, BButton,
+  BRow, BCol, BCard, BButton,
 } from 'bootstrap-vue'
-import ButtonPointSale from '@/components/ButtonPointSale/ButtonPointSale.vue'
+import ButtonComponent from '@/components/ButtonComponent/ButtonComponent.vue'
+import { onMounted } from '@vue/composition-api'
+import { endPointsCombo, loadCombos } from '@/helpers/combos'
+import ContainerButtons from '@/components/ContainerButtons/ContainerButtons.vue'
 import {
-  MODAL_ID,
+  MODAL_ID, clearStateClient,
 } from './ServicesPointSale/useVariablesPointSale'
-import ModalSearchClient from './ModalSearchClient/ModalSearchClient.vue'
+import ModalListClient from './ModalListClient/ModalListClient.vue'
+import PointSaleClient from './components/PointSaleClient/PointSaleClient.vue'
+import PointSaleList from './components/PointSaleList/PointSaleList.vue'
+import PointSaleDate from './components/PointSaleDate/PointSaleDate.vue'
+import PointSaleTotals from './components/PointSaleTotals/PointSaleTotals.vue'
+import { combosClient, combosClientUbigeo } from './ServicesClient/useVariablesClient'
 
 export default {
   name: 'PointSale',
   components: {
     BRow,
-    BImg,
     BCol,
     BCard,
-    BCardText,
-    BFormInput,
     BButton,
-    ModalSearchClient,
-    ButtonPointSale,
+    ContainerButtons,
+    ModalListClient,
+    PointSaleClient,
+    PointSaleList,
+    PointSaleDate,
+    PointSaleTotals,
+    ButtonComponent,
   },
   setup() {
+    onMounted(() => {
+      loadCombos(combosClient, ['document'], `${endPointsCombo.tipoDocumento}/1`, 'Tipo de Documento')
+      loadCombos(combosClientUbigeo, ['departament'], endPointsCombo.departamento, 'Departamento')
+    })
+
     return {
       MODAL_ID,
+      clearStateClient,
     }
   },
 }
@@ -785,9 +319,9 @@ export default {
   margin: 10px;
 }
 .btn-product{
-  width: 62px;
-  height: 62px;
-  margin: 8px;
+  width: 62px !important;
+  height: 62px !important;
+  margin: 8px !important;
   background-color: #fff !important;
   color: #989898 !important;
   border-color: #fff !important;
