@@ -6,7 +6,7 @@
     :class="[marginClass]"
     :type="type"
     :title="titleToolTip"
-    @click="methodFunction"
+    @click.stop="methodFunction"
   >
     <div class="d-flex justify-content-center align-items-center">
       <b-spinner

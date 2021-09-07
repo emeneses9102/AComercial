@@ -70,7 +70,6 @@ export default {
     }
 
     const rowSelected = async row => {
-      console.log(row)
       stateArticle.value = { ...stateArticle.value, ...row }
       dataTableArticle.value.loading = true
       await getArticleById(row._id)
