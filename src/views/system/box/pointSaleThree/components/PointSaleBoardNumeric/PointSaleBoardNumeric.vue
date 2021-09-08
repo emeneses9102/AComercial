@@ -85,6 +85,7 @@ import {
   BCard,
 } from 'bootstrap-vue'
 import { toRef } from '@vue/composition-api'
+import store from '@/store'
 import ButtonBoardNumeric from './ButtonBoardNumeric.vue'
 import {
   clearStateProductSelected,
@@ -129,12 +130,13 @@ export default {
             break
           case 'ENTER':
             if (keySelectedOfBoard.value === optionsOfKeysOnBoard.cantidad && stateProductSelected.value._id) {
-              if (stateProductSelected.value.cantidad <= 1) {
-                updateQuantity('+', stateProductSelected.value._id)
-              } else {
-                updateQuantity('UPDATE', stateProductSelected.value._id, stateProductSelected.value.cantidad)
-              }
+              // if (stateProductSelected.value.cantidad <= 1) {
+              //   updateQuantity('+', stateProductSelected.value._id)
+              // } else {
+              updateQuantity('UPDATE', stateProductSelected.value._id, stateProductSelected.value.cantidad)
+              // }
               clearStateProductSelected()
+              store.commit('pointSale/TOGGLE_SHOW_PRODUCT_DETAIL', false)
               keySelectedOfBoard.value = ''
             } else if (keySelectedOfBoard.value === optionsOfKeysOnBoard.codigoProducto) {
               searchArticle()

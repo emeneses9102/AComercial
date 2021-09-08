@@ -1,12 +1,11 @@
 <template>
   <fragment>
     <b-card class="pointsale-product-detail">
-      <!-- <b-card-title>Producto ( x1 )</b-card-title> -->
       <div class="product-container-img">
         <div class="product-card-img">
           <b-img
             :src="stateProductSelected.imagen || require('@/assets/images/icons/no-photos.svg')"
-            alt="Macbook Pro"
+            :alt="stateProductSelected.nombre"
             class="product-img"
             draggable="false"
           />
@@ -37,7 +36,29 @@
       </div>
     </b-card>
     <b-card class="pointsale-product-quantity">
-      {{ stateProductSelected.cantidad || 'Ingrese cantidad' }}
+      <button
+        class="product-quantity__increment"
+        @click="()=>updateQuantityOfProductSelected('+')"
+      >
+        <feather-icon
+          icon="PlusIcon"
+          size="20"
+        />
+      </button>
+      <div
+        class="product-quantity__value"
+      >
+        {{ stateProductSelected.cantidad || '' }}
+      </div>
+      <button
+        class="product-quantity__decrement"
+        @click="()=>updateQuantityOfProductSelected('-')"
+      >
+        <feather-icon
+          icon="MinusIcon"
+          size="20"
+        />
+      </button>
     </b-card>
   </fragment>
 </template>
@@ -47,7 +68,12 @@ import {
   BCard, BImg,
 } from 'bootstrap-vue'
 import { Fragment } from 'vue-fragment'
-import { stateProductSelected } from '../../ServicesPointSale/useVariablesPointSale'
+import {
+  stateProductSelected,
+} from '../../ServicesPointSale/useVariablesPointSale'
+import {
+  updateQuantityOfProductSelected,
+} from '../../ServicesPointSale/useServicesPointSale'
 
 export default {
   name: 'PointSaleProduct',
@@ -59,6 +85,7 @@ export default {
   setup() {
     return {
       stateProductSelected,
+      updateQuantityOfProductSelected,
     }
   },
 }

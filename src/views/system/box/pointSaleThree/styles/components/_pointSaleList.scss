@@ -7,8 +7,6 @@ $font-size-product-name: 1.45rem;
 
 .pointsale-list {
 
-  overflow: hidden;
-
   &__input-code {
     background-color: #666;
     display: block;
@@ -43,8 +41,8 @@ $font-size-product-name: 1.45rem;
 .product-item {
   display: flex;
   justify-content: space-between;
-  box-shadow: 0 4px 2px -2px lighten($bg-product-item, 50);
-  padding: .75em 1em;
+  box-shadow: 0 0 6px 0 lighten($bg-product-item, 50);
+  padding: 1.25em;
   border-radius: .5em;
   margin-bottom: .5em;
   cursor: pointer;
@@ -58,7 +56,7 @@ $font-size-product-name: 1.45rem;
   }
   
   .dark-layout & {
-    box-shadow: 0 4px 2px -2px darken($bg-product-item, 20);
+    box-shadow: 0px 0px 6px 0px darken($bg-product-item, 20);
   }
 
   &-left {
@@ -68,14 +66,28 @@ $font-size-product-name: 1.45rem;
   }
 
   &__name,
+  &__code,
+  &__sku,
   &__price,
   &__quantity,
+  &__subtotal,
+  &__discount,
   &__codes {
     color: $color-product-item;
 
     .dark-layout & {
       $color-product-item: #C2C2C2;
       color: $color-product-item;
+    }
+  }
+
+  &__image {
+    display: none;
+    height: 70px;
+
+    @media screen and (min-width: #{map-get($pointsale-media-query, pointsale-laptop)}) {
+      display: block;
+      margin-right: 1em;
     }
   }
 
@@ -96,16 +108,19 @@ $font-size-product-name: 1.45rem;
   &__info {
     display: flex;
     align-items: flex-start;
-    flex-direction: column;
-
-    @media screen and (max-width: #{map-get($pointsale-media-query, pointsale-laptop-middle)}) {
-      align-items: flex-start;
+    
+    .show-product-detail & {
       flex-direction: column;
     }
+
   }
 
+  &__code,
+  &__sku,
   &__price,
-  &__quantity {
+  &__quantity,
+  &__subtotal,
+  &__discount {
     
     font-weight: var(--font-weight-item-text);
     font-size: var(--font-size-item-text);
@@ -117,27 +132,21 @@ $font-size-product-name: 1.45rem;
 
   }
 
+  &__subtotal {
+    font-weight: 900;
+  }
+
   &-right {
     display: flex;
     align-items: center;
   }
 
   &__codes {
-    
     display: none;
 
     @media screen and (min-width: #{map-get($pointsale-media-query, pointsale-laptop-middle)}) {
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
+      display: block;
       margin-right: 1em;
-
-      p {
-        margin-bottom: .25em;
-        font-weight: 600;
-        user-select: none;
-      }
-
     }
 
   }

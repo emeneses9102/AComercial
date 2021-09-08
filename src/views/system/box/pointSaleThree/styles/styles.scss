@@ -12,3 +12,50 @@
   @import './components/pointSaleList';
   @import './components/pointSaleTools';
 }
+
+.pointsale-list {
+  .pointsale.no-show-product-detail & {
+    @media screen and (min-width: #{map-get($pointsale-media-query, pointsale-mobile-landscape)}){
+      grid-column: span 2;
+      grid-column: span 1;
+    }
+  }
+  .pointsale.show-product-detail & {
+    @media screen and (min-width: #{map-get($pointsale-media-query, pointsale-mobile-landscape)}){
+      grid-column: span 2;
+    }
+  }
+
+}
+
+.product-item__info {
+  display: flex;
+  align-items: flex-start;
+  
+  @media screen and (max-width: #{map-get($pointsale-media-query, pointsale-tablet-landscape)}) {
+    .pointsale.show-product-detail & {
+      flex-direction: column;
+  
+      &__column {
+        &:not(&:first-child) {
+          margin-top: .2em;
+        }
+      }
+    }
+  }
+}
+
+.product-item__image {
+  .pointsale.no-show-product-detail & {
+    display: block !important;
+    margin-right: 1.5em;
+  }
+  .pointsale.show-product-detail & {
+    display: none !important;
+    
+    @media screen and (min-width: #{map-get($pointsale-media-query, pointsale-tablet-landscape) + 300}) {
+      display: block !important;
+      margin-right: 1.5em;
+    }
+  }
+}
