@@ -1,5 +1,8 @@
 <template>
-  <div class="pointsale">
+  <div
+    class="pointsale"
+    :class="[$store.state.pointSale.showProductDetail?'show-product-detail':'no-show-product-detail']"
+  >
     <div class="pointsale-data-general">
       <point-sale-client />
       <point-sale-voucher />

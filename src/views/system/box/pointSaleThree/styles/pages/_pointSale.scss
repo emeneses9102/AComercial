@@ -1,4 +1,4 @@
-$height-nav: 10rem;
+$height-nav: 8rem;
 
 %column-grid {
   display: grid;
@@ -9,33 +9,69 @@ $height-nav: 10rem;
   display: grid;
   gap: 1em;
   grid-template-columns: 1fr;
-  // min-height: calc(100vh - #{$height-nav});
+  min-height: calc(100vh - #{$height-nav});
   padding-bottom: 1.5em;
+
+  &.show-product-detail {
+    @media screen and (min-width: #{map-get($pointsale-media-query, pointsale-mobile)}){
+      grid-template-columns: 1fr;
+    }
   
-  @media screen and (min-width: #{map-get($pointsale-media-query, pointsale-mobile)}){
-    grid-template-columns: 1fr;
-  }
+    @media screen and (min-width: #{map-get($pointsale-media-query, pointsale-mobile-landscape)}) {
+      grid-template-columns: 1fr 266px;
+    }
+    
+    @media screen and (min-width: #{map-get($pointsale-media-query, pointsale-tablet)}) {
+      grid-template-columns: 210px 266px minmax(200px, 2.5fr);
+    }
+  
+    @media screen and (min-width: #{map-get($pointsale-media-query, pointsale-tablet-landscape)}) {
+      grid-template-columns: 210px 266px minmax(200px, 2.5fr) 200px;
+    }
+  
+    @media screen and (min-width: #{map-get($pointsale-media-query, pointsale-laptop)}) {
+      grid-template-columns: 210px 290px minmax(200px, 2.5fr) 280px;
+    }
+  
+    @media screen and (min-width: #{map-get($pointsale-media-query, pointsale-laptop-middle)}) {
+      grid-template-columns: minmax(210px, .75fr) minmax(310px, 330px) minmax(200px, 2.5fr) 280px;
+    }
 
-  @media screen and (min-width: #{map-get($pointsale-media-query, pointsale-mobile-landscape)}) {
-    grid-template-columns: 1fr 266px;
+    .pointsale-product {
+      display: grid;
+    }
   }
   
-  @media screen and (min-width: #{map-get($pointsale-media-query, pointsale-tablet)}) {
-    grid-template-columns: 210px 266px minmax(200px, 2.5fr);
-  }
+  &.no-show-product-detail {
+    @media screen and (min-width: #{map-get($pointsale-media-query, pointsale-mobile)}){
+      grid-template-columns: 1fr;
+    }
+  
+    @media screen and (min-width: #{map-get($pointsale-media-query, pointsale-mobile-landscape)}) {
+      grid-template-columns: 1fr 266px;
+    }
+    
+    @media screen and (min-width: #{map-get($pointsale-media-query, pointsale-tablet)}) {
+      grid-template-columns: 210px minmax(200px, 2.5fr);
+    }
+  
+    @media screen and (min-width: #{map-get($pointsale-media-query, pointsale-tablet-landscape)}) {
+      grid-template-columns: 210px minmax(200px, 2.5fr) 200px;
+    }
+  
+    @media screen and (min-width: #{map-get($pointsale-media-query, pointsale-laptop)}) {
+      grid-template-columns: 210px minmax(200px, 2.5fr) 280px;
+    }
+  
+    @media screen and (min-width: #{map-get($pointsale-media-query, pointsale-laptop-middle)}) {
+      grid-template-columns: minmax(210px, .75fr) minmax(200px, 2.5fr) 280px;
+    }
 
-  @media screen and (min-width: #{map-get($pointsale-media-query, pointsale-tablet-landscape)}) {
-    grid-template-columns: 210px 266px minmax(200px, 2.5fr) 200px;
+    .pointsale-product {
+      display: none;
+    }
   }
-
-  @media screen and (min-width: #{map-get($pointsale-media-query, pointsale-laptop)}) {
-    grid-template-columns: 210px 290px minmax(200px, 2.5fr) 280px;
-  }
-
-  @media screen and (min-width: #{map-get($pointsale-media-query, pointsale-laptop-middle)}) {
-    grid-template-columns: minmax(210px, 1fr) minmax(310px, 330px) minmax(200px, 2.5fr) 280px;
-  }
-
+  
   &-data-general,
   &-product,
   &-list,

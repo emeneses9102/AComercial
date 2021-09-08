@@ -7,6 +7,8 @@ $font-size-product-name: 1.45rem;
 
 .pointsale-list {
 
+  overflow: hidden;
+
   &__input-code {
     background-color: #666;
     display: block;
