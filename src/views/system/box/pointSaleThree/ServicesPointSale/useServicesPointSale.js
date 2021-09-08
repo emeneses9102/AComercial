@@ -1,5 +1,12 @@
-import { confirmSwal } from '@/helpers/messageExtensions'
-import { clearStateProductSelected, stateListProducts } from './useVariablesPointSale'
+import { confirmSwal, messageToast } from '@/helpers/messageExtensions'
+import { getRequest } from '@/helpers/requestRaw'
+import store from '@/store'
+import {
+  clearStateProductSelected,
+  searchProductById,
+  stateFieldFilterArticle,
+  stateListProducts,
+} from './useVariablesPointSale'
 
 // Función para agregar un producto a la lista
 export const addProductToList = newProduct => {
@@ -55,4 +62,34 @@ export const removeProduct = async _id => {
     stateListProducts.value = [...newStateListProducts]
     clearStateProductSelected()
   }
+}
+
+// Función para buscar un articulo por id / sku
+
+export const searchArticle = async () => {
+  store.commit('pointSale/CHANGE_LOADING_PRODUCT_LIST', true)
+  const { data, error } = await getRequest(`/articulos/?_id=0&tabla=articulos&campofiltro=${stateFieldFilterArticle.value}&filtro=${searchProductById.value}`, 'Buscando ArtÍculo')
+  store.commit('pointSale/CHANGE_LOADING_PRODUCT_LIST', false)
+  if (error) return false
+  if (data.length !== 1) {
+    return messageToast('warning', 'Artículo Buscado', 'No se encontró ningun artículo')
+  }
+  searchProductById.value = ''
+  const {
+    _id,
+    sku,
+    nombre,
+    imagen,
+    precioVenta,
+  } = data[0]
+
+  const newValue = {
+    _id: _id.toString(),
+    sku,
+    nombre,
+    imagen,
+    precioVenta,
+    cantidad: 1,
+  }
+  return addProductToList(newValue)
 }

@@ -5,72 +5,6 @@ export default [
     route: 'home',
   },
   {
-    title: 'Productos',
-    icon: 'BoxIcon',
-    children: [
-      {
-        title: 'Caracteristicas',
-        route: 'feature',
-      },
-      {
-        title: 'Tipo Producto',
-        route: 'product-type',
-      },
-      {
-        title: 'Tipo Servicio',
-        route: 'service-type',
-      },
-      {
-        title: 'Grupo Unidad',
-        route: 'unit-group',
-      },
-      {
-        title: 'Artículos',
-        route: 'article',
-      },
-    ],
-  },
-  {
-    title: 'Mantenimiento',
-    icon: 'FolderMinusIcon',
-    children: [
-      {
-        title: 'Socios',
-        route: 'partner',
-      },
-      {
-        title: 'Unidad de Negocio',
-        route: 'businessUnit',
-      },
-      {
-        title: 'Comprobante',
-        route: 'voucher',
-      },
-      {
-        title: 'Documento',
-        route: 'document',
-      },
-    ],
-  },
-  {
-    title: 'Almacén',
-    icon: 'ClipboardIcon',
-    children: [
-      {
-        title: 'Tipo Almacén',
-        route: 'storageType',
-      },
-      {
-        title: 'Predio',
-        route: 'predio',
-      },
-      {
-        title: 'Almacén',
-        route: 'storage',
-      },
-    ],
-  },
-  {
     title: 'Seguridad',
     icon: 'LockIcon',
     children: [
@@ -79,35 +13,25 @@ export default [
         route: 'role',
       },
       {
-        title: 'Colaborador',
-        route: 'collaborator',
-      },
-      {
-        title: 'Opciones',
-        route: 'option',
-      },
-      {
         title: 'Módulos',
         route: 'module',
       },
       {
-        title: 'Menú',
+        title: 'Programas',
         route: 'menu',
       },
       {
-        title: 'Usuario',
-        route: 'user',
+        title: 'Eventos al Programa',
+        route: 'option',
       },
       {
         title: 'Accesos',
         route: 'access',
       },
-    ],
-  },
-  {
-    title: 'Control',
-    icon: 'AlertOctagonIcon',
-    children: [
+      {
+        title: 'Usuarios',
+        route: 'user',
+      },
       {
         title: 'Mensaje Sistema',
         route: 'systemMessage',
@@ -119,35 +43,97 @@ export default [
     ],
   },
   {
-    title: 'Caja',
-    icon: 'InboxIcon',
+    title: 'Catálogo',
+    icon: 'CodesandboxIcon',
     children: [
       {
-        title: 'Medio Pago',
-        route: 'paymentMethod',
+        title: 'Tipo de Producto',
+        route: 'product-type',
       },
       {
-        title: 'Moneda',
+        title: 'Tipo de Servicio',
+        route: 'service-type',
+      },
+      {
+        title: 'Caracteristicas',
+        route: 'feature',
+      },
+      {
+        title: 'Unidad de Negocio',
+        route: 'businessUnit',
+      },
+      {
+        title: 'Grupo Unidad',
+        route: 'unit-group',
+      },
+      {
+        title: 'Tipo de Documento',
+        route: 'document',
+      },
+      {
+        title: 'Comprobantes',
+        route: 'voucher',
+      },
+      {
+        title: 'Moneda / País',
         route: 'currency',
       },
       {
-        title: 'Forma Pago',
+        title: 'Medio de Pago',
+        route: 'paymentMethod',
+      },
+      {
+        title: 'Forma de Pago',
         route: 'paymentForm',
       },
+    ],
+  },
+  {
+    title: 'Administración',
+    icon: 'SettingsIcon',
+    children: [
+      {
+        title: 'Colaboradores',
+        route: 'collaborator',
+      },
+      {
+        title: 'Clientes / Proveedores',
+        route: 'partner',
+      },
+      {
+        title: 'Predios',
+        route: 'predio',
+      },
+      {
+        title: 'Artículos',
+        route: 'article',
+      },
+    ],
+  },
+  {
+    title: 'Almacén',
+    icon: 'BoxIcon',
+    children: [
+      {
+        title: 'Tipo Almacén',
+        route: 'storageType',
+      },
+      {
+        title: 'Almacén',
+        route: 'storage',
+      },
+    ],
+  },
+  {
+    title: 'Caja',
+    icon: 'InboxIcon',
+    children: [
       {
         title: 'Sesión Caja',
         route: 'boxSession',
       },
       {
         title: 'Punto de Venta',
-        route: 'pointSale',
-      },
-      {
-        title: 'Punto de Venta 2',
-        route: 'pointSaleTwo',
-      },
-      {
-        title: 'Punto de Venta 3',
         route: 'pointSaleThree',
       },
     ],

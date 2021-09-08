@@ -90,7 +90,7 @@ import {
   clearStateProductSelected,
   keySelectedOfBoard, optionsOfKeysOnBoard, searchProductById, stateProductSelected,
 } from '../../ServicesPointSale/useVariablesPointSale'
-import { updateQuantity } from '../../ServicesPointSale/useServicesPointSale'
+import { searchArticle, updateQuantity } from '../../ServicesPointSale/useServicesPointSale'
 
 export default {
   name: 'PointSaleBoardNumeric',
@@ -136,10 +136,9 @@ export default {
               }
               clearStateProductSelected()
               keySelectedOfBoard.value = ''
+            } else if (keySelectedOfBoard.value === optionsOfKeysOnBoard.codigoProducto) {
+              searchArticle()
             }
-            // else if (keySelectedOfBoard.value === optionsOfKeysOnBoard.codigoProducto) {
-
-            // }
             break
           default:
             refInput.value += buttonValue.toString()

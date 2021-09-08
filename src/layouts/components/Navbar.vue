@@ -20,6 +20,9 @@
       <!-- Left Col -->
       <div class="bookmark-wrapper align-items-center flex-grow-1 d-flex">
         <dark-Toggler class="d-block" />
+        <date-time
+          v-if="$route.name === 'pointSaleThree'"
+        />
       </div>
 
       <b-navbar-nav class="nav align-items-center ml-auto">
@@ -101,6 +104,7 @@ import ModalChangePassword from '@/components/ModalChangePassword/ModalChangePas
 import ButtonComponent from '@/components/ButtonComponent/ButtonComponent.vue'
 import { mapState } from 'vuex'
 import FullScreen from './FullScreen.vue'
+import DateTime from './DateTime.vue'
 
 export default {
   components: {
@@ -114,6 +118,7 @@ export default {
     // Navbar Components
     DarkToggler,
     FullScreen,
+    DateTime,
     ModalChangePassword,
     ButtonComponent,
   },

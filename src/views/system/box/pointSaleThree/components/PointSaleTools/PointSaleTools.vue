@@ -54,12 +54,14 @@
         icon-size="32"
       />
       <button-component
-        icon-button="AirplayIcon"
+        icon-button="FilterIcon"
         icon-size="32"
+        :method-function="()=>$bvModal.show('modal-options-filter-article')"
       />
       <button-component
-        icon-button="AirplayIcon"
+        icon-button="EyeIcon"
         icon-size="32"
+        :method-function="showProductDetail"
       />
       <button-component
         icon-button="GridIcon"
@@ -75,6 +77,7 @@ import {
   BCard, BCardTitle,
 } from 'bootstrap-vue'
 import ButtonComponent from '@/components/ButtonComponent/ButtonComponent.vue'
+import store from '@/store'
 
 export default {
   name: 'PointSaleTools',
@@ -82,6 +85,16 @@ export default {
     BCard,
     BCardTitle,
     ButtonComponent,
+  },
+  setup() {
+    // Función para mostrar / ocultar la columna del producto detalle
+    const showProductDetail = () => {
+      store.commit('pointSale/TOGGLE_SHOW_PRODUCT_DETAIL')
+    }
+
+    return {
+      showProductDetail,
+    }
   },
 }
 </script>

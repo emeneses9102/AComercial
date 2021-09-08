@@ -62,3 +62,33 @@ export const stateListProducts = ref([...initialStateListProducts])
 export const clearStateListProducts = () => {
   stateListProducts.value = [...initialStateListProducts]
 }
+
+// Variable inicializadora para almacenar la columna de filtro de un artículo
+const initialStateFieldFilterArticle = '_id'
+
+// Variable reactiva para almacenar la columna de filtro de un artículo
+export const stateFieldFilterArticle = ref(initialStateFieldFilterArticle)
+
+// Función para regresar al estado inicial la columna de filtro de un articulo
+export const clearStateFilterArticle = () => {
+  stateFieldFilterArticle.value = initialStateFieldFilterArticle
+}
+
+// Variable para almacenar las columnas permitidas para el filtro de un articulo
+export const optionsFiledFilterArticle = [
+  {
+    label: 'Código',
+    field: '_id',
+    placeholder: 'Ingresar o escanee el Código',
+  },
+  {
+    label: 'SKU',
+    field: 'sku',
+    placeholder: 'Ingresar o escanee el SKU',
+  },
+  {
+    label: 'Código Unico',
+    field: 'codigoUnico',
+    placeholder: 'Ingresar o escanee el Código Único',
+  },
+]
