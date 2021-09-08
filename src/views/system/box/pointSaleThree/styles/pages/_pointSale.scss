@@ -48,7 +48,7 @@ $height-nav: 8rem;
     }
   
     @media screen and (min-width: #{map-get($pointsale-media-query, pointsale-mobile-landscape)}) {
-      grid-template-columns: 1fr 266px;
+      grid-template-columns: 1fr 1fr;
     }
     
     @media screen and (min-width: #{map-get($pointsale-media-query, pointsale-tablet)}) {

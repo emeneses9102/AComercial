@@ -7,8 +7,6 @@ $font-size-product-name: 1.45rem;
 
 .pointsale-list {
 
-  // overflow: hidden;
-
   &__input-code {
     background-color: #666;
     display: block;
@@ -43,9 +41,7 @@ $font-size-product-name: 1.45rem;
 .product-item {
   display: flex;
   justify-content: space-between;
-  // box-shadow: 0 4px 2px -2px lighten($bg-product-item, 50);
   box-shadow: 0 0 6px 0 lighten($bg-product-item, 50);
-  // padding: .75em 1em;
   padding: 1.25em;
   border-radius: .5em;
   margin-bottom: .5em;
