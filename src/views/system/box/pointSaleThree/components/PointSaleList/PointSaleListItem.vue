@@ -4,35 +4,41 @@
     :class="[stateProductSelected._id === codigo ? 'product-item--selected' : 'hola']"
     @click="selectedItem"
   >
-    <div class="product-item-left">
-      <p class="product-item__name">
-        {{ nombre }}
-      </p>
-      <div class="product-item__info mt-75">
-        <span class="product-item__price">Precio S/. {{ precio.toFixed(2) }}</span>
-        <span class="product-item__quantity mt-50">Cantidad: {{ cantidad }}</span>
+    <div class="d-flex align-items-center">
+      <div>
+        <b-img
+          :src="imagen || require('@/assets/images/icons/no-photos.svg')"
+          :alt="nombre"
+          class="product-item__image"
+          draggable="false"
+        />
+      </div>
+      <div class="product-item-left">
+        <p class="product-item__name">
+          {{ nombre }}
+        </p>
+        <div class="product-item__info mt-75">
+          <div class="product-item__info__column product-item__codes">
+            <span class="d-block product-item__code">Código: {{ codigo || '##########' }}</span>
+            <span class="d-block product-item__sku mt-25">SKU: {{ sku || '##########' }}</span>
+          </div>
+          <div class="product-item__info__column mr-1">
+            <span class="d-block product-item__price">Precio S/. {{ precio.toFixed(2) }}</span>
+            <span class="d-block product-item__quantity mt-25">Cantidad: {{ cantidad }}</span>
+          </div>
+          <div class="product-item__info__column">
+            <span class="d-block product-item__discount">Descuento: {{ descuento }}</span>
+            <span class="d-block product-item__subtotal mt-25">Sub Total: {{ (precio * cantidad).toFixed(2) }}</span>
+          </div>
+        </div>
       </div>
     </div>
     <div class="product-item-right">
-      <div class="product-item__codes">
+      <!-- <div class="product-item__codes">
         <p>SKU: {{ sku || '##########' }}</p>
         <p>Código: {{ codigo || '##########' }}</p>
-      </div>
+      </div> -->
       <div class="product-item__actions">
-        <button-component
-          icon-button="PlusIcon"
-          variant="primary"
-          icon-size="20"
-          class="p-1"
-          :method-function="()=>updateQuantity('+', codigo)"
-        />
-        <button-component
-          icon-button="MinusIcon"
-          variant="warning"
-          icon-size="20"
-          class="p-1"
-          :method-function="()=>updateQuantity('-', codigo)"
-        />
         <button-component
           icon-button="XIcon"
           variant="danger"
@@ -46,16 +52,34 @@
 </template>
 
 <script>
+import {
+  BImg,
+} from 'bootstrap-vue'
+import store from '@/store'
 import ButtonComponent from '@/components/ButtonComponent/ButtonComponent.vue'
-import { keySelectedOfBoard, optionsOfKeysOnBoard, stateProductSelected } from '../../ServicesPointSale/useVariablesPointSale'
-import { updateQuantity, removeProduct } from '../../ServicesPointSale/useServicesPointSale'
+import {
+  keySelectedOfBoard,
+  optionsOfKeysOnBoard,
+  stateProductSelected,
+  clearStateProductSelected,
+} from '../../ServicesPointSale/useVariablesPointSale'
+import {
+  updateQuantity,
+  removeProduct,
+} from '../../ServicesPointSale/useServicesPointSale'
 
 export default {
   name: 'PointSaleListItem',
   components: {
     ButtonComponent,
+    BImg,
   },
   props: {
+    imagen: {
+      type: String,
+      required: false,
+      default: '',
+    },
     nombre: {
       type: String,
       required: true,
@@ -81,17 +105,29 @@ export default {
       required: false,
       default: '',
     },
+    descuento: {
+      type: Number,
+      required: false,
+      default: 0,
+    },
   },
   setup(props) {
     const selectedItem = () => {
-      stateProductSelected.value._id = props.codigo
-      stateProductSelected.value.sku = props.sku
-      stateProductSelected.value.nombre = props.nombre
-      stateProductSelected.value.imagen = props.imagen
-      stateProductSelected.value.precio = props.precio
-      stateProductSelected.value.descuento = props.descuento
-      stateProductSelected.value.cantidad = props.cantidad.toString()
-      keySelectedOfBoard.value = optionsOfKeysOnBoard.cantidad
+      if (store.state.pointSale.showProductDetail && stateProductSelected.value._id) {
+        store.commit('pointSale/TOGGLE_SHOW_PRODUCT_DETAIL', false)
+        clearStateProductSelected()
+        keySelectedOfBoard.value = ''
+      } else {
+        stateProductSelected.value._id = props.codigo
+        stateProductSelected.value.sku = props.sku
+        stateProductSelected.value.nombre = props.nombre
+        stateProductSelected.value.imagen = props.imagen
+        stateProductSelected.value.precio = props.precio
+        stateProductSelected.value.descuento = props.descuento
+        stateProductSelected.value.cantidad = props.cantidad.toString()
+        keySelectedOfBoard.value = optionsOfKeysOnBoard.cantidad
+        store.commit('pointSale/TOGGLE_SHOW_PRODUCT_DETAIL', true)
+      }
     }
 
     return {

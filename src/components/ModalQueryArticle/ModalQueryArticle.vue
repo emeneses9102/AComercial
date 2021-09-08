@@ -66,7 +66,6 @@ export default {
       clearDataTableArticle()
       serverQueryArticle.value.campofiltro = ''
       serverQueryArticle.value.filtro = ''
-      loadItemsArticle(1)
     }
 
     const rowSelected = async row => {
@@ -83,18 +82,26 @@ export default {
       serverQueryArticle.value.opcional = props.serverQueryOpcional || ''
       serverQueryArticle.value.campofiltro = field
       serverQueryArticle.value.filtro = value
-      loadItemsArticle(1)
+      if (serverQueryArticle.value.filtro === '') {
+        clearDataTableArticle()
+      } else {
+        loadItemsArticle(1)
+      }
     }
 
     const onSearchForValue = (field, value) => {
       serverQueryArticle.value.opcional = props.serverQueryOpcional || ''
       dataTableArticle.value.loading = true
       clearTimeout(timer)
-      timer = setTimeout(() => {
-        serverQueryArticle.value.campofiltro = field
-        serverQueryArticle.value.filtro = value
-        loadItemsArticle(1)
-      }, timeForLoad)
+      serverQueryArticle.value.campofiltro = field
+      serverQueryArticle.value.filtro = value
+      if (serverQueryArticle.value.filtro === '') {
+        clearDataTableArticle()
+      } else {
+        timer = setTimeout(() => {
+          loadItemsArticle(1)
+        }, timeForLoad)
+      }
     }
 
     return {

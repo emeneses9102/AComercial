@@ -78,6 +78,9 @@ import {
 } from 'bootstrap-vue'
 import ButtonComponent from '@/components/ButtonComponent/ButtonComponent.vue'
 import store from '@/store'
+import {
+  clearStateProductSelected, keySelectedOfBoard,
+} from '../../ServicesPointSale/useVariablesPointSale'
 
 export default {
   name: 'PointSaleTools',
@@ -90,6 +93,10 @@ export default {
     // Función para mostrar / ocultar la columna del producto detalle
     const showProductDetail = () => {
       store.commit('pointSale/TOGGLE_SHOW_PRODUCT_DETAIL')
+      if (!store.state.pointSale.showProductDetail) {
+        clearStateProductSelected()
+        keySelectedOfBoard.value = ''
+      }
     }
 
     return {

@@ -12,3 +12,20 @@
   @import './components/pointSaleList';
   @import './components/pointSaleTools';
 }
+
+.product-item__info {
+  display: flex;
+  align-items: flex-start;
+  
+  @media screen and (max-width: #{map-get($pointsale-media-query, pointsale-tablet-landscape)}) {
+    .pointsale.show-product-detail & {
+      flex-direction: column;
+  
+      &__column {
+        &:not(&:first-child) {
+          margin-top: .2em;
+        }
+      }
+    }
+  }
+}

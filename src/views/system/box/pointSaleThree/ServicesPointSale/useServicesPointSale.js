@@ -6,6 +6,7 @@ import {
   searchProductById,
   stateFieldFilterArticle,
   stateListProducts,
+  stateProductSelected,
 } from './useVariablesPointSale'
 
 // Función para agregar un producto a la lista
@@ -54,6 +55,25 @@ export const updateQuantity = (operation, _id, quantity) => {
   stateListProducts.value = [...newStateListProducts]
 }
 
+// Función para actualizar la cantidad del producto seleccionado
+export const updateQuantityOfProductSelected = operation => {
+  if (stateProductSelected.value._id) {
+    const value = Number(stateProductSelected.value.cantidad)
+    switch (operation) {
+      case '+':
+        stateProductSelected.value.cantidad = value + 1
+        break
+      case '-':
+        if (stateProductSelected.value.cantidad > 1) {
+          stateProductSelected.value.cantidad = value - 1
+        }
+        break
+      default:
+        break
+    }
+  }
+}
+
 // Función para eliminar un item de la lista
 export const removeProduct = async _id => {
   const result = await confirmSwal('Producto', null, '¿Desea eliminar el producto de la lista?', 'Si, elimínalo')
@@ -81,6 +101,7 @@ export const searchArticle = async () => {
     nombre,
     imagen,
     precioVenta,
+    descuento,
   } = data[0]
 
   const newValue = {
@@ -89,6 +110,7 @@ export const searchArticle = async () => {
     nombre,
     imagen,
     precioVenta,
+    descuento,
     cantidad: 1,
   }
   return addProductToList(newValue)

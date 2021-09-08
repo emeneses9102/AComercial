@@ -35,8 +35,10 @@
             :codigo="product._id"
             :sku="product.sku"
             :nombre="product.nombre"
+            :imagen="product.imagen"
             :precio="product.precioVenta"
             :cantidad="product.cantidad"
+            :descuento="product.descuento"
           />
         </vue-perfect-scrollbar>
       </div>
@@ -91,6 +93,7 @@ export default {
       nombre,
       imagen,
       precioVenta,
+      descuento,
     }) => {
       const newValue = {
         _id: _id.toString(),
@@ -98,6 +101,7 @@ export default {
         nombre,
         imagen,
         precioVenta,
+        descuento,
         cantidad: 1,
       }
       addProductToList(newValue)
@@ -125,6 +129,6 @@ export default {
 .pointsale .scroll-area {
   position: relative;
   max-height: calc(100vh - 19rem);
-  padding-right: .5em;
+  padding: .4em;
 }
 </style>
