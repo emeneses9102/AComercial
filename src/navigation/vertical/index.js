@@ -133,6 +133,10 @@ export default [
         route: 'boxSession',
       },
       {
+        title: 'Sesión Caja 2',
+        route: 'boxSession2',
+      },
+      {
         title: 'Punto de Venta',
         route: 'pointSaleThree',
       },

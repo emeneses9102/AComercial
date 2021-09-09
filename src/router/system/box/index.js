@@ -70,6 +70,22 @@ export default [
     },
   },
   {
+    path: '/sesion-caja2',
+    name: 'boxSession2',
+    component: () => import('@/views/system/box/boxSession2/BoxSession.vue'),
+    meta: {
+      auth: true,
+      pageTitle: 'Sesión Caja',
+      breadcrumb: [
+        moduleBreadCrumb,
+        {
+          text: 'Sesión Caja',
+          active: true,
+        },
+      ],
+    },
+  },
+  {
     path: '/punto-venta',
     name: 'pointSale',
     component: () => import('@/views/system/box/pointSale/PointSale.vue'),

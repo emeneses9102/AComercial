@@ -60,6 +60,10 @@
                 class="text-body align-middle mr-25"
               />
             </template>
+            <slot
+              name="options-pluss"
+              :props="props"
+            />
             <template v-if="permission.includes('STATUS')">
               <b-dropdown-item
                 v-if="optionStatus"
@@ -78,15 +82,29 @@
             </template>
             <template v-if="permission.includes('OPEN_BOX')">
               <b-dropdown-item
-                v-if="optionOpenBox"
+                v-if="optionOpenBox && !props.row.apertura"
                 @click="openModalFor(props.row, 'open-box')"
               >
                 <div class="d-flex align-items-center">
                   <feather-icon
-                    icon="InboxIcon"
+                    icon="LogInIcon"
                     class="mr-50"
                   />
-                  <span class="d-inline-block">Caja</span>
+                  <span class="d-inline-block">Abrir Caja</span>
+                </div>
+              </b-dropdown-item>
+            </template>
+            <template v-if="permission.includes('CLOSE_BOX')">
+              <b-dropdown-item
+                v-if="optionCloseBox && props.row.apertura && !props.row.cierre"
+                @click="openModalFor(props.row, 'close-box')"
+              >
+                <div class="d-flex align-items-center">
+                  <feather-icon
+                    icon="LogOutIcon"
+                    class="mr-50"
+                  />
+                  <span class="d-inline-block">Cerrar Caja</span>
                 </div>
               </b-dropdown-item>
             </template>
@@ -104,6 +122,10 @@
                 </div>
               </b-dropdown-item>
             </template>
+            <slot
+              name="option-edit"
+              :props="props"
+            />
             <template v-if="permission.includes('EDIT')">
               <b-dropdown-item
                 v-if="optionEdit"
@@ -304,6 +326,11 @@ export default {
       required: false,
       default: false,
     },
+    optionCloseBox: {
+      type: Boolean,
+      required: false,
+      default: false,
+    },
     optionShow: {
       type: Boolean,
       required: false,
@@ -345,7 +372,7 @@ export default {
   },
   created() {
     // Cargar los permisos permitidos
-    this.permission = ['STATUS', 'SHOW', 'EDIT', 'DELETE', 'CHANGE_PASSWORD', 'OPEN_BOX']
+    this.permission = ['STATUS', 'SHOW', 'EDIT', 'DELETE', 'CHANGE_PASSWORD', 'OPEN_BOX', 'CLOSE_BOX']
   },
   methods: {
     onPageChange(params) {
@@ -386,6 +413,7 @@ export default {
       else if (openFor === 'edit') this.$emit('open-modal-for-edit', newRow)
       else if (openFor === 'change-password') this.$emit('open-modal-for-change-password', newRow)
       else if (openFor === 'open-box') this.$emit('open-modal-for-open-box', newRow)
+      else if (openFor === 'close-box') this.$emit('open-modal-for-close-box', newRow)
     },
     search() {
       this.loadItems(1)

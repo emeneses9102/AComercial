@@ -6,15 +6,17 @@
     
     .card-body {
       padding: .5em .025em !important;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
     }
 
-    button {
-      font-size: 1rem;
+    // button {
+    //   font-size: 1rem;
 
-      @media screen and (max-width: #{map-get($pointsale-media-query, pointsale-laptop)}) {
-        font-size: .8rem;
-      }  
-    }
+    //   @media screen and (max-width: #{map-get($pointsale-media-query, pointsale-laptop)}) {
+    //     font-size: .8rem;
+    //   }  
+    // }
   }
 }
 

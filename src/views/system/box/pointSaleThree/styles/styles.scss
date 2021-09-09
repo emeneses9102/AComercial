@@ -16,16 +16,9 @@
 .pointsale-list {
   .pointsale.no-show-product-detail & {
     @media screen and (min-width: #{map-get($pointsale-media-query, pointsale-mobile-landscape)}){
-      grid-column: span 2;
       grid-column: span 1;
     }
   }
-  .pointsale.show-product-detail & {
-    @media screen and (min-width: #{map-get($pointsale-media-query, pointsale-mobile-landscape)}){
-      grid-column: span 2;
-    }
-  }
-
 }
 
 .product-item__info {
