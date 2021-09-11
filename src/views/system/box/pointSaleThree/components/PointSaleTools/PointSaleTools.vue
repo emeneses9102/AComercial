@@ -4,49 +4,49 @@
       <b-card-title>Ticket N°</b-card-title>
       <b-card-title>20315</b-card-title>
     </div>
-    <div class="mt-3 text-center">
+    <div class="mt-3 text-center pointsale-tools__buttons">
       <button-component
-        icon-button="AirplayIcon"
+        icon-button="AwardIcon"
         icon-size="32"
       />
       <button-component
-        icon-button="AirplayIcon"
+        icon-button="CoffeeIcon"
         icon-size="32"
       />
       <button-component
-        icon-button="AirplayIcon"
+        icon-button="DivideSquareIcon"
         icon-size="32"
       />
       <button-component
-        icon-button="AirplayIcon"
+        icon-button="KeyIcon"
         icon-size="32"
       />
       <button-component
-        icon-button="AirplayIcon"
+        icon-button="GiftIcon"
         icon-size="32"
       />
       <button-component
-        icon-button="AirplayIcon"
+        icon-button="MonitorIcon"
         icon-size="32"
       />
       <button-component
-        icon-button="AirplayIcon"
+        icon-button="PrinterIcon"
         icon-size="32"
       />
       <button-component
-        icon-button="AirplayIcon"
+        icon-button="ThermometerIcon"
         icon-size="32"
       />
       <button-component
-        icon-button="AirplayIcon"
+        icon-button="ShoppingCartIcon"
         icon-size="32"
       />
       <button-component
-        icon-button="AirplayIcon"
+        icon-button="StarIcon"
         icon-size="32"
       />
       <button-component
-        icon-button="AirplayIcon"
+        icon-button="ToolIcon"
         icon-size="32"
       />
       <button-component
@@ -67,6 +67,12 @@
         icon-button="GridIcon"
         icon-size="32"
         :method-function="()=>$bvModal.show('modal-query-article')"
+      />
+      <button-component
+        class="invoiced"
+        text-default="Facturar"
+        icon-button="CreditCardIcon"
+        icon-size="32"
       />
     </div>
   </b-card>

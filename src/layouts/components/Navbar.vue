@@ -20,9 +20,11 @@
       <!-- Left Col -->
       <div class="bookmark-wrapper align-items-center flex-grow-1 d-flex">
         <dark-Toggler class="d-block" />
-        <date-time
+        <!-- <date-time
           v-if="$route.name === 'pointSaleThree'"
-        />
+        /> -->
+        <div>Ancho: {{ width }}</div>
+        <div>Alto: {{ height }}</div>
       </div>
 
       <b-navbar-nav class="nav align-items-center ml-auto">
@@ -104,7 +106,7 @@ import ModalChangePassword from '@/components/ModalChangePassword/ModalChangePas
 import ButtonComponent from '@/components/ButtonComponent/ButtonComponent.vue'
 import { mapState } from 'vuex'
 import FullScreen from './FullScreen.vue'
-import DateTime from './DateTime.vue'
+// import DateTime from './DateTime.vue'
 
 export default {
   components: {
@@ -118,7 +120,7 @@ export default {
     // Navbar Components
     DarkToggler,
     FullScreen,
-    DateTime,
+    // DateTime,
     ModalChangePassword,
     ButtonComponent,
   },
@@ -131,10 +133,25 @@ export default {
   data() {
     return {
       modalId: 'modal-change-password-global',
+      width: 0,
+      height: 0,
     }
   },
   computed: {
     ...mapState('authentication', ['user']),
+  },
+  created() {
+    this.resize()
+    window.addEventListener('resize', this.resize)
+  },
+  destroyed() {
+    window.removeEventListener('resize', this.resize)
+  },
+  methods: {
+    resize() {
+      this.width = getComputedStyle(document.documentElement).width
+      this.height = getComputedStyle(document.documentElement).height
+    },
   },
 }
 </script>

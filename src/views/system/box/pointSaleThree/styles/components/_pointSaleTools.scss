@@ -6,17 +6,62 @@
     
     .card-body {
       padding: .5em .025em !important;
+    }
+    
+    &__buttons {
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
+      
+      button {
+        font-size: 1rem;
+        // background-color: $bg-buttons !important;
+        // border-color: darken($bg-buttons, 10) !important;
+
+        // &:hover {
+        //   box-shadow: 0 8px 25px -8px $bg-buttons;
+        // }
+
+        // &:focus {
+        //   background-color: darken($bg-buttons, 10) !important;
+        // }
+
+        // svg {
+        //   color: #4ED83E;
+        //   color: #28c76f !important;
+        // }
+
+        &.invoiced {
+          grid-column: span 3;
+          // background-color: #4ED83E !important;
+          // border-color: darken(#4ED83E, 10) !important;
+          background-color: #28c76f !important;
+          border-color: #28c76f !important;
+          font-size: 2rem;
+          padding-top: .75em;
+          padding-bottom: .75em;
+
+          &:hover {
+            // box-shadow: 0 8px 25px -8px #4ED83E;
+            box-shadow: 0 8px 25px -8px #28c76f;
+          }
+
+          &:focus {
+            // background-color: darken(#4ED83E, 10) !important;
+            background-color: darken(#28c76f, 10) !important;
+          }
+
+          svg {
+            color: white !important;
+          }
+        }
+  
+        @media screen and (max-width: #{map-get($pointsale-media-query, pointsale-laptop)}) {
+          font-size: .8rem;
+        }  
+      }
+
     }
 
-    // button {
-    //   font-size: 1rem;
-
-    //   @media screen and (max-width: #{map-get($pointsale-media-query, pointsale-laptop)}) {
-    //     font-size: .8rem;
-    //   }  
-    // }
   }
 }
 

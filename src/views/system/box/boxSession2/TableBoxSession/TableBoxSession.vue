@@ -31,6 +31,23 @@
         </b-dropdown-item>
       </template>
     </template>
+    <template
+      #options-pluss="{ props }"
+    >
+      <template
+        v-if="props.row.apertura"
+      >
+        <b-dropdown-item>
+          <div class="d-flex align-items-center">
+            <feather-icon
+              icon="PrinterIcon"
+              class="mr-50"
+            />
+            <span class="d-inline-block">Reporte</span>
+          </div>
+        </b-dropdown-item>
+      </template>
+    </template>
   </table-good-component>
 </template>
 
