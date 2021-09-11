@@ -2,17 +2,17 @@
   <b-card class="pointsale-client">
     <b-card-title>Cliente</b-card-title>
     <div class="card__group">
-      <label class="card__label">Tipo Documento :</label>
+      <label class="card__label">Id :</label>
       <p class="card__input">
-        {{ stateClient.nombreDocumento }}
+        {{ stateClient._id || '-----------' }}
       </p>
     </div>
-    <div class="card__group">
+    <!-- <div class="card__group">
       <label class="card__label">N° Documento :</label>
       <p class="card__input">
         {{ stateClient.numeroDocumento }}
       </p>
-    </div>
+    </div> -->
     <div class="card__group">
       <label class="card__label">Nombres :</label>
       <p class="card__input">
@@ -25,12 +25,12 @@
         {{ stateClient.direccion }}
       </p>
     </div>
-    <div class="card__group">
+    <!-- <div class="card__group">
       <label class="card__label">Teléfono :</label>
       <p class="card__input">
         {{ stateClient.telefono }}
       </p>
-    </div>
+    </div> -->
     <div class="card__group">
       <label class="card__label">Correo Electrónico :</label>
       <p class="card__input">
@@ -42,21 +42,18 @@
         margin-class="mr-1"
         icon-button="SearchIcon"
         icon-size="20"
-        title-tool-tip="Buscar Cliente"
         :method-function="()=>$bvModal.show('modal-query-partner')"
       />
       <button-component
         margin-class="mr-1"
         icon-button="UserPlusIcon"
         icon-size="20"
-        title-tool-tip="Registrar Cliente"
         :method-function="()=>$bvModal.show('modal-partner')"
       />
       <button-component
         margin-class=""
         icon-button="UserXIcon"
         icon-size="20"
-        title-tool-tip="Retirar Cliente"
         :method-function="()=>clearStateClient()"
       />
       <modal-query-partner
