@@ -69,4 +69,20 @@ export default [
       ],
     },
   },
+  {
+    path: '/tributos',
+    name: 'tribute',
+    component: () => import('@/views/system/sunat/tribute/Tribute.vue'),
+    meta: {
+      auth: true,
+      pageTitle: 'Tributos',
+      breadcrumb: [
+        moduleBreadCrumb,
+        {
+          text: 'Tributos',
+          active: true,
+        },
+      ],
+    },
+  },
 ]

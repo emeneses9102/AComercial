@@ -162,6 +162,10 @@ export default [
         title: 'Código Único SUNAT',
         route: 'uniqueCodeSunat',
       },
+      {
+        title: 'Tributos',
+        route: 'tribute',
+      },
     ],
   },
 ]
