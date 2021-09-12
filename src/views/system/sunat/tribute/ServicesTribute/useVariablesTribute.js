@@ -47,7 +47,7 @@ export const columnsTribute = ref([
     pdf: true,
   },
   {
-    field: 'factor',
+    field: 'flgFactor',
     label: 'FACTOR',
     thClass: 'align-middle',
     tdClass: 'align-middle text-center',

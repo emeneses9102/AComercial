@@ -116,7 +116,7 @@
               >
                 <b-form-checkbox
                   id="tribute-factor"
-                  v-model="stateTribute.factor"
+                  v-model="stateTribute.flgFactor"
                   class="custom-control-success"
                   :value="1"
                   :unchecked-value="0"

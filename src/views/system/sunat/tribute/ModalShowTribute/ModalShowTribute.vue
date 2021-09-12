@@ -83,10 +83,10 @@
             >
               <b-badge
                 class="mt-50"
-                :variant="stateTribute.factor ? 'light-success' : 'light-danger'"
+                :variant="stateTribute.flgFactor ? 'light-success' : 'light-danger'"
               >
                 <feather-icon
-                  :icon="stateTribute.factor ? 'CheckIcon' : 'SlashIcon'"
+                  :icon="stateTribute.flgFactor ? 'CheckIcon' : 'SlashIcon'"
                   size="16"
                 />
               </b-badge>
