@@ -86,6 +86,10 @@ export default [
         title: 'Forma de Pago',
         route: 'paymentForm',
       },
+      {
+        title: 'Tributos',
+        route: 'tribute',
+      },
     ],
   },
   {
@@ -161,10 +165,6 @@ export default [
       {
         title: 'Código Único SUNAT',
         route: 'uniqueCodeSunat',
-      },
-      {
-        title: 'Tributos',
-        route: 'tribute',
       },
     ],
   },
