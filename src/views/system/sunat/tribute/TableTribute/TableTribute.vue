@@ -19,6 +19,8 @@ import {
   MODAL_ID, stateTribute, columnsTribute, serverQueryTribute, dataTableTribute, titleNotificationTribute,
 } from '../ServicesTribute/useVariablesTribute'
 import { loadItemsTribute, sendTribute } from '../ServicesTribute/useServicesTribute'
+import { serverQueryTributeFactor, clearStateTributeFactor, clearFiltersTributeFactor } from '../ServicesTributeFactor/useVariablesTributeFactor'
+import { loadItemsTributeFactor } from '../ServicesTributeFactor/useServicesTributeFactor'
 
 export default {
   name: 'TableTribute',
@@ -30,6 +32,10 @@ export default {
     const openModalFor = async (row, actionOpenModal) => {
       dataTableTribute.value.loading = true
       stateTribute.value = { ...stateTribute.value, ...row }
+      clearStateTributeFactor()
+      clearFiltersTributeFactor()
+      serverQueryTributeFactor.value.indice = row._id
+      await loadItemsTributeFactor(1)
       dataTableTribute.value.loading = false
       context.root.$bvModal.show(actionOpenModal === 'edit' ? MODAL_ID : `${MODAL_ID}-show`)
     }

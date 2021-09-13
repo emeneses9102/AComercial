@@ -107,7 +107,7 @@ export const columnsFilterTribute = [
 export const urlApiTribute = '/tributos'
 
 // Constante para almacenar el título de las notificaciónes del mantenimiento Tipos de Tributo
-export const titleNotificationTribute = 'Tipos de Tributo'
+export const titleNotificationTribute = 'Tipo de Tributo'
 
 // Constante para almacenar el titulo de los reportes del mantenimiento Tipos de Tributo
 export const titleReportTribute = 'REPORTE DE TIPO DE PRODUCTOS'

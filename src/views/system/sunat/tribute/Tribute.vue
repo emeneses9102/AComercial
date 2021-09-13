@@ -7,6 +7,7 @@
       <header-maintenance-component
         :modal-id="MODAL_ID"
         :clear-modal="clearModal"
+        :option-new="false"
         :export-data="{
           title: titleReportTribute,
           url: urlApiTribute,
