@@ -30,6 +30,14 @@
         </template>
         <detail-table-recipe class="mt-1" />
       </b-tab>
+
+      <b-tab>
+        <template #title>
+          <feather-icon icon="UserIcon" />
+          <span class="d-none d-md-inline">Tributo</span>
+        </template>
+        <detail-table-tribute class="mt-1" />
+      </b-tab>
     </b-tabs>
 
     <template #modal-footer>
@@ -51,6 +59,7 @@ import ButtonComponent from '@/components/ButtonComponent/ButtonComponent.vue'
 import HeaderArticle from './HeaderArticle.vue'
 import DetailTableFeature from './DetailTableFeature.vue'
 import DetailTableRecipe from './DetailTableRecipe.vue'
+import DetailTableTribute from './DetailTableTribute.vue'
 import { MODAL_ID, titleNotificationArticle } from '../ServicesArticle/useVariablesArticle'
 
 export default {
@@ -63,6 +72,7 @@ export default {
     HeaderArticle,
     DetailTableFeature,
     DetailTableRecipe,
+    DetailTableTribute,
   },
   setup() {
     return {

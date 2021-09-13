@@ -40,6 +40,17 @@
         />
         <detail-recipe-table class="mt-1" />
       </b-tab>
+      <b-tab>
+        <template #title>
+          <feather-icon icon="UserIcon" />
+          <span class="d-none d-md-inline">Tributo</span>
+        </template>
+        <detail-tribute
+          class="mt-1"
+          :send-header="sendForm"
+        />
+        <detail-tribute-table class="mt-1" />
+      </b-tab>
     </b-tabs>
 
     <template #modal-footer>
@@ -72,6 +83,8 @@ import DetailFeature from './DetailFeature.vue'
 import DetailFeatureTable from './DetailFeatureTable.vue'
 import DetailRecipe from './DetailRecipe.vue'
 import DetailRecipeTable from './DetailRecipeTable.vue'
+import DetailTribute from './DetailTribute.vue'
+import DetailTributeTable from './DetailTributeTable.vue'
 import {
   MODAL_ID, titleNotificationArticle, stateArticle, selectedArticleType,
 } from '../ServicesArticle/useVariablesArticle'
@@ -90,6 +103,8 @@ export default {
     DetailFeatureTable,
     DetailRecipe,
     DetailRecipeTable,
+    DetailTribute,
+    DetailTributeTable,
     ButtonComponent,
     ValidationObserver,
   },
