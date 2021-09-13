@@ -11,7 +11,7 @@ export const columnAction = {
 export const columnStatus = {
   field: 'activo',
   label: 'ESTADO',
-  thClass: 'align-middle',
+  thClass: 'align-middle text-center',
   tdClass: 'align-middle text-center',
   pdf: true,
 }
