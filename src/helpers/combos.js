@@ -35,6 +35,7 @@ export const endPointsCombo = {
   tipoDocumento: '/combo/documento',
   tipoProducto: '/combo/tipoproducto',
   tipoServicio: '/combo/tiposervicio',
+  tributoSunat: '/combo/snttributo',
   unidadmedida: '/combo/unidadmedida',
 }
 

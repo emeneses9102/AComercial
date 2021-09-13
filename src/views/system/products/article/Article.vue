@@ -40,6 +40,12 @@ import {
 import {
   clearStateArticleRecipeDetail, clearDataTableArticleRecipeDetail, clearFiltersArticleRecipeDetail, combosArticleRecipeDetail,
 } from './ServicesArticleRecipeDetail/useVariablesArticleRecipeDetail'
+import {
+  combosArticleTributeDetail,
+} from './ServicesArticleTributeDetail/useVariablesArticleTributeDetail'
+import {
+  clearFiltersTributeFactor, clearStateTributeFactor,
+} from '../../sunat/tribute/ServicesTributeFactor/useVariablesTributeFactor'
 
 export default {
   name: 'Article',
@@ -65,6 +71,9 @@ export default {
       resetCombos(combosArticleRecipeDetail, ['unitMeasure'])
       clearFiltersArticleRecipeDetail()
       clearDataTableArticleRecipeDetail()
+      clearStateTributeFactor()
+      clearFiltersTributeFactor()
+      clearDataTableArticleFeatureDetail()
     }
 
     onMounted(() => {
@@ -72,6 +81,7 @@ export default {
       loadCombos(combosArticle, ['serviceType'], `${endPointsCombo.tipoServicio}/1`, 'Tipo Servicio')
       loadCombos(combosArticle, ['unitGroup'], `${endPointsCombo.grupo}/1`, 'Grupo Unidad')
       loadCombos(combosArticleFeatureDetail, ['feature'], `${endPointsCombo.caracteristica}/1`, 'Característica')
+      loadCombos(combosArticleTributeDetail, ['tribute'], `${endPointsCombo.tributoSunat}/1`, 'Tributo')
     })
 
     return {
