@@ -30,7 +30,7 @@
                   id="tribute-factor-number"
                   v-model.trim="stateTributeFactor.factor"
                   type="number"
-                  step="0.1"
+                  step="0.01"
                   :state="errors.length > 0 ? false:null"
                 />
                 <small class="text-danger">{{ errors[0] }}</small>
@@ -49,7 +49,7 @@
             >
               <b-form-datepicker
                 id="tribute-factor-start"
-                v-model="stateTributeFactor.inicio"
+                v-model="stateTributeFactor.finicial"
                 v-bind="labelsFormDate"
               />
             </b-form-group>
@@ -66,7 +66,7 @@
             >
               <b-form-datepicker
                 id="tribute-factor-end"
-                v-model="stateTributeFactor.fin"
+                v-model="stateTributeFactor.ffinal"
                 v-bind="labelsFormDate"
               />
             </b-form-group>
@@ -149,7 +149,7 @@ export default {
         labelNextDecade: 'La próxima década',
         labelToday: 'Hoy',
         labelSelected: 'Fecha seleccionada',
-        labelNoDateSelected: 'Sin fecha elegida',
+        labelNoDateSelected: '',
         labelCalendar: 'Calendario',
         labelNav: 'Navegación de calendario',
         labelHelp: 'Navegar por el calendario con las teclas de flechas',

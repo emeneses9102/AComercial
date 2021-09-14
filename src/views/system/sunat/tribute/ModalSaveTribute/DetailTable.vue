@@ -45,10 +45,24 @@ export default {
     let timer = null
     const timeForLoad = 500
 
-    const openModalForEdit = ({ _id, nombre, ubicacion }) => {
+    const openModalForEdit = ({
+      _id,
+      factor,
+      inicial,
+      final,
+    }) => {
       stateTributeFactor.value._id = _id
-      stateTributeFactor.value.nombre = nombre
-      stateTributeFactor.value.ubicacion = ubicacion
+      stateTributeFactor.value.factor = factor
+      if ((new Date(inicial)).getFullYear() <= 1900) {
+        stateTributeFactor.value.finicial = null
+      } else {
+        stateTributeFactor.value.finicial = inicial
+      }
+      if ((new Date(final)).getFullYear() <= 1900) {
+        stateTributeFactor.value.ffinal = null
+      } else {
+        stateTributeFactor.value.ffinal = final
+      }
     }
 
     const onChangeField = (field, value) => {

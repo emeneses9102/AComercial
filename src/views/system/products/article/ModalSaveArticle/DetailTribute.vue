@@ -60,7 +60,7 @@
                   id="article-tribute-detail-factor-number"
                   v-model.trim="stateArticleTributeDetail.factor"
                   type="number"
-                  step="0.1"
+                  step="0.01"
                   :state="errors.length > 0 ? false:null"
                 />
                 <small class="text-danger">{{ errors[0] }}</small>
@@ -78,7 +78,7 @@
             >
               <b-form-datepicker
                 id="article-tribute-detail-start"
-                v-model="stateArticleTributeDetail.inicio"
+                v-model="stateArticleTributeDetail.finicio"
                 v-bind="labelsFormDate"
               />
             </b-form-group>
@@ -94,7 +94,7 @@
             >
               <b-form-datepicker
                 id="article-tribute-detail-end"
-                v-model="stateArticleTributeDetail.fin"
+                v-model="stateArticleTributeDetail.ffin"
                 v-bind="labelsFormDate"
               />
             </b-form-group>
@@ -180,7 +180,7 @@ export default {
         labelNextDecade: 'La próxima década',
         labelToday: 'Hoy',
         labelSelected: 'Fecha seleccionada',
-        labelNoDateSelected: 'Sin fecha elegida',
+        labelNoDateSelected: '',
         labelCalendar: 'Calendario',
         labelNav: 'Navegación de calendario',
         labelHelp: 'Navegar por el calendario con las teclas de flechas',
