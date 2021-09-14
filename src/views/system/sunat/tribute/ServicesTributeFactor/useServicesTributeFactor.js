@@ -35,6 +35,16 @@ export const getTributeFactorById = async _id => {
 
 // Función para gestionar un Tributo Factor
 export const sendTributeFactor = async (action, _id = null) => {
+  if (stateTributeFactor.value.finicial) {
+    stateTributeFactor.value.inicial = stateTributeFactor.value.finicial
+  } else {
+    stateTributeFactor.value.inicial = '1900-01-01'
+  }
+  if (stateTributeFactor.value.ffinal) {
+    stateTributeFactor.value.final = stateTributeFactor.value.ffinal
+  } else {
+    stateTributeFactor.value.final = '1900-01-01'
+  }
   stateTributeFactor.value.idTributo = stateTribute.value._id
   if (action === ACTION_REGISTER || action === ACTION_UPDATE) stateTributeFactor.value.loading = true
   const response = await sendForm(stateTributeFactor, urlApiTributeFactor, titleNotificationTributeFactor, action, _id)

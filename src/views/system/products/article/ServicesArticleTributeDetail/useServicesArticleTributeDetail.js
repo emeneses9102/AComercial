@@ -20,6 +20,16 @@ export const getArticleTributeDetailById = async _id => {
 
 // Función para gestionar un Detalle Articulo Tributo
 export const sendArticleTributeDetail = async (action, _id = null) => {
+  if (stateArticleTributeDetail.value.finicio) {
+    stateArticleTributeDetail.value.inicio = stateArticleTributeDetail.value.finicio
+  } else {
+    stateArticleTributeDetail.value.inicio = '1900-01-01'
+  }
+  if (stateArticleTributeDetail.value.ffin) {
+    stateArticleTributeDetail.value.fin = stateArticleTributeDetail.value.ffin
+  } else {
+    stateArticleTributeDetail.value.fin = '1900-01-01'
+  }
   stateArticleTributeDetail.value.idArticulo = stateArticle.value._id
   if (action === ACTION_REGISTER || action === ACTION_UPDATE) stateArticleTributeDetail.value.loading = true
   const response = await sendForm(stateArticleTributeDetail, urlApiArticleTributeDetail, titleNotificationArticleTributeDetail, action, _id)
