@@ -7,72 +7,72 @@
     <div class="mt-3 text-center pointsale-tools__buttons">
       <button-component
         icon-button="AwardIcon"
-        icon-size="32"
+        icon-size="24"
       />
       <button-component
         icon-button="CoffeeIcon"
-        icon-size="32"
+        icon-size="24"
       />
       <button-component
         icon-button="DivideSquareIcon"
-        icon-size="32"
+        icon-size="24"
       />
       <button-component
         icon-button="KeyIcon"
-        icon-size="32"
+        icon-size="24"
       />
       <button-component
         icon-button="GiftIcon"
-        icon-size="32"
+        icon-size="24"
       />
       <button-component
         icon-button="MonitorIcon"
-        icon-size="32"
+        icon-size="24"
       />
       <button-component
         icon-button="PrinterIcon"
-        icon-size="32"
+        icon-size="24"
       />
       <button-component
         icon-button="ThermometerIcon"
-        icon-size="32"
+        icon-size="24"
       />
       <button-component
         icon-button="ShoppingCartIcon"
-        icon-size="32"
+        icon-size="24"
       />
-      <button-component
+      <!-- <button-component
         icon-button="StarIcon"
-        icon-size="32"
+        icon-size="24"
       />
       <button-component
         icon-button="ToolIcon"
-        icon-size="32"
+        icon-size="24"
       />
       <button-component
         icon-button="AirplayIcon"
-        icon-size="32"
-      />
+        icon-size="24"
+      /> -->
       <button-component
         icon-button="FilterIcon"
-        icon-size="32"
+        icon-size="24"
         :method-function="()=>$bvModal.show('modal-options-filter-article')"
       />
       <button-component
         icon-button="EyeIcon"
-        icon-size="32"
+        icon-size="24"
         :method-function="showProductDetail"
       />
       <button-component
         icon-button="GridIcon"
-        icon-size="32"
+        icon-size="24"
         :method-function="()=>$bvModal.show('modal-query-article')"
       />
       <button-component
         class="invoiced"
         text-default="Facturar"
         icon-button="CreditCardIcon"
-        icon-size="32"
+        icon-size="24"
       />
     </div>
   </b-card>

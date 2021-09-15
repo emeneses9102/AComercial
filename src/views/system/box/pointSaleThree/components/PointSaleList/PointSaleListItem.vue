@@ -1,7 +1,7 @@
 <template>
   <div
     class="product-item"
-    :class="[stateProductSelected._id === codigo ? 'product-item--selected' : 'hola']"
+    :class="[stateProductSelected._id === codigo ? 'product-item--selected' : '']"
     @click="selectedItem"
   >
     <div class="d-flex align-items-center">

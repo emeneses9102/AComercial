@@ -1,42 +1,97 @@
 // Variables
-$height-nav: 10rem !default;
-$font-size-title: 14px !default;
-$font-size-label: 11px !default;
-$font-size-text: 12px !default;
 
-$bg-card-dark: #333;
-$bg-card-input: #777;
-$border-color: #111;
-$color-light: #D1D1D1;
+// Header
+$height-nav: 10rem !default;
+
+$header-height: 10rem !default;
+
+// Cards
+$font-size-title: 12px !default;
+$font-size-label: 9px !default;
+$font-size-text: 9px !default;
+
+$card-title-font-size: 12px !default;
+$card-label-font-size: 9px !default;
+$card-text-font-size: 9px !default;
 
 // Button Numeric
+$bg-card-dark: #333;
+$border-color: #111;
+$color-light: #D1D1D1;
 $size-button-board-numeric: 70px;
 $font-size-button-board-numeric: 2rem;
 
-// Buttons
-$bg-buttons: #1d252a;
-$color-buttons: #28c76f;
+$button-numeric-background: #333;
+$button-numeric-border-color: #111;
+$button-numeric-color: #D1D1D1;
+$button-numeric-size: 50px;
+$button-numeric-font-size: 2rem;
+$button-numeric-border-radius: 50%;
+$button-numeric-font-weight: 900;
+$button-numeric-key-background: darkslategrey;
+$button-numeric-key-active: #28c76f;
+$card-buttons-numeric-background: #777;
+
+// Input Search Product
+$bg-card-input: #777;
+
+$search-product-background: #666;
+$search-product-color: white;
+$search-product-border-color: #111;
 
 // List Item
-$font-size-item-title: 1.2rem;
+$font-size-item-title: 1rem;
 $font-weight-item-title: 900;  
 $font-size-item-text: 1rem;
 $font-weight-item-text: 500;
 
-:root {
-  --height-nav: 10rem;
-  --font-size-title: 14px;
-  --font-size-label: 13px;
-  --font-size-text: 15px;
+$li-product-title-font-size: 1rem;
+$li-product-title-font-weight: 900;
+$li-product-text-font-size: 1rem;
+$li-product-text-font-weight: 500;
+$li-product-background: #33394c !default;
+$li-product-color: #444;
 
+:root {
+  // Header
+  --height-nav: 10rem;
+
+  --header-height: 10rem;
+
+  // Cards
+  --font-size-title: 12px;
+  --font-size-label: 9px;
+  --font-size-text: 9px;
+
+  --card-title-font-size: 12px;
+  --card-label-font-size: 9px;
+  --card-text-font-size: 9px;
+
+  // Buttons Numeric
   --bg-card-dark: #333;
   --bg-card-input: #777;
   --border-color: #111;
   --color-light: #D1D1D1;
-  
-  // Button Numeric
   --size-button-board-numeric: 70px;
   --font-size-button-board-numeric: 2rem;
+  
+  --button-numeric-background: #{$button-numeric-background};
+  --button-numeric-border-color: #{$button-numeric-border-color};
+  --button-numeric-color: #{$button-numeric-color};
+  --button-numeric-size: #{$button-numeric-size};
+  --button-numeric-font-size: #{$button-numeric-font-size};
+  --button-numeric-font-weight: #{$button-numeric-font-weight};
+  --button-numeric-border-radius: #{$button-numeric-border-radius};
+  --button-numeric-key-background: #{$button-numeric-key-background};
+  --button-numeric-key-active: #{$button-numeric-key-active};
+  --card-buttons-numeric-background: #{$card-buttons-numeric-background};
+
+  // Input Search Product
+  --bg-card-input: #777;
+
+  --search-product-background: #777;
+  --search-product-color: #D1D1D1;
+  --search-product-border-color: #111;
 
   // List Item
   --font-size-item-title: 1.2rem;
@@ -44,15 +99,31 @@ $font-weight-item-text: 500;
   --font-size-item-text: 1rem;
   --font-weight-item-text: 500;
 
+  --li-product-title-font-size: #{$li-product-title-font-size};
+  --li-product-title-font-weight: #{$li-product-title-font-weight};
+  --li-product-text-font-size: #{$li-product-text-font-size};
+  --li-product-text-font-weight: #{$li-product-text-font-weight};
+  --li-product-background: #{$li-product-background};
+  --li-product-color: #{$li-product-color};
 }
 
 // Media query
 $pointsale-media-query: (
   pointsale-mobile: 320px,
-  pointsale-mobile-landscape: 568px,
+  pointsale-mobile-landscape: 568px, // <-- Desde aqui empiezan los niveles de estilos  
   pointsale-tablet: 768px,
   pointsale-tablet-landscape: 1024px,
   pointsale-laptop: 1366px,
   pointsale-laptop-middle: 1582px,
   pointsale-desktop: 1680px,
+);
+
+$pointsale-mq: (
+  mobile: 320px,
+  mobile-landscape: 568px, // <-- Desde aqui empiezan los niveles de estilos  
+  tablet: 768px,
+  tablet-landscape: 1024px,
+  laptop: 1366px,
+  laptop-middle: 1582px,
+  desktop: 1680px,
 );

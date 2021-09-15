@@ -1,43 +1,43 @@
 <template>
   <b-card class="pointsale-client">
     <b-card-title>Cliente</b-card-title>
-    <div class="card__group">
+    <div class="card__group client-id">
       <label class="card__label">Id :</label>
       <p class="card__input">
         {{ stateClient._id || '-----------' }}
       </p>
     </div>
-    <!-- <div class="card__group">
+    <div class="card__group client-number-document">
       <label class="card__label">N° Documento :</label>
       <p class="card__input">
         {{ stateClient.numeroDocumento }}
       </p>
-    </div> -->
-    <div class="card__group">
+    </div>
+    <div class="card__group client-name">
       <label class="card__label">Nombres :</label>
       <p class="card__input">
         {{ stateClient.nombres }}
       </p>
     </div>
-    <div class="card__group">
+    <div class="card__group client-address">
       <label class="card__label">Dirección :</label>
       <p class="card__input">
         {{ stateClient.direccion }}
       </p>
     </div>
-    <!-- <div class="card__group">
+    <div class="card__group client-phone">
       <label class="card__label">Teléfono :</label>
       <p class="card__input">
         {{ stateClient.telefono }}
       </p>
-    </div> -->
-    <div class="card__group">
+    </div>
+    <div class="card__group client-email">
       <label class="card__label">Correo Electrónico :</label>
       <p class="card__input">
         {{ stateClient.correo }}
       </p>
     </div>
-    <div class="d-flex flex-wrap justify-content-between mt-4 mb-1">
+    <div class="d-flex flex-wrap justify-content-between mt-2">
       <button-component
         margin-class="mr-1"
         icon-button="SearchIcon"

@@ -1,4 +1,4 @@
-$height-nav: 8rem;
+$header-height: 8rem;
 
 %column-grid {
   display: grid;
@@ -8,111 +8,40 @@ $height-nav: 8rem;
 .pointsale {
   display: grid;
   gap: 1em;
+  min-height: calc(100vh - #{$header-height});
   grid-template-columns: 1fr;
-  min-height: calc(100vh - #{$height-nav});
   padding-bottom: 1.5em;
 
-  &.show-product-detail {
-    @media screen and (min-width: #{map-get($pointsale-media-query, pointsale-mobile)}){
-      grid-template-columns: 1fr;
-    }
-  
-    @media screen and (min-width: #{map-get($pointsale-media-query, pointsale-mobile-landscape)}) {
-      grid-template-columns: 1fr 266px;
-    }
-    
-    @media screen and (min-width: #{map-get($pointsale-media-query, pointsale-tablet)}) {
-      grid-template-columns: 210px 266px minmax(200px, 2.5fr);
-    }
-  
-    @media screen and (min-width: #{map-get($pointsale-media-query, pointsale-tablet-landscape)}) {
-      grid-template-columns: 210px 266px minmax(200px, 2.5fr) 200px;
-    }
-  
-    @media screen and (min-width: #{map-get($pointsale-media-query, pointsale-laptop)}) {
-      grid-template-columns: 210px 290px minmax(200px, 2.5fr) 280px;
-    }
-  
-    @media screen and (min-width: #{map-get($pointsale-media-query, pointsale-laptop-middle)}) {
-      grid-template-columns: minmax(210px, .75fr) minmax(310px, 330px) minmax(200px, 2.5fr) 280px;
-    }
-
-    .pointsale-product {
-      display: grid;
-    }
+  @include min-mq('tablet') {
+    grid-template-columns: 210px 1fr 200px;
   }
-  
+  @include min-mq('laptop') {
+    grid-template-columns: 230px 1fr 200px;
+  }
+
   &.no-show-product-detail {
-    @media screen and (min-width: #{map-get($pointsale-media-query, pointsale-mobile)}){
-      grid-template-columns: 1fr;
+    @include min-mq('laptop-middle') {
+      grid-template-columns: 200px 1fr 200px;
     }
-  
-    @media screen and (min-width: #{map-get($pointsale-media-query, pointsale-mobile-landscape)}) {
-      grid-template-columns: 1fr 1fr;
+    @include min-mq('desktop') {
+      grid-template-columns: 240px 1fr 240px;
     }
-    
-    @media screen and (min-width: #{map-get($pointsale-media-query, pointsale-tablet)}) {
-      grid-template-columns: 210px minmax(200px, 2.5fr);
-    }
-  
-    @media screen and (min-width: #{map-get($pointsale-media-query, pointsale-tablet-landscape)}) {
-      grid-template-columns: 210px minmax(200px, 2.5fr) 200px;
-    }
-  
-    @media screen and (min-width: #{map-get($pointsale-media-query, pointsale-laptop)}) {
-      grid-template-columns: 210px minmax(200px, 2.5fr) 280px;
-    }
-  
-    @media screen and (min-width: #{map-get($pointsale-media-query, pointsale-laptop-middle)}) {
-      grid-template-columns: minmax(210px, .75fr) minmax(200px, 2.5fr) 280px;
-    }
+  }
 
-    .pointsale-product {
-      display: none;
+  &.show-product-detail {
+    @include min-mq('laptop-middle') {
+      grid-template-columns: 200px 266px 1fr 200px;
+    }
+    @include min-mq('desktop') {
+      grid-template-columns: 240px 266px 1fr 240px;
     }
   }
   
-  &-data-general,
+  &-info,
   &-product,
   &-list,
   &-plus {
     @extend %column-grid;
-  }
-
-  &-data-general {
-    grid-template-rows: auto 1fr;
-  }
-
-  &-product {
-    grid-template-rows: 1fr auto;
-  }
-
-  &-list {
-    grid-column: span 1;
-
-    @media screen and (min-width: #{map-get($pointsale-media-query, pointsale-tablet)}) {
-      grid-column: auto;
-    }
-  }
-
-  &-plus {
-    grid-template-columns: 1fr;
-    grid-column: span 1;
-    font-size: .8rem;
-    
-    @media screen and (min-width: #{map-get($pointsale-media-query, pointsale-mobile-landscape)}){
-      grid-template-columns: 1fr 1fr;
-      grid-column: span 2;
-    }
-    
-    @media screen and (min-width: #{map-get($pointsale-media-query, pointsale-tablet)}) {
-      grid-column: span 3;
-    }
-    
-    @media screen and (min-width: #{map-get($pointsale-media-query, pointsale-tablet-landscape)}) {
-      grid-column: auto;
-      grid-template-columns: auto;
-    }
   }
 
 }

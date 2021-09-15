@@ -1,0 +1,36 @@
+.pointsale {
+  &.no-show-product-detail &-info {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    
+    @include min-mq('mobile-landscape') {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    @include min-mq('tablet') {
+      grid-template-columns: 1fr;
+      grid-template-rows: auto 1fr;
+    }
+  }
+  &.show-product-detail &-info {
+    display: none;
+
+    @include min-mq('laptop-middle') {
+      display: grid;
+    }
+  }
+
+  & &-client {
+    .client-id,
+    .client-number-document,
+    .client-phone {
+      display: none;
+      margin-bottom: 0;
+      
+      @include min-mq('laptop') {
+        display: block;
+        margin-bottom: 1.5em;
+      }
+    }
+  }
+}

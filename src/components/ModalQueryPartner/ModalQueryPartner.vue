@@ -127,7 +127,7 @@ export default {
 #modal-query-partner {
   .modal-dialog {
     @media screen and (min-width: 576px) {
-      max-width: 700px;
+      max-width: 1000px;
       width: 90%;
     }
   }

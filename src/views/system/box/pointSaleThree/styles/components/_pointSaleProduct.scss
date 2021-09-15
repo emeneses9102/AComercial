@@ -1,0 +1,25 @@
+.pointsale {
+  &.show-product-detail &-product {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+
+    @include min-mq('mobile-landscape') {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    @include min-mq('tablet') {
+      grid-template-columns: 1fr;
+      grid-template-rows: 1fr auto;
+    }
+
+    &-actions {
+      @extend %column-grid;
+      grid-template-rows: auto 1fr;
+      // gap: 0;
+    }
+  }
+
+  &.no-show-product-detail &-product {
+    display: none;
+  }
+}

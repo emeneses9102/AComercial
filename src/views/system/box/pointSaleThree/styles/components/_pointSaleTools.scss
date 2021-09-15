@@ -81,3 +81,20 @@
   }
 
 }
+
+// Replace
+
+.pointsale {
+  & &-plus {
+    grid-template-columns: 1fr;
+    font-size: .8rem;
+    
+    @include min-mq('mobile-landscape'){
+      grid-template-columns: 1fr 1fr;
+    }
+    
+    @include min-mq('tablet') {
+      grid-template-columns: 1fr;
+    }
+  }
+}

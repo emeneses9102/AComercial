@@ -1,62 +1,64 @@
-$border: 4px solid $border-color !important;
+$border: 4px solid $button-numeric-border-color !important;
 
-.pointsale-product-quantity {
-  display: flex;
-  font-size: 2rem;
-  background-color: $bg-card-input !important;
-  border: $border;
-  
-  .card-body {
+.pointsale {
+  & &-product-quantity {
     display: flex;
-    padding: 0 !important;
-    font-weight: 900;
-    color: #F1F1F1 !important;
-    
-    @media screen and (min-width: #{map-get($pointsale-media-query, pointsale-laptop-middle)}) {
-      padding: 0;
+    font-size: 2rem;
+    background-color: $card-buttons-numeric-background !important;
+    border: $border;
+    // border-bottom-left-radius: 0 !important;
+    // border-bottom-right-radius: 0 !important;
+
+    .card-body {
+      display: flex;
+      padding: 0 !important;
+      font-weight: 900;
+      color: #F1F1F1 !important;
+
+      @include min-mq('laptop-middle') {
+        padding: 0;
+      }
+
+      .product-quantity {
+        &__increment,
+        &__decrement {
+          display: block;
+          outline: none;
+          border: none;
+          padding: .2em .5em !important;
+          background-color: var(--button-numeric-background);
+          color: white;
+          flex: none;
+          
+          &:active {
+            background-color: darken($button-numeric-background, 5);
+          }
+          
+          @include min-mq('laptop-middle') {
+            padding: .45em .9em !important;
+          }
+
+          @include min-mq('laptop') {
+            padding: .4em .8em !important;
+          }
+
+        }
+
+        &__increment {
+          border-right: $border;
+        }
+
+        &__decrement {
+          border-left: $border;
+        }
+      
+        &__value {
+          flex: 1;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+      }
     }
-
-    .product-quantity {
-      &__increment,
-      &__decrement {
-        display: block;
-        outline: none;
-        border: none;
-        padding: .45em .9em !important;
-        background-color: var(--bg-card-dark);
-        color: white;
-        flex: none;
-        
-        &:active {
-          background-color: darken($bg-card-dark, 5);
-        }
-        
-        @media screen and (max-width: map-get($pointsale-media-query, pointsale-laptop-middle)) {
-          padding: .4em .8em !important;
-        }
-        
-        @media screen and (max-width: map-get($pointsale-media-query, pointsale-laptop)){
-          padding: .3em .7em !important;
-        }
-
-      }
-
-      &__increment {
-        border-right: $border;
-      }
-
-      &__decrement {
-        border-left: $border;
-      }
-    
-      &__value {
-        flex: 1;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-      }
-    }
-
-  }  
+  }
 }
-
