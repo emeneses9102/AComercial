@@ -9,7 +9,7 @@
     <b-card
       class="h-100"
     >
-      <div class="d-flex justify-content-between align-items-center mb-2">
+      <div class="d-flex justify-content-between align-items-center mb-75">
         <input
           v-model="searchProductById"
           class="pointsale-list__input-code"

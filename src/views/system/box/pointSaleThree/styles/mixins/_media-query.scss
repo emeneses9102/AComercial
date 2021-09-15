@@ -1,0 +1,5 @@
+@mixin min-mq($mq) {
+  @media screen and (min-width: #{map-get($pointsale-mq, $mq)}) {
+    @content;
+  }
+}

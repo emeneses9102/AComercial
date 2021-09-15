@@ -1,83 +1,110 @@
 <template>
-  <b-card class="pointsale-board-numeric">
-    <button-board-numeric
-      text="7"
-      data-value="7"
-      :method-function="selectedButton"
-    />
-    <button-board-numeric
-      text="8"
-      data-value="8"
-      :method-function="selectedButton"
-    />
-    <button-board-numeric
-      text="9"
-      data-value="9"
-      :method-function="selectedButton"
-    />
-    <button-board-numeric
-      text="⇽"
-      data-value="DELETE"
-      :method-function="selectedButton"
-    />
-    <button-board-numeric
-      text="4"
-      data-value="4"
-      :method-function="selectedButton"
-    />
-    <button-board-numeric
-      text="5"
-      data-value="5"
-      :method-function="selectedButton"
-    />
-    <button-board-numeric
-      text="6"
-      data-value="6"
-      :method-function="selectedButton"
-    />
-    <button-board-numeric
-      :class="[keySelectedOfBoard === optionsOfKeysOnBoard.cantidad ? 'active' : '']"
-      class="btn-board-numeric--key"
-      text="C"
-      data-value="C"
-      :disabled="stateProductSelected._id === 0"
-      :method-function="selectedButton"
-    />
-    <button-board-numeric
-      text="1"
-      data-value="1"
-      :method-function="selectedButton"
-    />
-    <button-board-numeric
-      text="2"
-      data-value="2"
-      :method-function="selectedButton"
-    />
-    <button-board-numeric
-      text="3"
-      data-value="3"
-      :method-function="selectedButton"
-    />
-    <button-board-numeric
-      class="btn-board-numeric--enter"
-      text="↲"
-      data-value="ENTER"
-      :method-function="selectedButton"
-    />
-    <button-board-numeric
-      class="btn-board-numeric--zero"
-      text="0"
-      data-value="0"
-      :method-function="selectedButton"
-    />
-    <button-board-numeric
-      :class="[keySelectedOfBoard === optionsOfKeysOnBoard.codigoProducto ? 'active' : '']"
-      class="btn-board-numeric--key"
-      text="P"
-      data-value="P"
-      :method-function="selectedButton"
-    />
-  </b-card>
+  <div class="pointsale-product-actions">
+    <b-card class="pointsale-product-quantity">
+      <button
+        class="product-quantity__increment"
+        @click="()=>updateQuantityOfProductSelected('+')"
+      >
+        <feather-icon
+          icon="PlusIcon"
+          size="20"
+        />
+      </button>
+      <div
+        class="product-quantity__value"
+      >
+        {{ stateProductSelected.cantidad || '' }}
+      </div>
+      <button
+        class="product-quantity__decrement"
+        @click="()=>updateQuantityOfProductSelected('-')"
+      >
+        <feather-icon
+          icon="MinusIcon"
+          size="20"
+        />
+      </button>
+    </b-card>
+    <b-card class="pointsale-board-numeric">
+      <button-board-numeric
+        text="7"
+        data-value="7"
+        :method-function="selectedButton"
+      />
+      <button-board-numeric
+        text="8"
+        data-value="8"
+        :method-function="selectedButton"
+      />
+      <button-board-numeric
+        text="9"
+        data-value="9"
+        :method-function="selectedButton"
+      />
+      <button-board-numeric
+        text="⇽"
+        data-value="DELETE"
+        :method-function="selectedButton"
+      />
+      <button-board-numeric
+        text="4"
+        data-value="4"
+        :method-function="selectedButton"
+      />
+      <button-board-numeric
+        text="5"
+        data-value="5"
+        :method-function="selectedButton"
+      />
+      <button-board-numeric
+        text="6"
+        data-value="6"
+        :method-function="selectedButton"
+      />
+      <button-board-numeric
+        :class="[keySelectedOfBoard === optionsOfKeysOnBoard.cantidad ? 'active' : '']"
+        class="btn-board-numeric--key"
+        text="C"
+        data-value="C"
+        :disabled="stateProductSelected._id === 0"
+        :method-function="selectedButton"
+      />
+      <button-board-numeric
+        text="1"
+        data-value="1"
+        :method-function="selectedButton"
+      />
+      <button-board-numeric
+        text="2"
+        data-value="2"
+        :method-function="selectedButton"
+      />
+      <button-board-numeric
+        text="3"
+        data-value="3"
+        :method-function="selectedButton"
+      />
+      <button-board-numeric
+        class="btn-board-numeric--enter"
+        text="↲"
+        data-value="ENTER"
+        :method-function="selectedButton"
+      />
+      <button-board-numeric
+        class="btn-board-numeric--zero"
+        text="0"
+        data-value="0"
+        :method-function="selectedButton"
+      />
+      <button-board-numeric
+        :class="[keySelectedOfBoard === optionsOfKeysOnBoard.codigoProducto ? 'active' : '']"
+        class="btn-board-numeric--key"
+        text="P"
+        data-value="P"
+        :method-function="selectedButton"
+      />
+    </b-card>
+  </div>
 </template>
 
 <script>
@@ -91,7 +118,7 @@ import {
   clearStateProductSelected,
   keySelectedOfBoard, optionsOfKeysOnBoard, searchProductById, stateProductSelected,
 } from '../../ServicesPointSale/useVariablesPointSale'
-import { searchArticle, updateQuantity } from '../../ServicesPointSale/useServicesPointSale'
+import { searchArticle, updateQuantity, updateQuantityOfProductSelected } from '../../ServicesPointSale/useServicesPointSale'
 
 export default {
   name: 'PointSaleBoardNumeric',
@@ -154,6 +181,7 @@ export default {
       optionsOfKeysOnBoard,
       selectedButton,
       stateProductSelected,
+      updateQuantityOfProductSelected,
     }
   },
 }

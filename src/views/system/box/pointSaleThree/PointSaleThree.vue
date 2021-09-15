@@ -3,7 +3,7 @@
     class="pointsale"
     :class="[$store.state.pointSale.showProductDetail?'show-product-detail':'no-show-product-detail']"
   >
-    <div class="pointsale-data-general">
+    <div class="pointsale-info">
       <point-sale-client />
       <point-sale-voucher />
     </div>
@@ -22,7 +22,7 @@
 </template>
 
 <script>
-// import useAppConfig from '@core/app-config/useAppConfig'
+import useAppConfig from '@core/app-config/useAppConfig'
 import PointSaleAmount from './components/PointSaleAmount/PointSaleAmount.vue'
 import PointSaleBoardNumeric from './components/PointSaleBoardNumeric/PointSaleBoardNumeric.vue'
 import PointSaleClient from './components/PointSaleClient/PointSaleClient.vue'
@@ -41,6 +41,18 @@ export default {
     PointSaleList,
     PointSaleTools,
     PointSaleAmount,
+  },
+  created() {
+    const {
+      navbarType,
+    } = useAppConfig()
+    navbarType.value = 'sticky'
+  },
+  destroyed() {
+    const {
+      navbarType,
+    } = useAppConfig()
+    navbarType.value = 'sticky'
   },
 }
 </script>

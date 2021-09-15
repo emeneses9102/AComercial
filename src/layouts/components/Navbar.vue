@@ -23,8 +23,8 @@
         <!-- <date-time
           v-if="$route.name === 'pointSaleThree'"
         /> -->
-        <div>Ancho: {{ width }}</div>
-        <div>Alto: {{ height }}</div>
+        <!-- <div>Ancho: {{ width }}</div>
+        <div>Alto: {{ height }}</div> -->
       </div>
 
       <b-navbar-nav class="nav align-items-center ml-auto">

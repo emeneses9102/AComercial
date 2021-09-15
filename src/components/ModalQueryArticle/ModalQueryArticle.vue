@@ -15,7 +15,7 @@
     >
       <header-search-detail-component
         :columns-filter="columnsFilterArticle"
-        :column-filter-selected-default="'a.sku'"
+        :column-filter-selected-default="'a.nombre'"
         @on-change-field="onChangeField"
         @on-search-for-value="onSearchForValue"
       />
@@ -127,7 +127,7 @@ export default {
 #modal-query-article {
   .modal-dialog {
     @media screen and (min-width: 576px) {
-      max-width: 700px;
+      max-width: 1000px;
       width: 90%;
     }
   }

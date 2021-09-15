@@ -11,31 +11,33 @@
           />
         </div>
       </div>
-      <p class="product-name">
-        {{ stateProductSelected.nombre }}
-      </p>
-      <div class="d-flex justify-content-between align-items-center">
-        <div>
-          <p class="product-ref">
-            SKU: {{ stateProductSelected.sku || '###########' }}
-          </p>
-          <p class="product-code">
-            Código: {{ stateProductSelected._id || '###########' }}
-          </p>
-          <p class="product-price">
-            S/. {{ stateProductSelected.precio.toFixed(2) }}
-          </p>
-        </div>
-        <div
-          v-if="stateProductSelected.descuento"
-          class="product-discount"
-        >
-          <span class="product-discount-circle" />
-          <span class="product-discount-percentage">{{ stateProductSelected.descuento }} %</span>
+      <div>
+        <p class="product-name">
+          {{ stateProductSelected.nombre }}
+        </p>
+        <div class="d-flex justify-content-between align-items-center">
+          <div>
+            <p class="product-ref">
+              SKU: {{ stateProductSelected.sku || '###########' }}
+            </p>
+            <p class="product-code">
+              Código: {{ stateProductSelected._id || '###########' }}
+            </p>
+            <p class="product-price">
+              S/. {{ stateProductSelected.precio.toFixed(2) }}
+            </p>
+          </div>
+          <div
+            v-if="!stateProductSelected.descuento"
+            class="product-discount"
+          >
+            <span class="product-discount-circle" />
+            <span class="product-discount-percentage">{{ stateProductSelected.descuento }} %</span>
+          </div>
         </div>
       </div>
     </b-card>
-    <b-card class="pointsale-product-quantity">
+    <!-- <b-card class="pointsale-product-quantity">
       <button
         class="product-quantity__increment"
         @click="()=>updateQuantityOfProductSelected('+')"
@@ -59,7 +61,7 @@
           size="20"
         />
       </button>
-    </b-card>
+    </b-card> -->
   </fragment>
 </template>
 

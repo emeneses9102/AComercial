@@ -438,7 +438,7 @@ export default {
 @import '@core/scss/vue/libs/vue-good-table.scss';
 th span,
 td span {
-  font-size: 12px !important;
+  font-size: 11px !important;
 }
 .vgt-loading .vgt-center-align {
   margin-top: 0;
