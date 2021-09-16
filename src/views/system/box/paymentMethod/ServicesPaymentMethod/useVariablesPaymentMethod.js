@@ -4,6 +4,7 @@ import { ref } from '@vue/composition-api'
 // Importar configuracion de las columnas personalizadas
 import { columnAction, columnStatus } from '@/helpers/columnsTable'
 import { clearServerQueryDefaultFilter, serverQueryDefault } from '@/helpers/serverQuery'
+import { initialStateCombo } from '@/helpers/combos'
 
 // Constante para almacenar el id base de los modales del mantenimiento Medio de Pago
 export const MODAL_ID = 'modal-payment-method'
@@ -14,6 +15,13 @@ export const columnsPaymentMethod = ref([
   {
     field: '_id',
     label: 'ID',
+    thClass: 'align-middle',
+    tdClass: 'align-middle',
+    pdf: true,
+  },
+  {
+    field: 'nombreMedioPago',
+    label: 'DESCRIPCIÓN SUNAT',
     thClass: 'align-middle',
     tdClass: 'align-middle',
     pdf: true,
@@ -49,6 +57,8 @@ export const clearFiltersPaymentMethod = () => {
 // Variable inicializadora para almacenar el estado de un registro, actualización, cambio de estado, eliminación en la tabla Medio de Pago
 const initialStatePaymentMethod = {
   _id: 0,
+  idCodigoSunat: 0,
+  nombreMedioPago: '',
   nombre: '',
   accion: 0,
   loading: false,
@@ -61,6 +71,11 @@ export const statePaymentMethod = ref({ ...initialStatePaymentMethod })
 export const clearStatePaymentMethod = () => {
   statePaymentMethod.value = { ...initialStatePaymentMethod }
 }
+
+// Variable reactiva para almacenar el listado de los combos del mantenimiento Medio de Pago
+export const combosPaymentMethod = ref({
+  paymentMethodSunat: { ...initialStateCombo },
+})
 
 // Constante para almacenar las columas permitidas para el filtro de la table Medio de Pago
 export const columnsFilterPaymentMethod = [

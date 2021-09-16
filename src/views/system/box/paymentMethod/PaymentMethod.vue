@@ -22,13 +22,15 @@
 
 <script>
 import { BCard } from 'bootstrap-vue'
+import { onMounted } from '@vue/composition-api'
+import { endPointsCombo, loadCombos } from '@/helpers/combos'
 import HeaderMaintenanceComponent from '@/components/HeaderMaintenanceComponent/HeaderMaintenanceComponent.vue'
 import ModalSavePaymentMethod from './ModalSavePaymentMethod/ModalSavePaymentMethod.vue'
 import ModalSearchPaymentMethod from './ModalSearchPaymentMethod/ModalSearchPaymentMethod.vue'
 import ModalShowPaymentMethod from './ModalShowPaymentMethod/ModalShowPaymentMethod.vue'
 import TablePaymentMethod from './TablePaymentMethod/TablePaymentMethod.vue'
 import {
-  MODAL_ID, clearStatePaymentMethod, columnsPaymentMethod, urlApiPaymentMethod, serverQueryPaymentMethod, columnsFilterPaymentMethod, titleReportPaymentMethod,
+  MODAL_ID, clearStatePaymentMethod, columnsPaymentMethod, urlApiPaymentMethod, serverQueryPaymentMethod, columnsFilterPaymentMethod, titleReportPaymentMethod, combosPaymentMethod,
 } from './ServicesPaymentMethod/useVariablesPaymentMethod'
 
 export default {
@@ -46,6 +48,10 @@ export default {
     const clearModal = () => {
       clearStatePaymentMethod()
     }
+
+    onMounted(() => {
+      loadCombos(combosPaymentMethod, ['paymentMethodSunat'], `${endPointsCombo.medioPagoSunat}/1`, 'Medio de Pago SUNAT')
+    })
 
     return {
       MODAL_ID,

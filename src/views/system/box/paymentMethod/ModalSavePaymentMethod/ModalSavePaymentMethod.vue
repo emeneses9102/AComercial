@@ -11,6 +11,40 @@
       <b-form @submit.prevent="">
         <field-set-component legend="Datos Generales">
           <b-row>
+            <!-- Código SUNAT -->
+            <b-col
+              cols="12"
+            >
+              <validation-provider
+                #default="{ errors }"
+                name="Cod SUNAT"
+                rules="requiredComboVueSelect:m"
+              >
+                <b-form-group
+                  label="Cod SUNAT *"
+                  label-for="payment-method-code-sunat"
+                  :state="errors.length > 0 ? false:null"
+                >
+                  <vue-select
+                    id="payment-method-code-sunat"
+                    v-model="statePaymentMethod.idCodigoSunat"
+                    class="style-chooser"
+                    :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
+                    :reduce="paymentMethodSunat => paymentMethodSunat._id"
+                    label="nombre"
+                    :options="combosPaymentMethod.paymentMethodSunat.data"
+                    :loading="combosPaymentMethod.paymentMethodSunat.loading"
+                    :clearable="false"
+                    :disabled="combosPaymentMethod.paymentMethodSunat.disabled"
+                  >
+                    <template v-slot:no-options>
+                      No se encontraron resultados.
+                    </template>
+                  </vue-select>
+                  <small class="text-danger">{{ errors[0] }}</small>
+                </b-form-group>
+              </validation-provider>
+            </b-col>
             <!-- Nombre -->
             <b-col
               cols="12"
@@ -63,11 +97,12 @@ import {
   BModal, BForm, BRow, BCol, BFormGroup, BFormInput,
 } from 'bootstrap-vue'
 import { ValidationObserver, ValidationProvider } from 'vee-validate'
+import { VueSelect } from 'vue-select'
 import { ACTION_REGISTER, ACTION_UPDATE } from '@/helpers/actionsApi'
 import ButtonComponent from '@/components/ButtonComponent/ButtonComponent.vue'
 import FieldSetComponent from '@/components/FieldSetComponent/FieldSetComponent.vue'
 import {
-  MODAL_ID, titleNotificationPaymentMethod, statePaymentMethod, clearStatePaymentMethod,
+  MODAL_ID, titleNotificationPaymentMethod, statePaymentMethod, clearStatePaymentMethod, combosPaymentMethod,
 } from '../ServicesPaymentMethod/useVariablesPaymentMethod'
 import { loadItemsPaymentMethod, sendPaymentMethod } from '../ServicesPaymentMethod/useServicesPaymentMethod'
 
@@ -84,6 +119,7 @@ export default {
     FieldSetComponent,
     ValidationObserver,
     ValidationProvider,
+    VueSelect,
   },
   setup(props, context) {
     const sendForm = async (actionSend = null, loading = true) => {
@@ -105,6 +141,7 @@ export default {
       MODAL_ID,
       titleNotificationPaymentMethod,
       statePaymentMethod,
+      combosPaymentMethod,
       sendForm,
     }
   },

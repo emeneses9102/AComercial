@@ -9,6 +9,23 @@
     <b-form>
       <field-set-component legend="Datos Generales">
         <b-row>
+          <!-- DESCRIPCION SUNAT -->
+          <b-col
+            cols="12"
+          >
+            <b-form-group
+              label="DESCRIPCIÓN SUNAT"
+              label-for="payment-method-description-sunat"
+            >
+              <b-form-textarea
+                id="payment-method-description-sunat"
+                v-model="statePaymentMethod.nombreMedioPago"
+                rows="3"
+                readonly
+                no-resize
+              />
+            </b-form-group>
+          </b-col>
           <!-- Nombre -->
           <b-col
             cols="12"
@@ -42,7 +59,7 @@
 
 <script>
 import {
-  BModal, BForm, BRow, BCol, BFormGroup, BFormInput,
+  BModal, BForm, BRow, BCol, BFormGroup, BFormInput, BFormTextarea,
 } from 'bootstrap-vue'
 import FieldSetComponent from '@/components/FieldSetComponent/FieldSetComponent.vue'
 import ButtonComponent from '@/components/ButtonComponent/ButtonComponent.vue'
@@ -57,6 +74,7 @@ export default {
     BCol,
     BFormGroup,
     BFormInput,
+    BFormTextarea,
     FieldSetComponent,
     ButtonComponent,
   },

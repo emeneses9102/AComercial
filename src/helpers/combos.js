@@ -17,6 +17,7 @@ export const endPointsCombo = {
   grupo: '/combo/grupo',
   grupoUnidad: '/combo/grupounidad',
   medioPago: '/combo/mediopago',
+  medioPagoSunat: '/combo/sntmediopago',
   menu: '/combo/menu',
   menuPorIdModulo: '/combo/programas',
   modulo: '/combo/modulos',
