@@ -23,6 +23,9 @@
 
 <script>
 import useAppConfig from '@core/app-config/useAppConfig'
+import {
+  launchFullScreen,
+} from '@/helpers/utilsUI'
 import PointSaleAmount from './components/PointSaleAmount/PointSaleAmount.vue'
 import PointSaleBoardNumeric from './components/PointSaleBoardNumeric/PointSaleBoardNumeric.vue'
 import PointSaleClient from './components/PointSaleClient/PointSaleClient.vue'
@@ -47,6 +50,7 @@ export default {
       navbarType,
     } = useAppConfig()
     navbarType.value = 'sticky'
+    launchFullScreen()
   },
   destroyed() {
     const {

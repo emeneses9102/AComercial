@@ -7,19 +7,23 @@
     :data-table="dataTableAccess"
     :load-items="loadItemsAccess"
     :manage-row="sendAccess"
-    :option-edit="false"
     @open-modal-for-show="row=>openModalFor(row, 'show')"
+    @open-modal-for-edit="row=>openModalFor(row, 'edit')"
   />
+  <!-- :option-edit="false" -->
 </template>
 
 <script>
 import { onMounted } from '@vue/composition-api'
+import { endPointsCombo, loadCombos } from '@/helpers/combos'
 import TableGoodComponent from '@/components/TableComponent/TableGoodComponent.vue'
 import {
-  MODAL_ID, stateAccess, columnsAccess, serverQueryAccess, dataTableAccess, titleNotificationAccess,
+  MODAL_ID, stateAccess, columnsAccess, serverQueryAccess, dataTableAccess, titleNotificationAccess, combosAccess,
 } from '../ServicesAccess/useVariablesAccess'
-import { loadItemsAccess, sendAccess } from '../ServicesAccess/useServicesAccess'
-import { serverQueryAccessOptionDetail, clearStateAccessOptionDetail, clearFiltersAccessOptionDetail } from '../ServicesAccessOptionDetail/useVariablesAccessOptionDetail'
+import { getAccessById, loadItemsAccess, sendAccess } from '../ServicesAccess/useServicesAccess'
+import {
+  serverQueryAccessOptionDetail, clearStateAccessOptionDetail, clearFiltersAccessOptionDetail, combosAccessOptionDetail,
+} from '../ServicesAccessOptionDetail/useVariablesAccessOptionDetail'
 import { loadItemsAccessOptionDetail } from '../ServicesAccessOptionDetail/useServicesAccessOptionDetail'
 
 export default {
@@ -31,7 +35,13 @@ export default {
     // Función que se ejecutará cuando el usuario haga click en el botón editar o ver
     const openModalFor = async (row, actionOpenModal) => {
       dataTableAccess.value.loading = true
-      stateAccess.value = { ...stateAccess.value, ...row }
+      if (actionOpenModal === 'show') {
+        stateAccess.value = { ...stateAccess.value, ...row }
+      } else if (actionOpenModal === 'edit') {
+        await getAccessById(row._id)
+        await loadCombos(combosAccess, ['menu'], `${endPointsCombo.menuPorIdModulo}/${stateAccess.value.idModulo}`, 'Menú')
+        loadCombos(combosAccessOptionDetail, ['option'], `${endPointsCombo.opcionesDisponiblesPorIdRolIdMenu}/${stateAccess.value.idRol}/${stateAccess.value.idMenu}`, 'Opciónes disponibles')
+      }
       clearStateAccessOptionDetail()
       clearFiltersAccessOptionDetail()
       serverQueryAccessOptionDetail.value.indice = row._id

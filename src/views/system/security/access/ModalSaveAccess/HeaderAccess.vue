@@ -26,7 +26,7 @@
                 :options="combosAccess.role.data"
                 :loading="combosAccess.role.loading"
                 :clearable="false"
-                :disabled="combosAccess.role.disabled"
+                :disabled="combosAccess.role.disabled || !!stateAccess._id"
                 @option:selected="roleSelected"
               >
                 <template v-slot:no-options>
@@ -62,7 +62,7 @@
                 :options="combosAccess.module.data"
                 :loading="combosAccess.module.loading"
                 :clearable="false"
-                :disabled="combosAccess.module.disabled"
+                :disabled="combosAccess.module.disabled || !!stateAccess._id"
                 @option:selected="moduleSelected"
               >
                 <template v-slot:no-options>
@@ -98,7 +98,7 @@
                 :options="combosAccess.menu.data"
                 :loading="combosAccess.menu.loading"
                 :clearable="false"
-                :disabled="combosAccess.menu.disabled"
+                :disabled="combosAccess.menu.disabled || !!stateAccess._id"
                 @option:selected="menuSelected"
               >
                 <template v-slot:no-options>
