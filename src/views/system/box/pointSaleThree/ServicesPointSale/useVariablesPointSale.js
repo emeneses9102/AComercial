@@ -1,5 +1,6 @@
 // Importar function ref para crear variables reactivas
 import { ref } from '@vue/composition-api'
+import { initialStateCombo } from '@/helpers/combos'
 
 // Variable inicializadora para almacenar los datos del cliente seleccionado
 const initialStateClient = {
@@ -63,6 +64,13 @@ export const clearStateListProducts = () => {
   stateListProducts.value = [...initialStateListProducts]
 }
 
+// Variable reactiva para almacenar el listado de los combos de la gestion del punto de venta
+export const combosPointSale = ref({
+  currency: { ...initialStateCombo },
+  paymentMethod: { ...initialStateCombo },
+  documentType: { ...initialStateCombo },
+})
+
 // Variable inicializadora para almacenar la columna de filtro de un artículo
 const initialStateFieldFilterArticle = '_id'
 
@@ -77,7 +85,7 @@ export const clearStateFilterArticle = () => {
 // Variable para almacenar las columnas permitidas para el filtro de un articulo
 export const optionsFiledFilterArticle = [
   {
-    label: 'Código',
+    label: 'CÓDIGO',
     field: '_id',
     placeholder: 'Ingresar o escanee el Código',
   },
@@ -87,8 +95,23 @@ export const optionsFiledFilterArticle = [
     placeholder: 'Ingresar o escanee el SKU',
   },
   {
-    label: 'Código Unico',
+    label: 'CÓDIGO UNICO',
     field: 'codigoUnico',
     placeholder: 'Ingresar o escanee el Código Único',
+  },
+  {
+    label: 'CÓDIGO INTERNO',
+    field: 'codInterno',
+    placeholder: 'Ingresar o escanee el Código Interno',
+  },
+  {
+    label: 'CÓDIGO BARRA',
+    field: 'codBarra',
+    placeholder: 'Ingresar o escanee el Código de Barra',
+  },
+  {
+    label: 'CÓDIGO FABRICANTE',
+    field: 'codFabricante',
+    placeholder: 'Ingresar o escanee el Código de Fabricante',
   },
 ]

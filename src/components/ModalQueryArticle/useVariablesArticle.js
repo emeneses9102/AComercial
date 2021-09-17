@@ -189,6 +189,22 @@ export const columnsFilterArticle = [
     title: 'GRUPO UNIDAD',
     field: 'a.nombreGrupoUnidad',
   },
+  {
+    title: 'CÓDIGO UNICO',
+    field: 'a.codigoUnico',
+  },
+  {
+    title: 'CÓDIGO INTERNO',
+    field: 'a.codInterno',
+  },
+  {
+    title: 'CÓDIGO BARRA',
+    field: 'a.codBarra',
+  },
+  {
+    title: 'CÓDIGO FABRICANTE',
+    field: 'a.codFabricante',
+  },
 ]
 
 // Constante para almacenar la url base de la petición al mantenimiento Articulo
