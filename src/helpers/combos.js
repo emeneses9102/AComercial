@@ -14,6 +14,7 @@ export const endPointsCombo = {
   detalleCaracteristica: '/comboadv/dcaracteristica',
   distrito: '/comboubigeo/distrito',
   familiaSunat: '/comboadv/sntfamilia',
+  formaPago: '/combo/formapago',
   grupo: '/combo/grupo',
   grupoUnidad: '/combo/grupounidad',
   medioPago: '/combo/mediopago',

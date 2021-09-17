@@ -4,8 +4,9 @@ import {
 
 export const fullScreen = ref(false)
 
+const element = document.documentElement
+
 export const launchFullScreen = () => {
-  const element = document.documentElement
   if (element.requestFullScreen) {
     element.requestFullScreen()
     fullScreen.value = true

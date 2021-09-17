@@ -90,11 +90,23 @@ WE WILL RELEASE FUTURE UPDATES SO IN ORDER TO NOT OVERWRITE YOUR STYLES IT'S BET
 .custom-control.custom-checkbox,
 .custom-control.custom-radio {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
+  white-space: nowrap;
+
+  .custom-control-label {
+    margin-top: .3rem;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 }
 
-.custom-control .custom-control-label {
-  margin-top: .1rem;
+.custom-control.custom-switch {
+  align-items: center;
+
+  .custom-control-label {
+    margin-top: .1rem;
+  }
 }
 
 .input-type-date {

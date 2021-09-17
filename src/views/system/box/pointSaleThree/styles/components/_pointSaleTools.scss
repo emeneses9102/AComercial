@@ -30,6 +30,10 @@
         //   color: #28c76f !important;
         // }
 
+        &.cancel {
+          grid-area: 1 / 3 / 2 / 4;
+        }
+
         &.invoiced {
           grid-column: span 3;
           // background-color: #4ED83E !important;
