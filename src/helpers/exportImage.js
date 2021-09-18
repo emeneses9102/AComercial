@@ -3,18 +3,18 @@ import { jsPDF } from 'jspdf'
 
 export default (
   action = 'print',
-  orientation = 'p',
   imageData = '',
   nameDocument = '',
 ) => {
+  const orientation = 'l'
   // Crear la instancia de jsPDF y armar los datos que se mostrarán en la tabla
-  const doc = new jsPDF(orientation, 'pt', [272.28, 260.89])
+  const doc = new jsPDF(orientation, 'mm', [80, 60])
 
   // ==================================================================================
   // ================================ PRIMERA LINEA ===================================
   // ==================================================================================
 
-  doc.addImage(imageData, 'JPEG', 15, 15)
+  doc.addImage(imageData, 'JPEG', 7, 5)
 
   if (action === 'download') {
     doc.save(nameDocument)

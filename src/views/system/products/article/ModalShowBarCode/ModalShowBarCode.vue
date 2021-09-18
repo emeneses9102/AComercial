@@ -14,6 +14,12 @@
       legend="Código de Barra"
     >
       <div class="text-center">
+        <div
+          v-if="!barCode"
+          class="text-center mt-1 mb-1"
+        >
+          No hay un código de barra
+        </div>
         <img
           id="barcode"
           jsbarcode-format="auto"
@@ -47,6 +53,7 @@ import JsBarcode from 'jsbarcode'
 import FieldSetComponent from '@/components/FieldSetComponent/FieldSetComponent.vue'
 import ButtonComponent from '@/components/ButtonComponent/ButtonComponent.vue'
 import exportImage from '@/helpers/exportImage'
+import { messageToast } from '@/helpers/messageExtensions'
 
 export default {
   name: 'ModalShowBarCode',
@@ -58,7 +65,7 @@ export default {
   props: {
     barCode: {
       type: String,
-      required: true,
+      required: false,
       default: '',
     },
   },
@@ -70,13 +77,19 @@ export default {
   },
   methods: {
     exportImg(mode) {
-      const $barcodeImg = document.getElementById('barcode')
-      this.imageData = $barcodeImg.src
-      exportImage(mode, 'p', this.imageData, 'imagen.jpg')
+      if (this.barCode) {
+        const $barcodeImg = document.getElementById('barcode')
+        this.imageData = $barcodeImg.src
+        exportImage(mode, this.imageData, 'imagen.pdf')
+      } else {
+        messageToast('warning', 'Codigo de Barras', 'No hay un código de barras generado')
+      }
     },
     showBarCode() {
       setTimeout(() => {
-        JsBarcode('#barcode', 'AS8129HGFG')
+        if (this.barCode) {
+          JsBarcode('#barcode', this.barCode)
+        }
       }, 1)
     },
   },
