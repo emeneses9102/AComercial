@@ -83,6 +83,58 @@
                 />
               </b-form-group>
             </b-col>
+            <!-- Codigo Interno -->
+            <b-col
+              cols="6"
+              md="4"
+              lg="4"
+            >
+              <b-form-group
+                label="Cod Interno"
+                label-for="article-internal-code"
+              >
+                <b-form-input
+                  id="article-internal-code"
+                  v-model.trim="stateArticle.codInterno"
+                  type="text"
+                />
+              </b-form-group>
+            </b-col>
+
+            <!-- Codigo Barra -->
+            <b-col
+              cols="6"
+              md="4"
+              lg="4"
+            >
+              <b-form-group
+                label="Cod Barra"
+                label-for="article-bar-code"
+              >
+                <b-form-input
+                  id="article-bar-code"
+                  v-model.trim="stateArticle.codBarra"
+                  type="text"
+                />
+              </b-form-group>
+            </b-col>
+            <!-- Codigo Fabricante -->
+            <b-col
+              cols="6"
+              md="4"
+              lg="4"
+            >
+              <b-form-group
+                label="Cod Fabricante"
+                label-for="article-maker-code"
+              >
+                <b-form-input
+                  id="article-maker-code"
+                  v-model.trim="stateArticle.codFabricante"
+                  type="text"
+                />
+              </b-form-group>
+            </b-col>
             <!-- Descripción del Artículo -->
             <b-col
               cols="12"
@@ -94,7 +146,7 @@
                 <b-form-textarea
                   id="article-description"
                   v-model="stateArticle.descripcion"
-                  rows="7"
+                  rows="5"
                   no-resize
                   readonly
                 />
