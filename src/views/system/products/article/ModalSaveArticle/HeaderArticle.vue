@@ -152,7 +152,7 @@
                 label="Cod Interno"
                 label-for="article-internal-code"
               >
-                <validation-provider
+                <!-- <validation-provider
                   #default="{ errors }"
                   name="Cod Interno"
                   rules="required"
@@ -164,7 +164,12 @@
                     :state="errors.length > 0 ? false:null"
                   />
                   <small class="text-danger">{{ errors[0] }}</small>
-                </validation-provider>
+                </validation-provider> -->
+                <b-form-input
+                  id="article-internal-code"
+                  v-model.trim="stateArticle.codInterno"
+                  type="text"
+                />
               </b-form-group>
             </b-col>
 
@@ -178,29 +183,22 @@
                 label="Cod Barra"
                 label-for="article-bar-code"
               >
-                <validation-provider
-                  #default="{ errors }"
-                  name="Cod Barra"
-                  rules="required"
-                >
-                  <b-input-group>
-                    <b-form-input
-                      id="article-bar-code"
-                      v-model.trim="stateArticle.codBarra"
-                      type="text"
-                      :state="errors.length > 0 ? false:null"
+                <b-input-group>
+                  <b-form-input
+                    id="article-bar-code"
+                    v-model.trim="stateArticle.codBarra"
+                    type="text"
+                  />
+                  <b-input-group-append>
+                    <button-component
+                      class="py-25"
+                      icon-button="HashIcon"
+                      margin-class="m-0"
+                      :disabled="!stateArticle._id"
+                      :method-function="()=>generateBarCodeArticle(stateArticle._id)"
                     />
-                    <b-input-group-append>
-                      <button-component
-                        class="py-25"
-                        icon-button="HashIcon"
-                        margin-class="m-0"
-                        :disabled="!stateArticle._id"
-                      />
-                    </b-input-group-append>
-                  </b-input-group>
-                  <small class="text-danger">{{ errors[0] }}</small>
-                </validation-provider>
+                  </b-input-group-append>
+                </b-input-group>
               </b-form-group>
             </b-col>
             <!-- Codigo Fabricante -->
@@ -213,7 +211,7 @@
                 label="Cod Fabricante"
                 label-for="article-maker-code"
               >
-                <validation-provider
+                <!-- <validation-provider
                   #default="{ errors }"
                   name="Cod Fabricante"
                   rules="required"
@@ -225,7 +223,12 @@
                     :state="errors.length > 0 ? false:null"
                   />
                   <small class="text-danger">{{ errors[0] }}</small>
-                </validation-provider>
+                </validation-provider> -->
+                <b-form-input
+                  id="article-maker-code"
+                  v-model.trim="stateArticle.codFabricante"
+                  type="text"
+                />
               </b-form-group>
             </b-col>
 
@@ -668,6 +671,7 @@ import InputSearchUniqueCodeComponent from '@/components/InputSearchUniqueCodeCo
 import UploadPhotoComponent from '@/components/UploadPhotoComponent/UploadPhotoComponent.vue'
 import ButtonComponent from '@/components/ButtonComponent/ButtonComponent.vue'
 import { endPointsCombo, loadCombos } from '@/helpers/combos'
+import { generateBarCode } from '@/helpers/barCode'
 import { stateArticle, selectedArticleType, combosArticle } from '../ServicesArticle/useVariablesArticle'
 import { dataTableArticleRecipeDetail } from '../ServicesArticleRecipeDetail/useVariablesArticleRecipeDetail'
 
@@ -702,6 +706,10 @@ export default {
       stateArticle.value.nombreCodigoUnico = nombreProducto
     }
 
+    const generateBarCodeArticle = _id => {
+      stateArticle.value.codBarra = generateBarCode(_id)
+    }
+
     watch(selectedArticleType, newValue => {
       if (newValue === 'stock') {
         stateArticle.value.flgStock = 1
@@ -718,6 +726,7 @@ export default {
       unitGroupSelected,
       uniqueCodeSelected,
       dataTableArticleRecipeDetail,
+      generateBarCodeArticle,
     }
   },
 }
