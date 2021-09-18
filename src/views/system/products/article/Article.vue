@@ -1,5 +1,8 @@
 <template>
   <div>
+    <modal-show-bar-code
+      :bar-code="stateArticle.codBarra"
+    />
     <modal-save-article />
     <modal-search-article />
     <modal-show-article />
@@ -25,6 +28,7 @@ import { BCard } from 'bootstrap-vue'
 import { onMounted } from '@vue/composition-api'
 import HeaderMaintenanceComponent from '@/components/HeaderMaintenanceComponent/HeaderMaintenanceComponent.vue'
 import { endPointsCombo, loadCombos, resetCombos } from '@/helpers/combos'
+import ModalShowBarCode from './ModalShowBarCode/ModalShowBarCode.vue'
 import ModalSaveArticle from './ModalSaveArticle/ModalSaveArticle.vue'
 import ModalSearchArticle from './ModalSearchArticle/ModalSearchArticle.vue'
 import ModalShowArticle from './ModalShowArticle/ModalShowArticle.vue'
@@ -33,6 +37,7 @@ import {
   MODAL_ID, clearStateArticle, columnsArticle, urlApiArticle, titleNotificationArticle, serverQueryArticle, columnsFilterArticle, titleReportArticle,
   combosArticle,
   resetSelectedArticleType,
+  stateArticle,
 } from './ServicesArticle/useVariablesArticle'
 import {
   clearStateArticleFeatureDetail, clearDataTableArticleFeatureDetail, clearFiltersArticleFeatureDetail, combosArticleFeatureDetail,
@@ -52,6 +57,7 @@ export default {
   components: {
     BCard,
     HeaderMaintenanceComponent,
+    ModalShowBarCode,
     ModalSaveArticle,
     ModalSearchArticle,
     ModalShowArticle,
@@ -93,6 +99,7 @@ export default {
       serverQueryArticle,
       columnsFilterArticle,
       titleReportArticle,
+      stateArticle,
     }
   },
 }

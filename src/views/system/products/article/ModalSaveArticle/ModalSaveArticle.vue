@@ -61,6 +61,13 @@
         :method-function="()=>$bvModal.hide(MODAL_ID)"
       />
       <button-component
+        v-if="stateArticle._id"
+        variant="outline-primary"
+        icon-button="HashIcon"
+        text-default="Código de Barras"
+        :method-function="()=>$bvModal.show(`${MODAL_ID}-bar-code`)"
+      />
+      <button-component
         variant="primary"
         icon-button="SaveIcon"
         :loading="stateArticle.loading"

@@ -135,6 +135,9 @@ const initialStateArticle = {
   idCodUnico: 0,
   codUnico: 0,
   nombreCodigoUnico: '',
+  codInterno: '',
+  codBarra: '',
+  codFabricante: '',
   flgStock: 1,
   flgServicio: 0,
   flgReceta: 0,
@@ -201,6 +204,22 @@ export const columnsFilterArticle = [
   {
     title: 'GRUPO UNIDAD',
     field: 'a.nombreGrupoUnidad',
+  },
+  {
+    title: 'CÓDIGO UNICO',
+    field: 'a.codigoUnico',
+  },
+  {
+    title: 'CÓDIGO INTERNO',
+    field: 'a.codInterno',
+  },
+  {
+    title: 'CÓDIGO BARRA',
+    field: 'a.codBarra',
+  },
+  {
+    title: 'CÓDIGO FABRICANTE',
+    field: 'a.codFabricante',
   },
 ]
 

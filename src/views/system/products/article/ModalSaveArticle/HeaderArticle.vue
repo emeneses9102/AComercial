@@ -142,6 +142,93 @@
               </b-form-group>
             </b-col> -->
 
+            <!-- Codigo Interno -->
+            <b-col
+              cols="6"
+              md="4"
+              lg="4"
+            >
+              <b-form-group
+                label="Cod Interno"
+                label-for="article-internal-code"
+              >
+                <validation-provider
+                  #default="{ errors }"
+                  name="Cod Interno"
+                  rules="required"
+                >
+                  <b-form-input
+                    id="article-internal-code"
+                    v-model.trim="stateArticle.codInterno"
+                    type="text"
+                    :state="errors.length > 0 ? false:null"
+                  />
+                  <small class="text-danger">{{ errors[0] }}</small>
+                </validation-provider>
+              </b-form-group>
+            </b-col>
+
+            <!-- Codigo Barra -->
+            <b-col
+              cols="6"
+              md="4"
+              lg="4"
+            >
+              <b-form-group
+                label="Cod Barra"
+                label-for="article-bar-code"
+              >
+                <validation-provider
+                  #default="{ errors }"
+                  name="Cod Barra"
+                  rules="required"
+                >
+                  <b-input-group>
+                    <b-form-input
+                      id="article-bar-code"
+                      v-model.trim="stateArticle.codBarra"
+                      type="text"
+                      :state="errors.length > 0 ? false:null"
+                    />
+                    <b-input-group-append>
+                      <button-component
+                        class="py-25"
+                        icon-button="HashIcon"
+                        margin-class="m-0"
+                        :disabled="!stateArticle._id"
+                      />
+                    </b-input-group-append>
+                  </b-input-group>
+                  <small class="text-danger">{{ errors[0] }}</small>
+                </validation-provider>
+              </b-form-group>
+            </b-col>
+            <!-- Codigo Fabricante -->
+            <b-col
+              cols="6"
+              md="4"
+              lg="4"
+            >
+              <b-form-group
+                label="Cod Fabricante"
+                label-for="article-maker-code"
+              >
+                <validation-provider
+                  #default="{ errors }"
+                  name="Cod Fabricante"
+                  rules="required"
+                >
+                  <b-form-input
+                    id="article-maker-code"
+                    v-model.trim="stateArticle.codFabricante"
+                    type="text"
+                    :state="errors.length > 0 ? false:null"
+                  />
+                  <small class="text-danger">{{ errors[0] }}</small>
+                </validation-provider>
+              </b-form-group>
+            </b-col>
+
             <!-- Descripción del Artículo -->
             <b-col
               cols="12"
@@ -158,7 +245,7 @@
                   <b-form-textarea
                     id="article-description"
                     v-model="stateArticle.descripcion"
-                    rows="7"
+                    rows="5"
                     no-resize
                     :state="errors.length > 0 ? false:null"
                   />
@@ -571,7 +658,7 @@
 
 <script>
 import {
-  BForm, BRow, BCol, BFormGroup, BFormInput, BFormTextarea, BFormCheckbox, BFormRadio,
+  BForm, BRow, BCol, BFormGroup, BFormInput, BFormTextarea, BFormCheckbox, BFormRadio, BInputGroup, BInputGroupAppend,
 } from 'bootstrap-vue'
 import { ValidationProvider } from 'vee-validate'
 import { VueSelect } from 'vue-select'
@@ -579,6 +666,7 @@ import { watch } from '@vue/composition-api'
 import FieldSetComponent from '@/components/FieldSetComponent/FieldSetComponent.vue'
 import InputSearchUniqueCodeComponent from '@/components/InputSearchUniqueCodeComponent/InputSearchUniqueCodeComponent.vue'
 import UploadPhotoComponent from '@/components/UploadPhotoComponent/UploadPhotoComponent.vue'
+import ButtonComponent from '@/components/ButtonComponent/ButtonComponent.vue'
 import { endPointsCombo, loadCombos } from '@/helpers/combos'
 import { stateArticle, selectedArticleType, combosArticle } from '../ServicesArticle/useVariablesArticle'
 import { dataTableArticleRecipeDetail } from '../ServicesArticleRecipeDetail/useVariablesArticleRecipeDetail'
@@ -594,6 +682,9 @@ export default {
     BFormTextarea,
     BFormCheckbox,
     BFormRadio,
+    BInputGroup,
+    BInputGroupAppend,
+    ButtonComponent,
     VueSelect,
     ValidationProvider,
     FieldSetComponent,
