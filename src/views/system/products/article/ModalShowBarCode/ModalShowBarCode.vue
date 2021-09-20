@@ -80,7 +80,11 @@ export default {
       if (this.barCode) {
         const $barcodeImg = document.getElementById('barcode')
         this.imageData = $barcodeImg.src
-        exportImage(mode, this.imageData, 'imagen.pdf')
+        if (mode === 'print') {
+          this.createBarCodePrint()
+        } else {
+          exportImage(mode, this.imageData, 'imagen.pdf')
+        }
       } else {
         messageToast('warning', 'Codigo de Barras', 'No hay un código de barras generado')
       }
@@ -91,6 +95,22 @@ export default {
           JsBarcode('#barcode', this.barCode)
         }
       }, 1)
+    },
+    createBarCodePrint() {
+      const $body = document.querySelector('body')
+      const $iframe = document.createElement('iframe')
+      const $img = document.createElement('img')
+      $iframe.name = 'myIframe'
+      $iframe.classList.add('myIframe')
+      $img.classList.add('img-print')
+      $img.src = this.imageData
+      $body.append($iframe)
+      $iframe.contentWindow.document.documentElement.querySelector('body').append($img)
+      window.frames.myIframe.focus()
+      window.frames.myIframe.print()
+      setTimeout(() => {
+        $iframe.remove()
+      }, 1000)
     },
   },
 }
