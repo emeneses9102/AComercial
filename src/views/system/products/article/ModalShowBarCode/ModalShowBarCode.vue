@@ -97,20 +97,12 @@ export default {
       }, 1)
     },
     createBarCodePrint() {
-      const $body = document.querySelector('body')
-      const $iframe = document.createElement('iframe')
-      const $img = document.createElement('img')
-      $iframe.name = 'myIframe'
-      $iframe.classList.add('myIframe')
-      $img.classList.add('img-print')
-      $img.src = this.imageData
-      $body.append($iframe)
-      $iframe.contentWindow.document.documentElement.querySelector('body').append($img)
-      window.frames.myIframe.focus()
-      window.frames.myIframe.print()
-      setTimeout(() => {
-        $iframe.remove()
-      }, 1000)
+      const wi = window.open('/', 'blank')
+      wi.document.documentElement.innerHTML = `
+        <img src="${this.imageData}" alt="Codigo de Barras" />
+      `
+      wi.print()
+      wi.close()
     },
   },
 }
