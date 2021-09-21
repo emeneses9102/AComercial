@@ -110,7 +110,7 @@ export default {
       window.frames.myIframe.print()
       setTimeout(() => {
         $iframe.remove()
-      }, 2000)
+      }, 10000)
     },
   },
 }
