@@ -108,6 +108,9 @@ export default {
       $iframe.contentWindow.document.documentElement.querySelector('body').append($img)
       window.frames.myIframe.focus()
       window.frames.myIframe.print()
+      setTimeout(() => {
+        $iframe.remove()
+      }, 2000)
     },
   },
 }
