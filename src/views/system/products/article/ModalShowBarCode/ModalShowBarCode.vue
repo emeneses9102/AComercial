@@ -97,6 +97,10 @@ export default {
       }, 1)
     },
     createBarCodePrint() {
+      const $iframesExisting = document.querySelectorAll('iframe')
+      $iframesExisting.forEach(node => {
+        node.remove()
+      })
       const $body = document.querySelector('body')
       const $iframe = document.createElement('iframe')
       const $img = document.createElement('img')
@@ -108,9 +112,6 @@ export default {
       $iframe.contentWindow.document.documentElement.querySelector('body').append($img)
       window.frames.myIframe.focus()
       window.frames.myIframe.print()
-      setTimeout(() => {
-        $iframe.remove()
-      }, 10000)
     },
   },
 }
