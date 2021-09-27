@@ -13,3 +13,13 @@ export const formatDate = value => {
   }
   return ''
 }
+
+// 0000-00-00
+export const formatDateBySeparator = (value = null, separator = '-') => {
+  let date = new Date()
+  if (value) date = new Date(value)
+  const day = `00${date.getDate()}`
+  const month = `00${date.getMonth() + 1}`
+  const year = `0000${date.getFullYear()}`
+  return `${year.slice(-4)}${separator}${month.slice(-2)}${separator}${day.slice(-2)}`
+}

@@ -20,21 +20,15 @@
       <!-- Left Col -->
       <div class="bookmark-wrapper align-items-center flex-grow-1 d-flex">
         <dark-Toggler class="d-block" />
-        <!-- <date-time
-          v-if="$route.name === 'pointSaleThree'"
-        /> -->
-        <!-- <div>Ancho: {{ width }}</div>
-        <div>Alto: {{ height }}</div> -->
       </div>
 
       <b-navbar-nav class="nav align-items-center ml-auto">
         <template v-if="$route.name === 'pointSaleThree'">
           <button-component
             variant="outline-success"
-            text-default="Sistema"
+            :text-default="`N° Sesión ${$store.state.boxSession.boxSession._id}`"
             margin-class="mr-2"
             block
-            :method-function="()=>$router.push({ name: 'home' })"
           />
         </template>
         <full-screen />

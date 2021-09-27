@@ -9,6 +9,7 @@ export const endPointsCombo = {
   caracteristica: '/combo/caracteristica',
   claseSunat: '/comboadv/sntclase',
   colaborador: '/combo/colaborador',
+  comprobante: '/combo/comprobante',
   comprobanteSunat: '/combo/sntcomprobante',
   departamento: '/comboubigeo/departamento',
   detalleCaracteristica: '/comboadv/dcaracteristica',

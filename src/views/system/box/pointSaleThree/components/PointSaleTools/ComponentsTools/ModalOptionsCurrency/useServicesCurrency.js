@@ -10,16 +10,10 @@ import {
 import {
   initialStateDataCurrency,
   stateDataCurrency,
-  stateCurrencySelected,
-  stateQueryName,
 } from './useVariablesCurrency'
-
-// Función para filtrar las monedas
-export const filteredCurrencysByName = () => {
-  stateDataCurrency.value.filteredData = stateDataCurrency.value.data.filter(({ nombre }) => (
-    nombre.toUpperCase().includes(stateQueryName.value.toUpperCase())
-  ))
-}
+import {
+  statePointSale,
+} from '../../../../ServicesPointSale/useVariablesPointSale'
 
 // Función para obtener todas las monedas
 export const getAllCurrencys = async () => {
@@ -32,10 +26,6 @@ export const getAllCurrencys = async () => {
 
   // Almacenar las monedas en la variable reactiva
   stateDataCurrency.value.data = data
-  stateDataCurrency.value.filteredData = data
-
-  // Verificar que nomnre de consulta este vacio
-  if (stateQueryName.value.trim().length) filteredCurrencysByName(stateQueryName.value.trim())
   return true
 }
 
@@ -46,11 +36,5 @@ export const clearStateDataCurrency = () => {
 
 // Función para limpiar moneda seleccionada
 export const clearStateCurrencySelected = () => {
-  stateCurrencySelected.value = 0
-}
-
-// Función para limiar nombre de consulta
-export const clearStateQueryName = () => {
-  stateQueryName.value = ''
-  filteredCurrencysByName()
+  statePointSale.value.idMoneda = 0
 }

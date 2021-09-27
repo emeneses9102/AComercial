@@ -10,16 +10,10 @@ import {
 import {
   initialStateDataVendor,
   stateDataVendor,
-  stateVendorSelected,
-  stateQueryName,
 } from './useVariablesVendor'
-
-// Función para filtrar los vendedores
-export const filteredVendorsByName = () => {
-  stateDataVendor.value.filteredData = stateDataVendor.value.data.filter(({ nombre }) => (
-    nombre.toUpperCase().includes(stateQueryName.value.toUpperCase())
-  ))
-}
+import {
+  statePointSale,
+} from '../../../../ServicesPointSale/useVariablesPointSale'
 
 // Función para obtener todas los vendedores
 export const getAllVendors = async () => {
@@ -32,10 +26,6 @@ export const getAllVendors = async () => {
 
   // Almacenar los vendedores en la variable reactiva
   stateDataVendor.value.data = data
-  stateDataVendor.value.filteredData = data
-
-  // Verificar que nomnre de consulta este vacio
-  if (stateQueryName.value.trim().length) filteredVendorsByName(stateQueryName.value.trim())
   return true
 }
 
@@ -46,11 +36,5 @@ export const clearStateDataVendor = () => {
 
 // Función para limpiar vendedor seleccionado
 export const clearStateVendorSelected = () => {
-  stateVendorSelected.value = 0
-}
-
-// Función para limiar nombre de consulta
-export const clearStateQueryName = () => {
-  stateQueryName.value = ''
-  filteredVendorsByName()
+  statePointSale.value.idVendedor = 0
 }

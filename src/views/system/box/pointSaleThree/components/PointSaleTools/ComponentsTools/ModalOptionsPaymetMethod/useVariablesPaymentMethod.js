@@ -6,7 +6,6 @@ import {
 // Variable inicializadora para almacenar todas las monedas
 export const initialStateDataPaymentMethod = {
   data: [],
-  filteredData: [],
   loading: false,
 }
 
@@ -14,9 +13,3 @@ export const initialStateDataPaymentMethod = {
 export const stateDataPaymentMethod = ref({
   ...initialStateDataPaymentMethod,
 })
-
-// Variable reactiva para almacenar la moneda seleccionada
-export const statePaymentMethodSelected = ref(null)
-
-// Variable reactiva para almacenar la consulta
-export const stateQueryName = ref('')
