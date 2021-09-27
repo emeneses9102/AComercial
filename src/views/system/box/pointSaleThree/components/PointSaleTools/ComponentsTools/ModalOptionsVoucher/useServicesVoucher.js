@@ -10,14 +10,15 @@ import {
 import {
   initialStateDataVoucher,
   stateDataVoucher,
-  stateVoucherSelected,
-  stateQueryName,
 } from './useVariablesVoucher'
+import {
+  statePointSale,
+} from '../../../../ServicesPointSale/useVariablesPointSale'
 
 // Función para obtener todas los comprobantes
 export const getAllVouchers = async () => {
   stateDataVoucher.value.loading = true
-  const { data, error } = await getRequest(`${endPointsCombo.tipoComprobanteSunat}/1`, 'Listar Comprobantes')
+  const { data, error } = await getRequest(`${endPointsCombo.comprobante}/1`, 'Listar Comprobantes')
   stateDataVoucher.value.loading = false
 
   // Evaluar si hay errores
@@ -35,10 +36,5 @@ export const clearStateDataVoucher = () => {
 
 // Función para limpiar comprobante seleccionada
 export const clearStateVoucherSelected = () => {
-  stateVoucherSelected.value = 0
-}
-
-// Función para limiar nombre de consulta
-export const clearStateQueryName = () => {
-  stateQueryName.value = ''
+  statePointSale.value.idComprobante = 0
 }

@@ -52,7 +52,6 @@ export const columnsUnitGroupDetailForShow = ref([...initialColumnsUnitGroupDeta
 // Variable inicializadora para almacenar las propiedades necesarias para el listado de la tabla Detalle Grupo Unidad
 const initialDataTableUnitGroupDetail = {
   rows: [],
-  totalRows: 0,
   loading: false,
 }
 

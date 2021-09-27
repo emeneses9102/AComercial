@@ -22,6 +22,7 @@
           >
             <b-form-textarea
               id="state-point-sale-descripcion"
+              v-model="statePointSale.descripcion"
               rows="3"
               no-resize
             />
@@ -50,6 +51,9 @@ import {
 } from 'bootstrap-vue'
 import FieldSetComponent from '@/components/FieldSetComponent/FieldSetComponent.vue'
 import ButtonComponent from '@/components/ButtonComponent/ButtonComponent.vue'
+import {
+  statePointSale,
+} from '../../../../ServicesPointSale/useVariablesPointSale'
 
 export default {
   name: 'ModalOptionsPaymentMethod',
@@ -61,6 +65,11 @@ export default {
     BFormTextarea,
     FieldSetComponent,
     ButtonComponent,
+  },
+  setup() {
+    return {
+      statePointSale,
+    }
   },
 }
 </script>

@@ -7,6 +7,7 @@ import appConfig from './app-config'
 import verticalMenu from './vertical-menu'
 import authentication from './authentication'
 import pointSale from './point-sale'
+import boxSession from './box-session'
 
 Vue.use(Vuex)
 
@@ -17,6 +18,7 @@ export default new Vuex.Store({
     verticalMenu,
     authentication,
     pointSale,
+    boxSession,
   },
   strict: process.env.DEV,
 })

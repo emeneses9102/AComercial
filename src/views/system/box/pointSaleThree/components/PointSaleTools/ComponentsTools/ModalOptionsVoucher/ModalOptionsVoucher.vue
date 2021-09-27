@@ -3,43 +3,53 @@
     modal-id="modal-options-voucher"
     title="Comprobante"
     :state-data="stateDataVoucher"
-    :state-selected.sync="stateVoucherSelected"
-    :state-query.sync="stateQueryName"
+    :state-selected.sync="statePointSale.idComprobante"
     :get-all-options="getAllVouchers"
     :clear-state-data="clearStateDataVoucher"
     :clear-state-selected="clearStateVoucherSelected"
-    :clear-state-query="clearStateQueryName"
   />
 </template>
 
 <script>
+import { toRef, watch } from '@vue/composition-api'
 import ModalToolsOptions from '@/components/ModalToolsOptions/ModalToolsOptions.vue'
 import {
   stateDataVoucher,
-  stateVoucherSelected,
-  stateQueryName,
 } from './useVariablesVoucher'
 import {
   getAllVouchers,
   clearStateDataVoucher,
   clearStateVoucherSelected,
-  clearStateQueryName,
 } from './useServicesVoucher'
+import {
+  statePointSale,
+} from '../../../../ServicesPointSale/useVariablesPointSale'
 
 export default {
-  name: 'ModalOptionsVoucer',
+  name: 'ModalOptionsVoucher',
   components: {
     ModalToolsOptions,
   },
   setup() {
+    const voucherToRef = toRef(statePointSale.value, 'idComprobante')
+
+    watch(voucherToRef, () => {
+      if (voucherToRef.value) {
+        const voucherSelected = stateDataVoucher.value.data.find(voucher => voucher._id === voucherToRef.value)
+        statePointSale.value.nombreComprobante = voucherSelected.nombre
+      } else {
+        statePointSale.value.nombreComprobante = ''
+      }
+    }, {
+      deep: true,
+    })
+
     return {
       stateDataVoucher,
-      stateVoucherSelected,
-      stateQueryName,
+      statePointSale,
       getAllVouchers,
       clearStateDataVoucher,
       clearStateVoucherSelected,
-      clearStateQueryName,
     }
   },
 }

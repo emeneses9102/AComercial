@@ -27,61 +27,40 @@
               S/. {{ stateProductSelected.precio.toFixed(2) }}
             </p>
           </div>
-          <div
-            v-if="!stateProductSelected.descuento"
-            class="product-discount"
+          <b-badge
+            v-if="stateProductSelected.descuento"
+            class="d-flex align-items-center"
+            variant="danger"
           >
-            <span class="product-discount-circle" />
-            <span class="product-discount-percentage">{{ stateProductSelected.descuento }} %</span>
-          </div>
+            <span class="mr-50">{{ stateProductSelected.descuento }}%</span>
+            <feather-icon
+              icon="TagIcon"
+            />
+          </b-badge>
         </div>
       </div>
     </b-card>
-    <!-- <b-card class="pointsale-product-quantity">
-      <button
-        class="product-quantity__increment"
-        @click="()=>updateQuantityOfProductSelected('+')"
-      >
-        <feather-icon
-          icon="PlusIcon"
-          size="20"
-        />
-      </button>
-      <div
-        class="product-quantity__value"
-      >
-        {{ stateProductSelected.cantidad || '' }}
-      </div>
-      <button
-        class="product-quantity__decrement"
-        @click="()=>updateQuantityOfProductSelected('-')"
-      >
-        <feather-icon
-          icon="MinusIcon"
-          size="20"
-        />
-      </button>
-    </b-card> -->
   </fragment>
 </template>
 
 <script>
 import {
-  BCard, BImg,
+  BCard, BImg, BBadge,
 } from 'bootstrap-vue'
 import { Fragment } from 'vue-fragment'
 import {
   stateProductSelected,
-} from '../../ServicesPointSale/useVariablesPointSale'
+} from '../../ServicesProduct/useVariablesProduct'
 import {
   updateQuantityOfProductSelected,
-} from '../../ServicesPointSale/useServicesPointSale'
+} from '../../ServicesProduct/useServicesProduct'
 
 export default {
   name: 'PointSaleProduct',
   components: {
     BCard,
     BImg,
+    BBadge,
     Fragment,
   },
   setup() {

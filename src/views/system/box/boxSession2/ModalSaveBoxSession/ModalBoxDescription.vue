@@ -148,6 +148,7 @@ import {
 import {
   computed,
 } from '@vue/composition-api'
+import store from '@/store'
 import {
   ACTION_CLOSE_BOX,
   ACTION_OPEN_BOX,
@@ -188,7 +189,10 @@ export default {
       if (loading) stateBoxSession.value.loading = true
       const { status, data } = await sendBoxSession(actionSend || (stateBoxSession.value.idApertura ? ACTION_CLOSE_BOX : ACTION_OPEN_BOX))
       if (loading) stateBoxSession.value.loading = false
-      if (!status) return false
+      if (!status || !data) return false
+      if (store.state.boxSession.boxSession.idCajero === stateBoxSession.value.idCajero) {
+        store.commit('boxSession/logout')
+      }
       stateBoxSession.value._id = data.id
       serverQueryBoxSessionDetail.value.indice = data.id
       await loadItemsBoxSession()

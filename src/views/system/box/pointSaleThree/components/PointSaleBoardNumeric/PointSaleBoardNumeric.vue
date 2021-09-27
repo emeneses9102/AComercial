@@ -115,10 +115,21 @@ import { toRef } from '@vue/composition-api'
 import store from '@/store'
 import ButtonBoardNumeric from './ButtonBoardNumeric.vue'
 import {
+  stateProductSelected,
   clearStateProductSelected,
-  keySelectedOfBoard, optionsOfKeysOnBoard, searchProductById, stateProductSelected,
+} from '../../ServicesProduct/useVariablesProduct'
+import {
+  keySelectedOfBoard,
+  optionsOfKeysOnBoard,
+  searchProductById,
 } from '../../ServicesPointSale/useVariablesPointSale'
-import { searchArticle, updateQuantity, updateQuantityOfProductSelected } from '../../ServicesPointSale/useServicesPointSale'
+import {
+  updateQuantityOfProductSelected,
+} from '../../ServicesProduct/useServicesProduct'
+import {
+  searchArticle,
+  updateQuantity,
+} from '../../ServicesPointSaleDetail/useServicesPointSaleDetail'
 
 export default {
   name: 'PointSaleBoardNumeric',
@@ -157,11 +168,7 @@ export default {
             break
           case 'ENTER':
             if (keySelectedOfBoard.value === optionsOfKeysOnBoard.cantidad && stateProductSelected.value._id) {
-              // if (stateProductSelected.value.cantidad <= 1) {
-              //   updateQuantity('+', stateProductSelected.value._id)
-              // } else {
               updateQuantity('UPDATE', stateProductSelected.value._id, stateProductSelected.value.cantidad)
-              // }
               clearStateProductSelected()
               store.commit('pointSale/TOGGLE_SHOW_PRODUCT_DETAIL', false)
               keySelectedOfBoard.value = ''

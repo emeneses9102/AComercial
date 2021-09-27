@@ -13,9 +13,3 @@ export const initialStateDataVoucher = {
 export const stateDataVoucher = ref({
   ...initialStateDataVoucher,
 })
-
-// Variable reactiva para almacenar el comprobante seleccionado
-export const stateVoucherSelected = ref(0)
-
-// Variable reactiva para almacenar la consulta
-export const stateQueryName = ref('')

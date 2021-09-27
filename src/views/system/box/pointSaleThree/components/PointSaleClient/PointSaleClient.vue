@@ -39,22 +39,26 @@
     </div>
     <div class="d-flex flex-wrap justify-content-between mt-2">
       <button-component
+        :variant="stateClient._id ? 'primary' : 'warning'"
         margin-class="mr-1"
         icon-button="SearchIcon"
         icon-size="20"
         :method-function="()=>$bvModal.show('modal-query-partner')"
+        :disabled="!boxSession._id"
       />
       <button-component
         margin-class="mr-1"
         icon-button="UserPlusIcon"
         icon-size="20"
         :method-function="()=>$bvModal.show('modal-partner')"
+        :disabled="!boxSession._id"
       />
       <button-component
         margin-class=""
         icon-button="UserXIcon"
         icon-size="20"
         :method-function="()=>clearStateClient()"
+        :disabled="!boxSession._id"
       />
       <modal-query-partner
         @on-partner-selected="partnerSelected"
@@ -68,10 +72,17 @@
 import {
   BCard, BCardTitle,
 } from 'bootstrap-vue'
+import { mapState } from 'vuex'
 import ButtonComponent from '@/components/ButtonComponent/ButtonComponent.vue'
 import ModalQueryPartner from '@/components/ModalQueryPartner/ModalQueryPartner.vue'
 import ModalSavePartner from '@/views/system/maintenance/partner/ModalSavePartner/ModalSavePartner.vue'
-import { stateClient, clearStateClient } from '../../ServicesPointSale/useVariablesPointSale'
+import {
+  stateClient,
+  clearStateClient,
+} from '../../ServicesClient/useVariablesClient'
+import {
+  statePointSale,
+} from '../../ServicesPointSale/useVariablesPointSale'
 
 export default {
   name: 'PointSaleClient',
@@ -81,6 +92,9 @@ export default {
     ButtonComponent,
     ModalQueryPartner,
     ModalSavePartner,
+  },
+  computed: {
+    ...mapState('boxSession', ['boxSession']),
   },
   setup() {
     const partnerSelected = ({
@@ -94,7 +108,10 @@ export default {
       telefono,
       correo,
     }) => {
-      if (_id) stateClient.value._id = _id
+      if (_id) {
+        stateClient.value._id = _id
+        statePointSale.value.idSocio = _id
+      }
       if (nombreDocumento) stateClient.value.nombreDocumento = nombreDocumento
       if (numeroDocumento) stateClient.value.numeroDocumento = numeroDocumento
       if (apellidoPaterno || apellidoMaterno || nombres) stateClient.value.nombres = `${apellidoPaterno} ${apellidoMaterno} ${nombres}`

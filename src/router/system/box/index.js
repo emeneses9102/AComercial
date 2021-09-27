@@ -86,22 +86,6 @@ export default [
     },
   },
   {
-    path: '/punto-venta',
-    name: 'pointSale',
-    component: () => import('@/views/system/box/pointSale/PointSale.vue'),
-    meta: {
-      auth: true,
-    },
-  },
-  {
-    path: '/punto-venta-two',
-    name: 'pointSaleTwo',
-    component: () => import('@/views/system/box/pointSaleTwo/PointSaleTwo.vue'),
-    meta: {
-      auth: true,
-    },
-  },
-  {
     path: '/punto-venta-three',
     name: 'pointSaleThree',
     component: () => import('@/views/system/box/pointSaleThree/PointSaleThree.vue'),

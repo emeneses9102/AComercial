@@ -10,16 +10,10 @@ import {
 import {
   initialStateDataPaymentMethod,
   stateDataPaymentMethod,
-  statePaymentMethodSelected,
-  stateQueryName,
 } from './useVariablesPaymentMethod'
-
-// Función para filtrar las formas de pago
-export const filteredPaymentMethodsByName = () => {
-  stateDataPaymentMethod.value.filteredData = stateDataPaymentMethod.value.data.filter(({ nombre }) => (
-    nombre.toUpperCase().includes(stateQueryName.value.toUpperCase())
-  ))
-}
+import {
+  statePointSale,
+} from '../../../../ServicesPointSale/useVariablesPointSale'
 
 // Función para obtener todas las formas de pago
 export const getAllPaymentMethods = async () => {
@@ -32,10 +26,6 @@ export const getAllPaymentMethods = async () => {
 
   // Almacenar las formas de pago en la variable reactiva
   stateDataPaymentMethod.value.data = data
-  stateDataPaymentMethod.value.filteredData = data
-
-  // Verificar que nomnre de consulta este vacio
-  if (stateQueryName.value.trim().length) filteredPaymentMethodsByName(stateQueryName.value.trim())
   return true
 }
 
@@ -46,11 +36,5 @@ export const clearStateDataPaymentMethod = () => {
 
 // Función para limpiar la forma de pago seleccionada
 export const clearStatePaymentMethodSelected = () => {
-  statePaymentMethodSelected.value = null
-}
-
-// Función para limiar nombre de consulta
-export const clearStateQueryName = () => {
-  stateQueryName.value = ''
-  filteredPaymentMethodsByName()
+  statePointSale.value.idFormaPago = 0
 }
