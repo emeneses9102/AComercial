@@ -47,7 +47,7 @@ export const generateContentTicketHTMLPointSale = (pointSale, pointSaleDetail = 
         text-align: center;
       }
       .thead-left {
-        min-width: 35mm;
+        min-width: 20mm;
         text-align: right;
         vertical-align: top;
       }
