@@ -11,7 +11,6 @@
 </template>
 
 <script>
-// import { toRef, watch } from '@vue/composition-api'
 import ModalToolsOptions from '@/components/ModalToolsOptions/ModalToolsOptions.vue'
 import {
   stateDataCurrency,
@@ -31,18 +30,6 @@ export default {
     ModalToolsOptions,
   },
   setup() {
-    // const currencyToRef = toRef(statePointSale.value, 'idMoneda')
-    // watch([currencyToRef, stateDataCurrency], () => {
-    //   if (currencyToRef.value) {
-    //     const currencySelected = stateDataCurrency.value.data.find(currency => currency._id === currencyToRef.value)
-    //     if (currencySelected) statePointSale.value.nombreMoneda = currencySelected.nombre
-    //   } else {
-    //     statePointSale.value.nombreMoneda = ''
-    //   }
-    // }, {
-    //   deep: true,
-    // })
-
     return {
       stateDataCurrency,
       statePointSale,
