@@ -6,6 +6,7 @@ import {
   getRequest,
 } from '@/helpers/requestRaw'
 
+import store from '@/store'
 // Importar variables reactivas
 import {
   initialStateDataVoucher,
@@ -18,7 +19,7 @@ import {
 // Función para obtener todas los comprobantes
 export const getAllVouchers = async () => {
   stateDataVoucher.value.loading = true
-  const { data, error } = await getRequest(`${endPointsCombo.comprobante}/1`, 'Listar Comprobantes')
+  const { data, error } = await getRequest(`${endPointsCombo.comprobanteSesionCaja}/1/${store.state.boxSession.boxSession._id}`, 'Listar Comprobantes')
   stateDataVoucher.value.loading = false
 
   // Evaluar si hay errores
