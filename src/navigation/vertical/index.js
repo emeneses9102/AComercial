@@ -134,10 +134,6 @@ export default [
     children: [
       {
         title: 'Sesión Caja',
-        route: 'boxSession',
-      },
-      {
-        title: 'Sesión Caja 2',
         route: 'boxSession2',
       },
       {

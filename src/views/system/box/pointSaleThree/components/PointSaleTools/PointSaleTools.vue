@@ -15,6 +15,10 @@
       <modal-options-vendor />
       <modal-options-voucher />
       <modal-query-point-sale
+        server-query-filtro-fecha="a.fecha"
+        :server-query-finicio="`${formatDateBySeparator()}`"
+        :server-query-ffin="`${formatDateBySeparator()}`"
+        :server-query-opcional="`a.idSesionCaja=${$store.state.boxSession.boxSession._id}`"
         @on-point-sale-selected="pointSaleSelected"
       />
       <modal-payment />
@@ -163,6 +167,7 @@ import { formatDateBySeparator } from '@/helpers/date'
 import { getRequest } from '@/helpers/requestRaw'
 import { confirmSwal } from '@/helpers/messageExtensions'
 import { generateContentTicketHTMLPointSale } from '@/helpers/printPointSale'
+import { endPointsCombo, loadCombos, resetCombos } from '@/helpers/combos'
 import {
   clearStatePointSale,
   keySelectedOfBoard, statePointSale,
@@ -181,6 +186,7 @@ import {
   clearListPointSaleDetail, clearStatePointSaleDetail, listPointSaleDetail,
 } from '../../ServicesPointSaleDetail/useVariablesPointSaleDetail'
 import { clearStateClient, stateClient } from '../../ServicesClient/useVariablesClient'
+import { combosVoucher } from './ComponentsTools/ModalOptionsVoucher/useVariablesVoucher'
 
 export default {
   name: 'PointSaleTools',
@@ -246,6 +252,8 @@ export default {
       statePointSale.value.idCancela = pointSale.idCancela
       statePointSale.value.cerrado = pointSale.cerrado
       listPointSaleDetail.value.rows = [...list]
+      resetCombos(combosVoucher, ['correlative'])
+      loadCombos(combosVoucher, ['correlative'], `${endPointsCombo.correlativoSesionCaja}/1/${store.state.boxSession.boxSession._id}/${statePointSale.value.idComprobante}`, 'Correlativos')
       const { data, error } = await getRequest(`/socio/?_id=0&tabla=socios&pinicio=1&pfin=1&campo=a.id&indice=${pointSale.idSocio}`)
       store.commit('pointSale/DESACTIVE_LOADING')
       if (error || !data) return false
@@ -320,6 +328,7 @@ export default {
       clearStatePointSale()
       clearStatePointSaleDetail()
       clearListPointSaleDetail()
+      resetCombos(combosVoucher, ['correlative'])
       statePointSale.value.idSesionCaja = store.state.boxSession.boxSession._id
       statePointSale.value.idVendedor = store.state.boxSession.boxSession.idCajero
       statePointSale.value.idMoneda = store.state.boxSession.boxSession.idMoneda
@@ -336,6 +345,7 @@ export default {
       pointSaleSelected,
       printTicket,
       clearPointSaleData,
+      formatDateBySeparator,
     }
   },
 }

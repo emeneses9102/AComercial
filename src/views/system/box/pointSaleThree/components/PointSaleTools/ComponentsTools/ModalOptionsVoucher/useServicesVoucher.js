@@ -1,41 +1,53 @@
-// Importar Helpers
-import {
-  endPointsCombo,
-} from '@/helpers/combos'
-import {
-  getRequest,
-} from '@/helpers/requestRaw'
+// // Importar Helpers
+// import {
+//   endPointsCombo,
+//   initialStateCombo,
+// } from '@/helpers/combos'
+// import {
+//   getRequest,
+// } from '@/helpers/requestRaw'
 
-import store from '@/store'
-// Importar variables reactivas
-import {
-  initialStateDataVoucher,
-  stateDataVoucher,
-} from './useVariablesVoucher'
-import {
-  statePointSale,
-} from '../../../../ServicesPointSale/useVariablesPointSale'
+// import store from '@/store'
+// // Importar variables reactivas
+// import {
+//   combosVoucher,
+// } from './useVariablesVoucher'
 
-// Función para obtener todas los comprobantes
-export const getAllVouchers = async () => {
-  stateDataVoucher.value.loading = true
-  const { data, error } = await getRequest(`${endPointsCombo.comprobanteSesionCaja}/1/${store.state.boxSession.boxSession._id}`, 'Listar Comprobantes')
-  stateDataVoucher.value.loading = false
+// // Función para obtener todas los comprobantes
+// export const getAllVouchers = async () => {
+//   stateDataVoucher.value.loading = true
+//   const { data, error } = await getRequest(`${endPointsCombo.comprobanteSesionCaja}/1/${store.state.boxSession.boxSession._id}`, 'Listar Comprobantes')
+//   stateDataVoucher.value.loading = false
 
-  // Evaluar si hay errores
-  if (error || !data) return false
+//   // Evaluar si hay errores
+//   if (error || !data) return false
 
-  // Almacenar los comprobantes en la variable reactiva
-  stateDataVoucher.value.data = data
-  return true
-}
+//   // Almacenar los comprobantes en la variable reactiva
+//   stateDataVoucher.value.data = data
+//   return true
+// }
 
-// Función para limpiar los datos de los comprobantes
-export const clearStateDataVoucher = () => {
-  stateDataVoucher.value = { ...initialStateDataVoucher }
-}
+// // Función para limpiar los datos de los comprobantes
+// export const clearStateDataVoucher = () => {
+//   stateDataVoucher.value = { ...initialStateCombo }
+// }
 
-// Función para limpiar comprobante seleccionada
-export const clearStateVoucherSelected = () => {
-  statePointSale.value.idComprobante = 0
-}
+// // Función para obtener todos los correlativos
+// export const getAllCorrelative = async () => {
+
+//   stateDataCorrelative.value.loading = true
+//   const { data, error } = await getRequest(`${endPointsCombo.comprobanteSesionCaja}/1/${store.state.boxSession.boxSession._id}`, 'Listar Correltivos')
+//   stateDataCorrelative.value.loading = false
+
+//   // Evaluar si hay errores
+//   if (error || !data) return false
+
+//   // Almacenar los comprobantes en la variable reactiva
+//   stateDataCorrelative.value.data = data
+//   return true
+// }
+
+// // Función para limpiar los datos de los correlativos
+// export const clearStateDataCorrelative = () => {
+//   stateDataCorrelative.value = { ...initialStateCombo }
+// }

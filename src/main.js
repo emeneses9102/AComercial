@@ -49,6 +49,7 @@ export default new Vue({
         if (error.response.status === 401) {
           if (window.location.pathname !== '/iniciar-sesion') {
             this.$store.dispatch('auth/expiredToken')
+            this.$store.commit('rolesAndPermissions/CLEAR_NAVIGATION')
           }
         }
         return Promise.reject(error)

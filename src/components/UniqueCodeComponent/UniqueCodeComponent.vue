@@ -135,13 +135,13 @@ export default {
       stateCodesSunat.value.familySunat = 0
       stateCodesSunat.value.classSunat = 0
       resetCombos(combosCodesSunat, ['familySunat', 'classSunat'])
-      loadCombos(combosCodesSunat, ['familySunat'], `${endPointsCombo.familiaSunat}/1/${_id}`, 'Familia Sunat')
+      loadCombos(combosCodesSunat, ['familySunat'], `${endPointsCombo.familiaSunat}/1/${_id}/0`, 'Familia Sunat')
     }
 
     const selectedFamilySunat = ({ _id }) => {
       stateCodesSunat.value.classSunat = 0
       resetCombos(combosCodesSunat, ['classSunat'])
-      loadCombos(combosCodesSunat, ['classSunat'], `${endPointsCombo.claseSunat}/1/${_id}`, 'Clase Sunat')
+      loadCombos(combosCodesSunat, ['classSunat'], `${endPointsCombo.claseSunat}/1/${_id}/0`, 'Clase Sunat')
     }
 
     const selectedClassSunat = () => {

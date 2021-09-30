@@ -1,6 +1,7 @@
 import { ref } from '@vue/composition-api'
 import useFetchApiSimsac from '@/hooks/useFetchApiSimsac'
 import { messageToast } from '@/helpers/messageExtensions'
+import { getRequest } from '@/helpers/requestRaw'
 import store from '@/store'
 import router from '@/router'
 
@@ -25,18 +26,31 @@ const authenticationServices = () => {
     authentication.value = { ...initialAuthentication }
   }
 
+  // Función para obtener los roles y permisos por rol
+  const getRolesAndPermissions = async idRol => {
+    const { error, data } = await getRequest(`/accesos/menuroles/${idRol}`, 'Generación del Menú')
+    if (error || !data) return null
+    return data
+  }
+
   // Función para iniciar sesión en el sistema
   const login = async () => {
     authentication.value.loading = true
     const { data, error } = await useFetchApiSimsac('/login', null, authentication.value)
-    if (error) {
+    if (error || !data) {
       messageToast('danger', titleNotification, 'Hubo un error')
       authentication.value.loading = false
     } else if (data) {
       if (data._id) {
-        messageToast('success', titleNotification, 'Ingresaste correctamente al sistema')
-        store.dispatch('authentication/login', data)
-        router.push({ name: 'home' })
+        const result = await getRolesAndPermissions(data.idRol)
+        if (!result) {
+          authentication.value.loading = false
+        } else {
+          store.dispatch('authentication/login', data)
+          store.dispatch('rolesAndPermissions/insertNavigation', result)
+          messageToast('success', titleNotification, 'Ingresaste correctamente al sistema')
+          router.push({ name: 'home' })
+        }
       } else {
         messageToast('danger', titleNotification, data.mensaje)
         authentication.value.loading = false

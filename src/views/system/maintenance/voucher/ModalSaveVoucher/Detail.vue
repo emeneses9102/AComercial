@@ -8,6 +8,32 @@
         @reset="clearStateVoucherDetailCorrelative"
       >
         <b-row>
+          <!-- Serie -->
+          <b-col
+            cols="12"
+            lg="4"
+          >
+            <b-form-group
+              label="Serie *"
+              label-for="menu-serie"
+            >
+              <validation-provider
+                #default="{ errors }"
+                name="Serie"
+                rules="required|min:4|max:5"
+              >
+                <b-form-input
+                  id="menu-serie"
+                  v-model="stateVoucherDetailCorrelative.serie"
+                  type="text"
+                  maxlength="5"
+                  :state="errors.length > 0 ? false:null"
+                />
+                <small class="text-danger">{{ errors[0] }}</small>
+              </validation-provider>
+            </b-form-group>
+          </b-col>
+
           <!-- Número -->
           <b-col
             cols="12"
@@ -25,31 +51,6 @@
                 <b-form-input
                   id="voucher-detail-correlativo-numero"
                   v-model.number="stateVoucherDetailCorrelative.numero"
-                  type="number"
-                  :state="errors.length > 0 ? false:null"
-                />
-                <small class="text-danger">{{ errors[0] }}</small>
-              </validation-provider>
-            </b-form-group>
-          </b-col>
-
-          <!-- Serie -->
-          <b-col
-            cols="12"
-            lg="4"
-          >
-            <b-form-group
-              label="Serie *"
-              label-for="menu-serie"
-            >
-              <validation-provider
-                #default="{ errors }"
-                name="Serie"
-                rules="required"
-              >
-                <b-form-input
-                  id="menu-serie"
-                  v-model.number="stateVoucherDetailCorrelative.serie"
                   type="number"
                   :state="errors.length > 0 ? false:null"
                 />

@@ -4,7 +4,7 @@ import { initialStateCombo } from '@/helpers/combos'
 import { formatDateBySeparator } from '@/helpers/date'
 import { stateDataCurrency } from '../components/PointSaleTools/ComponentsTools/ModalOptionsCurrency/useVariablesCurrency'
 import { stateDataPaymentMethod } from '../components/PointSaleTools/ComponentsTools/ModalOptionsPaymetMethod/useVariablesPaymentMethod'
-import { stateDataVoucher } from '../components/PointSaleTools/ComponentsTools/ModalOptionsVoucher/useVariablesVoucher'
+import { combosVoucher } from '../components/PointSaleTools/ComponentsTools/ModalOptionsVoucher/useVariablesVoucher'
 import { stateDataVendor } from '../components/PointSaleTools/ComponentsTools/ModalOptionsVendor/useVariablesVendor'
 
 // Variable inicializadora para almacenar los datos de la operacion de punto de venta
@@ -19,6 +19,7 @@ const initialStatePointSale = {
   vencimiento: null,
   idComprobante: 0,
   nombreComprobante: '',
+  idCorrelativo: 0,
   idSocio: 0,
   idMoneda: 0,
   nombreMoneda: '',
@@ -60,7 +61,7 @@ watch([statePointSale, stateDataCurrency], () => {
   }
 
   if (statePointSale.value.idComprobante) {
-    const voucherSelected = stateDataVoucher.value.data.find(voucher => voucher._id === statePointSale.value.idComprobante)
+    const voucherSelected = combosVoucher.value.voucher.data.find(voucher => voucher._id === statePointSale.value.idComprobante)
     if (voucherSelected) statePointSale.value.nombreComprobante = voucherSelected.nombre
   } else {
     statePointSale.value.nombreComprobante = ''

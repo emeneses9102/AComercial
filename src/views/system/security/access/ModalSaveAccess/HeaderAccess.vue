@@ -79,35 +79,26 @@
           cols="12"
           lg="6"
         >
-          <validation-provider
-            #default="{ errors }"
-            name="Menú"
-            rules="requiredComboVueSelect:m"
+          <b-form-group
+            label="Menú *"
+            label-for="access-menu"
           >
-            <b-form-group
-              label="Menú *"
-              label-for="access-menu"
-              :state="errors.length > 0 ? false:null"
+            <vue-select
+              id="access-menu"
+              v-model="stateAccess.idMenu"
+              :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
+              :reduce="menu => menu._id"
+              label="nombre"
+              :options="combosAccess.menu.data"
+              :loading="combosAccess.menu.loading"
+              :disabled="combosAccess.menu.disabled || !!stateAccess._id"
+              @option:selected="menuSelected"
             >
-              <vue-select
-                id="access-menu"
-                v-model="stateAccess.idMenu"
-                :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
-                :reduce="menu => menu._id"
-                label="nombre"
-                :options="combosAccess.menu.data"
-                :loading="combosAccess.menu.loading"
-                :clearable="false"
-                :disabled="combosAccess.menu.disabled || !!stateAccess._id"
-                @option:selected="menuSelected"
-              >
-                <template v-slot:no-options>
-                  No se encontraron opciones.
-                </template>
-              </vue-select>
-              <small class="text-danger">{{ errors[0] }}</small>
-            </b-form-group>
-          </validation-provider>
+              <template v-slot:no-options>
+                No se encontraron opciones.
+              </template>
+            </vue-select>
+          </b-form-group>
         </b-col>
       </b-row>
     </field-set-component>

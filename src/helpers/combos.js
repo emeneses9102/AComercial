@@ -12,6 +12,7 @@ export const endPointsCombo = {
   comprobante: '/combo/comprobante',
   comprobanteSunat: '/combo/sntcomprobante',
   comprobanteSesionCaja: '/comboadv/comprobantesesion',
+  correlativoSesionCaja: '/comboadv/correlativosesion',
   departamento: '/comboubigeo/departamento',
   detalleCaracteristica: '/comboadv/dcaracteristica',
   distrito: '/comboubigeo/distrito',

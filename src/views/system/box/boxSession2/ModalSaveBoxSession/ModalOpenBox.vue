@@ -16,7 +16,6 @@
       class="mt-1"
       :send-header="sendForm"
     />
-
     <detail-table class="mt-1" />
 
     <template #modal-footer>

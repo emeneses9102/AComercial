@@ -35,6 +35,7 @@ import {
 } from 'bootstrap-vue'
 import { mapActions, mapState } from 'vuex'
 import { messageToast } from '@/helpers/messageExtensions'
+import { endPointsCombo, loadCombos, resetCombos } from '@/helpers/combos'
 import PointSaleAmount from './components/PointSaleAmount/PointSaleAmount.vue'
 import PointSaleBoardNumeric from './components/PointSaleBoardNumeric/PointSaleBoardNumeric.vue'
 import PointSaleClient from './components/PointSaleClient/PointSaleClient.vue'
@@ -52,6 +53,7 @@ import {
 import { clearStateClient } from './ServicesClient/useVariablesClient'
 import { clearStateProductSelected } from './ServicesProduct/useVariablesProduct'
 import { clearListPointSaleDetail, clearStatePointSaleDetail } from './ServicesPointSaleDetail/useVariablesPointSaleDetail'
+import { combosVoucher } from './components/PointSaleTools/ComponentsTools/ModalOptionsVoucher/useVariablesVoucher'
 
 export default {
   name: 'PointSaleThree',
@@ -75,6 +77,7 @@ export default {
     clearStatePointSale()
     clearStatePointSaleDetail()
     clearListPointSaleDetail()
+    resetCombos(combosVoucher, ['voucher', 'correlative'])
     if (!this.boxSession._id) {
       this.verifyBoxSessionActive()
     } else if (this.user?.idColaborador === this.boxSession?.idCajero) {
@@ -82,6 +85,7 @@ export default {
         statePointSale.value.idSesionCaja = this.boxSession._id
         statePointSale.value.idVendedor = this.boxSession.idCajero
         statePointSale.value.idMoneda = this.boxSession.idMoneda
+        loadCombos(combosVoucher, ['voucher'], `${endPointsCombo.comprobanteSesionCaja}/1/${this.boxSession._id}/0`, 'Comprobante')
       }, 10)
     } else {
       this.logout()
@@ -105,6 +109,7 @@ export default {
           statePointSale.value.idSesionCaja = this.boxSession._id
           statePointSale.value.idVendedor = this.boxSession.idCajero
           statePointSale.value.idMoneda = this.boxSession.idMoneda
+          loadCombos(combosVoucher, ['voucher'], `${endPointsCombo.comprobanteSesionCaja}/1/${this.boxSession._id}/0`, 'Comprobante')
         }, 10)
       } else {
         messageToast('danger', 'Sesión Caja', 'No tienes una sesión aperturada')
