@@ -68,7 +68,7 @@
           </b-dropdown-item>
           <b-dropdown-item
             link-class="d-flex align-items-center"
-            @click="()=>$store.dispatch('authentication/logout')"
+            @click="closeSession"
           >
             <feather-icon
               size="16"
@@ -145,6 +145,10 @@ export default {
     resize() {
       this.width = getComputedStyle(document.documentElement).width
       this.height = getComputedStyle(document.documentElement).height
+    },
+    closeSession() {
+      this.$store.dispatch('authentication/logout')
+      this.$store.commit('rolesAndPermissions/CLEAR_NAVIGATION')
     },
   },
 }

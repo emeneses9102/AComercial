@@ -12,6 +12,31 @@
         <field-set-component legend="Datos Generales">
           <b-row>
 
+            <!-- Nombre -->
+            <b-col
+              cols="12"
+            >
+              <b-form-group
+                label="Nombre *"
+                label-for="module-name"
+              >
+                <validation-provider
+                  #default="{ errors }"
+                  name="Nombre"
+                  rules="required|min:3"
+                >
+                  <b-form-input
+                    id="module-name"
+                    v-model.trim="stateModule.nombre"
+                    type="text"
+                    :state="errors.length > 0 ? false:null"
+                    @keydown.enter="()=>sendForm()"
+                  />
+                  <small class="text-danger">{{ errors[0] }}</small>
+                </validation-provider>
+              </b-form-group>
+            </b-col>
+
             <!-- Módulo Superior -->
             <b-col
               cols="12"
@@ -35,31 +60,6 @@
                     No se encontraron resultados.
                   </template>
                 </vue-select>
-              </b-form-group>
-            </b-col>
-
-            <!-- Nombre -->
-            <b-col
-              cols="12"
-            >
-              <b-form-group
-                label="Nombre *"
-                label-for="module-name"
-              >
-                <validation-provider
-                  #default="{ errors }"
-                  name="Nombre"
-                  rules="required|min:3"
-                >
-                  <b-form-input
-                    id="module-name"
-                    v-model.trim="stateModule.nombre"
-                    type="text"
-                    :state="errors.length > 0 ? false:null"
-                    @keydown.enter="()=>sendForm()"
-                  />
-                  <small class="text-danger">{{ errors[0] }}</small>
-                </validation-provider>
               </b-form-group>
             </b-col>
 
@@ -97,6 +97,7 @@ import {
 import { ValidationObserver, ValidationProvider } from 'vee-validate'
 import { VueSelect } from 'vue-select'
 import { ACTION_REGISTER, ACTION_UPDATE } from '@/helpers/actionsApi'
+import { endPointsCombo, loadCombos } from '@/helpers/combos'
 import ButtonComponent from '@/components/ButtonComponent/ButtonComponent.vue'
 import FieldSetComponent from '@/components/FieldSetComponent/FieldSetComponent.vue'
 import ModalSearchIconComponent from '@/components/ModalSearchIconComponent/ModalSearchIconComponent.vue'
@@ -133,6 +134,7 @@ export default {
       clearStateModule()
       context.refs['validation-module'].reset()
       await loadItemsModule()
+      loadCombos(combosModule, ['module'], `${endPointsCombo.modulo}/1`, 'Módulo')
       return true
     }
 

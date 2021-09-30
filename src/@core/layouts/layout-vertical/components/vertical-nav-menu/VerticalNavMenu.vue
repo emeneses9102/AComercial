@@ -72,16 +72,20 @@
       @ps-scroll-y="evt => { shallShadowBottom = evt.srcElement.scrollTop > 0 }"
     >
       <vertical-nav-menu-items
-        :items="navMenuItems"
+        :items="$store.state.rolesAndPermissions.navigation"
         class="navigation navigation-main"
       />
+      <!-- <vertical-nav-menu-items
+        :items="navMenuItems"
+        class="navigation navigation-main"
+      /> -->
     </vue-perfect-scrollbar>
     <!-- /main menu content-->
   </div>
 </template>
 
 <script>
-import navMenuItems from '@/navigation/vertical'
+// import navMenuItems from '@/navigation/vertical'
 import VuePerfectScrollbar from 'vue-perfect-scrollbar'
 import { BLink, BImg } from 'bootstrap-vue'
 import { provide, computed, ref } from '@vue/composition-api'
@@ -134,7 +138,7 @@ export default {
     const { appName, appLogoImage } = $themeConfig.app
 
     return {
-      navMenuItems,
+      // navMenuItems,
       perfectScrollbarSettings,
       isVerticalMenuCollapsed,
       collapseTogglerIcon,

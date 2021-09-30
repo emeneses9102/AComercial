@@ -34,13 +34,13 @@
         text-default="Cerrar"
         :method-function="()=>$bvModal.hide(MODAL_ID)"
       />
-      <!-- <button-component
+      <button-component
         variant="primary"
         icon-button="SaveIcon"
         :loading="stateAccess.loading"
         text-default="Guardar"
         :method-function="()=>sendForm()"
-      /> -->
+      />
     </template>
   </b-modal>
 </template>

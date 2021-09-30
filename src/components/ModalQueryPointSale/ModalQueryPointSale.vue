@@ -59,6 +59,21 @@ export default {
       required: false,
       default: '',
     },
+    serverQueryFiltroFecha: {
+      type: String,
+      required: false,
+      default: '',
+    },
+    serverQueryFinicio: {
+      type: String,
+      required: false,
+      default: '',
+    },
+    serverQueryFfin: {
+      type: String,
+      required: false,
+      default: '',
+    },
   },
   setup(props, context) {
     let timer = null
@@ -88,6 +103,9 @@ export default {
       serverQueryPointSale.value.opcional = props.serverQueryOpcional || ''
       serverQueryPointSale.value.campofiltro = field
       serverQueryPointSale.value.filtro = value
+      serverQueryPointSale.value.filtrofecha = props.serverQueryFiltroFecha
+      serverQueryPointSale.value.finicio = props.serverQueryFinicio
+      serverQueryPointSale.value.ffin = props.serverQueryFfin
       if (serverQueryPointSale.value.filtro === '') {
         clearDataTablePointSale()
       } else {
@@ -101,6 +119,9 @@ export default {
       clearTimeout(timer)
       serverQueryPointSale.value.campofiltro = field
       serverQueryPointSale.value.filtro = value
+      serverQueryPointSale.value.filtrofecha = props.serverQueryFiltroFecha
+      serverQueryPointSale.value.finicio = props.serverQueryFinicio
+      serverQueryPointSale.value.ffin = props.serverQueryFfin
       if (serverQueryPointSale.value.filtro === '') {
         clearDataTablePointSale()
       } else {

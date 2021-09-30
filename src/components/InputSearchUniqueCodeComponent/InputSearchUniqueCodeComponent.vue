@@ -294,14 +294,14 @@ export default {
       stateCodesSunat.value.classSunat = 0
       resetCombos(combosCodesSunat, ['familySunat', 'classSunat'])
       clearDataTableUniqueCode()
-      loadCombos(combosCodesSunat, ['familySunat'], `${endPointsCombo.familiaSunat}/1/${_id}`, 'Familia Sunat')
+      loadCombos(combosCodesSunat, ['familySunat'], `${endPointsCombo.familiaSunat}/1/${_id}/0`, 'Familia Sunat')
     }
 
     const selectedFamilySunat = ({ _id }) => {
       stateCodesSunat.value.classSunat = 0
       resetCombos(combosCodesSunat, ['classSunat'])
       clearDataTableUniqueCode()
-      loadCombos(combosCodesSunat, ['classSunat'], `${endPointsCombo.claseSunat}/1/${_id}`, 'Clase Sunat')
+      loadCombos(combosCodesSunat, ['classSunat'], `${endPointsCombo.claseSunat}/1/${_id}/0`, 'Clase Sunat')
     }
 
     const selectedClassSunat = () => {

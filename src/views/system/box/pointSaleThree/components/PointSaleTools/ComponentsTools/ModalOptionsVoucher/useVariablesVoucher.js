@@ -1,15 +1,15 @@
+/* eslint-disable import/prefer-default-export */
+
 // Importar funcion ref para crear variables reactivas
+import {
+  initialStateCombo,
+} from '@/helpers/combos'
 import {
   ref,
 } from '@vue/composition-api'
 
-// Variable inicializadora para almacenar todos los comprobantes
-export const initialStateDataVoucher = {
-  data: [],
-  loading: false,
-}
-
-// Variable reactiva para almacenar todos los comprobantes
-export const stateDataVoucher = ref({
-  ...initialStateDataVoucher,
+// Variable reactiva para almacenar el listado de los combos de comprobante y correlativo
+export const combosVoucher = ref({
+  voucher: { ...initialStateCombo },
+  correlative: { ...initialStateCombo },
 })
