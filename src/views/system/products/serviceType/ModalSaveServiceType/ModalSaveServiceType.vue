@@ -48,6 +48,10 @@
         :method-function="()=>$bvModal.hide(MODAL_ID)"
       />
       <button-component
+        v-if="(
+          (!stateServiceType._id && optionsPermissions.includes(GUARDAR))
+          || (stateServiceType._id && optionsPermissions.includes(EDITAR))
+        )"
         variant="primary"
         icon-button="SaveIcon"
         :loading="stateServiceType.loading"
@@ -63,11 +67,18 @@ import {
   BModal, BForm, BRow, BCol, BFormGroup, BFormInput,
 } from 'bootstrap-vue'
 import { ValidationObserver, ValidationProvider } from 'vee-validate'
+import { computed } from '@vue/composition-api'
+import store from '@/store'
+import {
+  EDITAR,
+  GUARDAR,
+} from '@/options'
 import { ACTION_REGISTER, ACTION_UPDATE } from '@/helpers/actionsApi'
+import { validatePermission } from '@/helpers/validateActions'
 import ButtonComponent from '@/components/ButtonComponent/ButtonComponent.vue'
 import FieldSetComponent from '@/components/FieldSetComponent/FieldSetComponent.vue'
 import {
-  MODAL_ID, titleNotificationServiceType, stateServiceType, clearStateServiceType,
+  MODAL_ID, titleNotificationServiceType, stateServiceType, clearStateServiceType, routeNameServiceType,
 } from '../ServicesServiceType/useVariablesServiceType'
 import { loadItemsServiceType, sendServiceType } from '../ServicesServiceType/useServicesServiceType'
 
@@ -86,7 +97,15 @@ export default {
     ValidationProvider,
   },
   setup(props, context) {
+    const optionsPermissions = computed(() => {
+      if (store.state.rolesAndPermissions.options[routeNameServiceType]) {
+        return store.state.rolesAndPermissions.options[routeNameServiceType]
+      }
+      return []
+    })
+
     const sendForm = async (actionSend = null, loading = true) => {
+      if (!validatePermission(optionsPermissions.value, !stateServiceType.value._id ? GUARDAR : EDITAR, titleNotificationServiceType)) return false
       const successValidationServiceType = await context.refs['validation-service-type'].validate()
       if (!successValidationServiceType) return false
       if (loading) stateServiceType.value.loading = true
@@ -106,6 +125,10 @@ export default {
       titleNotificationServiceType,
       stateServiceType,
       sendForm,
+
+      optionsPermissions,
+      EDITAR,
+      GUARDAR,
     }
   },
 }

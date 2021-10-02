@@ -48,6 +48,10 @@
         :method-function="()=>$bvModal.hide(MODAL_ID)"
       />
       <button-component
+        v-if="(
+          (!stateStorageType._id && optionsPermissions.includes(GUARDAR))
+          || (stateStorageType._id && optionsPermissions.includes(EDITAR))
+        )"
         variant="primary"
         icon-button="SaveIcon"
         :loading="stateStorageType.loading"
@@ -63,11 +67,18 @@ import {
   BModal, BForm, BRow, BCol, BFormGroup, BFormInput,
 } from 'bootstrap-vue'
 import { ValidationObserver, ValidationProvider } from 'vee-validate'
+import { computed } from '@vue/composition-api'
+import store from '@/store'
+import {
+  EDITAR,
+  GUARDAR,
+} from '@/options'
 import { ACTION_REGISTER, ACTION_UPDATE } from '@/helpers/actionsApi'
+import { validatePermission } from '@/helpers/validateActions'
 import ButtonComponent from '@/components/ButtonComponent/ButtonComponent.vue'
 import FieldSetComponent from '@/components/FieldSetComponent/FieldSetComponent.vue'
 import {
-  MODAL_ID, titleNotificationStorageType, stateStorageType, clearStateStorageType,
+  MODAL_ID, titleNotificationStorageType, stateStorageType, clearStateStorageType, routeNameStorageType,
 } from '../ServicesStorageType/useVariablesStorageType'
 import { loadItemsStorageType, sendStorageType } from '../ServicesStorageType/useServicesStorageType'
 
@@ -86,7 +97,15 @@ export default {
     ValidationProvider,
   },
   setup(props, context) {
+    const optionsPermissions = computed(() => {
+      if (store.state.rolesAndPermissions.options[routeNameStorageType]) {
+        return store.state.rolesAndPermissions.options[routeNameStorageType]
+      }
+      return []
+    })
+
     const sendForm = async (actionSend = null, loading = true) => {
+      if (!validatePermission(optionsPermissions.value, !stateStorageType.value._id ? GUARDAR : EDITAR, titleNotificationStorageType)) return false
       const successValidationStorageType = await context.refs['validation-storage-type'].validate()
       if (!successValidationStorageType) return false
       if (loading) stateStorageType.value.loading = true
@@ -106,6 +125,10 @@ export default {
       titleNotificationStorageType,
       stateStorageType,
       sendForm,
+
+      optionsPermissions,
+      EDITAR,
+      GUARDAR,
     }
   },
 }

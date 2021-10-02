@@ -60,7 +60,7 @@
                 icon-button="DeleteIcon"
               />
               <button-component
-                v-if="stateFeatureDetail._id"
+                v-if="stateFeatureDetail._id && optionsPermissions.includes(EDITAR)"
                 type="submit"
                 variant="success"
                 text-default="Modificar"
@@ -68,7 +68,7 @@
                 :loading="stateFeatureDetail.loading"
               />
               <button-component
-                v-else
+                v-else-if="!stateFeatureDetail._id && optionsPermissions.includes(GUARDAR)"
                 type="submit"
                 variant="primary"
                 text-default="Agregar"
@@ -87,12 +87,19 @@
 import {
   BForm, BRow, BCol, BFormGroup, BFormInput,
 } from 'bootstrap-vue'
+import { computed } from '@vue/composition-api'
 import { ValidationObserver, ValidationProvider } from 'vee-validate'
+import store from '@/store'
+import {
+  EDITAR,
+  GUARDAR,
+} from '@/options'
 import FieldSetComponent from '@/components/FieldSetComponent/FieldSetComponent.vue'
 import ButtonComponent from '@/components/ButtonComponent/ButtonComponent.vue'
 import { ACTION_REGISTER, ACTION_UPDATE } from '@/helpers/actionsApi'
-import { stateFeature } from '../ServicesFeature/useVariablesFeature'
-import { stateFeatureDetail, clearStateFeatureDetail } from '../ServicesFeatureDetail/useVariablesFeatureDetail'
+import { validatePermission } from '@/helpers/validateActions'
+import { routeNameFeature, stateFeature } from '../ServicesFeature/useVariablesFeature'
+import { stateFeatureDetail, clearStateFeatureDetail, titleNotificationFeatureDetail } from '../ServicesFeatureDetail/useVariablesFeatureDetail'
 import { loadItemsFeatureDetail, sendFeatureDetail } from '../ServicesFeatureDetail/useServicesFeatureDetail'
 
 export default {
@@ -115,7 +122,16 @@ export default {
     },
   },
   setup(props, context) {
+    const optionsPermissions = computed(() => {
+      if (store.state.rolesAndPermissions.options[routeNameFeature]) {
+        return store.state.rolesAndPermissions.options[routeNameFeature]
+      }
+      return []
+    })
+
     const sendForm = async () => {
+      if (!validatePermission(optionsPermissions.value, !stateFeatureDetail.value._id ? GUARDAR : EDITAR, titleNotificationFeatureDetail)) return
+
       if (!stateFeature.value._id) {
         stateFeatureDetail.value.loading = true
         const successValidationFeature = await props.sendHeader(ACTION_REGISTER, false)
@@ -143,6 +159,10 @@ export default {
       stateFeatureDetail,
       sendForm,
       clearStateFeatureDetail,
+
+      optionsPermissions,
+      EDITAR,
+      GUARDAR,
     }
   },
 }

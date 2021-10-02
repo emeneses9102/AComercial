@@ -5,6 +5,10 @@ import { ref } from '@vue/composition-api'
 import { columnAction, columnStatus } from '@/helpers/columnsTable'
 import { initialStateCombo } from '@/helpers/combos'
 import { clearServerQueryDefaultFilter, serverQueryDefault } from '@/helpers/serverQuery'
+import routesName from '@/helpers/routesName'
+
+// Nombre de la ruta que usa el mantenimiento Almacen
+export const routeNameStorage = routesName.almacen
 
 // Constante para almacenar el id base de los modales del mantenimiento Almacén
 export const MODAL_ID = 'modal-storage'

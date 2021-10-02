@@ -454,6 +454,10 @@
         :method-function="()=>$bvModal.hide(MODAL_ID)"
       />
       <button-component
+        v-if="(
+          (!statePartner._id && optionsPermissions.includes(GUARDAR))
+          || (statePartner._id && optionsPermissions.includes(EDITAR))
+        )"
         variant="primary"
         icon-button="SaveIcon"
         :loading="statePartner.loading"
@@ -470,8 +474,16 @@ import {
   BModal, BForm, BRow, BCol, BFormGroup, BFormInput, BTabs, BTab, BFormCheckbox,
 } from 'bootstrap-vue'
 import { VueSelect } from 'vue-select'
+import store from '@/store'
+import {
+  EDITAR,
+  GUARDAR,
+} from '@/options'
 import { ValidationObserver, ValidationProvider } from 'vee-validate'
-import { provide, ref, onMounted } from '@vue/composition-api'
+import {
+  computed, provide, ref, onMounted,
+} from '@vue/composition-api'
+import { validatePermission } from '@/helpers/validateActions'
 import { endPointsCombo, loadCombos, resetCombos } from '@/helpers/combos'
 import InputSearchDocNumberComponent from '@/components/InputSearchDocNumberComponent/InputSearchDocNumberComponent.vue'
 import UbigeoComponent from '@/components/UbigeoComponent/UbigeoComponent.vue'
@@ -479,7 +491,7 @@ import { ACTION_REGISTER, ACTION_UPDATE } from '@/helpers/actionsApi'
 import ButtonComponent from '@/components/ButtonComponent/ButtonComponent.vue'
 import FieldSetComponent from '@/components/FieldSetComponent/FieldSetComponent.vue'
 import {
-  MODAL_ID, titleNotificationPartner, statePartner, clearStatePartner, combosPartner, combosPartnerUbigeo, statePartnerUbigeo, clearCombosPartnerUbigeo, clearStatePartnerUbigeo,
+  MODAL_ID, titleNotificationPartner, statePartner, clearStatePartner, combosPartner, combosPartnerUbigeo, statePartnerUbigeo, clearCombosPartnerUbigeo, clearStatePartnerUbigeo, routeNamePartner,
 } from '../ServicesPartner/useVariablesPartner'
 import { loadItemsPartner, sendPartner } from '../ServicesPartner/useServicesPartner'
 
@@ -506,7 +518,15 @@ export default {
   setup(props, context) {
     const documentSelected = ref('')
 
+    const optionsPermissions = computed(() => {
+      if (store.state.rolesAndPermissions.options[routeNamePartner]) {
+        return store.state.rolesAndPermissions.options[routeNamePartner]
+      }
+      return []
+    })
+
     const sendForm = async (actionSend = null, loading = true) => {
+      if (!validatePermission(optionsPermissions.value, !statePartner.value._id ? GUARDAR : EDITAR, titleNotificationPartner)) return false
       const successValidationPartner = await context.refs['validation-partner'].validate()
       if (!successValidationPartner) return false
       if (loading) statePartner.value.loading = true
@@ -590,6 +610,10 @@ export default {
       getDataByNumberDocument,
       getDataByRuc,
       showModalSavePartner,
+
+      optionsPermissions,
+      EDITAR,
+      GUARDAR,
     }
   },
 }

@@ -4,6 +4,10 @@ import { ref } from '@vue/composition-api'
 // Importar configuracion de las columnas personalizadas
 import { columnAction, columnStatus } from '@/helpers/columnsTable'
 import { clearServerQueryDefaultFilter, serverQueryDefault } from '@/helpers/serverQuery'
+import routesName from '@/helpers/routesName'
+
+// Nombre de la ruta que usa el mantenimiento Tipo Documento
+export const routeNameDocumentType = routesName.tipoDocumento
 
 // Constante para almacenar el id base de los modales del mantenimiento Documento
 export const MODAL_ID = 'modal-document'

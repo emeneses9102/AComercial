@@ -50,6 +50,10 @@
         :method-function="()=>$bvModal.hide(MODAL_ID)"
       />
       <button-component
+        v-if="(
+          (!stateUser._id && optionsPermissions.includes(GUARDAR))
+          || (stateUser._id && optionsPermissions.includes(EDITAR))
+        )"
         variant="primary"
         icon-button="SaveIcon"
         :loading="stateUser.loading"
@@ -65,7 +69,14 @@ import {
   BModal, BTabs, BTab,
 } from 'bootstrap-vue'
 import { ValidationObserver } from 'vee-validate'
+import { computed } from '@vue/composition-api'
+import store from '@/store'
+import {
+  EDITAR,
+  GUARDAR,
+} from '@/options'
 import { ACTION_REGISTER, ACTION_UPDATE } from '@/helpers/actionsApi'
+import { validatePermission } from '@/helpers/validateActions'
 import ButtonComponent from '@/components/ButtonComponent/ButtonComponent.vue'
 import HeaderUser from './HeaderUser.vue'
 import DetailBusiness from './DetailBusiness.vue'
@@ -73,7 +84,7 @@ import DetailTableBusiness from './DetailTableBusiness.vue'
 import DetailStorage from './DetailStorage.vue'
 import DetailTableStorage from './DetailTableStorage.vue'
 import {
-  MODAL_ID, titleNotificationUser, stateUser,
+  MODAL_ID, titleNotificationUser, stateUser, routeNameUser,
 } from '../ServicesUser/useVariablesUser'
 import { loadItemsUser, sendUser } from '../ServicesUser/useServicesUser'
 import { serverQueryUserBusinessDetail } from '../ServicesUserBusinessDetail/useVariablesUserBusinessDetail'
@@ -94,7 +105,15 @@ export default {
     ValidationObserver,
   },
   setup(props, context) {
+    const optionsPermissions = computed(() => {
+      if (store.state.rolesAndPermissions.options[routeNameUser]) {
+        return store.state.rolesAndPermissions.options[routeNameUser]
+      }
+      return []
+    })
+
     const sendForm = async (actionSend = null, loading = true) => {
+      if (!validatePermission(optionsPermissions.value, !stateUser.value._id ? GUARDAR : EDITAR, titleNotificationUser)) return false
       const successValidationUser = await context.refs['validation-user'].validate()
       if (!successValidationUser) return false
       if (loading) stateUser.value.loading = true
@@ -113,6 +132,10 @@ export default {
       titleNotificationUser,
       stateUser,
       sendForm,
+
+      optionsPermissions,
+      EDITAR,
+      GUARDAR,
     }
   },
 }

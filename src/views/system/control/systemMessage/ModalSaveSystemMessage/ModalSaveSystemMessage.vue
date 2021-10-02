@@ -125,6 +125,10 @@
         :method-function="()=>$bvModal.hide(MODAL_ID)"
       />
       <button-component
+        v-if="(
+          (!stateSystemMessage._id && optionsPermissions.includes(GUARDAR))
+          || (stateSystemMessage._id && optionsPermissions.includes(EDITAR))
+        )"
         variant="primary"
         icon-button="SaveIcon"
         :loading="stateSystemMessage.loading"
@@ -140,11 +144,18 @@ import {
   BModal, BForm, BRow, BCol, BFormGroup, BFormInput,
 } from 'bootstrap-vue'
 import { ValidationObserver, ValidationProvider } from 'vee-validate'
+import { computed } from '@vue/composition-api'
+import store from '@/store'
+import { validatePermission } from '@/helpers/validateActions'
+import {
+  GUARDAR,
+  EDITAR,
+} from '@/options'
 import { ACTION_REGISTER, ACTION_UPDATE } from '@/helpers/actionsApi'
 import ButtonComponent from '@/components/ButtonComponent/ButtonComponent.vue'
 import FieldSetComponent from '@/components/FieldSetComponent/FieldSetComponent.vue'
 import {
-  MODAL_ID, titleNotificationSystemMessage, stateSystemMessage, clearStateSystemMessage, actionModal,
+  MODAL_ID, titleNotificationSystemMessage, stateSystemMessage, clearStateSystemMessage, actionModal, routeNameSystemMessage,
 } from '../ServicesSystemMessage/useVariablesSystemMessage'
 import { loadItemsSystemMessage, sendSystemMessage } from '../ServicesSystemMessage/useServicesSystemMessage'
 
@@ -163,7 +174,15 @@ export default {
     ValidationProvider,
   },
   setup(props, context) {
+    const optionsPermissions = computed(() => {
+      if (store.state.rolesAndPermissions.options[routeNameSystemMessage]) {
+        return store.state.rolesAndPermissions.options[routeNameSystemMessage]
+      }
+      return []
+    })
+
     const sendForm = async (actionSend = null, loading = true) => {
+      if (!validatePermission(optionsPermissions.value, !stateSystemMessage.value._id ? GUARDAR : EDITAR, titleNotificationSystemMessage)) return false
       const successValidationSystemMessage = await context.refs['validation-system-message'].validate()
       if (!successValidationSystemMessage) return false
       if (loading) stateSystemMessage.value.loading = true
@@ -185,6 +204,10 @@ export default {
       stateSystemMessage,
       sendForm,
       actionModal,
+
+      optionsPermissions,
+      EDITAR,
+      GUARDAR,
     }
   },
 }

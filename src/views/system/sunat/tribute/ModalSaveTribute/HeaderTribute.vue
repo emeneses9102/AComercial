@@ -1,5 +1,7 @@
 <template>
-  <b-form>
+  <b-form
+    @submit.prevent=""
+  >
     <field-set-component legend="Datos Generales">
       <b-row>
         <!-- Codigo Sunat -->

@@ -68,6 +68,10 @@
         :method-function="()=>$bvModal.show(`${MODAL_ID}-bar-code`)"
       />
       <button-component
+        v-if="(
+          (!stateArticle._id && optionsPermissions.includes(GUARDAR))
+          || (stateArticle._id && optionsPermissions.includes(EDITAR))
+        )"
         variant="primary"
         icon-button="SaveIcon"
         :loading="stateArticle.loading"
@@ -83,7 +87,14 @@ import {
   BModal, BTabs, BTab,
 } from 'bootstrap-vue'
 import { ValidationObserver } from 'vee-validate'
+import { computed } from '@vue/composition-api'
+import store from '@/store'
+import {
+  EDITAR,
+  GUARDAR,
+} from '@/options'
 import { ACTION_REGISTER, ACTION_UPDATE } from '@/helpers/actionsApi'
+import { validatePermission } from '@/helpers/validateActions'
 import ButtonComponent from '@/components/ButtonComponent/ButtonComponent.vue'
 import HeaderArticle from './HeaderArticle.vue'
 import DetailFeature from './DetailFeature.vue'
@@ -93,7 +104,7 @@ import DetailRecipeTable from './DetailRecipeTable.vue'
 import DetailTribute from './DetailTribute.vue'
 import DetailTributeTable from './DetailTributeTable.vue'
 import {
-  MODAL_ID, titleNotificationArticle, stateArticle, selectedArticleType,
+  MODAL_ID, titleNotificationArticle, stateArticle, selectedArticleType, routeNameArticle,
 } from '../ServicesArticle/useVariablesArticle'
 import { loadItemsArticle, sendArticle } from '../ServicesArticle/useServicesArticle'
 import { serverQueryArticleFeatureDetail } from '../ServicesArticleFeatureDetail/useVariablesArticleFeatureDetail'
@@ -116,7 +127,15 @@ export default {
     ValidationObserver,
   },
   setup(props, context) {
+    const optionsPermissions = computed(() => {
+      if (store.state.rolesAndPermissions.options[routeNameArticle]) {
+        return store.state.rolesAndPermissions.options[routeNameArticle]
+      }
+      return []
+    })
+
     const sendForm = async (actionSend = null, loading = true) => {
+      if (!validatePermission(optionsPermissions.value, !stateArticle.value._id ? GUARDAR : EDITAR, titleNotificationArticle)) return false
       if (selectedArticleType.value === 'stock') stateArticle.value.idTipoServicio = 0
       const successValidationArticle = await context.refs['validation-article'].validate()
       if (!successValidationArticle) return false
@@ -136,6 +155,10 @@ export default {
       titleNotificationArticle,
       stateArticle,
       sendForm,
+
+      optionsPermissions,
+      EDITAR,
+      GUARDAR,
     }
   },
 }

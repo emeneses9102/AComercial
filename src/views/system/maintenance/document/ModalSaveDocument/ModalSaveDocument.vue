@@ -47,6 +47,7 @@
                   id="document-codigo-sunat"
                   v-model.trim="stateDocument.codigo_sunat"
                   type="text"
+                  @keydown.enter="()=>sendForm()"
                 />
               </b-form-group>
             </b-col>
@@ -63,6 +64,10 @@
         :method-function="()=>$bvModal.hide(MODAL_ID)"
       />
       <button-component
+        v-if="(
+          (!stateDocument._id && optionsPermissions.includes(GUARDAR))
+          || (stateDocument._id && optionsPermissions.includes(EDITAR))
+        )"
         variant="primary"
         icon-button="SaveIcon"
         :loading="stateDocument.loading"
@@ -78,11 +83,18 @@ import {
   BModal, BForm, BRow, BCol, BFormGroup, BFormInput,
 } from 'bootstrap-vue'
 import { ValidationObserver, ValidationProvider } from 'vee-validate'
+import { computed } from '@vue/composition-api'
+import store from '@/store'
+import {
+  EDITAR,
+  GUARDAR,
+} from '@/options'
 import { ACTION_REGISTER, ACTION_UPDATE } from '@/helpers/actionsApi'
+import { validatePermission } from '@/helpers/validateActions'
 import ButtonComponent from '@/components/ButtonComponent/ButtonComponent.vue'
 import FieldSetComponent from '@/components/FieldSetComponent/FieldSetComponent.vue'
 import {
-  MODAL_ID, titleNotificationDocument, stateDocument, clearStateDocument,
+  MODAL_ID, titleNotificationDocument, stateDocument, clearStateDocument, routeNameDocumentType,
 } from '../ServicesDocument/useVariablesDocument'
 import { loadItemsDocument, sendDocument } from '../ServicesDocument/useServicesDocument'
 
@@ -101,7 +113,15 @@ export default {
     ValidationProvider,
   },
   setup(props, context) {
+    const optionsPermissions = computed(() => {
+      if (store.state.rolesAndPermissions.options[routeNameDocumentType]) {
+        return store.state.rolesAndPermissions.options[routeNameDocumentType]
+      }
+      return []
+    })
+
     const sendForm = async (actionSend = null, loading = true) => {
+      if (!validatePermission(optionsPermissions.value, !stateDocument.value._id ? GUARDAR : EDITAR, titleNotificationDocument)) return false
       const successValidationDocument = await context.refs['validation-document'].validate()
       if (!successValidationDocument) return false
       if (loading) stateDocument.value.loading = true
@@ -121,6 +141,10 @@ export default {
       titleNotificationDocument,
       stateDocument,
       sendForm,
+
+      optionsPermissions,
+      EDITAR,
+      GUARDAR,
     }
   },
 }

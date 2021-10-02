@@ -85,6 +85,7 @@
                   v-model.number="stateUnitGroupDetail.cantidad"
                   type="number"
                   :state="errors.length > 0 ? false:null"
+                  step="0.0001"
                 />
                 <small class="text-danger">{{ errors[0] }}</small>
               </validation-provider>
@@ -102,7 +103,7 @@
                 icon-button="DeleteIcon"
               />
               <button-component
-                v-if="stateUnitGroupDetail._id"
+                v-if="stateUnitGroupDetail._id && optionsPermissions.includes(EDITAR)"
                 type="submit"
                 variant="success"
                 text-default="Modificar"
@@ -110,7 +111,7 @@
                 :loading="stateUnitGroupDetail.loading"
               />
               <button-component
-                v-else
+                v-else-if="!stateUnitGroupDetail._id && optionsPermissions.includes(GUARDAR)"
                 type="submit"
                 variant="primary"
                 text-default="Agregar"
@@ -129,13 +130,22 @@
 import {
   BForm, BRow, BCol, BFormGroup, BFormInput,
 } from 'bootstrap-vue'
+import { computed } from '@vue/composition-api'
 import { ValidationObserver, ValidationProvider } from 'vee-validate'
 import vSelect from 'vue-select'
+import store from '@/store'
+import {
+  EDITAR,
+  GUARDAR,
+} from '@/options'
 import FieldSetComponent from '@/components/FieldSetComponent/FieldSetComponent.vue'
 import ButtonComponent from '@/components/ButtonComponent/ButtonComponent.vue'
 import { ACTION_REGISTER, ACTION_UPDATE } from '@/helpers/actionsApi'
-import { stateUnitGroup } from '../ServicesUnitGroup/useVariablesUnitGroup'
-import { stateUnitGroupDetail, clearStateUnitGroupDetail, combosUnitGroupDetail } from '../ServicesUnitGroupDetail/useVariablesUnitGroupDetail'
+import { validatePermission } from '@/helpers/validateActions'
+import { routeNameUnitGroup, stateUnitGroup } from '../ServicesUnitGroup/useVariablesUnitGroup'
+import {
+  stateUnitGroupDetail, clearStateUnitGroupDetail, combosUnitGroupDetail, titleNotificationUnitGroupDetail,
+} from '../ServicesUnitGroupDetail/useVariablesUnitGroupDetail'
 import { loadItemsUnitGroupDetail, sendUnitGroupDetail } from '../ServicesUnitGroupDetail/useServicesUnitGroupDetail'
 
 export default {
@@ -159,7 +169,16 @@ export default {
     },
   },
   setup(props, context) {
+    const optionsPermissions = computed(() => {
+      if (store.state.rolesAndPermissions.options[routeNameUnitGroup]) {
+        return store.state.rolesAndPermissions.options[routeNameUnitGroup]
+      }
+      return []
+    })
+
     const sendForm = async () => {
+      if (!validatePermission(optionsPermissions.value, !stateUnitGroupDetail.value._id ? GUARDAR : EDITAR, titleNotificationUnitGroupDetail)) return
+
       if (!stateUnitGroup.value._id) {
         stateUnitGroupDetail.value.loading = true
         const successValidationUnitGroup = await props.sendHeader(ACTION_REGISTER, false)
@@ -188,6 +207,10 @@ export default {
       sendForm,
       clearStateUnitGroupDetail,
       combosUnitGroupDetail,
+
+      optionsPermissions,
+      EDITAR,
+      GUARDAR,
     }
   },
 }

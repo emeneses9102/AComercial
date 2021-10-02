@@ -82,7 +82,7 @@
                 icon-button="DeleteIcon"
               />
               <button-component
-                v-if="stateTributeFactor._id"
+                v-if="stateTributeFactor._id && optionsPermissions.includes(EDITAR)"
                 type="submit"
                 variant="success"
                 text-default="Modificar"
@@ -90,7 +90,7 @@
                 :loading="stateTributeFactor.loading"
               />
               <button-component
-                v-else
+                v-else-if="!stateTributeFactor._id && optionsPermissions.includes(GUARDAR)"
                 type="submit"
                 variant="primary"
                 text-default="Agregar"
@@ -109,12 +109,19 @@
 import {
   BForm, BRow, BCol, BFormGroup, BFormInput, BFormDatepicker,
 } from 'bootstrap-vue'
+import { computed } from '@vue/composition-api'
 import { ValidationObserver, ValidationProvider } from 'vee-validate'
+import store from '@/store'
+import {
+  EDITAR,
+  GUARDAR,
+} from '@/options'
 import FieldSetComponent from '@/components/FieldSetComponent/FieldSetComponent.vue'
 import ButtonComponent from '@/components/ButtonComponent/ButtonComponent.vue'
 import { ACTION_REGISTER, ACTION_UPDATE } from '@/helpers/actionsApi'
-import { stateTribute } from '../ServicesTribute/useVariablesTribute'
-import { stateTributeFactor, clearStateTributeFactor } from '../ServicesTributeFactor/useVariablesTributeFactor'
+import { validatePermission } from '@/helpers/validateActions'
+import { routeNameTribute, stateTribute } from '../ServicesTribute/useVariablesTribute'
+import { stateTributeFactor, clearStateTributeFactor, titleNotificationTributeFactor } from '../ServicesTributeFactor/useVariablesTributeFactor'
 import { loadItemsTributeFactor, sendTributeFactor } from '../ServicesTributeFactor/useServicesTributeFactor'
 
 export default {
@@ -157,7 +164,16 @@ export default {
     }
   },
   setup(props, context) {
+    const optionsPermissions = computed(() => {
+      if (store.state.rolesAndPermissions.options[routeNameTribute]) {
+        return store.state.rolesAndPermissions.options[routeNameTribute]
+      }
+      return []
+    })
+
     const sendForm = async () => {
+      if (!validatePermission(optionsPermissions.value, !stateTributeFactor.value._id ? GUARDAR : EDITAR, titleNotificationTributeFactor)) return
+
       if (!stateTribute.value._id) {
         stateTributeFactor.value.loading = true
         const successValidationFeature = await props.sendHeader(ACTION_REGISTER, false)
@@ -185,6 +201,10 @@ export default {
       stateTributeFactor,
       sendForm,
       clearStateTributeFactor,
+
+      optionsPermissions,
+      EDITAR,
+      GUARDAR,
     }
   },
 }

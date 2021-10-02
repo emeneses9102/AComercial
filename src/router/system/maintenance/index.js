@@ -38,7 +38,7 @@ export default [
     },
   },
   {
-    path: '/Comprobante',
+    path: '/comprobante',
     name: 'voucher',
     component: () => import('@/views/system/maintenance/voucher/Voucher.vue'),
     meta: {
@@ -54,7 +54,7 @@ export default [
     },
   },
   {
-    path: '/Documento',
+    path: '/documento',
     name: 'document',
     component: () => import('@/views/system/maintenance/document/Document.vue'),
     meta: {

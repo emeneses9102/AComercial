@@ -82,6 +82,7 @@
                     v-model.number="stateCurrency.codigoMoneda"
                     type="number"
                     :state="errors.length > 0 ? false:null"
+                    @keydown.enter="()=>sendForm()"
                   />
                   <small class="text-danger">{{ errors[0] }}</small>
                 </validation-provider>
@@ -180,6 +181,10 @@
         :method-function="()=>$bvModal.hide(MODAL_ID)"
       />
       <button-component
+        v-if="(
+          (!stateCurrency._id && optionsPermissions.includes(GUARDAR))
+          || (stateCurrency._id && optionsPermissions.includes(EDITAR))
+        )"
         variant="primary"
         icon-button="SaveIcon"
         :loading="stateCurrency.loading"
@@ -195,11 +200,18 @@ import {
   BModal, BForm, BRow, BCol, BFormGroup, BFormInput, BFormCheckbox,
 } from 'bootstrap-vue'
 import { ValidationObserver, ValidationProvider } from 'vee-validate'
+import { computed } from '@vue/composition-api'
+import store from '@/store'
+import {
+  EDITAR,
+  GUARDAR,
+} from '@/options'
 import { ACTION_REGISTER, ACTION_UPDATE } from '@/helpers/actionsApi'
+import { validatePermission } from '@/helpers/validateActions'
 import ButtonComponent from '@/components/ButtonComponent/ButtonComponent.vue'
 import FieldSetComponent from '@/components/FieldSetComponent/FieldSetComponent.vue'
 import {
-  MODAL_ID, titleNotificationCurrency, stateCurrency, clearStateCurrency,
+  MODAL_ID, titleNotificationCurrency, stateCurrency, clearStateCurrency, routeNameCurrency,
 } from '../ServicesCurrency/useVariablesCurrency'
 import { loadItemsCurrency, sendCurrency } from '../ServicesCurrency/useServicesCurrency'
 
@@ -219,7 +231,15 @@ export default {
     ValidationProvider,
   },
   setup(props, context) {
+    const optionsPermissions = computed(() => {
+      if (store.state.rolesAndPermissions.options[routeNameCurrency]) {
+        return store.state.rolesAndPermissions.options[routeNameCurrency]
+      }
+      return []
+    })
+
     const sendForm = async (actionSend = null, loading = true) => {
+      if (!validatePermission(optionsPermissions.value, !stateCurrency.value._id ? GUARDAR : EDITAR, titleNotificationCurrency)) return false
       const successValidationCurrency = await context.refs['validation-currency'].validate()
       if (!successValidationCurrency) return false
       if (loading) stateCurrency.value.loading = true
@@ -239,6 +259,10 @@ export default {
       titleNotificationCurrency,
       stateCurrency,
       sendForm,
+
+      optionsPermissions,
+      EDITAR,
+      GUARDAR,
     }
   },
 }

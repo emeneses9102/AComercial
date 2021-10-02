@@ -77,7 +77,7 @@
                 icon-button="DeleteIcon"
               />
               <button-component
-                v-if="stateUserStorageDetail._id"
+                v-if="stateUserStorageDetail._id && optionsPermissions.includes(EDITAR)"
                 type="submit"
                 variant="success"
                 text-default="Modificar"
@@ -85,7 +85,7 @@
                 :loading="stateUserStorageDetail.loading"
               />
               <button-component
-                v-else
+                v-else-if="!stateUserStorageDetail._id && optionsPermissions.includes(GUARDAR)"
                 type="submit"
                 variant="primary"
                 text-default="Agregar"
@@ -105,13 +105,22 @@
 import {
   BForm, BRow, BCol, BFormGroup, BFormCheckbox,
 } from 'bootstrap-vue'
+import { computed } from '@vue/composition-api'
 import { ValidationObserver, ValidationProvider } from 'vee-validate'
 import vSelect from 'vue-select'
+import store from '@/store'
+import {
+  EDITAR,
+  GUARDAR,
+} from '@/options'
 import FieldSetComponent from '@/components/FieldSetComponent/FieldSetComponent.vue'
 import ButtonComponent from '@/components/ButtonComponent/ButtonComponent.vue'
 import { ACTION_REGISTER, ACTION_UPDATE } from '@/helpers/actionsApi'
-import { stateUser } from '../ServicesUser/useVariablesUser'
-import { stateUserStorageDetail, clearStateUserStorageDetail, combosUserStorageDetail } from '../ServicesUserStorageDetail/useVariablesUserStorageDetail'
+import { validatePermission } from '@/helpers/validateActions'
+import { routeNameUser, stateUser } from '../ServicesUser/useVariablesUser'
+import {
+  stateUserStorageDetail, clearStateUserStorageDetail, combosUserStorageDetail, titleNotificationUserStorageDetail,
+} from '../ServicesUserStorageDetail/useVariablesUserStorageDetail'
 import { loadItemsUserStorageDetail, sendUserStorageDetail } from '../ServicesUserStorageDetail/useServicesUserStorageDetail'
 
 export default {
@@ -135,7 +144,16 @@ export default {
     },
   },
   setup(props, context) {
+    const optionsPermissions = computed(() => {
+      if (store.state.rolesAndPermissions.options[routeNameUser]) {
+        return store.state.rolesAndPermissions.options[routeNameUser]
+      }
+      return []
+    })
+
     const sendForm = async () => {
+      if (!validatePermission(optionsPermissions.value, !stateUserStorageDetail.value._id ? GUARDAR : EDITAR, titleNotificationUserStorageDetail)) return
+
       if (!stateUser.value._id) {
         stateUserStorageDetail.value.loading = true
         const successValidationUser = await props.sendHeader(ACTION_REGISTER, false)
@@ -164,6 +182,10 @@ export default {
       sendForm,
       clearStateUserStorageDetail,
       combosUserStorageDetail,
+
+      optionsPermissions,
+      EDITAR,
+      GUARDAR,
     }
   },
 }

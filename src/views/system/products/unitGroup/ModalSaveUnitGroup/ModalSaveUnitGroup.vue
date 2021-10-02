@@ -25,6 +25,10 @@
         :method-function="()=>$bvModal.hide(MODAL_ID)"
       />
       <button-component
+        v-if="(
+          (!stateUnitGroup._id && optionsPermissions.includes(GUARDAR))
+          || (stateUnitGroup._id && optionsPermissions.includes(EDITAR))
+        )"
         variant="primary"
         icon-button="SaveIcon"
         :loading="stateUnitGroup.loading"
@@ -40,13 +44,20 @@ import {
   BModal,
 } from 'bootstrap-vue'
 import { ValidationObserver } from 'vee-validate'
+import { computed } from '@vue/composition-api'
+import store from '@/store'
+import {
+  EDITAR,
+  GUARDAR,
+} from '@/options'
 import { ACTION_REGISTER, ACTION_UPDATE } from '@/helpers/actionsApi'
+import { validatePermission } from '@/helpers/validateActions'
 import ButtonComponent from '@/components/ButtonComponent/ButtonComponent.vue'
 import HeaderUnitGroup from './HeaderUnitGroup.vue'
 import Detail from './Detail.vue'
 import DetailTable from './DetailTable.vue'
 import {
-  MODAL_ID, titleNotificationUnitGroup, stateUnitGroup,
+  MODAL_ID, titleNotificationUnitGroup, stateUnitGroup, routeNameUnitGroup,
 } from '../ServicesUnitGroup/useVariablesUnitGroup'
 import { loadItemsUnitGroup, sendUnitGroup } from '../ServicesUnitGroup/useServicesUnitGroup'
 import { serverQueryUnitGroupDetail } from '../ServicesUnitGroupDetail/useVariablesUnitGroupDetail'
@@ -62,7 +73,15 @@ export default {
     ValidationObserver,
   },
   setup(props, context) {
+    const optionsPermissions = computed(() => {
+      if (store.state.rolesAndPermissions.options[routeNameUnitGroup]) {
+        return store.state.rolesAndPermissions.options[routeNameUnitGroup]
+      }
+      return []
+    })
+
     const sendForm = async (actionSend = null, loading = true) => {
+      if (!validatePermission(optionsPermissions.value, !stateUnitGroup.value._id ? GUARDAR : EDITAR, titleNotificationUnitGroup)) return false
       const successValidationUnitGroup = await context.refs['validation-unit-group'].validate()
       if (!successValidationUnitGroup) return false
       if (loading) stateUnitGroup.value.loading = true
@@ -80,6 +99,10 @@ export default {
       titleNotificationUnitGroup,
       stateUnitGroup,
       sendForm,
+
+      optionsPermissions,
+      EDITAR,
+      GUARDAR,
     }
   },
 }

@@ -54,7 +54,7 @@
                 icon-button="DeleteIcon"
               />
               <button-component
-                v-if="stateMenuOptionDetail._id"
+                v-if="stateMenuOptionDetail._id && optionsPermissions.includes(EDITAR)"
                 type="submit"
                 variant="success"
                 text-default="Modificar"
@@ -62,7 +62,7 @@
                 :loading="stateMenuOptionDetail.loading"
               />
               <button-component
-                v-else
+                v-else-if="!stateMenuOptionDetail._id && optionsPermissions.includes(GUARDAR)"
                 type="submit"
                 variant="primary"
                 text-default="Agregar"
@@ -81,13 +81,22 @@
 import {
   BForm, BRow, BCol, BFormGroup,
 } from 'bootstrap-vue'
+import { computed } from '@vue/composition-api'
 import { ValidationObserver, ValidationProvider } from 'vee-validate'
 import vSelect from 'vue-select'
+import store from '@/store'
+import {
+  EDITAR,
+  GUARDAR,
+} from '@/options'
 import FieldSetComponent from '@/components/FieldSetComponent/FieldSetComponent.vue'
 import ButtonComponent from '@/components/ButtonComponent/ButtonComponent.vue'
 import { ACTION_REGISTER, ACTION_UPDATE } from '@/helpers/actionsApi'
-import { stateMenu } from '../ServicesMenu/useVariablesMenu'
-import { stateMenuOptionDetail, clearStateMenuOptionDetail, combosMenuOptionDetail } from '../ServicesMenuOptionDetail/useVariablesMenuOptionDetail'
+import { validatePermission } from '@/helpers/validateActions'
+import { routeNameMenu, stateMenu } from '../ServicesMenu/useVariablesMenu'
+import {
+  stateMenuOptionDetail, clearStateMenuOptionDetail, combosMenuOptionDetail, titleNotificationMenuOptionDetail,
+} from '../ServicesMenuOptionDetail/useVariablesMenuOptionDetail'
 import { loadItemsMenuOptionDetail, sendMenuOptionDetail } from '../ServicesMenuOptionDetail/useServicesMenuOptionDetail'
 
 export default {
@@ -110,7 +119,16 @@ export default {
     },
   },
   setup(props, context) {
+    const optionsPermissions = computed(() => {
+      if (store.state.rolesAndPermissions.options[routeNameMenu]) {
+        return store.state.rolesAndPermissions.options[routeNameMenu]
+      }
+      return []
+    })
+
     const sendForm = async () => {
+      if (!validatePermission(optionsPermissions.value, !stateMenuOptionDetail.value._id ? GUARDAR : EDITAR, titleNotificationMenuOptionDetail)) return
+
       if (!stateMenu.value._id) {
         stateMenuOptionDetail.value.loading = true
         const successValidationMenu = await props.sendHeader(ACTION_REGISTER, false)
@@ -138,6 +156,10 @@ export default {
       sendForm,
       clearStateMenuOptionDetail,
       combosMenuOptionDetail,
+
+      optionsPermissions,
+      EDITAR,
+      GUARDAR,
     }
   },
 }

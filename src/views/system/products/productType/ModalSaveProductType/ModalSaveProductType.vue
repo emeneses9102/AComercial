@@ -48,6 +48,10 @@
         :method-function="()=>$bvModal.hide(MODAL_ID)"
       />
       <button-component
+        v-if="(
+          (!stateProductType._id && optionsPermissions.includes(GUARDAR))
+          || (stateProductType._id && optionsPermissions.includes(EDITAR))
+        )"
         variant="primary"
         icon-button="SaveIcon"
         :loading="stateProductType.loading"
@@ -63,11 +67,18 @@ import {
   BModal, BForm, BRow, BCol, BFormGroup, BFormInput,
 } from 'bootstrap-vue'
 import { ValidationObserver, ValidationProvider } from 'vee-validate'
+import { computed } from '@vue/composition-api'
+import store from '@/store'
+import {
+  EDITAR,
+  GUARDAR,
+} from '@/options'
 import { ACTION_REGISTER, ACTION_UPDATE } from '@/helpers/actionsApi'
+import { validatePermission } from '@/helpers/validateActions'
 import ButtonComponent from '@/components/ButtonComponent/ButtonComponent.vue'
 import FieldSetComponent from '@/components/FieldSetComponent/FieldSetComponent.vue'
 import {
-  MODAL_ID, titleNotificationProductType, stateProductType, clearStateProductType,
+  MODAL_ID, titleNotificationProductType, stateProductType, clearStateProductType, routeNameProductType,
 } from '../ServicesProductType/useVariablesProductType'
 import { loadItemsProductType, sendProductType } from '../ServicesProductType/useServicesProductType'
 
@@ -86,7 +97,15 @@ export default {
     ValidationProvider,
   },
   setup(props, context) {
+    const optionsPermissions = computed(() => {
+      if (store.state.rolesAndPermissions.options[routeNameProductType]) {
+        return store.state.rolesAndPermissions.options[routeNameProductType]
+      }
+      return []
+    })
+
     const sendForm = async (actionSend = null, loading = true) => {
+      if (!validatePermission(optionsPermissions.value, !stateProductType.value._id ? GUARDAR : EDITAR, titleNotificationProductType)) return false
       const successValidationProductType = await context.refs['validation-product-type'].validate()
       if (!successValidationProductType) return false
       if (loading) stateProductType.value.loading = true
@@ -106,6 +125,10 @@ export default {
       titleNotificationProductType,
       stateProductType,
       sendForm,
+
+      optionsPermissions,
+      EDITAR,
+      GUARDAR,
     }
   },
 }

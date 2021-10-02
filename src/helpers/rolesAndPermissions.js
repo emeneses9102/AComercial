@@ -72,12 +72,30 @@ const getChildren = (paramData = [], paramItem) => {
   return children
 }
 
-const optionsMenu = data => data.sort((a, b) => a.idModulo - b.idModulo)
+const getOptionsByRoute = (paramData = [], routeName = '') => {
+  let children = []
+  paramData.forEach(item => {
+    if (item.ruta === routeName && !children.includes(item.nombreOpcion)) {
+      children = [...children, item.nombreOpcion]
+    }
+  })
+  return children
+}
 
-const menus = dataParam => {
-  const data = optionsMenu(dataParam)
+const sortOptionsMenu = data => data.sort((a, b) => a.idModulo - b.idModulo)
+
+const generateNavigationAndOptions = dataParam => {
+  const data = sortOptionsMenu(dataParam)
   let menuAll = []
+  const optionsAll = {}
   data.forEach(item => {
+    // IDENTIFICAR LAS RUTAS
+
+    // Cuando el menu tenga una ruta
+    if (item.ruta && !(Object.keys(optionsAll)).includes(item.ruta)) {
+      optionsAll[item.ruta] = getOptionsByRoute(data, item.ruta)
+    }
+
     // IDENTIFICAR LAS RAICES
 
     // Cuando el modulo tenga un idModulo y no tenga un idPadre y idMenu
@@ -105,9 +123,16 @@ const menus = dataParam => {
       menuAll = [...menuAll, parent]
     }
   })
-  return menuAll
+  return {
+    menuAll,
+    optionsAll,
+  }
 }
 
-export const generateNavigation = data => (
-  menus(data)
-)
+export const getNavigationAndOptions = data => {
+  const { menuAll, optionsAll } = generateNavigationAndOptions(data)
+  return {
+    menuAll,
+    optionsAll,
+  }
+}

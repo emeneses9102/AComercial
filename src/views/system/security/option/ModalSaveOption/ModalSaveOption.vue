@@ -78,6 +78,10 @@
         :method-function="()=>$bvModal.hide(MODAL_ID)"
       />
       <button-component
+        v-if="(
+          (!stateOption._id && optionsPermissions.includes(GUARDAR))
+          || (stateOption._id && optionsPermissions.includes(EDITAR))
+        )"
         variant="primary"
         icon-button="SaveIcon"
         :loading="stateOption.loading"
@@ -93,12 +97,19 @@ import {
   BModal, BForm, BRow, BCol, BFormGroup, BFormInput,
 } from 'bootstrap-vue'
 import { ValidationObserver, ValidationProvider } from 'vee-validate'
+import { computed } from '@vue/composition-api'
+import store from '@/store'
+import {
+  EDITAR,
+  GUARDAR,
+} from '@/options'
 import { ACTION_REGISTER, ACTION_UPDATE } from '@/helpers/actionsApi'
+import { validatePermission } from '@/helpers/validateActions'
 import ButtonComponent from '@/components/ButtonComponent/ButtonComponent.vue'
 import FieldSetComponent from '@/components/FieldSetComponent/FieldSetComponent.vue'
 import ModalSearchIconComponent from '@/components/ModalSearchIconComponent/ModalSearchIconComponent.vue'
 import {
-  MODAL_ID, titleNotificationOption, stateOption, clearStateOption,
+  MODAL_ID, titleNotificationOption, stateOption, clearStateOption, routeNameOption,
 } from '../ServicesOption/useVariablesOption'
 import { loadItemsOption, sendOption } from '../ServicesOption/useServicesOption'
 
@@ -118,7 +129,15 @@ export default {
     ModalSearchIconComponent,
   },
   setup(props, context) {
+    const optionsPermissions = computed(() => {
+      if (store.state.rolesAndPermissions.options[routeNameOption]) {
+        return store.state.rolesAndPermissions.options[routeNameOption]
+      }
+      return []
+    })
+
     const sendForm = async (actionSend = null, loading = true) => {
+      if (!validatePermission(optionsPermissions.value, !stateOption.value._id ? GUARDAR : EDITAR, titleNotificationOption)) return false
       const successValidationOption = await context.refs['validation-option'].validate()
       if (!successValidationOption) return false
       if (loading) stateOption.value.loading = true
@@ -138,6 +157,10 @@ export default {
       titleNotificationOption,
       stateOption,
       sendForm,
+
+      optionsPermissions,
+      EDITAR,
+      GUARDAR,
     }
   },
 }

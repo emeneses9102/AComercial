@@ -5,6 +5,10 @@ import { ref } from '@vue/composition-api'
 import { columnAction, columnStatus } from '@/helpers/columnsTable'
 import { initialStateCombo } from '@/helpers/combos'
 import { serverQueryDefault, clearServerQueryDefaultFilter } from '@/helpers/serverQuery'
+import routesName from '@/helpers/routesName'
+
+// Nombre de la ruta que usa el mantenimiento Menu
+export const routeNameMenu = routesName.programas
 
 // Constante para almacenar el id base de los modales del mantenimiento Menú
 export const MODAL_ID = 'modal-menu'

@@ -26,7 +26,7 @@
         :method-function="()=>$bvModal.hide(`${MODAL_ID}-open`)"
       />
       <button-component
-        v-if="!stateBoxSession.idApertura"
+        v-if="(!stateBoxSession.idApertura && optionsPermissions.includes(APERTURAR_CAJA))"
         variant="success"
         icon-button="LogInIcon"
         :loading="stateBoxSession.loading"
@@ -42,9 +42,15 @@ import {
   BModal,
 } from 'bootstrap-vue'
 import { ValidationObserver } from 'vee-validate'
+import { computed } from '@vue/composition-api'
+import store from '@/store'
+import {
+  APERTURAR_CAJA,
+} from '@/options'
 import {
   ACTION_REGISTER, ACTION_UPDATE,
 } from '@/helpers/actionsApi'
+// import { validatePermission } from '@/helpers/validateActions'
 import ButtonComponent from '@/components/ButtonComponent/ButtonComponent.vue'
 import HeaderOpenBox from './HeaderOpenBox.vue'
 import Detail from './Detail.vue'
@@ -53,6 +59,7 @@ import {
   MODAL_ID,
   titleNotificationBoxSession,
   stateBoxSession,
+  routeNameBoxSession,
 } from '../ServicesBoxSession/useVariablesBoxSession'
 import {
   getDataBoxSessionById,
@@ -74,6 +81,13 @@ export default {
     ValidationObserver,
   },
   setup(props, context) {
+    const optionsPermissions = computed(() => {
+      if (store.state.rolesAndPermissions.options[routeNameBoxSession]) {
+        return store.state.rolesAndPermissions.options[routeNameBoxSession]
+      }
+      return []
+    })
+
     const sendForm = async (actionSend = null, loading = true) => {
       const successValidationBoxSession = await context.refs['validation-box-session'].validate()
       if (!successValidationBoxSession) return false
@@ -95,6 +109,9 @@ export default {
       titleNotificationBoxSession,
       stateBoxSession,
       sendForm,
+
+      optionsPermissions,
+      APERTURAR_CAJA,
     }
   },
 }

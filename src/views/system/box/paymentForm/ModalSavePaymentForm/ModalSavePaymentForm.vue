@@ -54,6 +54,7 @@
                     v-model.number="statePaymentForm.dias"
                     type="number"
                     :state="errors.length > 0 ? false:null"
+                    @keydown.enter="()=>sendForm()"
                   />
                   <small class="text-danger">{{ errors[0] }}</small>
                 </validation-provider>
@@ -72,6 +73,10 @@
         :method-function="()=>$bvModal.hide(MODAL_ID)"
       />
       <button-component
+        v-if="(
+          (!statePaymentForm._id && optionsPermissions.includes(GUARDAR))
+          || (statePaymentForm._id && optionsPermissions.includes(EDITAR))
+        )"
         variant="primary"
         icon-button="SaveIcon"
         :loading="statePaymentForm.loading"
@@ -87,11 +92,18 @@ import {
   BModal, BForm, BRow, BCol, BFormGroup, BFormInput,
 } from 'bootstrap-vue'
 import { ValidationObserver, ValidationProvider } from 'vee-validate'
+import { computed } from '@vue/composition-api'
+import store from '@/store'
+import {
+  EDITAR,
+  GUARDAR,
+} from '@/options'
 import { ACTION_REGISTER, ACTION_UPDATE } from '@/helpers/actionsApi'
+import { validatePermission } from '@/helpers/validateActions'
 import ButtonComponent from '@/components/ButtonComponent/ButtonComponent.vue'
 import FieldSetComponent from '@/components/FieldSetComponent/FieldSetComponent.vue'
 import {
-  MODAL_ID, titleNotificationPaymentForm, statePaymentForm, clearStatePaymentForm,
+  MODAL_ID, titleNotificationPaymentForm, statePaymentForm, clearStatePaymentForm, routeNamePaymentForm,
 } from '../ServicesPaymentForm/useVariablesPaymentForm'
 import { loadItemsPaymentForm, sendPaymentForm } from '../ServicesPaymentForm/useServicesPaymentForm'
 
@@ -110,7 +122,15 @@ export default {
     ValidationProvider,
   },
   setup(props, context) {
+    const optionsPermissions = computed(() => {
+      if (store.state.rolesAndPermissions.options[routeNamePaymentForm]) {
+        return store.state.rolesAndPermissions.options[routeNamePaymentForm]
+      }
+      return []
+    })
+
     const sendForm = async (actionSend = null, loading = true) => {
+      if (!validatePermission(optionsPermissions.value, !statePaymentForm.value._id ? GUARDAR : EDITAR, titleNotificationPaymentForm)) return false
       const successValidationPaymentForm = await context.refs['validation-payment-form'].validate()
       if (!successValidationPaymentForm) return false
       if (loading) statePaymentForm.value.loading = true
@@ -130,6 +150,10 @@ export default {
       titleNotificationPaymentForm,
       statePaymentForm,
       sendForm,
+
+      optionsPermissions,
+      EDITAR,
+      GUARDAR,
     }
   },
 }

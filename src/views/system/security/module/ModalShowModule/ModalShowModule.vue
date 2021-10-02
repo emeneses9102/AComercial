@@ -9,23 +9,6 @@
     <b-form>
       <field-set-component legend="Datos Generales">
         <b-row>
-          <!-- Modulo Superior -->
-          <b-col
-            cols="12"
-          >
-            <b-form-group
-              label="Módulo Superior"
-              label-for="module-super"
-            >
-              <b-form-input
-                id="module-super"
-                v-model.trim="stateModule.nombrePadre"
-                type="text"
-                readonly
-              />
-            </b-form-group>
-          </b-col>
-
           <!-- Nombre -->
           <b-col
             cols="12"
@@ -37,6 +20,23 @@
               <b-form-input
                 id="module-name"
                 v-model.trim="stateModule.nombre"
+                type="text"
+                readonly
+              />
+            </b-form-group>
+          </b-col>
+
+          <!-- Modulo Superior -->
+          <b-col
+            cols="12"
+          >
+            <b-form-group
+              label="Módulo Superior"
+              label-for="module-super"
+            >
+              <b-form-input
+                id="module-super"
+                v-model.trim="stateModule.nombrePadre"
                 type="text"
                 readonly
               />

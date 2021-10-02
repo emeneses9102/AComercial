@@ -60,11 +60,12 @@
                 class="text-body align-middle mr-25"
               />
             </template>
+            <!-- Slot para agregar mas opciones -->
             <slot
               name="options-pluss"
               :props="props"
             />
-            <template v-if="permission.includes('STATUS')">
+            <template v-if="validateOptionsByRoute && optionsPermissions.includes(CAMBIAR_ESTADO)">
               <b-dropdown-item
                 v-if="optionStatus"
                 @click="changeStatus(props.row._id)"
@@ -80,7 +81,7 @@
                 </div>
               </b-dropdown-item>
             </template>
-            <template v-if="permission.includes('OPEN_BOX')">
+            <!-- <template v-if="optionsPermissions.includes('OPEN_BOX')">
               <b-dropdown-item
                 v-if="optionOpenBox && !props.row.apertura"
                 @click="openModalFor(props.row, 'open-box')"
@@ -93,8 +94,8 @@
                   <span class="d-inline-block">Abrir Caja</span>
                 </div>
               </b-dropdown-item>
-            </template>
-            <template v-if="permission.includes('CLOSE_BOX')">
+            </template> -->
+            <!-- <template v-if="optionsPermissions.includes('CLOSE_BOX')">
               <b-dropdown-item
                 v-if="optionCloseBox && props.row.apertura && !props.row.cierre"
                 @click="openModalFor(props.row, 'close-box')"
@@ -107,8 +108,8 @@
                   <span class="d-inline-block">Cerrar Caja</span>
                 </div>
               </b-dropdown-item>
-            </template>
-            <template v-if="permission.includes('SHOW')">
+            </template> -->
+            <template v-if="validateOptionsByRoute && optionsPermissions.includes(VER_REGISTRO)">
               <b-dropdown-item
                 v-if="optionShow"
                 @click="openModalFor(props.row, 'show')"
@@ -126,7 +127,7 @@
               name="option-edit"
               :props="props"
             />
-            <template v-if="permission.includes('EDIT')">
+            <template v-if="validateOptionsByRoute && optionsPermissions.includes(EDITAR)">
               <b-dropdown-item
                 v-if="optionEdit"
                 @click="openModalFor(props.row, 'edit')"
@@ -140,21 +141,7 @@
                 </div>
               </b-dropdown-item>
             </template>
-            <template v-if="permission.includes('CHANGE_PASSWORD')">
-              <b-dropdown-item
-                v-if="optionChangePassword"
-                @click="openModalFor(props.row, 'change-password')"
-              >
-                <div class="d-flex align-items-center">
-                  <feather-icon
-                    icon="LockIcon"
-                    class="mr-50"
-                  />
-                  <span class="d-inline-block">Cambiar Clave</span>
-                </div>
-              </b-dropdown-item>
-            </template>
-            <template v-if="permission.includes('DELETE')">
+            <template v-if="validateOptionsByRoute && optionsPermissions.includes(ELIMINAR)">
               <b-dropdown-item
                 v-if="optionDelete"
                 @click="deleteRow(props.row._id)"
@@ -250,6 +237,13 @@
 import {
   BPagination, BFormSelect, BBadge, BDropdown, BDropdownItem, BImg,
 } from 'bootstrap-vue'
+import {
+  CAMBIAR_ESTADO,
+  EDITAR,
+  ELIMINAR,
+  FILTRAR,
+  VER_REGISTRO,
+} from '@/options'
 import { ACTION_STATUS, ACTION_DELETE } from '@/helpers/actionsApi'
 import { VueGoodTable } from 'vue-good-table'
 import { confirmSwal } from '@/helpers/messageExtensions'
@@ -351,13 +345,17 @@ export default {
       required: false,
       default: true,
     },
+    validateOptionsByRoute: {
+      type: Boolean,
+      required: false,
+      default: true,
+    },
   },
   data() {
     return {
       dir: false,
       pages: [3, 5, 10, 15],
       loadingLocal: false,
-      permission: [],
     }
   },
   computed: {
@@ -369,10 +367,12 @@ export default {
         return newValue
       },
     },
-  },
-  created() {
-    // Cargar los permisos permitidos
-    this.permission = ['STATUS', 'SHOW', 'EDIT', 'DELETE', 'CHANGE_PASSWORD', 'OPEN_BOX', 'CLOSE_BOX']
+    optionsPermissions() {
+      if (this.$store.state.rolesAndPermissions.options[this.$route.name]) {
+        return this.$store.state.rolesAndPermissions.options[this.$route.name]
+      }
+      return []
+    },
   },
   methods: {
     onPageChange(params) {
@@ -430,6 +430,15 @@ export default {
       delete newRow.idUsuario
       this.$emit('on-row-click', newRow)
     },
+  },
+  setup() {
+    return {
+      CAMBIAR_ESTADO,
+      EDITAR,
+      ELIMINAR,
+      FILTRAR,
+      VER_REGISTRO,
+    }
   },
 }
 </script>

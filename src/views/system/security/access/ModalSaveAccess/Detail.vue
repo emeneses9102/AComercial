@@ -52,6 +52,7 @@
               :method-function="resetDetail"
             />
             <button-component
+              v-if="optionsPermissions.includes(GUARDAR)"
               type="submit"
               variant="primary"
               text-default="Agregar"
@@ -69,13 +70,21 @@
 import {
   BForm, BRow, BCol, BFormGroup,
 } from 'bootstrap-vue'
+import { computed } from '@vue/composition-api'
 import { ValidationProvider } from 'vee-validate'
 import vSelect from 'vue-select'
+import store from '@/store'
+import {
+  GUARDAR,
+} from '@/options'
 import FieldSetComponent from '@/components/FieldSetComponent/FieldSetComponent.vue'
 import ButtonComponent from '@/components/ButtonComponent/ButtonComponent.vue'
 import { ACTION_REGISTER, ACTION_UPDATE } from '@/helpers/actionsApi'
-import { stateAccess } from '../ServicesAccess/useVariablesAccess'
-import { stateAccessOptionDetail, clearStateAccessOptionDetail, combosAccessOptionDetail } from '../ServicesAccessOptionDetail/useVariablesAccessOptionDetail'
+import { validatePermission } from '@/helpers/validateActions'
+import { routeNameAccess, stateAccess } from '../ServicesAccess/useVariablesAccess'
+import {
+  stateAccessOptionDetail, clearStateAccessOptionDetail, combosAccessOptionDetail, titleNotificationAccessOptionDetail,
+} from '../ServicesAccessOptionDetail/useVariablesAccessOptionDetail'
 import { loadItemsAccessOptionDetail, sendAccessOptionDetail } from '../ServicesAccessOptionDetail/useServicesAccessOptionDetail'
 
 export default {
@@ -107,7 +116,16 @@ export default {
     },
   },
   setup(props) {
+    const optionsPermissions = computed(() => {
+      if (store.state.rolesAndPermissions.options[routeNameAccess]) {
+        return store.state.rolesAndPermissions.options[routeNameAccess]
+      }
+      return []
+    })
+
     const sendForm = async () => {
+      if (!validatePermission(optionsPermissions.value, GUARDAR, titleNotificationAccessOptionDetail)) return
+
       if (!stateAccess.value._id) {
         stateAccessOptionDetail.value.loading = true
         const successValidationAccess = await props.sendHeader(ACTION_REGISTER, false)
@@ -135,6 +153,9 @@ export default {
       sendForm,
       clearStateAccessOptionDetail,
       combosAccessOptionDetail,
+
+      optionsPermissions,
+      GUARDAR,
     }
   },
 }

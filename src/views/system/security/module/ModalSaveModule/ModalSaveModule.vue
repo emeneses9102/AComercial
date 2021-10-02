@@ -80,6 +80,10 @@
         :method-function="()=>$bvModal.hide(MODAL_ID)"
       />
       <button-component
+        v-if="(
+          (!stateModule._id && optionsPermissions.includes(GUARDAR))
+          || (stateModule._id && optionsPermissions.includes(EDITAR))
+        )"
         variant="primary"
         icon-button="SaveIcon"
         :loading="stateModule.loading"
@@ -96,13 +100,20 @@ import {
 } from 'bootstrap-vue'
 import { ValidationObserver, ValidationProvider } from 'vee-validate'
 import { VueSelect } from 'vue-select'
+import { computed } from '@vue/composition-api'
+import store from '@/store'
+import {
+  EDITAR,
+  GUARDAR,
+} from '@/options'
 import { ACTION_REGISTER, ACTION_UPDATE } from '@/helpers/actionsApi'
+import { validatePermission } from '@/helpers/validateActions'
 import { endPointsCombo, loadCombos } from '@/helpers/combos'
 import ButtonComponent from '@/components/ButtonComponent/ButtonComponent.vue'
 import FieldSetComponent from '@/components/FieldSetComponent/FieldSetComponent.vue'
 import ModalSearchIconComponent from '@/components/ModalSearchIconComponent/ModalSearchIconComponent.vue'
 import {
-  MODAL_ID, titleNotificationModule, stateModule, clearStateModule, combosModule,
+  MODAL_ID, titleNotificationModule, stateModule, clearStateModule, combosModule, routeNameModule,
 } from '../ServicesModule/useVariablesModule'
 import { loadItemsModule, sendModule } from '../ServicesModule/useServicesModule'
 
@@ -123,7 +134,15 @@ export default {
     ModalSearchIconComponent,
   },
   setup(props, context) {
+    const optionsPermissions = computed(() => {
+      if (store.state.rolesAndPermissions.options[routeNameModule]) {
+        return store.state.rolesAndPermissions.options[routeNameModule]
+      }
+      return []
+    })
+
     const sendForm = async (actionSend = null, loading = true) => {
+      if (!validatePermission(optionsPermissions.value, !stateModule.value._id ? GUARDAR : EDITAR, titleNotificationModule)) return false
       const successValidationModule = await context.refs['validation-module'].validate()
       if (!successValidationModule) return false
       if (loading) stateModule.value.loading = true
@@ -151,6 +170,10 @@ export default {
       combosModule,
       sendForm,
       inputIdPadre,
+
+      optionsPermissions,
+      EDITAR,
+      GUARDAR,
     }
   },
 }

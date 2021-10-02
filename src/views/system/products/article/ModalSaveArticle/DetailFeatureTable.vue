@@ -51,7 +51,7 @@ export default {
         dataTableArticleFeatureDetail.value.loading = false
         return false
       }
-      await loadCombos(combosArticleFeatureDetail, ['featureDetail'], `${endPointsCombo.detalleCaracteristica}/1/${data.idCaracteristica}`, 'Valores Característica')
+      await loadCombos(combosArticleFeatureDetail, ['featureDetail'], `${endPointsCombo.detalleCaracteristica}/1/${data.idCaracteristica}/0`, 'Valores Característica')
       stateArticleFeatureDetail.value._id = data._id
       stateArticleFeatureDetail.value.idArticulo = data.idArticulo
       stateArticleFeatureDetail.value.idCaracteristica = data.idCaracteristica

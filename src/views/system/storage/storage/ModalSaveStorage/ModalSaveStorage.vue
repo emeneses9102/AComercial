@@ -25,6 +25,10 @@
         :method-function="()=>$bvModal.hide(MODAL_ID)"
       />
       <button-component
+        v-if="(
+          (!stateStorage._id && optionsPermissions.includes(GUARDAR))
+          || (stateStorage._id && optionsPermissions.includes(EDITAR))
+        )"
         variant="primary"
         icon-button="SaveIcon"
         :loading="stateStorage.loading"
@@ -40,13 +44,20 @@ import {
   BModal,
 } from 'bootstrap-vue'
 import { ValidationObserver } from 'vee-validate'
+import { computed } from '@vue/composition-api'
+import store from '@/store'
+import {
+  EDITAR,
+  GUARDAR,
+} from '@/options'
 import { ACTION_REGISTER, ACTION_UPDATE } from '@/helpers/actionsApi'
+import { validatePermission } from '@/helpers/validateActions'
 import ButtonComponent from '@/components/ButtonComponent/ButtonComponent.vue'
 import HeaderStorage from './HeaderStorage.vue'
 import Detail from './Detail.vue'
 import DetailTable from './DetailTable.vue'
 import {
-  MODAL_ID, titleNotificationStorage, stateStorage,
+  MODAL_ID, titleNotificationStorage, stateStorage, routeNameStorage,
 } from '../ServicesStorage/useVariablesStorage'
 import { loadItemsStorage, sendStorage } from '../ServicesStorage/useServicesStorage'
 import { serverQuerySubStorage } from '../ServicesSubStorage/useVariablesSubStorage'
@@ -62,7 +73,15 @@ export default {
     ValidationObserver,
   },
   setup(props, context) {
+    const optionsPermissions = computed(() => {
+      if (store.state.rolesAndPermissions.options[routeNameStorage]) {
+        return store.state.rolesAndPermissions.options[routeNameStorage]
+      }
+      return []
+    })
+
     const sendForm = async (actionSend = null, loading = true) => {
+      if (!validatePermission(optionsPermissions.value, !stateStorage.value._id ? GUARDAR : EDITAR, titleNotificationStorage)) return false
       const successValidationStorage = await context.refs['validation-storage'].validate()
       if (!successValidationStorage) return false
       if (loading) stateStorage.value.loading = true
@@ -80,6 +99,10 @@ export default {
       titleNotificationStorage,
       stateStorage,
       sendForm,
+
+      optionsPermissions,
+      EDITAR,
+      GUARDAR,
     }
   },
 }

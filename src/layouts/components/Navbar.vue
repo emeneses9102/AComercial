@@ -149,6 +149,7 @@ export default {
     closeSession() {
       this.$store.dispatch('authentication/logout')
       this.$store.commit('rolesAndPermissions/CLEAR_NAVIGATION')
+      this.$store.commit('rolesAndPermissions/CLEAR_OPTIONS')
     },
   },
 }

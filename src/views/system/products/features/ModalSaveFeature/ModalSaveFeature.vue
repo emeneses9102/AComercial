@@ -25,6 +25,10 @@
         :method-function="()=>$bvModal.hide(MODAL_ID)"
       />
       <button-component
+        v-if="(
+          (!stateFeature._id && optionsPermissions.includes(GUARDAR))
+          || (stateFeature._id && optionsPermissions.includes(EDITAR))
+        )"
         variant="primary"
         icon-button="SaveIcon"
         :loading="stateFeature.loading"
@@ -40,13 +44,20 @@ import {
   BModal,
 } from 'bootstrap-vue'
 import { ValidationObserver } from 'vee-validate'
+import { computed } from '@vue/composition-api'
+import store from '@/store'
+import {
+  EDITAR,
+  GUARDAR,
+} from '@/options'
 import { ACTION_REGISTER, ACTION_UPDATE } from '@/helpers/actionsApi'
+import { validatePermission } from '@/helpers/validateActions'
 import ButtonComponent from '@/components/ButtonComponent/ButtonComponent.vue'
 import HeaderFeature from './HeaderFeature.vue'
 import Detail from './Detail.vue'
 import DetailTable from './DetailTable.vue'
 import {
-  MODAL_ID, titleNotificationFeature, stateFeature,
+  MODAL_ID, titleNotificationFeature, stateFeature, routeNameFeature,
 } from '../ServicesFeature/useVariablesFeature'
 import { loadItemsFeature, sendFeature } from '../ServicesFeature/useServicesFeature'
 import { serverQueryFeatureDetail } from '../ServicesFeatureDetail/useVariablesFeatureDetail'
@@ -62,7 +73,15 @@ export default {
     ValidationObserver,
   },
   setup(props, context) {
+    const optionsPermissions = computed(() => {
+      if (store.state.rolesAndPermissions.options[routeNameFeature]) {
+        return store.state.rolesAndPermissions.options[routeNameFeature]
+      }
+      return []
+    })
+
     const sendForm = async (actionSend = null, loading = true) => {
+      if (!validatePermission(optionsPermissions.value, !stateFeature.value._id ? GUARDAR : EDITAR, titleNotificationFeature)) return false
       const successValidationFeature = await context.refs['validation-feature'].validate()
       if (!successValidationFeature) return false
       if (loading) stateFeature.value.loading = true
@@ -80,6 +99,10 @@ export default {
       titleNotificationFeature,
       stateFeature,
       sendForm,
+
+      optionsPermissions,
+      EDITAR,
+      GUARDAR,
     }
   },
 }

@@ -4,6 +4,10 @@ import { ref } from '@vue/composition-api'
 // Importar configuracion de las columnas personalizadas
 import { columnAction, columnStatus } from '@/helpers/columnsTable'
 import { clearServerQueryDefaultFilter, serverQueryDefault } from '@/helpers/serverQuery'
+import routesName from '@/helpers/routesName'
+
+// Nombre de la ruta que usa el mantenimiento Tipo Producto
+export const routeNameProductType = routesName.tipoProducto
 
 // Constante para almacenar el id base de los modales del mantenimiento Tipo Producto
 export const MODAL_ID = 'modal-product-type'
