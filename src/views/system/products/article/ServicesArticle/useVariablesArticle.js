@@ -5,6 +5,10 @@ import { ref } from '@vue/composition-api'
 import { columnAction, columnStatus } from '@/helpers/columnsTable'
 import { clearServerQueryDefaultFilter, serverQueryDefault } from '@/helpers/serverQuery'
 import { initialStateCombo } from '@/helpers/combos'
+import routesName from '@/helpers/routesName'
+
+// Nombre de la ruta que usa el mantenimiento Articulo
+export const routeNameArticle = routesName.articulos
 
 // Constante para almacenar el id base de los modales del mantenimiento Artículo
 export const MODAL_ID = 'modal-article'

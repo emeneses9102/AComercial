@@ -116,6 +116,10 @@
         :method-function="()=>$bvModal.hide(MODAL_ID)"
       />
       <button-component
+        v-if="(
+          (!stateRole._id && optionsPermissions.includes(GUARDAR))
+          || (stateRole._id && optionsPermissions.includes(EDITAR))
+        )"
         variant="primary"
         icon-button="SaveIcon"
         :loading="stateRole.loading"
@@ -132,11 +136,18 @@ import {
 } from 'bootstrap-vue'
 import { VueSelect } from 'vue-select'
 import { ValidationObserver, ValidationProvider } from 'vee-validate'
+import { computed } from '@vue/composition-api'
+import store from '@/store'
+import { validatePermission } from '@/helpers/validateActions'
+import {
+  GUARDAR,
+  EDITAR,
+} from '@/options'
 import { ACTION_REGISTER, ACTION_UPDATE } from '@/helpers/actionsApi'
 import ButtonComponent from '@/components/ButtonComponent/ButtonComponent.vue'
 import FieldSetComponent from '@/components/FieldSetComponent/FieldSetComponent.vue'
 import {
-  MODAL_ID, titleNotificationRole, stateRole, clearStateRole, combosRole,
+  MODAL_ID, titleNotificationRole, stateRole, clearStateRole, combosRole, routeNameRole,
 } from '../ServicesRole/useVariablesRole'
 import { loadItemsRole, sendRole } from '../ServicesRole/useServicesRole'
 
@@ -156,7 +167,15 @@ export default {
     ValidationProvider,
   },
   setup(props, context) {
+    const optionsPermissions = computed(() => {
+      if (store.state.rolesAndPermissions.options[routeNameRole]) {
+        return store.state.rolesAndPermissions.options[routeNameRole]
+      }
+      return []
+    })
+
     const sendForm = async (actionSend = null, loading = true) => {
+      if (!validatePermission(optionsPermissions.value, !stateRole.value._id ? GUARDAR : EDITAR, titleNotificationRole)) return false
       const successValidationRole = await context.refs['validation-role'].validate()
       if (!successValidationRole) return false
       if (loading) stateRole.value.loading = true
@@ -177,6 +196,10 @@ export default {
       stateRole,
       sendForm,
       combosRole,
+
+      optionsPermissions,
+      EDITAR,
+      GUARDAR,
     }
   },
 }

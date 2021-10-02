@@ -77,6 +77,10 @@
         :method-function="()=>$bvModal.hide(MODAL_ID)"
       />
       <button-component
+        v-if="(
+          (!statePredio._id && optionsPermissions.includes(GUARDAR))
+          || (statePredio._id && optionsPermissions.includes(EDITAR))
+        )"
         variant="primary"
         icon-button="SaveIcon"
         :loading="statePredio.loading"
@@ -92,12 +96,19 @@ import {
   BModal, BForm, BRow, BCol, BFormGroup, BFormInput,
 } from 'bootstrap-vue'
 import { ValidationObserver, ValidationProvider } from 'vee-validate'
+import { computed } from '@vue/composition-api'
+import store from '@/store'
+import {
+  EDITAR,
+  GUARDAR,
+} from '@/options'
 import { ACTION_REGISTER, ACTION_UPDATE } from '@/helpers/actionsApi'
+import { validatePermission } from '@/helpers/validateActions'
 import UbigeoComponent from '@/components/UbigeoComponent/UbigeoComponent.vue'
 import ButtonComponent from '@/components/ButtonComponent/ButtonComponent.vue'
 import FieldSetComponent from '@/components/FieldSetComponent/FieldSetComponent.vue'
 import {
-  MODAL_ID, titleNotificationPredio, statePredio, clearStatePredio, clearCombosPredioUbigeo, clearStatePredioUbigeo,
+  MODAL_ID, titleNotificationPredio, statePredio, clearStatePredio, clearCombosPredioUbigeo, clearStatePredioUbigeo, routeNamePredio,
 } from '../ServicesPredio/useVariablesPredio'
 import { loadItemsPredio, sendPredio } from '../ServicesPredio/useServicesPredio'
 
@@ -117,7 +128,16 @@ export default {
     ValidationProvider,
   },
   setup(props, context) {
+    const optionsPermissions = computed(() => {
+      if (store.state.rolesAndPermissions.options[routeNamePredio]) {
+        return store.state.rolesAndPermissions.options[routeNamePredio]
+      }
+      return []
+    })
+
     const sendForm = async (actionSend = null, loading = true) => {
+      if (!validatePermission(optionsPermissions.value, !statePredio.value._id ? GUARDAR : EDITAR, titleNotificationPredio)) return false
+
       const successValidationPredio = await context.refs['validation-predio'].validate()
       if (!successValidationPredio) return false
       if (loading) statePredio.value.loading = true
@@ -143,6 +163,10 @@ export default {
       statePredio,
       sendForm,
       selectedDistrict,
+
+      optionsPermissions,
+      EDITAR,
+      GUARDAR,
     }
   },
 }

@@ -30,7 +30,10 @@
         :method-function="()=>$bvModal.hide(MODAL_ID)"
       />
       <button-component
-        v-if="!stateBoxSession.idApertura"
+        v-if="(
+          (!stateBoxSession._id && optionsPermissions.includes(GUARDAR))
+          || (stateBoxSession._id && !stateBoxSession.idApertura && optionsPermissions.includes(EDITAR))
+        )"
         variant="primary"
         icon-button="SaveIcon"
         :loading="stateBoxSession.loading"
@@ -46,15 +49,17 @@ import {
   BModal,
 } from 'bootstrap-vue'
 import { ValidationObserver } from 'vee-validate'
-// import { onMounted } from '@vue/composition-api'
+import { computed } from '@vue/composition-api'
+import store from '@/store'
+import {
+  EDITAR,
+  GUARDAR,
+} from '@/options'
 import {
   ACTION_REGISTER,
   ACTION_UPDATE,
 } from '@/helpers/actionsApi'
-// import {
-//   loadCombos,
-//   endPointsCombo,
-// } from '@/helpers/combos'
+import { validatePermission } from '@/helpers/validateActions'
 import ButtonComponent from '@/components/ButtonComponent/ButtonComponent.vue'
 import HeaderBoxSession from './HeaderBoxSession.vue'
 import DetailVoucher from './DetailVoucher.vue'
@@ -63,15 +68,12 @@ import {
   MODAL_ID,
   titleNotificationBoxSession,
   stateBoxSession,
-  // clearStateBoxSession,
+  routeNameBoxSession,
 } from '../ServicesBoxSession/useVariablesBoxSession'
 import {
   loadItemsBoxSession,
   sendBoxSession,
 } from '../ServicesBoxSession/useServicesBoxSession'
-// import {
-//   combosBoxSessionVoucherDetail,
-// } from '../ServicesBoxSessionVoucherDetail/useVariablesBoxSessionVoucherDetail'
 
 export default {
   name: 'ModalSaveBoxSession',
@@ -84,11 +86,15 @@ export default {
     ValidationObserver,
   },
   setup(props, context) {
-    // onMounted(() => {
-    //   loadCombos(combosBoxSessionVoucherDetail, ['voucher'], `${endPointsCombo.comprobanteSesionCaja}/1/${stateBoxSession.value._id}/0`, 'Comprobantes')
-    // })
+    const optionsPermissions = computed(() => {
+      if (store.state.rolesAndPermissions.options[routeNameBoxSession]) {
+        return store.state.rolesAndPermissions.options[routeNameBoxSession]
+      }
+      return []
+    })
 
     const sendForm = async (actionSend = null, loading = true) => {
+      if (!validatePermission(optionsPermissions.value, !stateBoxSession.value._id ? GUARDAR : EDITAR, titleNotificationBoxSession)) return false
       const successValidationBoxSession = await context.refs['validation-box-session'].validate()
       if (!successValidationBoxSession) return false
       if (loading) stateBoxSession.value.loading = true
@@ -96,8 +102,6 @@ export default {
       if (loading) stateBoxSession.value.loading = false
       if (!status || !data) return false
       stateBoxSession.value._id = data.id
-      // clearStateBoxSession()
-      // context.refs['validation-box-session'].reset()
       await loadItemsBoxSession()
       return true
     }
@@ -107,6 +111,10 @@ export default {
       titleNotificationBoxSession,
       stateBoxSession,
       sendForm,
+
+      optionsPermissions,
+      EDITAR,
+      GUARDAR,
     }
   },
 }

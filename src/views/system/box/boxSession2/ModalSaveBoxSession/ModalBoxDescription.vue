@@ -117,7 +117,7 @@
         :method-function="()=>$bvModal.hide(`${MODAL_ID}-description`)"
       />
       <button-component
-        v-if="!stateBoxSession.idApertura"
+        v-if="!stateBoxSession.idApertura && optionsPermissions.includes(APERTURAR_CAJA)"
         variant="success"
         icon-button="LogInIcon"
         :loading="stateBoxSession.loading"
@@ -125,7 +125,7 @@
         :method-function="()=>sendBox()"
       />
       <button-component
-        v-if="stateBoxSession.idApertura"
+        v-if="stateBoxSession.idApertura && optionsPermissions.includes(CERRAR_CAJA)"
         variant="danger"
         icon-button="LogOutIcon"
         :loading="stateBoxSession.loading"
@@ -150,9 +150,14 @@ import {
 } from '@vue/composition-api'
 import store from '@/store'
 import {
+  APERTURAR_CAJA,
+  CERRAR_CAJA,
+} from '@/options'
+import {
   ACTION_CLOSE_BOX,
   ACTION_OPEN_BOX,
 } from '@/helpers/actionsApi'
+import { validatePermission } from '@/helpers/validateActions'
 import ButtonComponent from '@/components/ButtonComponent/ButtonComponent.vue'
 import FieldSetComponent from '@/components/FieldSetComponent/FieldSetComponent.vue'
 import {
@@ -163,6 +168,7 @@ import {
   titleNotificationBoxSession,
   stateBoxSession,
   clearStateBoxSession,
+  routeNameBoxSession,
 } from '../ServicesBoxSession/useVariablesBoxSession'
 import {
   loadItemsBoxSession,
@@ -170,6 +176,7 @@ import {
 } from '../ServicesBoxSession/useServicesBoxSession'
 import {
   serverQueryBoxSessionDetail,
+  titleNotificationBoxSessionDetail,
 } from '../ServicesBoxSessionDetail/useVariablesBoxSessionDetail'
 
 export default {
@@ -185,7 +192,16 @@ export default {
     FieldSetComponent,
   },
   setup(props, context) {
+    const optionsPermissions = computed(() => {
+      if (store.state.rolesAndPermissions.options[routeNameBoxSession]) {
+        return store.state.rolesAndPermissions.options[routeNameBoxSession]
+      }
+      return []
+    })
+
     const sendBox = async (actionSend = null, loading = true) => {
+      if (!validatePermission(optionsPermissions.value, !stateBoxSession.value.idApertura ? CERRAR_CAJA : APERTURAR_CAJA, titleNotificationBoxSessionDetail)) return false
+
       if (loading) stateBoxSession.value.loading = true
       const { status, data } = await sendBoxSession(actionSend || (stateBoxSession.value.idApertura ? ACTION_CLOSE_BOX : ACTION_OPEN_BOX))
       if (loading) stateBoxSession.value.loading = false
@@ -210,6 +226,10 @@ export default {
       stateBoxSession,
       sendBox,
       fechaApertura,
+
+      optionsPermissions,
+      APERTURAR_CAJA,
+      CERRAR_CAJA,
     }
   },
 }

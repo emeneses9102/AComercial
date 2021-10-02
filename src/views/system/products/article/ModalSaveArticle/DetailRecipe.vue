@@ -90,7 +90,7 @@
                 icon-button="DeleteIcon"
               />
               <button-component
-                v-if="stateArticleRecipeDetail._id"
+                v-if="stateArticleRecipeDetail._id && optionsPermissions.includes(EDITAR)"
                 type="submit"
                 variant="success"
                 text-default="Modificar"
@@ -98,7 +98,7 @@
                 :loading="stateArticleRecipeDetail.loading"
               />
               <button-component
-                v-else
+                v-else-if="!stateArticleRecipeDetail._id && optionsPermissions.includes(GUARDAR)"
                 type="submit"
                 variant="primary"
                 text-default="Agregar"
@@ -118,15 +118,24 @@
 import {
   BForm, BRow, BCol, BFormGroup, BFormInput,
 } from 'bootstrap-vue'
+import { computed } from '@vue/composition-api'
 import { ValidationObserver, ValidationProvider } from 'vee-validate'
 import vSelect from 'vue-select'
+import store from '@/store'
+import {
+  EDITAR,
+  GUARDAR,
+} from '@/options'
 import FieldSetComponent from '@/components/FieldSetComponent/FieldSetComponent.vue'
 import ButtonComponent from '@/components/ButtonComponent/ButtonComponent.vue'
 import InputSearchArticleComponent from '@/components/InputSearchArticleComponent/InputSearchArticleComponent.vue'
 import { ACTION_REGISTER, ACTION_UPDATE } from '@/helpers/actionsApi'
+import { validatePermission } from '@/helpers/validateActions'
 import { endPointsCombo, loadCombos, resetCombos } from '@/helpers/combos'
-import { stateArticle } from '../ServicesArticle/useVariablesArticle'
-import { stateArticleRecipeDetail, clearStateArticleRecipeDetail, combosArticleRecipeDetail } from '../ServicesArticleRecipeDetail/useVariablesArticleRecipeDetail'
+import { routeNameArticle, stateArticle } from '../ServicesArticle/useVariablesArticle'
+import {
+  stateArticleRecipeDetail, clearStateArticleRecipeDetail, combosArticleRecipeDetail, titleNotificationArticleRecipeDetail,
+} from '../ServicesArticleRecipeDetail/useVariablesArticleRecipeDetail'
 import { loadItemsArticleRecipeDetail, sendArticleRecipeDetail } from '../ServicesArticleRecipeDetail/useServicesArticleRecipeDetail'
 
 export default {
@@ -151,7 +160,16 @@ export default {
     },
   },
   setup(props, context) {
+    const optionsPermissions = computed(() => {
+      if (store.state.rolesAndPermissions.options[routeNameArticle]) {
+        return store.state.rolesAndPermissions.options[routeNameArticle]
+      }
+      return []
+    })
+
     const sendForm = async () => {
+      if (!validatePermission(optionsPermissions.value, !stateArticleRecipeDetail.value._id ? GUARDAR : EDITAR, titleNotificationArticleRecipeDetail)) return
+
       if (!stateArticle.value._id) {
         stateArticleRecipeDetail.value.loading = true
         const successValidationArticle = await props.sendHeader(ACTION_REGISTER, false)
@@ -192,6 +210,10 @@ export default {
       recipeSelected,
       clearStateArticleRecipeDetail,
       combosArticleRecipeDetail,
+
+      optionsPermissions,
+      EDITAR,
+      GUARDAR,
     }
   },
 }

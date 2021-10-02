@@ -6,6 +6,10 @@ import { columnAction, columnStatus } from '@/helpers/columnsTable'
 import { initialStateCombo } from '@/helpers/combos'
 import { serverQueryDefault, clearServerQueryDefaultFilter } from '@/helpers/serverQuery'
 import { formatDate } from '@/helpers/date'
+import routesName from '@/helpers/routesName'
+
+// Nombre de la ruta que usa el mantenimiento Usuario
+export const routeNameUser = routesName.usuarios
 
 // Constante para almacenar el id base de los modales del mantenimiento Usuario
 export const MODAL_ID = 'modal-user'

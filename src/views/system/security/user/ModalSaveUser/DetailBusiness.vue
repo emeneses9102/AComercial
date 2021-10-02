@@ -54,7 +54,7 @@
                 icon-button="DeleteIcon"
               />
               <button-component
-                v-if="stateUserBusinessDetail._id"
+                v-if="stateUserBusinessDetail._id && optionsPermissions.includes(EDITAR)"
                 type="submit"
                 variant="success"
                 text-default="Modificar"
@@ -62,7 +62,7 @@
                 :loading="stateUserBusinessDetail.loading"
               />
               <button-component
-                v-else
+                v-else-if="!stateUserBusinessDetail._id && optionsPermissions.includes(GUARDAR)"
                 type="submit"
                 variant="primary"
                 text-default="Agregar"
@@ -82,13 +82,22 @@
 import {
   BForm, BRow, BCol, BFormGroup,
 } from 'bootstrap-vue'
+import { computed } from '@vue/composition-api'
 import { ValidationObserver, ValidationProvider } from 'vee-validate'
 import vSelect from 'vue-select'
+import store from '@/store'
+import {
+  EDITAR,
+  GUARDAR,
+} from '@/options'
 import FieldSetComponent from '@/components/FieldSetComponent/FieldSetComponent.vue'
 import ButtonComponent from '@/components/ButtonComponent/ButtonComponent.vue'
 import { ACTION_REGISTER, ACTION_UPDATE } from '@/helpers/actionsApi'
-import { stateUser } from '../ServicesUser/useVariablesUser'
-import { stateUserBusinessDetail, clearStateUserBusinessDetail, combosUserBusinessDetail } from '../ServicesUserBusinessDetail/useVariablesUserBusinessDetail'
+import { validatePermission } from '@/helpers/validateActions'
+import { routeNameUser, stateUser } from '../ServicesUser/useVariablesUser'
+import {
+  stateUserBusinessDetail, clearStateUserBusinessDetail, combosUserBusinessDetail, titleNotificationUserBusinessDetail,
+} from '../ServicesUserBusinessDetail/useVariablesUserBusinessDetail'
 import { loadItemsUserBusinessDetail, sendUserBusinessDetail } from '../ServicesUserBusinessDetail/useServicesUserBusinessDetail'
 
 export default {
@@ -111,7 +120,16 @@ export default {
     },
   },
   setup(props, context) {
+    const optionsPermissions = computed(() => {
+      if (store.state.rolesAndPermissions.options[routeNameUser]) {
+        return store.state.rolesAndPermissions.options[routeNameUser]
+      }
+      return []
+    })
+
     const sendForm = async () => {
+      if (!validatePermission(optionsPermissions.value, !stateUserBusinessDetail.value._id ? GUARDAR : EDITAR, titleNotificationUserBusinessDetail)) return
+
       if (!stateUser.value._id) {
         stateUserBusinessDetail.value.loading = true
         const successValidationUser = await props.sendHeader(ACTION_REGISTER, false)
@@ -140,6 +158,10 @@ export default {
       sendForm,
       clearStateUserBusinessDetail,
       combosUserBusinessDetail,
+
+      optionsPermissions,
+      EDITAR,
+      GUARDAR,
     }
   },
 }

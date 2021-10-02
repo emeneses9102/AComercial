@@ -23,7 +23,7 @@ export default [
   },
   {
     path: '/tipo-producto',
-    name: 'product-type',
+    name: 'productType',
     component: () => import('@/views/system/products/productType/ProductType.vue'),
     meta: {
       auth: true,
@@ -39,7 +39,7 @@ export default [
   },
   {
     path: '/tipo-servicio',
-    name: 'service-type',
+    name: 'serviceType',
     component: () => import('@/views/system/products/serviceType/ServiceType.vue'),
     meta: {
       auth: true,
@@ -55,7 +55,7 @@ export default [
   },
   {
     path: '/grupo-unidad',
-    name: 'unit-group',
+    name: 'unitGroup',
     component: () => import('@/views/system/products/unitGroup/UnitGroup.vue'),
     meta: {
       auth: true,

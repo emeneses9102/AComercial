@@ -121,7 +121,7 @@
                 icon-button="DeleteIcon"
               />
               <button-component
-                v-if="stateBoxSessionDetail._id"
+                v-if="stateBoxSessionDetail._id && optionsPermissions.includes(APERTURAR_CAJA)"
                 type="submit"
                 variant="success"
                 text-default="Modificar"
@@ -129,7 +129,7 @@
                 :loading="stateBoxSessionDetail.loading"
               />
               <button-component
-                v-else
+                v-else-if="!stateBoxSessionDetail._id && optionsPermissions.includes(APERTURAR_CAJA)"
                 type="submit"
                 variant="primary"
                 text-default="Agregar"
@@ -148,14 +148,21 @@
 import {
   BForm, BRow, BCol, BFormGroup, BFormInput,
 } from 'bootstrap-vue'
+import { computed } from '@vue/composition-api'
 import { ValidationObserver, ValidationProvider } from 'vee-validate'
 import { VueSelect } from 'vue-select'
+import store from '@/store'
+import {
+  APERTURAR_CAJA,
+} from '@/options'
 import FieldSetComponent from '@/components/FieldSetComponent/FieldSetComponent.vue'
 import ButtonComponent from '@/components/ButtonComponent/ButtonComponent.vue'
 import { ACTION_REGISTER, ACTION_UPDATE } from '@/helpers/actionsApi'
-import { stateBoxSession } from '../ServicesBoxSession/useVariablesBoxSession'
+import { validatePermission } from '@/helpers/validateActions'
+import { routeNameBoxSession, stateBoxSession } from '../ServicesBoxSession/useVariablesBoxSession'
 import { stateBoxSessionDetail, clearStateBoxSessionDetail, combosBoxSessionDetail } from '../ServicesBoxSessionDetail/useVariablesBoxSessionDetail'
 import { loadItemsBoxSessionDetail, sendBoxSessionDetail } from '../ServicesBoxSessionDetail/useServicesBoxSessionDetail'
+import { titleNotificationBoxSessionDetail } from '../../boxSession/ServicesBoxSessionDetail/useVariablesBoxSessionDetail'
 
 export default {
   name: 'Detail',
@@ -178,7 +185,16 @@ export default {
     },
   },
   setup(props, context) {
+    const optionsPermissions = computed(() => {
+      if (store.state.rolesAndPermissions.options[routeNameBoxSession]) {
+        return store.state.rolesAndPermissions.options[routeNameBoxSession]
+      }
+      return []
+    })
+
     const sendForm = async () => {
+      if (!validatePermission(optionsPermissions.value, APERTURAR_CAJA, titleNotificationBoxSessionDetail)) return
+
       if (!stateBoxSession.value._id) {
         stateBoxSessionDetail.value.loading = true
         const successValidationFeature = await props.sendHeader(ACTION_REGISTER, false)
@@ -207,6 +223,9 @@ export default {
       sendForm,
       clearStateBoxSessionDetail,
       combosBoxSessionDetail,
+
+      optionsPermissions,
+      APERTURAR_CAJA,
     }
   },
 }

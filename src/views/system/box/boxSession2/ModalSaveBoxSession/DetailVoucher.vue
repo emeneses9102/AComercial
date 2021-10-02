@@ -72,7 +72,7 @@
             icon-button="DeleteIcon"
           />
           <button-component
-            v-if="stateBoxSessionVoucherDetail._id"
+            v-if="stateBoxSessionVoucherDetail._id && optionsPermissions.includes(EDITAR)"
             type="submit"
             variant="success"
             text-default="Modificar"
@@ -80,7 +80,7 @@
             :loading="stateBoxSessionVoucherDetail.loading"
           />
           <button-component
-            v-else
+            v-else-if="!stateBoxSessionVoucherDetail._id && optionsPermissions.includes(GUARDAR)"
             type="submit"
             variant="primary"
             text-default="Agregar"
@@ -100,8 +100,13 @@ import {
   BFormGroup,
   BFormCheckbox,
 } from 'bootstrap-vue'
-import { onMounted } from '@vue/composition-api'
+import { computed, onMounted } from '@vue/composition-api'
 import { VueSelect } from 'vue-select'
+import store from '@/store'
+import {
+  EDITAR,
+  GUARDAR,
+} from '@/options'
 import {
   endPointsCombo,
   loadCombos,
@@ -109,11 +114,12 @@ import {
 } from '@/helpers/combos'
 import FieldSetComponent from '@/components/FieldSetComponent/FieldSetComponent.vue'
 import ButtonComponent from '@/components/ButtonComponent/ButtonComponent.vue'
+// import { validatePermission } from '@/helpers/validateActions'
 import {
   stateBoxSessionVoucherDetail,
   combosBoxSessionVoucherDetail,
 } from '../ServicesBoxSessionVoucherDetail/useVariablesBoxSessionVoucherDetail'
-import { stateBoxSession } from '../ServicesBoxSession/useVariablesBoxSession'
+import { routeNameBoxSession, stateBoxSession } from '../ServicesBoxSession/useVariablesBoxSession'
 
 export default {
   name: 'DetailVoucher',
@@ -127,6 +133,13 @@ export default {
     ButtonComponent,
   },
   setup() {
+    const optionsPermissions = computed(() => {
+      if (store.state.rolesAndPermissions.options[routeNameBoxSession]) {
+        return store.state.rolesAndPermissions.options[routeNameBoxSession]
+      }
+      return []
+    })
+
     onMounted(() => {
       stateBoxSessionVoucherDetail.value.idComprobante = 0
       stateBoxSessionVoucherDetail.value.idCorrelativo = 0
@@ -144,6 +157,10 @@ export default {
       stateBoxSessionVoucherDetail,
       combosBoxSessionVoucherDetail,
       voucherSelected,
+
+      optionsPermissions,
+      EDITAR,
+      GUARDAR,
     }
   },
 }

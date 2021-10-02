@@ -18,9 +18,9 @@
       #option-edit="{ props }"
     >
       <template
-        v-if="!props.row.apertura"
+        v-if="!props.row.apertura && optionsPermissions.includes(EDITAR)"
       >
-        <b-dropdown-item @click="editRowTable(props.row)">
+        <b-dropdown-item @click="eventRowTable(props.row, 'edit')">
           <div class="d-flex align-items-center">
             <feather-icon
               icon="Edit2Icon"
@@ -35,7 +35,7 @@
       #options-pluss="{ props }"
     >
       <template
-        v-if="props.row.apertura"
+        v-if="props.row.apertura && optionsPermissions.includes(REPORTE_CAJA)"
       >
         <b-dropdown-item>
           <div class="d-flex align-items-center">
@@ -47,6 +47,30 @@
           </div>
         </b-dropdown-item>
       </template>
+      <b-dropdown-item
+        v-if="!props.row.apertura && optionsPermissions.includes(APERTURAR_CAJA)"
+        @click="eventRowTable(props.row, 'open-box')"
+      >
+        <div class="d-flex align-items-center">
+          <feather-icon
+            icon="LogInIcon"
+            class="mr-50"
+          />
+          <span class="d-inline-block">Abrir Caja</span>
+        </div>
+      </b-dropdown-item>
+      <b-dropdown-item
+        v-if="props.row.apertura && !props.row.cierre && optionsPermissions.includes(CERRAR_CAJA)"
+        @click="eventRowTable(props.row, 'close-box')"
+      >
+        <div class="d-flex align-items-center">
+          <feather-icon
+            icon="LogOutIcon"
+            class="mr-50"
+          />
+          <span class="d-inline-block">Cerrar Caja</span>
+        </div>
+      </b-dropdown-item>
     </template>
   </table-good-component>
 </template>
@@ -55,7 +79,14 @@
 import {
   BDropdownItem,
 } from 'bootstrap-vue'
-import { onMounted } from '@vue/composition-api'
+import { computed, onMounted } from '@vue/composition-api'
+import store from '@/store'
+import {
+  APERTURAR_CAJA,
+  CERRAR_CAJA,
+  EDITAR,
+  REPORTE_CAJA,
+} from '@/options'
 import TableGoodComponent from '@/components/TableComponent/TableGoodComponent.vue'
 import {
   MODAL_ID,
@@ -64,6 +95,7 @@ import {
   serverQueryBoxSession,
   dataTableBoxSession,
   titleNotificationBoxSession,
+  routeNameBoxSession,
 } from '../ServicesBoxSession/useVariablesBoxSession'
 import {
   getBoxSessionById,
@@ -86,6 +118,13 @@ export default {
     TableGoodComponent,
   },
   setup(props, context) {
+    const optionsPermissions = computed(() => {
+      if (store.state.rolesAndPermissions.options[routeNameBoxSession]) {
+        return store.state.rolesAndPermissions.options[routeNameBoxSession]
+      }
+      return []
+    })
+
     // Función que se ejecutará cuando el usuario haga click en el botón editar o ver
     const openModalFor = async (row, actionOpenModal) => {
       dataTableBoxSession.value.loading = true
@@ -119,7 +158,7 @@ export default {
       }
     }
 
-    const editRowTable = row => {
+    const eventRowTable = (row, event) => {
       const newRow = { ...row }
       /* eslint no-param-reassign: "error" */
       delete newRow.originalIndex
@@ -129,7 +168,7 @@ export default {
       delete newRow.accion
       delete newRow.numberRow
       delete newRow.idUsuario
-      openModalFor(newRow, 'edit')
+      openModalFor(newRow, event)
     }
 
     onMounted(() => {
@@ -144,8 +183,14 @@ export default {
       titleNotificationBoxSession,
       sendBoxSession,
       stateBoxSession,
-      editRowTable,
+      eventRowTable,
       openModalFor,
+
+      optionsPermissions,
+      APERTURAR_CAJA,
+      CERRAR_CAJA,
+      EDITAR,
+      REPORTE_CAJA,
     }
   },
 }

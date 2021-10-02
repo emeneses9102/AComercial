@@ -6,6 +6,10 @@ import { columnAction, columnStatus } from '@/helpers/columnsTable'
 import { initialStateCombo } from '@/helpers/combos'
 import { clearServerQueryDefaultFilter, serverQueryDefault } from '@/helpers/serverQuery'
 import { formatDate } from '@/helpers/date'
+import routesName from '@/helpers/routesName'
+
+// Nombre de la ruta que usa el mantenimiento Sesion Caja
+export const routeNameBoxSession = routesName.sesionCaja
 
 // Constante para almacenar el id base de los modales del mantenimiento Sesion Caja
 export const MODAL_ID = 'modal-box-session'

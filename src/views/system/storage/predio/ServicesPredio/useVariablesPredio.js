@@ -5,6 +5,10 @@ import { ref } from '@vue/composition-api'
 import { columnAction, columnStatus } from '@/helpers/columnsTable'
 import { initialStateCombo, resetCombos } from '@/helpers/combos'
 import { clearServerQueryDefaultFilter, serverQueryDefault } from '@/helpers/serverQuery'
+import routesName from '@/helpers/routesName'
+
+// Nombre de la ruta que usa el mantenimiento Predio
+export const routeNamePredio = routesName.predios
 
 // Constante para almacenar el id base de los modales del mantenimiento Predio
 export const MODAL_ID = 'modal-predio'

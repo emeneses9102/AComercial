@@ -5,6 +5,7 @@
     <modal-show-role />
     <b-card>
       <header-maintenance-component
+        :route-name="routeNameRole"
         :modal-id="MODAL_ID"
         :clear-modal="clearModal"
         :export-data="{
@@ -30,7 +31,7 @@ import ModalSearchRole from './ModalSearchRole/ModalSearchRole.vue'
 import ModalShowRole from './ModalShowRole/ModalShowRole.vue'
 import TableRole from './TableRole/TableRole.vue'
 import {
-  MODAL_ID, clearStateRole, columnsRole, urlApiRole, serverQueryRole, columnsFilterRole, titleReportRole, combosRole,
+  MODAL_ID, clearStateRole, columnsRole, urlApiRole, serverQueryRole, columnsFilterRole, titleReportRole, combosRole, routeNameRole,
 } from './ServicesRole/useVariablesRole'
 
 export default {
@@ -62,6 +63,7 @@ export default {
       serverQueryRole,
       columnsFilterRole,
       titleReportRole,
+      routeNameRole,
     }
   },
 }

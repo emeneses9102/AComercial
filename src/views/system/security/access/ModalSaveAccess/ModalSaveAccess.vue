@@ -35,6 +35,10 @@
         :method-function="()=>$bvModal.hide(MODAL_ID)"
       />
       <button-component
+        v-if="(
+          (!stateAccess._id && optionsPermissions.includes(GUARDAR))
+          || (stateAccess._id && optionsPermissions.includes(EDITAR))
+        )"
         variant="primary"
         icon-button="SaveIcon"
         :loading="stateAccess.loading"
@@ -50,13 +54,20 @@ import {
   BModal,
 } from 'bootstrap-vue'
 import { ValidationObserver } from 'vee-validate'
+import { computed } from '@vue/composition-api'
+import store from '@/store'
+import {
+  EDITAR,
+  GUARDAR,
+} from '@/options'
 import { ACTION_REGISTER, ACTION_UPDATE } from '@/helpers/actionsApi'
+import { validatePermission } from '@/helpers/validateActions'
 import ButtonComponent from '@/components/ButtonComponent/ButtonComponent.vue'
 import HeaderAccess from './HeaderAccess.vue'
 import Detail from './Detail.vue'
 import DetailTable from './DetailTable.vue'
 import {
-  MODAL_ID, titleNotificationAccess, stateAccess,
+  MODAL_ID, titleNotificationAccess, stateAccess, routeNameAccess,
 } from '../ServicesAccess/useVariablesAccess'
 import { loadItemsAccess, sendAccess } from '../ServicesAccess/useServicesAccess'
 import { serverQueryAccessOptionDetail } from '../ServicesAccessOptionDetail/useVariablesAccessOptionDetail'
@@ -72,6 +83,13 @@ export default {
     ValidationObserver,
   },
   setup(props, context) {
+    const optionsPermissions = computed(() => {
+      if (store.state.rolesAndPermissions.options[routeNameAccess]) {
+        return store.state.rolesAndPermissions.options[routeNameAccess]
+      }
+      return []
+    })
+
     const validateAccess = async () => {
       const successValidation = await context.refs['validation-access'].validate()
       return successValidation
@@ -91,6 +109,7 @@ export default {
     }
 
     const sendForm = async (actionSend = null, loading = true) => {
+      if (!validatePermission(optionsPermissions.value, !stateAccess.value._id ? GUARDAR : EDITAR, titleNotificationAccess)) return false
       const successValidationAccess = await validateAccess()
       if (!successValidationAccess) return false
       if (loading) stateAccess.value.loading = true
@@ -111,6 +130,10 @@ export default {
       resetAccessValidation,
       resetAccessOptionDetailValidation,
       sendForm,
+
+      optionsPermissions,
+      EDITAR,
+      GUARDAR,
     }
   },
 }

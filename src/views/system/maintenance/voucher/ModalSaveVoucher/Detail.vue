@@ -104,7 +104,7 @@
                 icon-button="DeleteIcon"
               />
               <button-component
-                v-if="stateVoucherDetailCorrelative._id"
+                v-if="stateVoucherDetailCorrelative._id && optionsPermissions.includes(EDITAR)"
                 type="submit"
                 variant="success"
                 text-default="Modificar"
@@ -112,7 +112,7 @@
                 :loading="stateVoucherDetailCorrelative.loading"
               />
               <button-component
-                v-else
+                v-else-if="!stateVoucherDetailCorrelative._id && optionsPermissions.includes(GUARDAR)"
                 type="submit"
                 variant="primary"
                 text-default="Agregar"
@@ -131,13 +131,22 @@
 import {
   BForm, BRow, BCol, BFormGroup, BFormInput,
 } from 'bootstrap-vue'
+import { computed } from '@vue/composition-api'
 import { ValidationObserver, ValidationProvider } from 'vee-validate'
 import { VueSelect } from 'vue-select'
+import store from '@/store'
+import {
+  EDITAR,
+  GUARDAR,
+} from '@/options'
 import FieldSetComponent from '@/components/FieldSetComponent/FieldSetComponent.vue'
 import ButtonComponent from '@/components/ButtonComponent/ButtonComponent.vue'
 import { ACTION_REGISTER, ACTION_UPDATE } from '@/helpers/actionsApi'
-import { stateVoucher } from '../ServicesVoucher/useVariablesVoucher'
-import { stateVoucherDetailCorrelative, clearStateVoucherDetailCorrelative, combosVoucherDetailCorrelative } from '../ServicesVoucherDetailCorrelative/useVariablesVoucherDetailCorrelative'
+import { validatePermission } from '@/helpers/validateActions'
+import { routeNameVoucher, stateVoucher } from '../ServicesVoucher/useVariablesVoucher'
+import {
+  stateVoucherDetailCorrelative, clearStateVoucherDetailCorrelative, combosVoucherDetailCorrelative, titleNotificationVoucherDetailCorrelative,
+} from '../ServicesVoucherDetailCorrelative/useVariablesVoucherDetailCorrelative'
 import { loadItemsVoucherDetailCorrelative, sendVoucherDetailCorrelative } from '../ServicesVoucherDetailCorrelative/useServicesVoucherDetailCorrelative'
 
 export default {
@@ -161,7 +170,16 @@ export default {
     },
   },
   setup(props, context) {
+    const optionsPermissions = computed(() => {
+      if (store.state.rolesAndPermissions.options[routeNameVoucher]) {
+        return store.state.rolesAndPermissions.options[routeNameVoucher]
+      }
+      return []
+    })
+
     const sendForm = async () => {
+      if (!validatePermission(optionsPermissions.value, !stateVoucherDetailCorrelative.value._id ? GUARDAR : EDITAR, titleNotificationVoucherDetailCorrelative)) return
+
       if (!stateVoucher.value._id) {
         stateVoucherDetailCorrelative.value.loading = true
         const successValidationFeature = await props.sendHeader(ACTION_REGISTER, false)
@@ -190,6 +208,10 @@ export default {
       sendForm,
       clearStateVoucherDetailCorrelative,
       combosVoucherDetailCorrelative,
+
+      optionsPermissions,
+      EDITAR,
+      GUARDAR,
     }
   },
 }

@@ -59,7 +59,7 @@
                 icon-button="DeleteIcon"
               />
               <button-component
-                v-if="stateSubStorage._id"
+                v-if="stateSubStorage._id && optionsPermissions.includes(EDITAR)"
                 type="submit"
                 variant="success"
                 text-default="Modificar"
@@ -67,7 +67,7 @@
                 :loading="stateSubStorage.loading"
               />
               <button-component
-                v-else
+                v-else-if="!stateSubStorage._id && optionsPermissions.includes(GUARDAR)"
                 type="submit"
                 variant="primary"
                 text-default="Agregar"
@@ -86,12 +86,19 @@
 import {
   BForm, BRow, BCol, BFormGroup, BFormInput,
 } from 'bootstrap-vue'
+import { computed } from '@vue/composition-api'
 import { ValidationObserver, ValidationProvider } from 'vee-validate'
+import store from '@/store'
+import {
+  EDITAR,
+  GUARDAR,
+} from '@/options'
 import FieldSetComponent from '@/components/FieldSetComponent/FieldSetComponent.vue'
 import ButtonComponent from '@/components/ButtonComponent/ButtonComponent.vue'
 import { ACTION_REGISTER, ACTION_UPDATE } from '@/helpers/actionsApi'
-import { stateStorage } from '../ServicesStorage/useVariablesStorage'
-import { stateSubStorage, clearStateSubStorage } from '../ServicesSubStorage/useVariablesSubStorage'
+import { validatePermission } from '@/helpers/validateActions'
+import { routeNameStorage, stateStorage } from '../ServicesStorage/useVariablesStorage'
+import { stateSubStorage, clearStateSubStorage, titleNotificationSubStorage } from '../ServicesSubStorage/useVariablesSubStorage'
 import { loadItemsSubStorage, sendSubStorage } from '../ServicesSubStorage/useServicesSubStorage'
 
 export default {
@@ -114,7 +121,16 @@ export default {
     },
   },
   setup(props, context) {
+    const optionsPermissions = computed(() => {
+      if (store.state.rolesAndPermissions.options[routeNameStorage]) {
+        return store.state.rolesAndPermissions.options[routeNameStorage]
+      }
+      return []
+    })
+
     const sendForm = async () => {
+      if (!validatePermission(optionsPermissions.value, !stateSubStorage.value._id ? GUARDAR : EDITAR, titleNotificationSubStorage)) return
+
       if (!stateStorage.value._id) {
         stateSubStorage.value.loading = true
         const successValidationFeature = await props.sendHeader(ACTION_REGISTER, false)
@@ -142,6 +158,10 @@ export default {
       stateSubStorage,
       sendForm,
       clearStateSubStorage,
+
+      optionsPermissions,
+      EDITAR,
+      GUARDAR,
     }
   },
 }

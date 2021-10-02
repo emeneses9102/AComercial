@@ -116,6 +116,10 @@
         :method-function="()=>$bvModal.hide(MODAL_ID)"
       />
       <button-component
+        v-if="(
+          (!stateCollaborator._id && optionsPermissions.includes(GUARDAR))
+          || (stateCollaborator._id && optionsPermissions.includes(EDITAR))
+        )"
         variant="primary"
         icon-button="SaveIcon"
         :loading="stateCollaborator.loading"
@@ -131,12 +135,19 @@ import {
   BModal, BForm, BRow, BCol, BFormGroup, BFormInput,
 } from 'bootstrap-vue'
 import { ValidationObserver, ValidationProvider } from 'vee-validate'
+import { computed } from '@vue/composition-api'
+import store from '@/store'
+import {
+  EDITAR,
+  GUARDAR,
+} from '@/options'
 import { ACTION_REGISTER, ACTION_UPDATE } from '@/helpers/actionsApi'
+import { validatePermission } from '@/helpers/validateActions'
 import ButtonComponent from '@/components/ButtonComponent/ButtonComponent.vue'
 import FieldSetComponent from '@/components/FieldSetComponent/FieldSetComponent.vue'
 import UploadPhotoComponent from '@/components/UploadPhotoComponent/UploadPhotoComponent.vue'
 import {
-  MODAL_ID, titleNotificationCollaborator, stateCollaborator, clearStateCollaborator,
+  MODAL_ID, titleNotificationCollaborator, stateCollaborator, clearStateCollaborator, routeNameCollaborator,
 } from '../ServicesCollaborator/useVariablesCollaborator'
 import { loadItemsCollaborator, sendCollaborator } from '../ServicesCollaborator/useServicesCollaborator'
 
@@ -156,7 +167,15 @@ export default {
     ValidationProvider,
   },
   setup(props, context) {
+    const optionsPermissions = computed(() => {
+      if (store.state.rolesAndPermissions.options[routeNameCollaborator]) {
+        return store.state.rolesAndPermissions.options[routeNameCollaborator]
+      }
+      return []
+    })
+
     const sendForm = async (actionSend = null, loading = true) => {
+      if (!validatePermission(optionsPermissions.value, !stateCollaborator.value._id ? GUARDAR : EDITAR, titleNotificationCollaborator)) return false
       const successValidationCollaborator = await context.refs['validation-collaborator'].validate()
       if (!successValidationCollaborator) return false
       if (loading) stateCollaborator.value.loading = true
@@ -176,6 +195,10 @@ export default {
       titleNotificationCollaborator,
       stateCollaborator,
       sendForm,
+
+      optionsPermissions,
+      EDITAR,
+      GUARDAR,
     }
   },
 }

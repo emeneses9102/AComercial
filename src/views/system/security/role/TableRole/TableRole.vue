@@ -14,7 +14,14 @@
 
 <script>
 import { onMounted } from '@vue/composition-api'
+// import store from '@/store'
 import TableGoodComponent from '@/components/TableComponent/TableGoodComponent.vue'
+import {
+  CAMBIAR_ESTADO,
+  EDITAR,
+  ELIMINAR,
+  VER_REGISTRO,
+} from '@/options'
 import {
   MODAL_ID, stateRole, columnsRole, serverQueryRole, dataTableRole, titleNotificationRole,
 } from '../ServicesRole/useVariablesRole'
@@ -39,6 +46,15 @@ export default {
       context.root.$bvModal.show(actionOpenModal === 'edit' ? MODAL_ID : `${MODAL_ID}-show`)
     }
 
+    // const optionsPermissions = computed(() => {
+    //   console.log(context.root.$route.name)
+    //   console.log(store.state.rolesAndPermissions.options)
+    //   if (store.state.rolesAndPermissions.options[context.root.$route.name]) {
+    //     return store.state.rolesAndPermissions.options[context.root.$route.name]
+    //   }
+    //   return []
+    // })
+
     onMounted(() => {
       loadItemsRole()
     })
@@ -51,6 +67,12 @@ export default {
       titleNotificationRole,
       sendRole,
       openModalFor,
+      // optionsPermissions,
+
+      CAMBIAR_ESTADO,
+      EDITAR,
+      ELIMINAR,
+      VER_REGISTRO,
     }
   },
 }

@@ -82,6 +82,10 @@
         :method-function="()=>$bvModal.hide(MODAL_ID)"
       />
       <button-component
+        v-if="(
+          (!statePaymentMethod._id && optionsPermissions.includes(GUARDAR))
+          || (statePaymentMethod._id && optionsPermissions.includes(EDITAR))
+        )"
         variant="primary"
         icon-button="SaveIcon"
         :loading="statePaymentMethod.loading"
@@ -98,11 +102,18 @@ import {
 } from 'bootstrap-vue'
 import { ValidationObserver, ValidationProvider } from 'vee-validate'
 import { VueSelect } from 'vue-select'
+import { computed } from '@vue/composition-api'
+import store from '@/store'
+import {
+  EDITAR,
+  GUARDAR,
+} from '@/options'
 import { ACTION_REGISTER, ACTION_UPDATE } from '@/helpers/actionsApi'
+import { validatePermission } from '@/helpers/validateActions'
 import ButtonComponent from '@/components/ButtonComponent/ButtonComponent.vue'
 import FieldSetComponent from '@/components/FieldSetComponent/FieldSetComponent.vue'
 import {
-  MODAL_ID, titleNotificationPaymentMethod, statePaymentMethod, clearStatePaymentMethod, combosPaymentMethod,
+  MODAL_ID, titleNotificationPaymentMethod, statePaymentMethod, clearStatePaymentMethod, combosPaymentMethod, routeNamePaymentMethod,
 } from '../ServicesPaymentMethod/useVariablesPaymentMethod'
 import { loadItemsPaymentMethod, sendPaymentMethod } from '../ServicesPaymentMethod/useServicesPaymentMethod'
 
@@ -122,7 +133,15 @@ export default {
     VueSelect,
   },
   setup(props, context) {
+    const optionsPermissions = computed(() => {
+      if (store.state.rolesAndPermissions.options[routeNamePaymentMethod]) {
+        return store.state.rolesAndPermissions.options[routeNamePaymentMethod]
+      }
+      return []
+    })
+
     const sendForm = async (actionSend = null, loading = true) => {
+      if (!validatePermission(optionsPermissions.value, !statePaymentMethod.value._id ? GUARDAR : EDITAR, titleNotificationPaymentMethod)) return false
       const successValidationPaymentMethod = await context.refs['validation-payment-method'].validate()
       if (!successValidationPaymentMethod) return false
       if (loading) statePaymentMethod.value.loading = true
@@ -143,6 +162,10 @@ export default {
       statePaymentMethod,
       combosPaymentMethod,
       sendForm,
+
+      optionsPermissions,
+      EDITAR,
+      GUARDAR,
     }
   },
 }

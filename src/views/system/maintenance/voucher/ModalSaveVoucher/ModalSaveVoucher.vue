@@ -25,6 +25,10 @@
         :method-function="()=>$bvModal.hide(MODAL_ID)"
       />
       <button-component
+        v-if="(
+          (!stateVoucher._id && optionsPermissions.includes(GUARDAR))
+          || (stateVoucher._id && optionsPermissions.includes(EDITAR))
+        )"
         variant="primary"
         icon-button="SaveIcon"
         :loading="stateVoucher.loading"
@@ -40,13 +44,20 @@ import {
   BModal,
 } from 'bootstrap-vue'
 import { ValidationObserver } from 'vee-validate'
+import { computed } from '@vue/composition-api'
+import store from '@/store'
+import {
+  EDITAR,
+  GUARDAR,
+} from '@/options'
 import { ACTION_REGISTER, ACTION_UPDATE } from '@/helpers/actionsApi'
+import { validatePermission } from '@/helpers/validateActions'
 import ButtonComponent from '@/components/ButtonComponent/ButtonComponent.vue'
 import HeaderVoucher from './HeaderVoucher.vue'
 import Detail from './Detail.vue'
 import DetailTable from './DetailTable.vue'
 import {
-  MODAL_ID, titleNotificationVoucher, stateVoucher,
+  MODAL_ID, titleNotificationVoucher, stateVoucher, routeNameVoucher,
 } from '../ServicesVoucher/useVariablesVoucher'
 import { loadItemsVoucher, sendVoucher } from '../ServicesVoucher/useServicesVoucher'
 import { serverQueryVoucherDetailCorrelative } from '../ServicesVoucherDetailCorrelative/useVariablesVoucherDetailCorrelative'
@@ -62,7 +73,15 @@ export default {
     ValidationObserver,
   },
   setup(props, context) {
+    const optionsPermissions = computed(() => {
+      if (store.state.rolesAndPermissions.options[routeNameVoucher]) {
+        return store.state.rolesAndPermissions.options[routeNameVoucher]
+      }
+      return []
+    })
+
     const sendForm = async (actionSend = null, loading = true) => {
+      if (!validatePermission(optionsPermissions.value, !stateVoucher.value._id ? GUARDAR : EDITAR, titleNotificationVoucher)) return false
       const successValidationVoucher = await context.refs['validation-Voucher'].validate()
       if (!successValidationVoucher) return false
       if (loading) stateVoucher.value.loading = true
@@ -80,6 +99,10 @@ export default {
       titleNotificationVoucher,
       stateVoucher,
       sendForm,
+
+      optionsPermissions,
+      EDITAR,
+      GUARDAR,
     }
   },
 }

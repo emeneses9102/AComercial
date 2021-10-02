@@ -110,7 +110,7 @@
                 icon-button="DeleteIcon"
               />
               <button-component
-                v-if="stateArticleTributeDetail._id"
+                v-if="stateArticleTributeDetail._id && optionsPermissions.includes(EDITAR)"
                 type="submit"
                 variant="success"
                 text-default="Modificar"
@@ -118,7 +118,7 @@
                 :loading="stateArticleTributeDetail.loading"
               />
               <button-component
-                v-else
+                v-else-if="!stateArticleTributeDetail._id && optionsPermissions.includes(GUARDAR)"
                 type="submit"
                 variant="primary"
                 text-default="Agregar"
@@ -138,13 +138,22 @@
 import {
   BForm, BRow, BCol, BFormGroup, BFormInput, BFormDatepicker,
 } from 'bootstrap-vue'
+import { computed } from '@vue/composition-api'
 import { ValidationObserver, ValidationProvider } from 'vee-validate'
 import vSelect from 'vue-select'
+import store from '@/store'
+import {
+  EDITAR,
+  GUARDAR,
+} from '@/options'
 import FieldSetComponent from '@/components/FieldSetComponent/FieldSetComponent.vue'
 import ButtonComponent from '@/components/ButtonComponent/ButtonComponent.vue'
 import { ACTION_REGISTER, ACTION_UPDATE } from '@/helpers/actionsApi'
-import { stateArticle } from '../ServicesArticle/useVariablesArticle'
-import { stateArticleTributeDetail, clearStateArticleTributeDetail, combosArticleTributeDetail } from '../ServicesArticleTributeDetail/useVariablesArticleTributeDetail'
+import { validatePermission } from '@/helpers/validateActions'
+import { routeNameArticle, stateArticle } from '../ServicesArticle/useVariablesArticle'
+import {
+  stateArticleTributeDetail, clearStateArticleTributeDetail, combosArticleTributeDetail, titleNotificationArticleTributeDetail,
+} from '../ServicesArticleTributeDetail/useVariablesArticleTributeDetail'
 import { loadItemsArticleTributeDetail, sendArticleTributeDetail } from '../ServicesArticleTributeDetail/useServicesArticleTributeDetail'
 
 export default {
@@ -188,7 +197,16 @@ export default {
     }
   },
   setup(props, context) {
+    const optionsPermissions = computed(() => {
+      if (store.state.rolesAndPermissions.options[routeNameArticle]) {
+        return store.state.rolesAndPermissions.options[routeNameArticle]
+      }
+      return []
+    })
+
     const sendForm = async () => {
+      if (!validatePermission(optionsPermissions.value, !stateArticleTributeDetail.value._id ? GUARDAR : EDITAR, titleNotificationArticleTributeDetail)) return
+
       if (!stateArticle.value._id) {
         stateArticleTributeDetail.value.loading = true
         const successValidationArticle = await props.sendHeader(ACTION_REGISTER, false)
@@ -217,6 +235,10 @@ export default {
       sendForm,
       clearStateArticleTributeDetail,
       combosArticleTributeDetail,
+
+      optionsPermissions,
+      EDITAR,
+      GUARDAR,
     }
   },
 }

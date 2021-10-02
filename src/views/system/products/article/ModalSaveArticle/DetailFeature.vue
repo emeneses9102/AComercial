@@ -113,7 +113,7 @@
                 icon-button="DeleteIcon"
               />
               <button-component
-                v-if="stateArticleFeatureDetail._id"
+                v-if="stateArticleFeatureDetail._id && optionsPermissions.includes(EDITAR)"
                 type="submit"
                 variant="success"
                 text-default="Modificar"
@@ -121,7 +121,7 @@
                 :loading="stateArticleFeatureDetail.loading"
               />
               <button-component
-                v-else
+                v-else-if="!stateArticleFeatureDetail._id && optionsPermissions.includes(GUARDAR)"
                 type="submit"
                 variant="primary"
                 text-default="Agregar"
@@ -141,14 +141,23 @@
 import {
   BForm, BRow, BCol, BFormGroup, BFormInput,
 } from 'bootstrap-vue'
+import { computed } from '@vue/composition-api'
 import { ValidationObserver, ValidationProvider } from 'vee-validate'
 import vSelect from 'vue-select'
+import store from '@/store'
+import {
+  EDITAR,
+  GUARDAR,
+} from '@/options'
 import FieldSetComponent from '@/components/FieldSetComponent/FieldSetComponent.vue'
 import ButtonComponent from '@/components/ButtonComponent/ButtonComponent.vue'
 import { ACTION_REGISTER, ACTION_UPDATE } from '@/helpers/actionsApi'
+import { validatePermission } from '@/helpers/validateActions'
 import { endPointsCombo, loadCombos } from '@/helpers/combos'
-import { stateArticle } from '../ServicesArticle/useVariablesArticle'
-import { stateArticleFeatureDetail, clearStateArticleFeatureDetail, combosArticleFeatureDetail } from '../ServicesArticleFeatureDetail/useVariablesArticleFeatureDetail'
+import { routeNameArticle, stateArticle } from '../ServicesArticle/useVariablesArticle'
+import {
+  stateArticleFeatureDetail, clearStateArticleFeatureDetail, combosArticleFeatureDetail, titleNotificationArticleFeatureDetail,
+} from '../ServicesArticleFeatureDetail/useVariablesArticleFeatureDetail'
 import { loadItemsArticleFeatureDetail, sendArticleFeatureDetail } from '../ServicesArticleFeatureDetail/useServicesArticleFeatureDetail'
 
 export default {
@@ -172,7 +181,16 @@ export default {
     },
   },
   setup(props, context) {
+    const optionsPermissions = computed(() => {
+      if (store.state.rolesAndPermissions.options[routeNameArticle]) {
+        return store.state.rolesAndPermissions.options[routeNameArticle]
+      }
+      return []
+    })
+
     const sendForm = async () => {
+      if (!validatePermission(optionsPermissions.value, !stateArticleFeatureDetail.value._id ? GUARDAR : EDITAR, titleNotificationArticleFeatureDetail)) return
+
       if (!stateArticle.value._id) {
         stateArticleFeatureDetail.value.loading = true
         const successValidationArticle = await props.sendHeader(ACTION_REGISTER, false)
@@ -196,7 +214,7 @@ export default {
     }
 
     const featureSelected = ({ _id }) => {
-      loadCombos(combosArticleFeatureDetail, ['featureDetail'], `${endPointsCombo.detalleCaracteristica}/1/${_id}`, 'Valores Característica')
+      loadCombos(combosArticleFeatureDetail, ['featureDetail'], `${endPointsCombo.detalleCaracteristica}/1/${_id}/0`, 'Valores Característica')
     }
 
     return {
@@ -206,6 +224,10 @@ export default {
       featureSelected,
       clearStateArticleFeatureDetail,
       combosArticleFeatureDetail,
+
+      optionsPermissions,
+      EDITAR,
+      GUARDAR,
     }
   },
 }

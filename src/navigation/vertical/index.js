@@ -48,11 +48,11 @@ export default [
     children: [
       {
         title: 'Tipo de Producto',
-        route: 'product-type',
+        route: 'productType',
       },
       {
         title: 'Tipo de Servicio',
-        route: 'service-type',
+        route: 'serviceType',
       },
       {
         title: 'Caracteristicas',
@@ -64,7 +64,7 @@ export default [
       },
       {
         title: 'Grupo Unidad',
-        route: 'unit-group',
+        route: 'unitGroup',
       },
       {
         title: 'Tipo de Documento',

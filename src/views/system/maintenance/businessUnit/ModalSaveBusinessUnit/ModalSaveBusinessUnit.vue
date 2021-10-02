@@ -165,6 +165,10 @@
         :method-function="()=>$bvModal.hide(MODAL_ID)"
       />
       <button-component
+        v-if="(
+          (!stateBusinessUnit._id && optionsPermissions.includes(GUARDAR))
+          || (stateBusinessUnit._id && optionsPermissions.includes(EDITAR))
+        )"
         variant="primary"
         icon-button="SaveIcon"
         :loading="stateBusinessUnit.loading"
@@ -180,12 +184,19 @@ import {
   BModal, BForm, BRow, BCol, BFormGroup, BFormInput, BFormCheckbox,
 } from 'bootstrap-vue'
 import { ValidationObserver, ValidationProvider } from 'vee-validate'
+import { computed } from '@vue/composition-api'
+import store from '@/store'
+import {
+  EDITAR,
+  GUARDAR,
+} from '@/options'
 import { ACTION_REGISTER, ACTION_UPDATE } from '@/helpers/actionsApi'
+import { validatePermission } from '@/helpers/validateActions'
 import InputPasswordComponent from '@/components/InputPasswordComponent/InputPasswordComponent.vue'
 import ButtonComponent from '@/components/ButtonComponent/ButtonComponent.vue'
 import FieldSetComponent from '@/components/FieldSetComponent/FieldSetComponent.vue'
 import {
-  MODAL_ID, titleNotificationBusinessUnit, stateBusinessUnit, clearStateBusinessUnit,
+  MODAL_ID, titleNotificationBusinessUnit, stateBusinessUnit, clearStateBusinessUnit, routeNameBusinessUnit,
 } from '../ServicesBusinessUnit/useVariablesBusinessUnit'
 import { loadItemsBusinessUnit, sendBusinessUnit } from '../ServicesBusinessUnit/useServicesBusinessUnit'
 
@@ -206,7 +217,15 @@ export default {
     InputPasswordComponent,
   },
   setup(props, context) {
+    const optionsPermissions = computed(() => {
+      if (store.state.rolesAndPermissions.options[routeNameBusinessUnit]) {
+        return store.state.rolesAndPermissions.options[routeNameBusinessUnit]
+      }
+      return []
+    })
+
     const sendForm = async (actionSend = null, loading = true) => {
+      if (!validatePermission(optionsPermissions.value, !stateBusinessUnit.value._id ? GUARDAR : EDITAR, titleNotificationBusinessUnit)) return false
       const successValidationBusinessUnit = await context.refs['validation-business-unit'].validate()
       if (!successValidationBusinessUnit) return false
       if (loading) stateBusinessUnit.value.loading = true
@@ -226,6 +245,10 @@ export default {
       titleNotificationBusinessUnit,
       stateBusinessUnit,
       sendForm,
+
+      optionsPermissions,
+      EDITAR,
+      GUARDAR,
     }
   },
 }
