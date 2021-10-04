@@ -86,6 +86,22 @@ export default [
     },
   },
   {
+    path: '/tipo-cambio',
+    name: 'changeType',
+    component: () => import('@/views/system/box/changeType/ChangeType.vue'),
+    meta: {
+      auth: true,
+      pageTitle: 'Tipo de Cambio',
+      breadcrumb: [
+        moduleBreadCrumb,
+        {
+          text: 'Tipo de Cambio',
+          active: true,
+        },
+      ],
+    },
+  },
+  {
     path: '/punto-venta-three',
     name: 'pointSaleThree',
     component: () => import('@/views/system/box/pointSaleThree/PointSaleThree.vue'),
