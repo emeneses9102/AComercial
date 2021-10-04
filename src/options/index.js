@@ -19,16 +19,16 @@ export const APERTURAR_CAJA = 'APERTURAR_CAJA'
 export const CERRAR_CAJA = 'CERRAR_CAJA'
 
 const OPCIONES = [CAMBIAR_ESTADO, EDITAR, ELIMINAR, FILTRAR, GUARDAR, EXP_EXCEL, EXP_PDF, VER_REGISTRO]
-const OPCIONES_PRUEBA = [
-  CAMBIAR_ESTADO,
-  EDITAR,
-  ELIMINAR,
-  FILTRAR,
-  GUARDAR,
-  EXP_EXCEL,
-  EXP_PDF,
-  VER_REGISTRO,
-]
+// const OPCIONES_PRUEBA = [
+//   CAMBIAR_ESTADO,
+//   EDITAR,
+//   ELIMINAR,
+//   FILTRAR,
+//   GUARDAR,
+//   EXP_EXCEL,
+//   EXP_PDF,
+//   VER_REGISTRO,
+// ]
 
 export default {
   [routesName.inicio]: [],
@@ -62,8 +62,9 @@ export default {
   [routesName.tipoAlmacen]: [...OPCIONES],
   [routesName.almacen]: [...OPCIONES],
   // CAJA
-  [routesName.sesionCaja]: [...OPCIONES_PRUEBA, APERTURAR_CAJA, CERRAR_CAJA, REPORTE_CAJA],
+  [routesName.sesionCaja]: [...OPCIONES, APERTURAR_CAJA, CERRAR_CAJA, REPORTE_CAJA],
   [routesName.puntoVenta]: [...OPCIONES],
+  [routesName.tipoCambio]: [...OPCIONES],
   // SUNAT
   [routesName.segmentos]: [...OPCIONES],
   [routesName.familias]: [...OPCIONES],

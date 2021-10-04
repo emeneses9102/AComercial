@@ -133,6 +133,10 @@ export default [
     icon: 'InboxIcon',
     children: [
       {
+        title: 'Tipo de Cambio',
+        route: 'changeType',
+      },
+      {
         title: 'Sesión Caja',
         route: 'boxSession2',
       },

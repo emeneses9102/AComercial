@@ -32,6 +32,7 @@ export default {
   // CAJA
   sesionCaja: 'boxSession2',
   puntoVenta: 'pointSaleThree',
+  tipoCambio: 'changeType',
   // SUNAT
   segmentos: 'segmentSunat',
   familias: 'familySunat',
