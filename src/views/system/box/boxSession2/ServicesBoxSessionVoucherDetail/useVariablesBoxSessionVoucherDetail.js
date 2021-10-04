@@ -66,7 +66,7 @@ export const clearDataTableBoxSessionVoucherDetail = () => {
 // Variable reactiva para manjear los consultas del lado del servidor de la tabla Sesion Caja Comprobante
 export const serverQueryBoxSessionVoucherDetail = ref({
   ...serverQueryDefault,
-  tabla: 'dsesioncaja',
+  tabla: 'sesioncomprobante',
   pfin: 5,
   campo: 'a.idSesionCaja',
 })
@@ -82,7 +82,7 @@ const initialStateBoxSessionVoucherDetail = {
   idSesionCaja: 0,
   idComprobante: 0,
   idCorrelativo: 0,
-  defecto: 0,
+  flgDefecto: 0,
   accion: 0,
   loading: false,
 }
@@ -108,7 +108,7 @@ export const columnsFilterBoxSessionVoucherDetail = [
 ]
 
 // Constante para almacenar la url base de la petición del mantenimiento Sesion Caja Comprobante
-export const urlApiBoxSessionVoucherDetail = '/dsesioncaja'
+export const urlApiBoxSessionVoucherDetail = '/sesioncomprobante'
 
 // Constante para almacenar el titulo de las notificaciónes de Sesion Caja Comprobante
-export const titleNotificationBoxSessionVoucherDetail = 'Sesion Caja Comprobantes'
+export const titleNotificationBoxSessionVoucherDetail = 'Sesion Caja Comprobante'
