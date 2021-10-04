@@ -28,6 +28,7 @@
 // import HeaderSearchDetailComponent from '@/components/HeaderSearchDetailComponent/HeaderSearchDetailComponent.vue'
 import FieldSetComponent from '@/components/FieldSetComponent/FieldSetComponent.vue'
 import TableGoodComponent from '@/components/TableComponent/TableGoodComponent.vue'
+import { endPointsCombo, loadCombos, resetCombos } from '@/helpers/combos'
 import {
   stateBoxSession,
 } from '../ServicesBoxSession/useVariablesBoxSession'
@@ -38,6 +39,7 @@ import {
   dataTableBoxSessionVoucherDetail,
   columnsFilterBoxSessionVoucherDetail,
   titleNotificationBoxSessionVoucherDetail,
+  combosBoxSessionVoucherDetail,
 } from '../ServicesBoxSessionVoucherDetail/useVariablesBoxSessionVoucherDetail'
 import {
   loadItemsBoxSessionVoucherDetail,
@@ -55,7 +57,10 @@ export default {
     let timer = null
     const timeForLoad = 500
 
-    const openModalForEdit = ({ nombreComprobante, nombrePredio, ...row }) => {
+    const openModalForEdit = async ({ nombreComprobante, nombrePredio, ...row }) => {
+      stateBoxSessionVoucherDetail.value.idCorrelativo = 0
+      resetCombos(combosBoxSessionVoucherDetail, ['correlative'])
+      await loadCombos(combosBoxSessionVoucherDetail, ['correlative'], `${endPointsCombo.correlativoSesionCaja}/1/${stateBoxSession.value._id}/${row.idComprobante}`, 'Correlativos')
       stateBoxSessionVoucherDetail.value = { ...stateBoxSessionVoucherDetail.value, ...row }
     }
 

@@ -53,6 +53,7 @@ import {
   clearFiltersBoxSessionDetail,
   combosBoxSessionDetail,
 } from './ServicesBoxSessionDetail/useVariablesBoxSessionDetail'
+import { clearDataTableBoxSessionVoucherDetail } from './ServicesBoxSessionVoucherDetail/useVariablesBoxSessionVoucherDetail'
 
 export default {
   name: 'BoxSession',
@@ -73,6 +74,7 @@ export default {
       clearStateBoxSessionDetail()
       clearFiltersBoxSessionDetail()
       clearDataTableBoxSessionDetail()
+      clearDataTableBoxSessionVoucherDetail()
     }
 
     onMounted(() => {
