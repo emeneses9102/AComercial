@@ -4,23 +4,6 @@
       legend="Datos Generales"
     >
       <b-row>
-        <!-- Id Sesión -->
-        <!-- <b-col
-          cols="12"
-          lg="6"
-        >
-          <b-form-group
-            label="Código Sesión"
-            label-for="box-session-id"
-          >
-            <b-form-input
-              id="box-session-id"
-              v-model="stateBoxSession._id"
-              readonly
-            />
-          </b-form-group>
-        </b-col> -->
-
         <!-- Cajero -->
         <b-col
           cols="12"
@@ -46,7 +29,7 @@
                 :options="combosBoxSession.cashier.data"
                 :loading="combosBoxSession.cashier.loading"
                 :clearable="false"
-                :disabled="stateBoxSession.tipo === 1"
+                :disabled="combosBoxSession.cashier.disabled || !!stateBoxSession.apertura"
               >
                 <template v-slot:no-options>
                   No se encontraron resultados.
@@ -81,7 +64,7 @@
                 :options="combosBoxSession.storage.data"
                 :loading="combosBoxSession.storage.loading"
                 :clearable="false"
-                :disabled="stateBoxSession.tipo === 1"
+                :disabled="combosBoxSession.storage.disabled || !!stateBoxSession.apertura"
               >
                 <template v-slot:no-options>
                   No se encontraron resultados.
@@ -91,24 +74,6 @@
             </b-form-group>
           </validation-provider>
         </b-col>
-
-        <!-- Fecha -->
-        <!-- <b-col
-          cols="12"
-          lg="6"
-        >
-          <b-form-group
-            label="Fecha"
-            label-for="box-session-fecha"
-          >
-            <b-form-datepicker
-              id="box-session-fecha"
-              v-model="stateBoxSession.fecha"
-              v-bind="labelsFormDate"
-              readonly
-            />
-          </b-form-group>
-        </b-col> -->
       </b-row>
     </field-set-component>
   </b-form>

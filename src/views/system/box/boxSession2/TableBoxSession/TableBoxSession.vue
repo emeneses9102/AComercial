@@ -18,7 +18,7 @@
       #option-edit="{ props }"
     >
       <template
-        v-if="!props.row.apertura && optionsPermissions.includes(EDITAR)"
+        v-if="!props.row.cierre && optionsPermissions.includes(EDITAR)"
       >
         <b-dropdown-item @click="eventRowTable(props.row, 'edit')">
           <div class="d-flex align-items-center">
@@ -110,6 +110,7 @@ import {
 import {
   loadItemsBoxSessionDetail,
 } from '../ServicesBoxSessionDetail/useServicesBoxSessionDetail'
+import { loadItemsBoxSessionVoucherDetail } from '../ServicesBoxSessionVoucherDetail/useServicesBoxSessionVoucherDetail'
 
 export default {
   name: 'TableBoxSession',
@@ -132,6 +133,7 @@ export default {
         stateBoxSession.value = { ...stateBoxSession.value, ...row }
       } else if (actionOpenModal === 'edit') {
         await getBoxSessionById(row._id)
+        await loadItemsBoxSessionVoucherDetail(1)
       } else if (actionOpenModal === 'open-box') {
         stateBoxSession.value = { ...stateBoxSession.value, ...row }
         await getBoxSessionById(row._id)
