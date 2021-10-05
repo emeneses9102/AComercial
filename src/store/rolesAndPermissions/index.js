@@ -1,6 +1,6 @@
 // import { endPointsCombo } from '@/helpers/combos'
-import options from '@/options'
-import navigationVertical from '@/navigation/vertical'
+// import options from '@/options'
+// import navigationVertical from '@/navigation/vertical'
 import { getNavigationAndOptions } from '@/helpers/rolesAndPermissions'
 
 // Estado inicial de navigation
@@ -22,9 +22,9 @@ export default {
       return [...initialStateNavigation]
     })(),
     options: (() => {
-      if (process.env.NODE_ENV === 'development') {
-        return { ...options }
-      }
+      // if (process.env.NODE_ENV === 'development') {
+      //   return { ...options }
+      // }
       if (localStorage.getItem(process.env.VUE_APP_NAME_VAR_OPTIONS_ENCRYPT)) {
         return JSON.parse(atob(localStorage.getItem(process.env.VUE_APP_NAME_VAR_OPTIONS_ENCRYPT)))
       }
@@ -53,19 +53,19 @@ export default {
     async insertNavigation({ commit }, payload) {
       let result = false
       // Mode development
-      if (process.env.NODE_ENV === 'development') {
-        const navigation = [...navigationVertical]
-        commit('INSERT_NAVIGATION', navigation)
-        commit('INSERT_OPTIONS', options)
-        result = true
-        // Mode production
-      } else {
-        const { menuAll, optionsAll } = getNavigationAndOptions(payload)
-        const navigation = [...initialStateNavigation, ...menuAll]
-        commit('INSERT_NAVIGATION', navigation)
-        commit('INSERT_OPTIONS', optionsAll)
-        result = true
-      }
+      // if (process.env.NODE_ENV === 'production') {
+      //   const navigation = [...navigationVertical]
+      //   commit('INSERT_NAVIGATION', navigation)
+      //   commit('INSERT_OPTIONS', options)
+      //   result = true
+      //   // Mode production
+      // } else {
+      // }
+      const { menuAll, optionsAll } = getNavigationAndOptions(payload)
+      const navigation = [...initialStateNavigation, ...menuAll]
+      commit('INSERT_NAVIGATION', navigation)
+      commit('INSERT_OPTIONS', optionsAll)
+      result = true
       return result
     },
   },

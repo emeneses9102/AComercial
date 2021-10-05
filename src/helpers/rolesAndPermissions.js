@@ -16,6 +16,7 @@ const getChildren = (paramData = [], paramItem) => {
         idPadre: item.idPadre,
         idModulo: item.idModulo,
         idMenu: item.idMenu,
+        orden: item.orden,
         title: textCapitalize(item.nombreModulo),
       }
       children = [...children, { ...newDataChildren, children: getChildren(paramData, item) }]
@@ -31,6 +32,7 @@ const getChildren = (paramData = [], paramItem) => {
         idPadre: item.idPadre,
         idModulo: item.idModulo,
         idMenu: item.idMenu,
+        orden: item.orden,
         title: textCapitalize(item.nombreMenu),
         route: item.ruta,
       }
@@ -47,6 +49,7 @@ const getChildren = (paramData = [], paramItem) => {
         idPadre: item.idPadre,
         idModulo: item.idModulo,
         idMenu: item.idMenu,
+        orden: item.orden,
         title: textCapitalize(item.nombreModulo),
       }
       // children = [ ...children, item ]
@@ -63,11 +66,31 @@ const getChildren = (paramData = [], paramItem) => {
         idPadre: item.idPadre,
         idModulo: item.idModulo,
         idMenu: item.idMenu,
+        orden: item.orden,
         title: textCapitalize(item.nombreMenu),
         route: item.ruta,
       }
       children = [...children, newDataChildren]
     }
+  })
+  children = [...children].sort((a, b) => {
+    if (a.orden && b.orden) {
+      if (a.orden > b.orden) {
+        return 1
+      }
+      if (a.orden < b.orden) {
+        return -1
+      }
+    }
+    // a must be equal to b
+    if (a.title > b.title) {
+      return 1
+    }
+    if (a.title < b.title) {
+      return -1
+    }
+    // a must be equal to b
+    return 0
   })
   return children
 }
@@ -104,6 +127,7 @@ const generateNavigationAndOptions = dataParam => {
         idPadre: item.idPadre,
         idModulo: item.idModulo,
         idMenu: item.idMenu,
+        orden: item.ruta,
         title: textCapitalize(item.nombreModulo),
         icon: item.icono || '',
       }
@@ -116,11 +140,22 @@ const generateNavigationAndOptions = dataParam => {
         idPadre: item.idPadre,
         idModulo: item.idModulo,
         idMenu: item.idMenu,
+        orden: item.ruta,
         title: textCapitalize(item.nombreModulo),
         icon: item.icono || '',
       }
       const parent = { ...newData, children: getChildren(data, item) }
       menuAll = [...menuAll, parent]
+      menuAll = [...menuAll].sort((a, b) => {
+        if (a.title > b.title) {
+          return 1
+        }
+        if (a.title < b.title) {
+          return -1
+        }
+        // a must be equal to b
+        return 0
+      })
     }
   })
   return {

@@ -74,12 +74,13 @@
             <validation-provider
               #default="{ errors }"
               name="Orden"
-              rules="required"
+              rules="required|min_value:1"
             >
               <b-form-input
                 id="menu-order"
                 v-model.number="stateMenu.orden"
                 type="number"
+                min="1"
                 :state="errors.length > 0 ? false:null"
               />
               <small class="text-danger">{{ errors[0] }}</small>
