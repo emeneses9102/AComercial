@@ -8,12 +8,59 @@
         {{ statePointSale._id }}
       </h4>
     </div>
+    <div class="d-grid align-items-center mt-1">
+      <b-badge
+        class="d-flex align-items-center"
+        :variant="statePointSale.cerrado ? 'light-success' : 'light-danger'"
+      >
+        <feather-icon :icon="statePointSale.cerrado ? 'CheckIcon' : 'SlashIcon'" />
+        <div
+          class="ml-25"
+        >
+          Cerrado
+        </div>
+      </b-badge>
+      <b-badge
+        class="d-flex align-items-center"
+        :variant="statePointSale.cancelado ? 'light-success' : 'light-danger'"
+      >
+        <feather-icon :icon="statePointSale.cancelado ? 'CheckIcon' : 'SlashIcon'" />
+        <div
+          class="ml-25"
+        >
+          Pagado
+        </div>
+      </b-badge>
+      <b-badge
+        class="d-flex align-items-center"
+        :variant="statePointSale.anulado ? 'light-success' : 'light-danger'"
+      >
+        <feather-icon :icon="statePointSale.anulado ? 'CheckIcon' : 'SlashIcon'" />
+        <div
+          class="ml-25"
+        >
+          Anulado
+        </div>
+      </b-badge>
+      <b-badge
+        class="d-flex align-items-center"
+        :variant="statePointSale.facturado ? 'light-success' : 'light-danger'"
+      >
+        <feather-icon :icon="statePointSale.facturado ? 'CheckIcon' : 'SlashIcon'" />
+        <div
+          class="ml-25"
+        >
+          Facturado
+        </div>
+      </b-badge>
+    </div>
     <div class="text-center pointsale-tools__buttons mt-1">
       <modal-options-currency />
       <modal-options-payment-method />
       <modal-description-sale />
       <modal-options-vendor />
       <modal-options-voucher />
+      <modal-save-point-sale-movement />
       <modal-query-point-sale
         server-query-filtro-fecha="a.fecha"
         :server-query-finicio="`${formatDateBySeparator()}`"
@@ -107,7 +154,7 @@
       <button-component
         icon-button="DeleteIcon"
         icon-size="24"
-        :method-function="clearPointSaleData"
+        :method-function="()=>clearViewPointSale()"
         :disabled="!!!boxSession._id"
       />
     </div>
@@ -117,7 +164,7 @@
         text-default="Pagar"
         icon-button="ShoppingBagIcon"
         icon-size="18"
-        :method-function="()=>$bvModal.show('modal-pointsale-payment')"
+        :method-function="()=>openModalPointSaleMovement()"
         :disabled="!!!boxSession._id || !!!listPointSaleDetail.rows.length || !!statePointSale.cancelado"
       />
       <!-- Botón para Cerrar Operación -->
@@ -152,6 +199,7 @@
 <script>
 import {
   BCard,
+  BBadge,
 } from 'bootstrap-vue'
 import { mapState } from 'vuex'
 import store from '@/store'
@@ -181,17 +229,21 @@ import ModalDescriptionSale from './ComponentsTools/ModalDescriptionSale/ModalDe
 import ModalOptionsVendor from './ComponentsTools/ModalOptionsVendor/ModalOptionsVendor.vue'
 import ModalOptionsVoucher from './ComponentsTools/ModalOptionsVoucher/ModalOptionsVoucher.vue'
 import ModalPayment from './ComponentsTools/ModalPayment/ModalPayment.vue'
-import { sendPointSale } from '../../ServicesPointSale/useServicesPointSale'
+import ModalSavePointSaleMovement from './ComponentsTools/PointSaleMovement/ModalSavePointSaleMovement/ModalSavePointSaleMovement.vue'
+import { clearViewPointSale, sendPointSale } from '../../ServicesPointSale/useServicesPointSale'
 import {
   clearListPointSaleDetail, clearStatePointSaleDetail, listPointSaleDetail,
 } from '../../ServicesPointSaleDetail/useVariablesPointSaleDetail'
 import { clearStateClient, stateClient } from '../../ServicesClient/useVariablesClient'
 import { combosVoucher } from './ComponentsTools/ModalOptionsVoucher/useVariablesVoucher'
+import { clearStatePointSaleMovement, serverQueryPointSaleMovement } from '../../ServicesPointSaleMovement/useVariablesPointSaleMovement'
+import { loadItemsPointSaleMovement } from '../../ServicesPointSaleMovement/useServicesPointSaleMovement'
 
 export default {
   name: 'PointSaleTools',
   components: {
     BCard,
+    BBadge,
     ModalQueryPointSale,
     ModalOptionsCurrency,
     ModalOptionsPaymentMethod,
@@ -199,12 +251,13 @@ export default {
     ModalOptionsVendor,
     ModalOptionsVoucher,
     ModalPayment,
+    ModalSavePointSaleMovement,
     ButtonComponent,
   },
   computed: {
     ...mapState('boxSession', ['boxSession']),
   },
-  setup() {
+  setup(props, context) {
     // Función para mostrar / ocultar la columna del producto detalle
     const showProductDetail = () => {
       store.commit('pointSale/TOGGLE_SHOW_PRODUCT_DETAIL')
@@ -277,6 +330,13 @@ export default {
       return true
     }
 
+    const openModalPointSaleMovement = () => {
+      clearStatePointSaleMovement()
+      serverQueryPointSaleMovement.value.indice = statePointSale.value._id
+      loadItemsPointSaleMovement(1)
+      context.root.$bvModal.show('modal-point-sale-movement')
+    }
+
     const dispatchOperation = () => {
       statePointSale.value.despachado = statePointSale.value.despachado ? 0 : 1
     }
@@ -335,6 +395,7 @@ export default {
     }
 
     return {
+      clearViewPointSale,
       showProductDetail,
       statePointSale,
       sendOperation,
@@ -346,7 +407,16 @@ export default {
       printTicket,
       clearPointSaleData,
       formatDateBySeparator,
+      openModalPointSaleMovement,
     }
   },
 }
 </script>
+
+<style lang="scss">
+.d-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: .25em;
+}
+</style>
