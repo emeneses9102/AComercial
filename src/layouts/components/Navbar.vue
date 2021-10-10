@@ -20,10 +20,22 @@
       <!-- Left Col -->
       <div class="bookmark-wrapper align-items-center flex-grow-1 d-flex">
         <dark-Toggler class="d-block" />
+        <button-component
+          v-if="$route.name === routesName.puntoVenta"
+          variant="outline-success"
+          text-default="Inicio"
+          margin-class="ml-1"
+          :method-function="()=>$router.push({name: routesName.inicio})"
+          block
+        />
+        <!-- <state-point-sale
+          v-if="$route.name === routesName.puntoVenta"
+          class="ml-1"
+        /> -->
       </div>
 
       <b-navbar-nav class="nav align-items-center ml-auto">
-        <template v-if="$route.name === 'pointSaleThree'">
+        <template v-if="$route.name === routesName.puntoVenta">
           <button-component
             variant="outline-success"
             :text-default="`N° Sesión ${$store.state.boxSession.boxSession._id}`"
@@ -95,11 +107,13 @@ import {
   BLink, BNavbarNav, BNavItemDropdown, BDropdownItem, BAvatar,
 } from 'bootstrap-vue'
 import { Fragment } from 'vue-fragment'
+import routesName from '@/helpers/routesName'
 import DarkToggler from '@core/layouts/components/app-navbar/components/DarkToggler.vue'
 import ModalChangePassword from '@/components/ModalChangePassword/ModalChangePassword.vue'
 import ButtonComponent from '@/components/ButtonComponent/ButtonComponent.vue'
 import { mapState } from 'vuex'
 import FullScreen from './FullScreen.vue'
+// import StatePointSale from './StatePointSale.vue'
 // import DateTime from './DateTime.vue'
 
 export default {
@@ -114,6 +128,7 @@ export default {
     // Navbar Components
     DarkToggler,
     FullScreen,
+    // StatePointSale,
     // DateTime,
     ModalChangePassword,
     ButtonComponent,
@@ -151,6 +166,11 @@ export default {
       this.$store.commit('rolesAndPermissions/CLEAR_NAVIGATION')
       this.$store.commit('rolesAndPermissions/CLEAR_OPTIONS')
     },
+  },
+  setup() {
+    return {
+      routesName,
+    }
   },
 }
 </script>
