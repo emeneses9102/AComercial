@@ -12,9 +12,11 @@ export const getRandomInt = (min, max) => (
 )
 
 export const generateBarCode = _id => {
-  let cod = _id
-  if (_id.toString().length < 11) {
-    cod = (`0000000000${_id}`).slice(-9)
-  }
-  return `P${cod}`
+  // let cod = _id
+  // if (_id.toString().length < 11) {
+  //   cod = (`0000000000${_id}`).slice(-9)
+  // }
+  // return `P${cod}`
+  const numberRandom = getRandomInt(1000000000, 9999999999)
+  return _id + asciiToHex((numberRandom + _id).toString()).slice(0, 9)
 }
