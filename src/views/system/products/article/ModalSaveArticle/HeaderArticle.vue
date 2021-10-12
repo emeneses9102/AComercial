@@ -89,7 +89,7 @@
             <!-- Id Código Único -->
             <input-search-unique-code-component
               :name-unique-code="stateArticle.nombreCodigoUnico"
-              rules-validation="required"
+              rules-validation=""
               @on-unique-code-selected="uniqueCodeSelected"
             />
 
@@ -196,7 +196,7 @@
                       class="py-25"
                       icon-button="HashIcon"
                       margin-class="m-0"
-                      :disabled="!stateArticle._id"
+                      :disabled="!stateArticle._id || !!stateArticle.codBarra"
                       :method-function="()=>generateBarCodeArticle(stateArticle._id)"
                     />
                   </b-input-group-append>
