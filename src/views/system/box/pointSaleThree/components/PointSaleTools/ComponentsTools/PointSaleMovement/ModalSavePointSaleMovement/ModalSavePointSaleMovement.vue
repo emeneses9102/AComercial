@@ -18,6 +18,12 @@
         text-default="Cerrar"
         :method-function="()=>$bvModal.hide(MODAL_ID)"
       />
+      <button-component
+        variant="primary"
+        icon-button="DollarSignIcon"
+        text-default="Pagar"
+        :method-function="()=>finishedOperation()"
+      />
     </template>
   </b-modal>
 </template>
@@ -26,15 +32,21 @@
 import {
   BModal,
 } from 'bootstrap-vue'
+import store from '@/store'
 import { onMounted } from '@vue/composition-api'
 import { endPointsCombo, loadCombos } from '@/helpers/combos'
 import ButtonComponent from '@/components/ButtonComponent/ButtonComponent.vue'
+import { messageToast } from '@/helpers/messageExtensions'
+import { ACTION_POINT_SALE_PAY } from '@/helpers/actionsApi'
 import Detail from './Detail.vue'
 import DetailTable from './DetailTable.vue'
 import {
   titleNotificationPointSale, statePointSale,
 } from '../../../../../ServicesPointSale/useVariablesPointSale'
-import { combosPointSaleMovement, MODAL_ID } from '../../../../../ServicesPointSaleMovement/useVariablesPointSaleMovement'
+import {
+  sendPointSale,
+} from '../../../../../ServicesPointSale/useServicesPointSale'
+import { combosPointSaleMovement, dataTablePointSaleMovement, MODAL_ID } from '../../../../../ServicesPointSaleMovement/useVariablesPointSaleMovement'
 
 export default {
   name: 'ModalSavePointSaleMovement',
@@ -44,15 +56,33 @@ export default {
     DetailTable,
     ButtonComponent,
   },
-  setup() {
+  setup(props, context) {
     onMounted(() => {
       loadCombos(combosPointSaleMovement, ['currency'], `${endPointsCombo.moneda}/1`, 'Moneda')
       loadCombos(combosPointSaleMovement, ['paymentMethod'], `${endPointsCombo.medioPago}/1`, 'Medio de Pago')
     })
+
+    const finishedOperation = async () => {
+      if (!dataTablePointSaleMovement.value.rows.length) {
+        messageToast('warning', 'Punto de Venta', 'La tabla esta vacía')
+      // } else if ((statePointSale.value.totalPagado - statePointSale.value.vuelto) < statePointSale.value.total) {
+      //   messageToast('warning', 'Punto de Venta', 'Debe ingresar el monto a pagar')
+      } else {
+        statePointSale.value.loading = true
+        store.commit('pointSale/ACTIVE_LOADING')
+        await sendPointSale(ACTION_POINT_SALE_PAY)
+        store.commit('pointSale/DESACTIVE_LOADING')
+        context.root.$bvModal.hide('modal-pointsale-payment')
+        statePointSale.value.cancelado = 1
+        statePointSale.value.loading = false
+      }
+    }
+
     return {
       MODAL_ID,
       titleNotificationPointSale,
       statePointSale,
+      finishedOperation,
     }
   },
 }

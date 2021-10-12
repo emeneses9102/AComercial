@@ -71,6 +71,12 @@ export const serverQueryChangeType = ref({
   tabla: 'tipocambio',
 })
 
+// Variable reactiva para manejar las consultas del lado del servidor de la tabla Moneda
+export const serverQueryCurrency = ref({
+  ...serverQueryDefault,
+  tabla: 'moneda',
+})
+
 // Función para limpiar filtros en la consulta de la tabla Tipo de Cambio
 export const clearFiltersChangeType = () => {
   clearServerQueryDefaultFilter(serverQueryChangeType)
@@ -87,6 +93,12 @@ const initialStateChangeType = {
   accion: 0,
   loading: false,
 }
+
+// Variable reactiva para almacenar todas las monedas locales
+export const currenciesLocal = ref([])
+
+// Variable reactiva para almacenar si la moneda seleccionada es local
+export const mlocal = ref(false)
 
 // Variable reactiva para almacenar el estado de un registro, actualización, cambio de estado, eliminación en la tabla Tipo de Cambio
 export const stateChangeType = ref({ ...initialStateChangeType })

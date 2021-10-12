@@ -78,7 +78,7 @@
             >
               <b-form-datepicker
                 id="article-tribute-detail-start"
-                v-model="stateArticleTributeDetail.finicio"
+                v-model="stateArticleTributeDetail.finicial"
                 v-bind="labelsFormDate"
               />
             </b-form-group>
@@ -94,7 +94,7 @@
             >
               <b-form-datepicker
                 id="article-tribute-detail-end"
-                v-model="stateArticleTributeDetail.ffin"
+                v-model="stateArticleTributeDetail.ffinal"
                 v-bind="labelsFormDate"
               />
             </b-form-group>
