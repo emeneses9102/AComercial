@@ -65,6 +65,7 @@
               name="options-pluss"
               :props="props"
             />
+            <!-- INICIAR CAMBIAR ESTADO -->
             <template v-if="validateOptionsByRoute && optionsPermissions.includes(CAMBIAR_ESTADO)">
               <b-dropdown-item
                 v-if="optionStatus"
@@ -81,34 +82,25 @@
                 </div>
               </b-dropdown-item>
             </template>
-            <!-- <template v-if="optionsPermissions.includes('OPEN_BOX')">
+            <template v-else-if="!validateOptionsByRoute">
               <b-dropdown-item
-                v-if="optionOpenBox && !props.row.apertura"
-                @click="openModalFor(props.row, 'open-box')"
+                v-if="optionStatus"
+                @click="changeStatus(props.row._id)"
               >
                 <div class="d-flex align-items-center">
                   <feather-icon
-                    icon="LogInIcon"
+                    :icon="props.row.activo ? 'SlashIcon' : 'CheckCircleIcon'"
                     class="mr-50"
                   />
-                  <span class="d-inline-block">Abrir Caja</span>
+                  <span class="d-inline-block">
+                    {{ props.row.activo ? 'Desactivar' : 'Activar' }}
+                  </span>
                 </div>
               </b-dropdown-item>
-            </template> -->
-            <!-- <template v-if="optionsPermissions.includes('CLOSE_BOX')">
-              <b-dropdown-item
-                v-if="optionCloseBox && props.row.apertura && !props.row.cierre"
-                @click="openModalFor(props.row, 'close-box')"
-              >
-                <div class="d-flex align-items-center">
-                  <feather-icon
-                    icon="LogOutIcon"
-                    class="mr-50"
-                  />
-                  <span class="d-inline-block">Cerrar Caja</span>
-                </div>
-              </b-dropdown-item>
-            </template> -->
+            </template>
+            <!-- FINAL CAMBIAR ESTADO -->
+
+            <!-- INICIAR VER REGISTRO -->
             <template v-if="validateOptionsByRoute && optionsPermissions.includes(VER_REGISTRO)">
               <b-dropdown-item
                 v-if="optionShow"
@@ -123,10 +115,30 @@
                 </div>
               </b-dropdown-item>
             </template>
+            <template v-else-if="!validateOptionsByRoute">
+              <b-dropdown-item
+                v-if="optionShow"
+                @click="openModalFor(props.row, 'show')"
+              >
+                <div class="d-flex align-items-center">
+                  <feather-icon
+                    icon="EyeIcon"
+                    class="mr-50"
+                  />
+                  <span class="d-inline-block">Ver</span>
+                </div>
+              </b-dropdown-item>
+            </template>
+            <!-- FINAL VER REGISTRO -->
+
+            <!-- INICIO SLOT EDITAR -->
             <slot
               name="option-edit"
               :props="props"
             />
+            <!-- FINAL SLOT EDITAR -->
+
+            <!-- INICIO EDITAR -->
             <template v-if="validateOptionsByRoute && optionsPermissions.includes(EDITAR)">
               <b-dropdown-item
                 v-if="optionEdit"
@@ -141,6 +153,23 @@
                 </div>
               </b-dropdown-item>
             </template>
+            <template v-else-if="!validateOptionsByRoute">
+              <b-dropdown-item
+                v-if="optionEdit"
+                @click="openModalFor(props.row, 'edit')"
+              >
+                <div class="d-flex align-items-center">
+                  <feather-icon
+                    icon="Edit2Icon"
+                    class="mr-50"
+                  />
+                  <span class="d-inline-block">Editar</span>
+                </div>
+              </b-dropdown-item>
+            </template>
+            <!-- FINAL EDITAR -->
+
+            <!-- INICIO ELIMINAR -->
             <template v-if="validateOptionsByRoute && optionsPermissions.includes(ELIMINAR)">
               <b-dropdown-item
                 v-if="optionDelete"
@@ -155,6 +184,21 @@
                 </div>
               </b-dropdown-item>
             </template>
+            <template v-else-if="!validateOptionsByRoute">
+              <b-dropdown-item
+                v-if="optionDelete"
+                @click="deleteRow(props.row._id)"
+              >
+                <div class="d-flex align-items-center">
+                  <feather-icon
+                    icon="TrashIcon"
+                    class="mr-50"
+                  />
+                  <span class="d-inline-block">Eliminar</span>
+                </div>
+              </b-dropdown-item>
+            </template>
+            <!-- FINAL ELIMINAR -->
           </b-dropdown>
         </span>
       </span>

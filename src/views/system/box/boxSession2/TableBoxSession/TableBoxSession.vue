@@ -111,6 +111,7 @@ import {
   loadItemsBoxSessionDetail,
 } from '../ServicesBoxSessionDetail/useServicesBoxSessionDetail'
 import { loadItemsBoxSessionVoucherDetail } from '../ServicesBoxSessionVoucherDetail/useServicesBoxSessionVoucherDetail'
+import { serverQueryBoxSessionVoucherDetail } from '../ServicesBoxSessionVoucherDetail/useVariablesBoxSessionVoucherDetail'
 
 export default {
   name: 'TableBoxSession',
@@ -133,6 +134,7 @@ export default {
         stateBoxSession.value = { ...stateBoxSession.value, ...row }
       } else if (actionOpenModal === 'edit') {
         await getBoxSessionById(row._id)
+        serverQueryBoxSessionVoucherDetail.value.indice = row._id
         await loadItemsBoxSessionVoucherDetail(1)
       } else if (actionOpenModal === 'open-box') {
         stateBoxSession.value = { ...stateBoxSession.value, ...row }
