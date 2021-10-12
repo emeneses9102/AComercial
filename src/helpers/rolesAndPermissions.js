@@ -171,3 +171,5 @@ export const getNavigationAndOptions = data => {
     optionsAll,
   }
 }
+
+export const routesNameDefault = ['home', 'login', 'error-404']
