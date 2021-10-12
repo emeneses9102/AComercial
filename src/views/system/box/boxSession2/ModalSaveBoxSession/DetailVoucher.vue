@@ -156,6 +156,7 @@ import {
   combosBoxSessionVoucherDetail,
   clearStateBoxSessionVoucherDetail,
   titleNotificationBoxSessionVoucherDetail,
+  serverQueryBoxSessionVoucherDetail,
 } from '../ServicesBoxSessionVoucherDetail/useVariablesBoxSessionVoucherDetail'
 import { routeNameBoxSession, stateBoxSession } from '../ServicesBoxSession/useVariablesBoxSession'
 import { loadItemsBoxSessionVoucherDetail, sendBoxSessionVoucherDetail } from '../ServicesBoxSessionVoucherDetail/useServicesBoxSessionVoucherDetail'
@@ -208,6 +209,7 @@ export default {
 
       clearStateBoxSessionVoucherDetail()
       context.refs['validation-box-session-voucher-detail'].reset()
+      serverQueryBoxSessionVoucherDetail.value.indice = stateBoxSession.value._id
       loadItemsBoxSessionVoucherDetail(1)
     }
 

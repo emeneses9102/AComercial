@@ -15,8 +15,9 @@
       :load-items="loadItemsPointSaleMovement"
       :manage-row="sendPointSaleMovement"
       :pagination-enabled="!!statePointSale._id"
+      :validate-options-by-route="false"
       :option-show="false"
-      @open-modal-for-edit="openModalForEdit"
+      :option-edit="false"
     />
   </field-set-component>
 </template>
@@ -29,7 +30,7 @@ import { statePointSale } from '../../../../../ServicesPointSale/useVariablesPoi
 import {
   columnsPointSaleMovement, serverQueryPointSaleMovement, dataTablePointSaleMovement, columnsFilterPointSaleMovement, titleNotificationPointSaleMovement,
 } from '../../../../../ServicesPointSaleMovement/useVariablesPointSaleMovement'
-import { getPointSaleMovementById, loadItemsPointSaleMovement, sendPointSaleMovement } from '../../../../../ServicesPointSaleMovement/useServicesPointSaleMovement'
+import { loadItemsPointSaleMovement, sendPointSaleMovement } from '../../../../../ServicesPointSaleMovement/useServicesPointSaleMovement'
 
 export default {
   name: 'DetailTable',
@@ -41,12 +42,6 @@ export default {
   setup() {
     let timer = null
     const timeForLoad = 500
-
-    const openModalForEdit = async ({ _id }) => {
-      dataTablePointSaleMovement.value.loading = true
-      await getPointSaleMovementById(_id)
-      dataTablePointSaleMovement.value.loading = false
-    }
 
     const onChangeField = (field, value) => {
       serverQueryPointSaleMovement.value.campofiltro = field
@@ -71,7 +66,6 @@ export default {
       dataTablePointSaleMovement,
       loadItemsPointSaleMovement,
       sendPointSaleMovement,
-      openModalForEdit,
       columnsFilterPointSaleMovement,
       titleNotificationPointSaleMovement,
       onChangeField,
