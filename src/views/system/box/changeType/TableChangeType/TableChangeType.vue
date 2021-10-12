@@ -16,7 +16,7 @@
 import { onMounted } from '@vue/composition-api'
 import TableGoodComponent from '@/components/TableComponent/TableGoodComponent.vue'
 import {
-  MODAL_ID, stateChangeType, columnsChangeType, serverQueryChangeType, dataTableChangeType, titleNotificationChangeType,
+  MODAL_ID, stateChangeType, columnsChangeType, serverQueryChangeType, dataTableChangeType, titleNotificationChangeType, currenciesLocal, mlocal,
 } from '../ServicesChangeType/useVariablesChangeType'
 import { loadItemsChangeType, sendChangeType } from '../ServicesChangeType/useServicesChangeType'
 
@@ -30,6 +30,11 @@ export default {
     const openModalFor = async (row, actionOpenModal) => {
       dataTableChangeType.value.loading = true
       stateChangeType.value = { ...stateChangeType.value, ...row }
+      if (currenciesLocal.value.find(currency => currency._id === stateChangeType.value.idMoneda)) {
+        mlocal.value = true
+      } else {
+        mlocal.value = false
+      }
       dataTableChangeType.value.loading = false
       context.root.$bvModal.show(actionOpenModal === 'edit' ? MODAL_ID : `${MODAL_ID}-show`)
     }

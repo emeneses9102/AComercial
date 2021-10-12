@@ -59,6 +59,7 @@
                     :loading="combosChangeType.currency.loading"
                     :clearable="false"
                     :disabled="combosChangeType.currency.disabled"
+                    @option:selected="selectedCurrency"
                   >
                     <template v-slot:no-options>
                       No se encontraron resultados.
@@ -86,6 +87,7 @@
                     v-model.number="stateChangeType.compra"
                     type="number"
                     :state="errors.length > 0 ? false:null"
+                    :disabled="mlocal"
                     @keydown.enter="()=>sendForm()"
                   />
                   <small class="text-danger">{{ errors[0] }}</small>
@@ -110,6 +112,7 @@
                     v-model.number="stateChangeType.venta"
                     type="number"
                     :state="errors.length > 0 ? false:null"
+                    :disabled="mlocal"
                     @keydown.enter="()=>sendForm()"
                   />
                   <small class="text-danger">{{ errors[0] }}</small>
@@ -149,7 +152,7 @@ import {
 } from 'bootstrap-vue'
 import { ValidationObserver, ValidationProvider } from 'vee-validate'
 import { VueSelect } from 'vue-select'
-import { computed } from '@vue/composition-api'
+import { computed, onMounted } from '@vue/composition-api'
 import store from '@/store'
 import {
   EDITAR,
@@ -160,9 +163,9 @@ import { validatePermission } from '@/helpers/validateActions'
 import ButtonComponent from '@/components/ButtonComponent/ButtonComponent.vue'
 import FieldSetComponent from '@/components/FieldSetComponent/FieldSetComponent.vue'
 import {
-  MODAL_ID, titleNotificationChangeType, stateChangeType, clearStateChangeType, combosChangeType, routeNameChangeType,
+  MODAL_ID, titleNotificationChangeType, stateChangeType, clearStateChangeType, combosChangeType, routeNameChangeType, mlocal, currenciesLocal,
 } from '../ServicesChangeType/useVariablesChangeType'
-import { loadItemsChangeType, sendChangeType } from '../ServicesChangeType/useServicesChangeType'
+import { loadItemsChangeType, sendChangeType, getCurrencyLocal } from '../ServicesChangeType/useServicesChangeType'
 
 export default {
   name: 'ModalSaveChangeType',
@@ -207,6 +210,20 @@ export default {
       return []
     })
 
+    onMounted(() => {
+      getCurrencyLocal()
+    })
+
+    const selectedCurrency = async ({ _id }) => {
+      if (currenciesLocal.value.find(currency => currency._id === _id)) {
+        mlocal.value = true
+        stateChangeType.value.compra = 1
+        stateChangeType.value.venta = 1
+      } else {
+        mlocal.value = false
+      }
+    }
+
     const sendForm = async (actionSend = null, loading = true) => {
       if (!validatePermission(optionsPermissions.value, !stateChangeType.value._id ? GUARDAR : EDITAR, titleNotificationChangeType)) return false
       const successValidationChangeType = await context.refs['validation-change-type'].validate()
@@ -227,6 +244,8 @@ export default {
       titleNotificationChangeType,
       stateChangeType,
       combosChangeType,
+      selectedCurrency,
+      mlocal,
       sendForm,
 
       optionsPermissions,

@@ -20,15 +20,15 @@ export const getArticleTributeDetailById = async _id => {
 
 // Función para gestionar un Detalle Articulo Tributo
 export const sendArticleTributeDetail = async (action, _id = null) => {
-  if (stateArticleTributeDetail.value.finicio) {
-    stateArticleTributeDetail.value.inicio = stateArticleTributeDetail.value.finicio
+  if (stateArticleTributeDetail.value.finicial) {
+    stateArticleTributeDetail.value.inicial = stateArticleTributeDetail.value.finicial
   } else {
-    stateArticleTributeDetail.value.inicio = '1900-01-01'
+    stateArticleTributeDetail.value.inicial = '1900-01-01'
   }
-  if (stateArticleTributeDetail.value.ffin) {
-    stateArticleTributeDetail.value.fin = stateArticleTributeDetail.value.ffin
+  if (stateArticleTributeDetail.value.ffinal) {
+    stateArticleTributeDetail.value.final = stateArticleTributeDetail.value.ffinal
   } else {
-    stateArticleTributeDetail.value.fin = '1900-01-01'
+    stateArticleTributeDetail.value.final = '1900-01-01'
   }
   stateArticleTributeDetail.value.idArticulo = stateArticle.value._id
   if (action === ACTION_REGISTER || action === ACTION_UPDATE) stateArticleTributeDetail.value.loading = true

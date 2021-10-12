@@ -49,13 +49,14 @@
                 <validation-provider
                   #default="{ errors }"
                   name="Código"
-                  rules="required|min:3"
+                  rules="required"
                 >
                   <b-form-input
                     id="currency-codigo3"
                     v-model.trim="stateCurrency.codigo3"
                     type="text"
                     :state="errors.length > 0 ? false:null"
+                    maxlength="3"
                     @keydown.enter="()=>sendForm()"
                   />
                   <small class="text-danger">{{ errors[0] }}</small>
@@ -82,6 +83,7 @@
                     v-model.number="stateCurrency.codigoMoneda"
                     type="number"
                     :state="errors.length > 0 ? false:null"
+                    maxlength="11"
                     @keydown.enter="()=>sendForm()"
                   />
                   <small class="text-danger">{{ errors[0] }}</small>
@@ -107,6 +109,7 @@
                     id="currency-unidad-menor"
                     v-model.trim="stateCurrency.unidadMenor"
                     type="text"
+                    maxlength="2"
                     :state="errors.length > 0 ? false:null"
                     @keydown.enter="()=>sendForm()"
                   />

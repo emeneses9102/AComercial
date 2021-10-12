@@ -15,10 +15,6 @@ export const initialColumnsSubStorage = [
     field: 'nombre',
     label: 'NOMBRE',
   },
-  {
-    field: 'ubicacion',
-    label: 'UBICACIÓN',
-  },
   columnStatus,
 ]
 
