@@ -85,20 +85,4 @@ export default [
       ],
     },
   },
-  {
-    path: '/testeando',
-    name: 'testing',
-    component: () => import('@/views/system/products/testing/Testing.vue'),
-    meta: {
-      auth: true,
-      pageTitle: 'Testing',
-      breadcrumb: [
-        moduleBreadCrumb,
-        {
-          text: 'Testing',
-          active: true,
-        },
-      ],
-    },
-  },
 ]

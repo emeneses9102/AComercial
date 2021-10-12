@@ -23,7 +23,7 @@
         <b-button
           variant="primary"
           class="mb-2 btn-sm-block"
-          :to="{name:'feature'}"
+          :to="{name:'home'}"
         >
           Regresar al Inicio
         </b-button>
