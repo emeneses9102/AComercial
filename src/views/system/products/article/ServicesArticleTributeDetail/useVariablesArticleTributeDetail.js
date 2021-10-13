@@ -42,14 +42,14 @@ export const initialColumnsArticleTributeDetail = [
     tdClass: 'align-middle',
   },
   {
-    field: 'inicio',
+    field: 'inicial',
     label: 'INICIO',
     thClass: 'align-middle',
     tdClass: 'align-middle',
     formatFn: formatDate,
   },
   {
-    field: 'fin',
+    field: 'final',
     label: 'FIN',
     thClass: 'align-middle',
     tdClass: 'align-middle',

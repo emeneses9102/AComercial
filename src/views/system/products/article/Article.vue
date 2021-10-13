@@ -46,6 +46,7 @@ import {
   clearStateArticleRecipeDetail, clearDataTableArticleRecipeDetail, clearFiltersArticleRecipeDetail, combosArticleRecipeDetail,
 } from './ServicesArticleRecipeDetail/useVariablesArticleRecipeDetail'
 import {
+  clearDataTableArticleTributeDetail,
   combosArticleTributeDetail,
 } from './ServicesArticleTributeDetail/useVariablesArticleTributeDetail'
 import {
@@ -79,7 +80,7 @@ export default {
       clearDataTableArticleRecipeDetail()
       clearStateTributeFactor()
       clearFiltersTributeFactor()
-      clearDataTableArticleFeatureDetail()
+      clearDataTableArticleTributeDetail()
     }
 
     onMounted(() => {

@@ -109,6 +109,7 @@ import {
 import { loadItemsArticle, sendArticle } from '../ServicesArticle/useServicesArticle'
 import { serverQueryArticleFeatureDetail } from '../ServicesArticleFeatureDetail/useVariablesArticleFeatureDetail'
 import { serverQueryArticleRecipeDetail } from '../ServicesArticleRecipeDetail/useVariablesArticleRecipeDetail'
+import { serverQueryArticleTributeDetail } from '../ServicesArticleTributeDetail/useVariablesArticleTributeDetail'
 
 export default {
   name: 'ModalSaveArticle',
@@ -146,6 +147,7 @@ export default {
       stateArticle.value._id = data.id
       serverQueryArticleFeatureDetail.value.indice = data.id
       serverQueryArticleRecipeDetail.value.indice = data.id
+      serverQueryArticleTributeDetail.value.indice = data.id
       await loadItemsArticle()
       return true
     }
