@@ -55,15 +55,15 @@ export default {
       stateArticleTributeDetail.value.idTributo = data.idTributo
       stateArticleTributeDetail.value.factor = data.factor
 
-      if ((new Date(data.inicio)).getFullYear() <= 1900) {
-        stateArticleTributeDetail.value.finicio = null
+      if ((new Date(data.inicial)).getFullYear() <= 1900) {
+        stateArticleTributeDetail.value.finicial = null
       } else {
-        stateArticleTributeDetail.value.finicio = data.inicio
+        stateArticleTributeDetail.value.finicial = data.inicial
       }
-      if ((new Date(data.fin)).getFullYear() <= 1900) {
-        stateArticleTributeDetail.value.ffin = null
+      if ((new Date(data.final)).getFullYear() <= 1900) {
+        stateArticleTributeDetail.value.ffinal = null
       } else {
-        stateArticleTributeDetail.value.ffin = data.fin
+        stateArticleTributeDetail.value.ffinal = data.final
       }
       dataTableArticleTributeDetail.value.loading = false
       return true

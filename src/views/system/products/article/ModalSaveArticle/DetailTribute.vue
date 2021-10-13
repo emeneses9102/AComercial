@@ -32,7 +32,7 @@
                   :options="combosArticleTributeDetail.tribute.data"
                   :loading="combosArticleTributeDetail.tribute.loading"
                   :clearable="false"
-                  :disabled="combosArticleTributeDetail.tribute.disabled || !!stateArticleTributeDetail._id"
+                  :disabled="combosArticleTributeDetail.tribute.disabled"
                 >
                   <template v-slot:no-options>
                     No se encontraron resultados.
