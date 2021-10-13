@@ -498,4 +498,8 @@ td span {
   top: 40%;
   transform: translateY(-50%);
 }
+table.vgt-table td {
+  // color: #111;
+  font-weight: 500;
+}
 </style>
