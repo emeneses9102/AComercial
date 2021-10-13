@@ -253,6 +253,7 @@
                     rows="5"
                     no-resize
                     :state="errors.length > 0 ? false:null"
+                    maxlength="500"
                   />
                   <small class="text-danger">{{ errors[0] }}</small>
                 </validation-provider>
