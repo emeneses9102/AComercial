@@ -23,7 +23,7 @@
             v-model="searchProductById"
             autocomplete="off"
             type="text"
-            style="height: 42px"
+            style="height: 44px"
             :placeholder="placeholderSearch"
             :disabled="!boxSession._id || $store.state.pointSale.loading || !!statePointSale.cerrado || !!statePointSale.cancelado || !!statePointSale.anulado"
             @keydown.enter="searchArticle"

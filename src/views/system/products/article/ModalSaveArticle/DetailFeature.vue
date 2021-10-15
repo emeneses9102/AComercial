@@ -153,7 +153,7 @@ import FieldSetComponent from '@/components/FieldSetComponent/FieldSetComponent.
 import ButtonComponent from '@/components/ButtonComponent/ButtonComponent.vue'
 import { ACTION_REGISTER, ACTION_UPDATE } from '@/helpers/actionsApi'
 import { validatePermission } from '@/helpers/validateActions'
-import { endPointsCombo, loadCombos } from '@/helpers/combos'
+import { endPointsCombo, loadCombos, resetCombos } from '@/helpers/combos'
 import { routeNameArticle, stateArticle } from '../ServicesArticle/useVariablesArticle'
 import {
   stateArticleFeatureDetail, clearStateArticleFeatureDetail, combosArticleFeatureDetail, titleNotificationArticleFeatureDetail,
@@ -214,6 +214,8 @@ export default {
     }
 
     const featureSelected = ({ _id }) => {
+      stateArticleFeatureDetail.value.idDtlCaracteristica = 0
+      resetCombos(combosArticleFeatureDetail, ['featureDetail'])
       loadCombos(combosArticleFeatureDetail, ['featureDetail'], `${endPointsCombo.detalleCaracteristica}/1/${_id}/0`, 'Valores Característica')
     }
 

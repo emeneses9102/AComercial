@@ -8,6 +8,10 @@
       padding: .5em .025em !important;
     }
     
+    &__text-status {
+      font-size: .9rem;
+    }
+
     &__buttons {
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
