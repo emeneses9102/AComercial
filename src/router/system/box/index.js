@@ -107,6 +107,7 @@ export default [
     component: () => import('@/views/system/box/pointSaleThree/PointSaleThree.vue'),
     meta: {
       auth: true,
+      contentClass: 'pointsale-content-padding',
     },
   },
 ]

@@ -15,7 +15,7 @@
       >
         <feather-icon :icon="statePointSale.cerrado ? 'CheckIcon' : 'SlashIcon'" />
         <div
-          class="ml-25"
+          class="ml-25 pointsale-tools__text-status"
         >
           Cerrado
         </div>
@@ -26,7 +26,7 @@
       >
         <feather-icon :icon="statePointSale.cancelado ? 'CheckIcon' : 'SlashIcon'" />
         <div
-          class="ml-25"
+          class="ml-25 pointsale-tools__text-status"
         >
           Pagado
         </div>
@@ -37,7 +37,7 @@
       >
         <feather-icon :icon="statePointSale.anulado ? 'CheckIcon' : 'SlashIcon'" />
         <div
-          class="ml-25"
+          class="ml-25 pointsale-tools__text-status"
         >
           Anulado
         </div>
@@ -48,7 +48,7 @@
       >
         <feather-icon :icon="statePointSale.facturado ? 'CheckIcon' : 'SlashIcon'" />
         <div
-          class="ml-25"
+          class="ml-25 pointsale-tools__text-status"
         >
           Facturado
         </div>
