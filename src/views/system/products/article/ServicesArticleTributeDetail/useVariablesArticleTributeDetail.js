@@ -99,6 +99,8 @@ export const clearFiltersArticleTributeDetail = () => {
 const initialStateArticleTributeDetail = {
   _id: 0,
   idArticulo: 0,
+  idTipoProducto: 0,
+  idTipoServicio: 0,
   idTributo: 0,
   factor: 0,
   finicial: null,

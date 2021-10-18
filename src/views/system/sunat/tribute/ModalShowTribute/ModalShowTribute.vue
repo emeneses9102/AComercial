@@ -22,6 +22,14 @@
         </template>
         <detail-table class="mt-1" />
       </b-tab>
+
+      <b-tab>
+        <template #title>
+          <feather-icon icon="UserIcon" />
+          <span class="d-none d-md-inline">Tipo</span>
+        </template>
+        <detail-table-type class="mt-1" />
+      </b-tab>
     </b-tabs>
 
     <template #modal-footer>
@@ -42,6 +50,7 @@ import {
 import ButtonComponent from '@/components/ButtonComponent/ButtonComponent.vue'
 import HeaderTribute from './HeaderTribute.vue'
 import DetailTable from './DetailTable.vue'
+import DetailTableType from './DetailTableType.vue'
 import { MODAL_ID, titleNotificationTribute } from '../ServicesTribute/useVariablesTribute'
 
 export default {
@@ -53,6 +62,7 @@ export default {
     ButtonComponent,
     HeaderTribute,
     DetailTable,
+    DetailTableType,
   },
   setup() {
     return {

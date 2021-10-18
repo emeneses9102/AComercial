@@ -51,6 +51,17 @@
         />
         <detail-tribute-table class="mt-1" />
       </b-tab>
+      <b-tab>
+        <template #title>
+          <feather-icon icon="UserIcon" />
+          <span class="d-none d-md-inline">Negocio</span>
+        </template>
+        <detail-business
+          class="mt-1"
+          :send-header="sendForm"
+        />
+        <detail-business-table class="mt-1" />
+      </b-tab>
     </b-tabs>
 
     <template #modal-footer>
@@ -103,6 +114,8 @@ import DetailRecipe from './DetailRecipe.vue'
 import DetailRecipeTable from './DetailRecipeTable.vue'
 import DetailTribute from './DetailTribute.vue'
 import DetailTributeTable from './DetailTributeTable.vue'
+import DetailBusiness from './DetailBusiness.vue'
+import DetailBusinessTable from './DetailBusinessTable.vue'
 import {
   MODAL_ID, titleNotificationArticle, stateArticle, selectedArticleType, routeNameArticle,
 } from '../ServicesArticle/useVariablesArticle'
@@ -110,6 +123,7 @@ import { loadItemsArticle, sendArticle } from '../ServicesArticle/useServicesArt
 import { serverQueryArticleFeatureDetail } from '../ServicesArticleFeatureDetail/useVariablesArticleFeatureDetail'
 import { serverQueryArticleRecipeDetail } from '../ServicesArticleRecipeDetail/useVariablesArticleRecipeDetail'
 import { serverQueryArticleTributeDetail } from '../ServicesArticleTributeDetail/useVariablesArticleTributeDetail'
+import { serverQueryArticleBusinessDetail } from '../ServicesArticleBusinessDetail/useVariablesArticleBusinessDetail'
 
 export default {
   name: 'ModalSaveArticle',
@@ -124,6 +138,8 @@ export default {
     DetailRecipeTable,
     DetailTribute,
     DetailTributeTable,
+    DetailBusiness,
+    DetailBusinessTable,
     ButtonComponent,
     ValidationObserver,
   },
@@ -148,6 +164,7 @@ export default {
       serverQueryArticleFeatureDetail.value.indice = data.id
       serverQueryArticleRecipeDetail.value.indice = data.id
       serverQueryArticleTributeDetail.value.indice = data.id
+      serverQueryArticleBusinessDetail.value.indice = data.id
       await loadItemsArticle()
       return true
     }

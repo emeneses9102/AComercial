@@ -38,6 +38,14 @@
         </template>
         <detail-table-tribute class="mt-1" />
       </b-tab>
+
+      <b-tab>
+        <template #title>
+          <feather-icon icon="UserIcon" />
+          <span class="d-none d-md-inline">Negocio</span>
+        </template>
+        <detail-table-business class="mt-1" />
+      </b-tab>
     </b-tabs>
 
     <template #modal-footer>
@@ -60,6 +68,7 @@ import HeaderArticle from './HeaderArticle.vue'
 import DetailTableFeature from './DetailTableFeature.vue'
 import DetailTableRecipe from './DetailTableRecipe.vue'
 import DetailTableTribute from './DetailTableTribute.vue'
+import DetailTableBusiness from './DetailTableBusiness.vue'
 import { MODAL_ID, titleNotificationArticle } from '../ServicesArticle/useVariablesArticle'
 
 export default {
@@ -73,6 +82,7 @@ export default {
     DetailTableFeature,
     DetailTableRecipe,
     DetailTableTribute,
+    DetailTableBusiness,
   },
   setup() {
     return {

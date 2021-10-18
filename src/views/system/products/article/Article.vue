@@ -52,6 +52,7 @@ import {
 import {
   clearFiltersTributeFactor, clearStateTributeFactor,
 } from '../../sunat/tribute/ServicesTributeFactor/useVariablesTributeFactor'
+import { combosArticleBusinessDetail } from './ServicesArticleBusinessDetail/useVariablesArticleBusinessDetail'
 
 export default {
   name: 'Article',
@@ -89,6 +90,7 @@ export default {
       loadCombos(combosArticle, ['unitGroup'], `${endPointsCombo.grupo}/1`, 'Grupo Unidad')
       loadCombos(combosArticleFeatureDetail, ['feature'], `${endPointsCombo.caracteristica}/1`, 'Característica')
       loadCombos(combosArticleTributeDetail, ['tribute'], `${endPointsCombo.tributoSunat}/1`, 'Tributo')
+      loadCombos(combosArticleBusinessDetail, ['businessUnit'], `${endPointsCombo.negocio}/1`, 'Negocio')
     })
 
     return {
