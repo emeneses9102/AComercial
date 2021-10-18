@@ -25,18 +25,12 @@ export const initialColumnsArticleBusinessDetail = [
     tdClass: 'align-middle',
     pdf: true,
   },
-  // {
-  //   field: 'nombreTributo',
-  //   label: 'TRIBUTO',
-  //   thClass: 'align-middle',
-  //   tdClass: 'align-middle',
-  // },
-  // {
-  //   field: 'factor',
-  //   label: 'FACTOR',
-  //   thClass: 'align-middle',
-  //   tdClass: 'align-middle',
-  // },
+  {
+    field: 'nombreNegocio',
+    label: 'NEGOCIO',
+    thClass: 'align-middle',
+    tdClass: 'align-middle',
+  },
   columnStatus,
 ]
 
