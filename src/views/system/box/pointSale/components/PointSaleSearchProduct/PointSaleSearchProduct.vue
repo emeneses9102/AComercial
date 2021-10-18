@@ -32,7 +32,6 @@ export default {
     let timer = null
     const timeForLoad = 500
     const rowSelected = async row => {
-      console.log('mensaje')
       stateArticle.value = { ...stateArticle.value, ...row }
       dataTableArticle.value.loading = true
       await getArticleById(row._id)
@@ -43,7 +42,6 @@ export default {
 
     const searchProduct = () => {
       stateArticle.value = { ...stateArticle.value }
-      console.log(stateArticle.value[0])
       context.emit('on-article-selected', stateArticle.value[0])
     }
 

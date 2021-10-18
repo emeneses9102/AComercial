@@ -35,7 +35,6 @@ export const getArticleByFieldOp = async obj => {
 
 // Función para obtener los datos desde la API
 export const loadItemArticle = async (page = null, perPage = null) => {
-  console.log(serverQueryArticle)
   if (page) serverQueryArticle.value.pinicio = page
   if (perPage) serverQueryArticle.value.pfin = perPage
   const { status, rows, totalRows } = await getData(urlApiArticle, serverQueryArticle.value, titleNotificationArticle)
@@ -43,5 +42,4 @@ export const loadItemArticle = async (page = null, perPage = null) => {
     stateArticle.value = rows
     dataTableArticle.value.totalRows = totalRows
   }
-  console.log(stateArticle)
 }

@@ -46,15 +46,6 @@ export default {
       context.root.$bvModal.show(actionOpenModal === 'edit' ? MODAL_ID : `${MODAL_ID}-show`)
     }
 
-    // const optionsPermissions = computed(() => {
-    //   console.log(context.root.$route.name)
-    //   console.log(store.state.rolesAndPermissions.options)
-    //   if (store.state.rolesAndPermissions.options[context.root.$route.name]) {
-    //     return store.state.rolesAndPermissions.options[context.root.$route.name]
-    //   }
-    //   return []
-    // })
-
     onMounted(() => {
       loadItemsRole()
     })

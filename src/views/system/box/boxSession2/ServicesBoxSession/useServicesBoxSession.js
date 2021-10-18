@@ -34,7 +34,6 @@ export const getDataBoxSessionById = async _id => {
   }
   if (data[0]) {
     stateBoxSession.value = { ...stateBoxSession.value, ...data[0] }
-    console.log(data)
     return true
   }
   return false
