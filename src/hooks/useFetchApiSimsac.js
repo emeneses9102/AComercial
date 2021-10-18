@@ -31,7 +31,7 @@ const useFetchApiSimsac = async (path = '/', query = {}, body = {}) => {
       response.data = null
       response.error = null
     } else {
-      response.error = error
+      response.error = error.response || 'Ocurrio un error en el servidor...'
     }
   }
   return response

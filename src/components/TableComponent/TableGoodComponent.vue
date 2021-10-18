@@ -13,9 +13,19 @@
     :sort-options="{
       enabled: false,
     }"
+    :select-options="{
+      enabled: (() => {
+        if (validateOptionsByRoute && optionsPermissions.includes(ELIMINAR) && optionDelete) return false // true
+        else if (!validateOptionsByRoute && optionDelete) return false // true
+        return false
+      })(),
+      selectOnCheckboxOnly: true,
+      disableSelectInfo: true,
+    }"
     @on-page-change="onPageChange"
     @on-per-page-change="onPerPageChange"
     @on-row-click="onRowClick"
+    @on-selected-rows-change="selectionChanged"
   >
     <!-- Ranura para mostrar elemento -->
     <div
@@ -69,7 +79,7 @@
             <template v-if="validateOptionsByRoute && optionsPermissions.includes(CAMBIAR_ESTADO)">
               <b-dropdown-item
                 v-if="optionStatus"
-                @click="changeStatus(props.row._id)"
+                @click.stop="changeStatus(props.row._id)"
               >
                 <div class="d-flex align-items-center">
                   <feather-icon
@@ -85,7 +95,7 @@
             <template v-else-if="!validateOptionsByRoute">
               <b-dropdown-item
                 v-if="optionStatus"
-                @click="changeStatus(props.row._id)"
+                @click.stop="changeStatus(props.row._id)"
               >
                 <div class="d-flex align-items-center">
                   <feather-icon
@@ -104,7 +114,7 @@
             <template v-if="validateOptionsByRoute && optionsPermissions.includes(VER_REGISTRO)">
               <b-dropdown-item
                 v-if="optionShow"
-                @click="openModalFor(props.row, 'show')"
+                @click.stop="openModalFor(props.row, 'show')"
               >
                 <div class="d-flex align-items-center">
                   <feather-icon
@@ -118,7 +128,7 @@
             <template v-else-if="!validateOptionsByRoute">
               <b-dropdown-item
                 v-if="optionShow"
-                @click="openModalFor(props.row, 'show')"
+                @click.stop="openModalFor(props.row, 'show')"
               >
                 <div class="d-flex align-items-center">
                   <feather-icon
@@ -142,7 +152,7 @@
             <template v-if="validateOptionsByRoute && optionsPermissions.includes(EDITAR)">
               <b-dropdown-item
                 v-if="optionEdit"
-                @click="openModalFor(props.row, 'edit')"
+                @click.stop="openModalFor(props.row, 'edit')"
               >
                 <div class="d-flex align-items-center">
                   <feather-icon
@@ -156,7 +166,7 @@
             <template v-else-if="!validateOptionsByRoute">
               <b-dropdown-item
                 v-if="optionEdit"
-                @click="openModalFor(props.row, 'edit')"
+                @click.stop="openModalFor(props.row, 'edit')"
               >
                 <div class="d-flex align-items-center">
                   <feather-icon
@@ -173,7 +183,7 @@
             <template v-if="validateOptionsByRoute && optionsPermissions.includes(ELIMINAR)">
               <b-dropdown-item
                 v-if="optionDelete"
-                @click="deleteRow(props.row._id)"
+                @click.stop="deleteRow(props.row._id)"
               >
                 <div class="d-flex align-items-center">
                   <feather-icon
@@ -187,7 +197,7 @@
             <template v-else-if="!validateOptionsByRoute">
               <b-dropdown-item
                 v-if="optionDelete"
-                @click="deleteRow(props.row._id)"
+                @click.stop="deleteRow(props.row._id)"
               >
                 <div class="d-flex align-items-center">
                   <feather-icon
@@ -349,11 +359,13 @@ export default {
       required: false,
       default: () => {},
     },
+    // Propiedad para mostrar paginacion
     paginationEnabled: {
       type: Boolean,
       required: false,
       default: () => true,
     },
+    // Propiedad para mostrar Opcion Activar / Desactivar
     optionStatus: {
       type: Boolean,
       required: false,
@@ -369,11 +381,13 @@ export default {
       required: false,
       default: false,
     },
+    // Propiedad para mostrar Opción ver
     optionShow: {
       type: Boolean,
       required: false,
       default: true,
     },
+    // Propiedad para mostrar Opcion Editar
     optionEdit: {
       type: Boolean,
       required: false,
@@ -384,11 +398,13 @@ export default {
       required: false,
       default: false,
     },
+    // Propiedad para mostrar Opción Eliminar
     optionDelete: {
       type: Boolean,
       required: false,
       default: true,
     },
+    // Propiedad para validar opciones por el nombre de ruta
     validateOptionsByRoute: {
       type: Boolean,
       required: false,
@@ -473,6 +489,9 @@ export default {
       delete newRow.numberRow
       delete newRow.idUsuario
       this.$emit('on-row-click', newRow)
+    },
+    selectionChanged(evt) {
+      this.$emit('on-selected-rows-change', evt)
     },
   },
   setup() {

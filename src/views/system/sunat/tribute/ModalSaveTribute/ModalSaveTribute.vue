@@ -29,6 +29,17 @@
         />
         <detail-table class="mt-1" />
       </b-tab>
+      <b-tab>
+        <template #title>
+          <feather-icon icon="UserIcon" />
+          <span class="d-none d-md-inline">Tipo</span>
+        </template>
+        <detail-type
+          class="mt-1"
+          :send-header="sendForm"
+        />
+        <detail-type-table class="mt-1" />
+      </b-tab>
     </b-tabs>
 
     <template #modal-footer>
@@ -70,6 +81,8 @@ import ButtonComponent from '@/components/ButtonComponent/ButtonComponent.vue'
 import HeaderTribute from './HeaderTribute.vue'
 import Detail from './Detail.vue'
 import DetailTable from './DetailTable.vue'
+import DetailType from './DetailType.vue'
+import DetailTypeTable from './DetailTypeTable.vue'
 import {
   MODAL_ID, titleNotificationTribute, stateTribute, routeNameTribute,
 } from '../ServicesTribute/useVariablesTribute'
@@ -85,6 +98,8 @@ export default {
     HeaderTribute,
     Detail,
     DetailTable,
+    DetailType,
+    DetailTypeTable,
     ButtonComponent,
     ValidationObserver,
   },

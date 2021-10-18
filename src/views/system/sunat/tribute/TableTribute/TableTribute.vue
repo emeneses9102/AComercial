@@ -21,6 +21,8 @@ import {
 import { loadItemsTribute, sendTribute } from '../ServicesTribute/useServicesTribute'
 import { serverQueryTributeFactor, clearStateTributeFactor, clearFiltersTributeFactor } from '../ServicesTributeFactor/useVariablesTributeFactor'
 import { loadItemsTributeFactor } from '../ServicesTributeFactor/useServicesTributeFactor'
+import { clearFiltersTributeTypeDetail, clearStateTributeTypeDetail, serverQueryTributeTypeDetail } from '../ServicesTributeTypeDetail/useVariablesTributeTypeDetail'
+import { loadItemsTributeTypeDetail } from '../ServicesTributeTypeDetail/useServicesTributeTypeDetail'
 
 export default {
   name: 'TableTribute',
@@ -35,7 +37,15 @@ export default {
       clearStateTributeFactor()
       clearFiltersTributeFactor()
       serverQueryTributeFactor.value.indice = row._id
-      await loadItemsTributeFactor(1)
+      // await loadItemsTributeFactor(1)
+      clearStateTributeTypeDetail()
+      clearFiltersTributeTypeDetail()
+      serverQueryTributeTypeDetail.value.indice = row._id
+      // await loadItemsTributeTypeDetail(1)
+      await Promise.all([
+        loadItemsTributeFactor(1),
+        loadItemsTributeTypeDetail(1),
+      ])
       dataTableTribute.value.loading = false
       context.root.$bvModal.show(actionOpenModal === 'edit' ? MODAL_ID : `${MODAL_ID}-show`)
     }
