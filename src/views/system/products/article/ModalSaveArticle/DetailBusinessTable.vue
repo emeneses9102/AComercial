@@ -17,6 +17,7 @@
       :manage-row="sendArticleBusinessDetail"
       :pagination-enabled="!!stateArticle._id"
       :option-show="false"
+      :option-edit="false"
       @open-modal-for-edit="row=>openModalFor(row, 'edit')"
     />
   </field-set-component>
