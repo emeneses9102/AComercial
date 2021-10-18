@@ -32,7 +32,6 @@ export default {
   created() {
     this.actualizarTiempo()
     this.mostrarFecha()
-    console.log(new Date(Date.now()))
   },
   methods: {
     actualizarTiempo() {
