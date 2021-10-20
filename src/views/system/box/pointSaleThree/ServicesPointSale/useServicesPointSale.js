@@ -41,7 +41,7 @@ const verifyBoxSessionActive = async () => {
       statePointSale.value.idSesionCaja = store.state.boxSession.boxSession._id
       statePointSale.value.idVendedor = store.state.boxSession.boxSession.idCajero
       statePointSale.value.idMoneda = store.state.boxSession.boxSession.idMoneda
-      loadCombos(combosVoucher, ['voucher'], `${endPointsCombo.comprobanteSesionCaja}/1/${store.state.boxSession.boxSession._id}/0`, 'Comprobante')
+      loadCombos(combosVoucher, ['voucher'], `${endPointsCombo.comprobantePuntoVenta}/1/${store.state.boxSession.boxSession._id}/0`, 'Comprobante')
     }, 10)
   } else {
     messageToast('danger', 'Sesión Caja', 'No tienes una sesión aperturada')
