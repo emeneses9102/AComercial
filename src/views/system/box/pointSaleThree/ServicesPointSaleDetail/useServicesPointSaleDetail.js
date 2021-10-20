@@ -37,11 +37,16 @@ import {
   statePointSale,
 } from '../ServicesPointSale/useVariablesPointSale'
 import {
+  getPointSaleById,
   sendPointSale,
 } from '../ServicesPointSale/useServicesPointSale'
+import {
+  loadItemsPointSaleTributeSummary,
+} from '../ServicesPointSaleTributeSummary/useServicesPointSaleTributeSummary'
 
 // Función para obtener los datos desde la API y actualizar los valores de listPointSaleDetail
 export const loadItemsPointSaleDetail = async (page = null, perPage = null) => {
+  serverQueryPointSaleDetail.value.indice = statePointSale.value._id
   const status = await loadTable(serverQueryPointSaleDetail, listPointSaleDetail, urlApiPointSaleDetail, titleNotificationPointSaleDetail, page, perPage)
   return status
 }
@@ -63,16 +68,7 @@ export const sendPointSaleDetail = async (action, _id = null) => {
   return response
 }
 
-// Función para calcular los totales del detalle
-export const calculateTotal = () => {
-  statePointSale.value.subTotal = 0
-  statePointSale.value.total = 0
-  listPointSaleDetail.value.rows.forEach(article => {
-    statePointSale.value.subTotal += (article.precio * article.cantidad)
-    statePointSale.value.total += (article.precio * article.cantidad)
-  })
-}
-
+// Función para recuperar el foco del campo de texto para buscar un producto
 export const recoverFocusInputSearchProduct = () => {
   const $inputSearchProduct = document.getElementById('input-search-product')
   setTimeout(() => {
@@ -82,8 +78,8 @@ export const recoverFocusInputSearchProduct = () => {
 
 // Función para agregar un articulo a la lista
 export const addArticleToList = async newArticle => {
-  if (statePointSale.value.idSocio && statePointSale.value.idComprobante && statePointSale.value.idFormaPago && statePointSale.value.idMoneda) {
-    if (!listPointSaleDetail.value.rows.length || !statePointSale.value._id) {
+  if (statePointSale.value.idSocio && statePointSale.value.idComprobante && statePointSale.value.idCorrelativo && statePointSale.value.idFormaPago && statePointSale.value.idMoneda) {
+    if (!statePointSale.value._id) {
       statePointSale.value.accion = ACTION_REGISTER
       statePointSale.value.vencimiento = formatDateBySeparator()
       store.commit('pointSale/ACTIVE_LOADING')
@@ -95,17 +91,17 @@ export const addArticleToList = async newArticle => {
       store.commit('pointSale/DESACTIVE_LOADING')
       recoverFocusInputSearchProduct()
       if (!statusPointSaleDetail || !dataPointSaleDetail) return false
-      newArticle._id = dataPointSaleDetail.id
-      listPointSaleDetail.value.rows = [newArticle]
+      store.commit('pointSale/ACTIVE_LOADING')
+      await Promise.all([
+        loadItemsPointSaleDetail(1),
+        getPointSaleById(statePointSale.value._id),
+        loadItemsPointSaleTributeSummary(1),
+      ])
+      store.commit('pointSale/DESACTIVE_LOADING')
       clearStatePointSaleDetail()
     } else {
       const articleExists = listPointSaleDetail.value.rows.find(article => article.idArticulo === newArticle.idArticulo)
       if (articleExists) {
-        const newListPointSaleDetail = listPointSaleDetail.value.rows.map(article => (
-          article.idArticulo === newArticle.idArticulo
-            ? { ...article, cantidad: article.cantidad + 1 }
-            : article
-        ))
         statePointSaleDetail.value = { ...articleExists }
         statePointSaleDetail.value._id = articleExists._id
         statePointSaleDetail.value.cantidad = articleExists.cantidad + 1
@@ -114,7 +110,13 @@ export const addArticleToList = async newArticle => {
         store.commit('pointSale/DESACTIVE_LOADING')
         recoverFocusInputSearchProduct()
         if (!statusPointSaleDetail || !dataPointSaleDetail) return false
-        listPointSaleDetail.value.rows = [...newListPointSaleDetail]
+        store.commit('pointSale/ACTIVE_LOADING')
+        await Promise.all([
+          loadItemsPointSaleDetail(1),
+          getPointSaleById(statePointSale.value._id),
+          loadItemsPointSaleTributeSummary(1),
+        ])
+        store.commit('pointSale/DESACTIVE_LOADING')
         clearStatePointSaleDetail()
       } else {
         store.commit('pointSale/ACTIVE_LOADING')
@@ -122,12 +124,16 @@ export const addArticleToList = async newArticle => {
         store.commit('pointSale/DESACTIVE_LOADING')
         recoverFocusInputSearchProduct()
         if (!statusPointSaleDetail || !dataPointSaleDetail) return false
-        newArticle._id = dataPointSaleDetail.id
-        listPointSaleDetail.value.rows = [newArticle, ...listPointSaleDetail.value.rows]
+        store.commit('pointSale/ACTIVE_LOADING')
+        await Promise.all([
+          loadItemsPointSaleDetail(1),
+          getPointSaleById(statePointSale.value._id),
+          loadItemsPointSaleTributeSummary(1),
+        ])
+        store.commit('pointSale/DESACTIVE_LOADING')
         clearStatePointSaleDetail()
       }
     }
-    calculateTotal()
     recoverFocusInputSearchProduct()
     return true
   }
@@ -138,7 +144,6 @@ export const addArticleToList = async newArticle => {
 // Función para actualizar la cantidad de un articulo de lista, recibira como parametro la opracion - +
 export const updateQuantity = async (operation, _id, quantity) => {
   const articleExists = listPointSaleDetail.value.rows.find(article => article.idArticulo === _id)
-  const articleExistsIndex = listPointSaleDetail.value.rows.findIndex(article => article.idArticulo === _id)
   if (articleExists) {
     statePointSaleDetail.value = { ...articleExists }
     statePointSaleDetail.value._id = articleExists._id
@@ -161,9 +166,14 @@ export const updateQuantity = async (operation, _id, quantity) => {
     const { status, data } = await sendPointSaleDetail(ACTION_UPDATE)
     store.commit('pointSale/DESACTIVE_LOADING')
     if (!status || !data) return false
-    listPointSaleDetail.value.rows.splice(articleExistsIndex, 1, { ...articleExists, cantidad: statePointSaleDetail.value.cantidad })
+    store.commit('pointSale/ACTIVE_LOADING')
+    await Promise.all([
+      loadItemsPointSaleDetail(1),
+      getPointSaleById(statePointSale.value._id),
+      loadItemsPointSaleTributeSummary(1),
+    ])
+    store.commit('pointSale/DESACTIVE_LOADING')
     clearStatePointSaleDetail()
-    calculateTotal()
     return true
   }
   return true
@@ -174,30 +184,31 @@ export const removeArticle = async _id => {
   const result = await confirmSwal('Artículo', null, '¿Desea eliminar el Artículo de la lista?', 'Si, elimínalo')
   if (result) {
     const articleExists = listPointSaleDetail.value.rows.find(article => article.idArticulo === _id)
-    const articleExistsIndex = listPointSaleDetail.value.rows.findIndex(article => article.idArticulo === _id)
     store.commit('pointSale/ACTIVE_LOADING')
     const { status, data } = await sendPointSaleDetail(ACTION_DELETE, articleExists._id)
     store.commit('pointSale/DESACTIVE_LOADING')
     if (!status || !data) return false
-    listPointSaleDetail.value.rows.splice(articleExistsIndex, 1)
+    store.commit('pointSale/ACTIVE_LOADING')
+    await Promise.all([
+      loadItemsPointSaleDetail(1),
+      getPointSaleById(statePointSale.value._id),
+      loadItemsPointSaleTributeSummary(1),
+    ])
+    store.commit('pointSale/DESACTIVE_LOADING')
     clearStateProductSelected()
-    calculateTotal()
     return true
   }
-  calculateTotal()
   return false
 }
 
 // Función para buscar un Artículo por un valor
 export const searchArticle = async () => {
   if (searchProductById.value.trim().length !== 0) {
-    // store.commit('pointSale/CHANGE_LOADING_PRODUCT_LIST', true)
     serverQueryArticlePointSale.value.campofiltro = stateFieldFilterArticle.value
     serverQueryArticlePointSale.value.filtro = searchProductById.value
     store.commit('pointSale/ACTIVE_LOADING')
     const { data, error } = await getRequest('/articulos', 'Buscando Artículo', serverQueryArticlePointSale.value)
     store.commit('pointSale/DESACTIVE_LOADING')
-    // store.commit('pointSale/CHANGE_LOADING_PRODUCT_LIST', false)
     if (error || !data) return false
     if (data.length !== 1) {
       return messageToast('warning', 'Artículo Buscado', 'No se encontró ningun artículo')

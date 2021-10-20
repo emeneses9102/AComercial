@@ -16,20 +16,20 @@
       </div>
       <div class="product-item-left">
         <p class="product-item__name">
-          {{ nombre }}
+          {{ nombre }} - # {{ codigo }}
         </p>
         <div class="product-item__info mt-75">
-          <div class="product-item__info__column product-item__codes">
-            <span class="d-block product-item__code">Código: {{ codigo || '##########' }}</span>
-            <span class="d-block product-item__sku mt-25">SKU: {{ sku || '##########' }}</span>
-          </div>
           <div class="product-item__info__column mr-1">
             <span class="d-block product-item__price">Precio S/. {{ precio.toFixed(2) }}</span>
             <span class="d-block product-item__quantity mt-25">Cantidad: {{ cantidad }}</span>
           </div>
+          <div class="product-item__info__column mr-1">
+            <span class="d-block product-item__subtotal">Sub Total: {{ subTotal.toFixed(2) }}</span>
+            <span class="d-block product-item__tribute mt-25">Tributo: {{ tributo.toFixed(2) }}</span>
+          </div>
           <div class="product-item__info__column">
-            <span class="d-block product-item__discount">Descuento: {{ descuento }}</span>
-            <span class="d-block product-item__subtotal mt-25">Sub Total: {{ (precio * cantidad).toFixed(2) }}</span>
+            <span class="d-block product-item__discount">Descuento: {{ descuento.toFixed(2) }}</span>
+            <span class="d-block product-item__total mt-25">Total: {{ total.toFixed(2) }}</span>
           </div>
         </div>
       </div>
@@ -76,14 +76,19 @@ export default {
     BImg,
   },
   props: {
-    imagen: {
-      type: String,
-      required: false,
-      default: '',
+    codigo: {
+      type: Number,
+      required: true,
+      default: 0,
     },
     nombre: {
       type: String,
       required: true,
+      default: '',
+    },
+    imagen: {
+      type: String,
+      required: false,
       default: '',
     },
     precio: {
@@ -96,21 +101,27 @@ export default {
       required: true,
       default: 0,
     },
-    codigo: {
+    subTotal: {
       type: Number,
       required: true,
       default: 0,
     },
-    sku: {
-      type: String,
-      required: false,
-      default: '',
+    total: {
+      type: Number,
+      required: true,
+      default: 0,
     },
     descuento: {
       type: Number,
       required: false,
       default: 0,
     },
+    tributo: {
+      type: Number,
+      required: true,
+      default: 0,
+    },
+
   },
   setup(props) {
     const selectedItem = () => {

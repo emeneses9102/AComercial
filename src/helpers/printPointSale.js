@@ -4,7 +4,7 @@ import store from '@/store'
 
 // Función para generar un pdf con tamaño ticket con los datos de la venta
 
-export const generateContentTicketHTMLPointSale = (pointSale, pointSaleDetail = [], cliente) => {
+export const generateContentTicketHTMLPointSale = (pointSale, pointSaleDetail = [], cliente, pointSaleTributeSummary = []) => {
   const style = `
     <style>
       *,
@@ -84,12 +84,16 @@ export const generateContentTicketHTMLPointSale = (pointSale, pointSaleDetail = 
       <td>${pointSale.nombreVendedor}</td>
     </tr>
     <tr>
-      <td class="thead-left">CLIENTE:</td>
-      <td>${cliente.nombres}</td>
+      <td class="thead-left">TIPO DOC:</td>
+      <td>${cliente.numeroRuc ? 'RUC' : cliente.nombreDocumento}</td>
     </tr>
     <tr>
       <td class="thead-left">N° DOC:</td>
-      <td>${cliente.numeroDocumento}</td>
+      <td>${cliente.numeroRuc || cliente.numeroDocumento}</td>
+    </tr>
+    <tr>
+      <td class="thead-left">${cliente.numeroRuc ? 'RAZON SOCIAL' : 'CLIENTE:'}</td>
+      <td>${cliente.numeroRuc ? cliente.razonSocial : cliente.nombres}</td>
     </tr>
     <tr>
       <td class="thead-left">DIRECCIÓN:</td>
@@ -126,7 +130,7 @@ export const generateContentTicketHTMLPointSale = (pointSale, pointSaleDetail = 
     <td>${detail.idArticulo}</td>
     <td>${detail.nombreArticulo}</td>
     <td style="text-align: center;">${detail.cantidad}</td>
-    <td style="text-align: right;">${detail.precio || '0.00'}</td>
+    <td style="text-align: right;">${detail.total || '0.00'}</td>
   </tr>`
   })
 
@@ -143,18 +147,26 @@ export const generateContentTicketHTMLPointSale = (pointSale, pointSaleDetail = 
         <col>
         <col>
         <col>
-      </colgroup>  
+      </colgroup>
       <tr>
+        <td colspan="3">SUB TOTAL</td>
+        <td style="text-align: right;">${(pointSale.subTotal).toFixed(2)}</td>
+      </tr>`
+
+  pointSaleTributeSummary.forEach(({ tributo, monto }) => {
+    tbody += `<tr>
+          <td colspan="3">${tributo}</td>
+          <td style="text-align: right;">${(monto).toFixed(2)}</td>
+        </tr>`
+  })
+
+  tbody += `<tr>
         <td colspan="3">PAGO CON</td>
         <td style="text-align: right;">${(pointSale.totalPagado).toFixed(2)}</td>
       </tr>
       <tr>
         <td colspan="3">VUELTO</td>
         <td style="text-align: right;">${(pointSale.vuelto).toFixed(2)}</td>
-      </tr>
-      <tr>
-        <td colspan="3">IMPUESTOS</td>
-        <td style="text-align: right;">${(pointSale.total - pointSale.subTotal).toFixed(2)}</td>
       </tr>
     </table>
     <p class="line">=============================================</p>

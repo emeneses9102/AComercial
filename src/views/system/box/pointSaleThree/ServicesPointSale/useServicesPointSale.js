@@ -5,6 +5,7 @@ import store from '@/store'
 // Importar funciones y variables necesarias para crear los servicios del mantenimiento Almacén
 import { endPointsCombo, loadCombos, resetCombos } from '@/helpers/combos'
 import {
+  getDataById,
   sendForm,
 } from '@/helpers/manageTables'
 import { messageToast } from '@/helpers/messageExtensions'
@@ -19,6 +20,17 @@ import {
   titleNotificationPointSale,
   clearStatePointSale,
 } from './useVariablesPointSale'
+
+// Función para obtener un recurso por _id desde la Api y almacenarlo en la variable statePointSale
+export const getPointSaleById = async _id => {
+  const { data, status } = await getDataById(urlApiPointSale, _id, titleNotificationPointSale)
+  if (status && data) {
+    statePointSale.value.subTotal = data.subTotal
+    statePointSale.value.total = data.total
+    statePointSale.value.totalPagado = data.totalPagado
+    statePointSale.value.vuelto = data.vuelto
+  }
+}
 
 // Función para gestionar un Almacén
 export const sendPointSale = async (action, _id = null) => {

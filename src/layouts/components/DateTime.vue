@@ -1,5 +1,5 @@
 <template>
-  <div class="d-flex flex-column ml-75 navbar__datetime">
+  <div class="d-flex flex-column navbar__datetime">
     <span>{{ date }}</span>
     <span class="navbar__time">{{ time }}</span>
   </div>

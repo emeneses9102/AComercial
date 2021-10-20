@@ -8,15 +8,15 @@
       </p>
     </div>
     <div class="card__group client-number-document">
-      <label class="card__label">N° Documento :</label>
+      <label class="card__label">{{ stateClient.numeroRuc ? 'RUC :' : 'N° Documento :' }}</label>
       <p class="card__input">
-        {{ stateClient.numeroDocumento }}
+        {{ stateClient.numeroRuc || stateClient.numeroDocumento }}
       </p>
     </div>
     <div class="card__group client-name">
-      <label class="card__label">Nombres :</label>
+      <label class="card__label">{{ stateClient.numeroRuc ? 'Razón Social :' : 'Nombres :' }}</label>
       <p class="card__input">
-        {{ stateClient.nombres }}
+        {{ stateClient.numeroRuc ? stateClient.razonSocial : stateClient.nombres }}
       </p>
     </div>
     <div class="card__group client-address">
@@ -104,6 +104,9 @@ export default {
       apellidoPaterno,
       apellidoMaterno,
       nombres,
+      numeroRuc,
+      razonSocial,
+      nombreUbigeo,
       direccion,
       telefono,
       correo,
@@ -115,6 +118,9 @@ export default {
       if (nombreDocumento) stateClient.value.nombreDocumento = nombreDocumento
       if (numeroDocumento) stateClient.value.numeroDocumento = numeroDocumento
       if (apellidoPaterno || apellidoMaterno || nombres) stateClient.value.nombres = `${apellidoPaterno} ${apellidoMaterno} ${nombres}`
+      if (numeroRuc) stateClient.value.numeroRuc = numeroRuc
+      if (razonSocial) stateClient.value.razonSocial = razonSocial
+      if (nombreUbigeo) stateClient.value.nombreUbigeo = nombreUbigeo
       if (direccion) stateClient.value.direccion = direccion
       if (telefono) stateClient.value.telefono = telefono
       if (correo) stateClient.value.correo = correo

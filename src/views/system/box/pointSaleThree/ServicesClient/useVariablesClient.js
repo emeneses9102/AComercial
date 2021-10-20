@@ -10,6 +10,9 @@ const initialStateClient = {
   direccion: '-----------',
   telefono: '-----------',
   correo: '-----------',
+  numeroRuc: '',
+  razonSocial: '',
+  nombreUbigeo: '',
 }
 
 // Variable reactiva para almacenar los datos del cliente seleccionado

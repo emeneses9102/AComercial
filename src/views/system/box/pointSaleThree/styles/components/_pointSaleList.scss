@@ -225,7 +225,9 @@
       &__price,
       &__quantity,
       &__subtotal,
+      &__tribute,
       &__discount,
+      &__total,
       &__codes {
         color: $li-product-color;
     
@@ -278,7 +280,9 @@
       &__price,
       &__quantity,
       &__subtotal,
-      &__discount {
+      &__tribute,
+      &__discount,
+      &__total {
         
         font-weight: var(--li-product-text-font-weight);
         font-size: var(--li-product-text-font-size);
@@ -290,6 +294,7 @@
 
       }
     
+      &__total,
       &__subtotal {
         font-weight: 900;
       }
