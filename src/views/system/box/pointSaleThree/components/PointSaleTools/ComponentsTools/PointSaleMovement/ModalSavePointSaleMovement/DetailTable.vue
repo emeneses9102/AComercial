@@ -16,6 +16,7 @@
       :manage-row="sendPointSaleMovement"
       :pagination-enabled="!!statePointSale._id"
       :validate-options-by-route="false"
+      :option-status="false"
       :option-show="false"
       :option-edit="false"
     />

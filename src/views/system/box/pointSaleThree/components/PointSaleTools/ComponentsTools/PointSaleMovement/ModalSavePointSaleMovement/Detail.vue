@@ -88,7 +88,7 @@
               <validation-provider
                 #default="{ errors }"
                 name="Pagado"
-                rules="required|min_value:1"
+                rules="required|min_value:0.01"
               >
                 <b-form-input
                   id="point-sale-movement-pagado"
