@@ -43,7 +43,9 @@ import {
 } from './useVariablesPointSale'
 import { listPointSaleDetail, serverQueryPointSaleDetail } from './useVariablesPointSaleDetail'
 import { loadItemsPointSaleDetail } from './useServicesPointSaleDetail'
+import { loadItemsPointSaleTributeSummary } from './useServicesPointSaleTributeSummary'
 import { getPointSaleById, loadItemsPointSale } from './useServicesPointSale'
+import { listPointSaleTributeSummary } from './useVariablesPointSaleTributeSummary'
 
 export default {
   name: 'ModalQueryPointSale',
@@ -88,13 +90,17 @@ export default {
     const rowSelected = async row => {
       statePointSale.value = { ...statePointSale.value, ...row }
       dataTablePointSale.value.loading = true
-      await getPointSaleById(row._id)
       serverQueryPointSaleDetail.value.indice = row._id
-      await loadItemsPointSaleDetail()
+      await Promise.all([
+        getPointSaleById(row._id),
+        loadItemsPointSaleDetail(1),
+        loadItemsPointSaleTributeSummary(1),
+      ])
       dataTablePointSale.value.loading = false
       context.emit('on-point-sale-selected', {
         pointSale: statePointSale.value,
         listPointSaleDetail: listPointSaleDetail.value.rows,
+        listPointSaleTributeSummary: listPointSaleTributeSummary.value.rows,
       })
       context.root.$bvModal.hide(MODAL_ID)
     }

@@ -61,6 +61,7 @@
       <modal-options-vendor />
       <modal-options-voucher />
       <modal-save-point-sale-movement />
+      <modal-show-point-sale-movement />
       <modal-query-point-sale
         server-query-filtro-fecha="a.fecha"
         :server-query-finicio="`${formatDateBySeparator()}`"
@@ -69,6 +70,7 @@
         @on-point-sale-selected="pointSaleSelected"
       />
       <modal-payment />
+      <modal-point-sale-tribute-detail />
       <!-- Botón para seleccionar un vendedor -->
       <button-component
         :variant="statePointSale.idVendedor ? 'success': 'warning'"
@@ -150,6 +152,20 @@
         :method-function="printTicket"
         :disabled="!!!boxSession._id || !!statePointSale.anulado || (!!!statePointSale.cerrado && !!!statePointSale.cancelado)"
       />
+      <!-- Botón para Consultar Tributos -->
+      <button-component
+        icon-button="InfoIcon"
+        icon-size="24"
+        :method-function="()=>$bvModal.show('modal-point-sale-tribute-detail')"
+        :disabled="!!!boxSession._id && !!!listPointSaleDetail.rows"
+      />
+      <!-- Botón para Consultar los Pagos -->
+      <button-component
+        icon-button="DollarSignIcon"
+        icon-size="18"
+        :method-function="()=>openModalPointSaleMovement('SHOW')"
+        :disabled="!!!boxSession._id || !!!listPointSaleDetail.rows.length"
+      />
       <!-- Limpiar Operación -->
       <button-component
         icon-button="DeleteIcon"
@@ -230,14 +246,17 @@ import ModalOptionsVendor from './ComponentsTools/ModalOptionsVendor/ModalOption
 import ModalOptionsVoucher from './ComponentsTools/ModalOptionsVoucher/ModalOptionsVoucher.vue'
 import ModalPayment from './ComponentsTools/ModalPayment/ModalPayment.vue'
 import ModalSavePointSaleMovement from './ComponentsTools/PointSaleMovement/ModalSavePointSaleMovement/ModalSavePointSaleMovement.vue'
+import ModalShowPointSaleMovement from './ComponentsTools/PointSaleMovement/ModalShowPointSaleMovement/ModalShowPointSaleMovement.vue'
+import ModalPointSaleTributeDetail from './ComponentsTools/ModalPointSaleTributeDetail/ModalPointSaleTributeDetail.vue'
 import { clearViewPointSale, sendPointSale } from '../../ServicesPointSale/useServicesPointSale'
 import {
   clearListPointSaleDetail, clearStatePointSaleDetail, listPointSaleDetail,
 } from '../../ServicesPointSaleDetail/useVariablesPointSaleDetail'
 import { clearStateClient, stateClient } from '../../ServicesClient/useVariablesClient'
 import { combosVoucher } from './ComponentsTools/ModalOptionsVoucher/useVariablesVoucher'
-import { clearStatePointSaleMovement, serverQueryPointSaleMovement } from '../../ServicesPointSaleMovement/useVariablesPointSaleMovement'
+import { clearDataTablePointSaleMovement, clearStatePointSaleMovement, serverQueryPointSaleMovement } from '../../ServicesPointSaleMovement/useVariablesPointSaleMovement'
 import { loadItemsPointSaleMovement } from '../../ServicesPointSaleMovement/useServicesPointSaleMovement'
+import { listPointSaleTributeSummary } from '../../ServicesPointSaleTributeSummary/useVariablesPointSaleTributeSummary'
 
 export default {
   name: 'PointSaleTools',
@@ -252,6 +271,8 @@ export default {
     ModalOptionsVoucher,
     ModalPayment,
     ModalSavePointSaleMovement,
+    ModalShowPointSaleMovement,
+    ModalPointSaleTributeDetail,
     ButtonComponent,
   },
   computed: {
@@ -276,7 +297,7 @@ export default {
       }
     }
 
-    const pointSaleSelected = async ({ pointSale, listPointSaleDetail: list }) => {
+    const pointSaleSelected = async ({ pointSale, listPointSaleDetail: list, listPointSaleTributeSummary: listTributeSummary }) => {
       store.commit('pointSale/ACTIVE_LOADING')
       statePointSale.value._id = pointSale._id
       statePointSale.value.fecha = formatDateBySeparator(pointSale.fecha, '-')
@@ -285,8 +306,6 @@ export default {
       statePointSale.value.idFormaPago = pointSale.idFormaPago
       statePointSale.value.idComprobante = pointSale.idComprobante
       statePointSale.value.idCorrelativo = pointSale.idCorrelativo
-      statePointSale.value.serie = pointSale.serie
-      statePointSale.value.numero = pointSale.numero
       statePointSale.value.idSocio = pointSale.idSocio
       statePointSale.value.idMoneda = pointSale.idMoneda
       statePointSale.value.vencimiento = formatDateBySeparator(pointSale.vencimiento)
@@ -305,8 +324,9 @@ export default {
       statePointSale.value.idCancela = pointSale.idCancela
       statePointSale.value.cerrado = pointSale.cerrado
       listPointSaleDetail.value.rows = [...list]
+      listPointSaleTributeSummary.value.rows = [...listTributeSummary]
       resetCombos(combosVoucher, ['correlative'])
-      loadCombos(combosVoucher, ['correlative'], `${endPointsCombo.correlativoSesionCaja}/1/${store.state.boxSession.boxSession._id}/${statePointSale.value.idComprobante}`, 'Correlativos')
+      loadCombos(combosVoucher, ['correlative'], `${endPointsCombo.correlativoPuntoVenta}/1/${store.state.boxSession.boxSession._id}/${statePointSale.value.idComprobante}`, 'Correlativos')
       const { data, error } = await getRequest(`/socio/?_id=0&tabla=socios&pinicio=1&pfin=1&campo=a.id&indice=${pointSale.idSocio}`)
       store.commit('pointSale/DESACTIVE_LOADING')
       if (error || !data) return false
@@ -314,6 +334,9 @@ export default {
       stateClient.value.nombreDocumento = data[0].nombreDocumento
       stateClient.value.numeroDocumento = data[0].numeroDocumento
       stateClient.value.nombres = data[0].nombres
+      stateClient.value.numeroRuc = data[0].numeroRuc
+      stateClient.value.razonSocial = data[0].razonSocial
+      stateClient.value.nombreUbigeo = data[0].nombreUbigeo
       stateClient.value.direccion = data[0].direccion
       stateClient.value.telefono = data[0].telefono
       stateClient.value.correo = data[0].correo
@@ -330,11 +353,13 @@ export default {
       return true
     }
 
-    const openModalPointSaleMovement = () => {
+    const openModalPointSaleMovement = (openModalFor = 'REGISTER') => {
       clearStatePointSaleMovement()
+      clearDataTablePointSaleMovement()
       serverQueryPointSaleMovement.value.indice = statePointSale.value._id
       loadItemsPointSaleMovement(1)
-      context.root.$bvModal.show('modal-point-sale-movement')
+      if (openModalFor === 'REGISTER') context.root.$bvModal.show('modal-point-sale-movement')
+      else context.root.$bvModal.show('modal-point-sale-movement-show')
     }
 
     const dispatchOperation = () => {
@@ -377,7 +402,7 @@ export default {
       $iframe.style.height = 0
       $iframe.style.margin = 0
       $body.append($iframe)
-      $iframe.contentWindow.document.documentElement.querySelector('body').innerHTML = generateContentTicketHTMLPointSale(statePointSale.value, listPointSaleDetail.value.rows, stateClient.value)
+      $iframe.contentWindow.document.documentElement.querySelector('body').innerHTML = generateContentTicketHTMLPointSale(statePointSale.value, listPointSaleDetail.value.rows, stateClient.value, listPointSaleTributeSummary.value.rows)
       window.frames.myIframe.focus()
       window.frames.myIframe.print()
     }

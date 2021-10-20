@@ -58,7 +58,10 @@
             :imagen="product.imagenArticulo"
             :precio="product.precio"
             :cantidad="product.cantidad"
+            :sub-total="product.subTotal"
             :descuento="product.descuento"
+            :tributo="product.tributo"
+            :total="product.total"
           />
         </vue-perfect-scrollbar>
       </div>

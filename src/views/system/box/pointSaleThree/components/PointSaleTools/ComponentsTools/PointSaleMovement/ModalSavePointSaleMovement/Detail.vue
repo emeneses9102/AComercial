@@ -140,6 +140,8 @@ import {
   statePointSaleMovement, clearStatePointSaleMovement, combosPointSaleMovement,
 } from '../../../../../ServicesPointSaleMovement/useVariablesPointSaleMovement'
 import { loadItemsPointSaleMovement, sendPointSaleMovement } from '../../../../../ServicesPointSaleMovement/useServicesPointSaleMovement'
+import { getPointSaleById } from '../../../../../ServicesPointSale/useServicesPointSale'
+import { statePointSale } from '../../../../../ServicesPointSale/useVariablesPointSale'
 
 export default {
   name: 'Detail',
@@ -168,6 +170,7 @@ export default {
       clearStatePointSaleMovement()
       context.refs['validation-point-sale-movement'].reset()
       loadItemsPointSaleMovement(1)
+      getPointSaleById(statePointSale.value._id)
     }
 
     return {

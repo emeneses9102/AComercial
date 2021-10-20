@@ -28,6 +28,10 @@
           :method-function="()=>$router.push({name: routesName.inicio})"
           block
         />
+        <date-time
+          v-if="$route.name === routesName.puntoVenta"
+          class="ml-1"
+        />
         <!-- <state-point-sale
           v-if="$route.name === routesName.puntoVenta"
           class="ml-1"
@@ -113,8 +117,8 @@ import ModalChangePassword from '@/components/ModalChangePassword/ModalChangePas
 import ButtonComponent from '@/components/ButtonComponent/ButtonComponent.vue'
 import { mapState } from 'vuex'
 import FullScreen from './FullScreen.vue'
+import DateTime from './DateTime.vue'
 // import StatePointSale from './StatePointSale.vue'
-// import DateTime from './DateTime.vue'
 
 export default {
   components: {
@@ -129,7 +133,7 @@ export default {
     DarkToggler,
     FullScreen,
     // StatePointSale,
-    // DateTime,
+    DateTime,
     ModalChangePassword,
     ButtonComponent,
   },

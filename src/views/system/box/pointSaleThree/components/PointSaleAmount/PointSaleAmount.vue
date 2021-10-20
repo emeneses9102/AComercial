@@ -5,6 +5,13 @@
         <th>Subtotal</th>
         <th>{{ statePointSale.subTotal.toFixed(2) }}</th>
       </tr>
+      <tr
+        v-for="tribute in listPointSaleTributeSummary.rows"
+        :key="tribute._id"
+      >
+        <th>{{ tribute.tributo }}</th>
+        <th>{{ tribute.monto.toFixed(2) }}</th>
+      </tr>
       <tr>
         <th>Total</th>
         <th>{{ statePointSale.total.toFixed(2) }}</th>
@@ -28,6 +35,9 @@ import {
 import {
   statePointSale,
 } from '../../ServicesPointSale/useVariablesPointSale'
+import {
+  listPointSaleTributeSummary,
+} from '../../ServicesPointSaleTributeSummary/useVariablesPointSaleTributeSummary'
 
 export default {
   name: 'PointSaleAmount',
@@ -37,6 +47,7 @@ export default {
   setup() {
     return {
       statePointSale,
+      listPointSaleTributeSummary,
     }
   },
 }

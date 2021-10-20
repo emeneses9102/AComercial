@@ -110,7 +110,8 @@ export default {
     })
 
     const voucherSelected = () => {
-      loadCombos(combosVoucher, ['correlative'], `${endPointsCombo.correlativoSesionCaja}/1/${store.state.boxSession.boxSession._id}/${statePointSale.value.idComprobante}`, 'Correlativo')
+      statePointSale.value.idCorrelativo = 0
+      loadCombos(combosVoucher, ['correlative'], `${endPointsCombo.correlativoPuntoVenta}/1/${store.state.boxSession.boxSession._id}/${statePointSale.value.idComprobante}`, 'Correlativo')
     }
 
     return {
