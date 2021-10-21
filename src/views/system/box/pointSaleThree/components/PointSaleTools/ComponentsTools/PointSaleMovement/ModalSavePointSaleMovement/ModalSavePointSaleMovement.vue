@@ -22,6 +22,7 @@
         variant="primary"
         icon-button="DollarSignIcon"
         text-default="Pagar"
+        :loading="statePointSale.loading"
         :method-function="()=>finishedOperation()"
       />
     </template>
@@ -65,14 +66,12 @@ export default {
     const finishedOperation = async () => {
       if (!dataTablePointSaleMovement.value.rows.length) {
         messageToast('warning', 'Punto de Venta', 'La tabla esta vacía')
-      // } else if ((statePointSale.value.totalPagado - statePointSale.value.vuelto) < statePointSale.value.total) {
-      //   messageToast('warning', 'Punto de Venta', 'Debe ingresar el monto a pagar')
       } else {
         statePointSale.value.loading = true
         store.commit('pointSale/ACTIVE_LOADING')
         await sendPointSale(ACTION_POINT_SALE_PAY)
         store.commit('pointSale/DESACTIVE_LOADING')
-        context.root.$bvModal.hide('modal-pointsale-payment')
+        context.root.$bvModal.hide('modal-point-sale-movement')
         statePointSale.value.cancelado = 1
         statePointSale.value.loading = false
       }
