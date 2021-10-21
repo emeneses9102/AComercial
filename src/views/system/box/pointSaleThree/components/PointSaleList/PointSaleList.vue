@@ -1,11 +1,5 @@
 <template>
-  <b-overlay
-    :show="loadingProductList"
-    variant="transparent"
-    :opacity="0.85"
-    blur="2px"
-    rounded="md"
-  >
+  <Fragment>
     <b-card class="h-100">
       <div class="d-flex justify-content-between align-items-center mb-75">
         <b-input-group>
@@ -66,12 +60,14 @@
         </vue-perfect-scrollbar>
       </div>
     </b-card>
-  </b-overlay>
+    <point-sale-amount
+      class="detail-amount"
+    />
+  </Fragment>
 </template>
 
 <script>
 import {
-  BOverlay,
   BCard,
   BInputGroup,
   BInputGroupAppend,
@@ -79,6 +75,7 @@ import {
   BInputGroupPrepend,
 } from 'bootstrap-vue'
 import VuePerfectScrollbar from 'vue-perfect-scrollbar'
+import { Fragment } from 'vue-fragment'
 import {
   computed,
 } from '@vue/composition-api'
@@ -88,6 +85,7 @@ import {
 import ModalQueryArticle from '@/components/ModalQueryArticle/ModalQueryArticle.vue'
 import ButtonComponent from '@/components/ButtonComponent/ButtonComponent.vue'
 import PointSaleListItem from './PointSaleListItem.vue'
+import PointSaleAmount from '../PointSaleAmount/PointSaleAmount.vue'
 import ModalOptionsFilterArticle from './ModalOptionsFilterArticle.vue'
 import {
   searchProductById,
@@ -106,7 +104,7 @@ import {
 export default {
   name: 'PointSaleList',
   components: {
-    BOverlay,
+    Fragment,
     BCard,
     BInputGroup,
     BInputGroupAppend,
@@ -114,6 +112,7 @@ export default {
     BInputGroupPrepend,
     VuePerfectScrollbar,
     PointSaleListItem,
+    PointSaleAmount,
     ModalQueryArticle,
     ButtonComponent,
     ModalOptionsFilterArticle,
@@ -134,7 +133,7 @@ export default {
       statePointSaleDetail.value.idArticulo = _id
       statePointSaleDetail.value.cantidad = 1
       statePointSaleDetail.value.nombreArticulo = nombre
-      statePointSaleDetail.value.imagenArticulo = imagen
+      statePointSaleDetail.value.imagenArticulo = imagen || ''
       statePointSaleDetail.value.precio = precioVenta
       statePointSaleDetail.value.descuento = descuento
       addArticleToList(statePointSaleDetail.value)
@@ -162,7 +161,12 @@ export default {
 <style lang="scss">
 .pointsale .scroll-area {
   position: relative;
-  max-height: calc(100vh - 19rem);
+  max-height: calc(100vh - 29rem);
   padding: .4em;
+}
+@media screen and (min-width: 1000px) {
+  .pointsale .scroll-area {
+    max-height: calc(100vh - 19rem);
+  }
 }
 </style>

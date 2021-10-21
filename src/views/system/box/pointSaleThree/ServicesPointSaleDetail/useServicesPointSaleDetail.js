@@ -1,5 +1,6 @@
 /* eslint no-param-reassign: ["error", { "props": false }] */
 
+import { ref } from '@vue/composition-api'
 import store from '@/store'
 import {
   confirmSwal, messageToast,
@@ -61,9 +62,16 @@ export const getPointSaleDetailById = async _id => {
 
 // Función para gestionar un Detalle Punto de Venta
 export const sendPointSaleDetail = async (action, _id = null) => {
+  const statePointSaleDetailFinal = ref({
+    _id: statePointSaleDetail.value._id,
+    idPuntoVenta: statePointSale.value._id,
+    idArticulo: statePointSaleDetail.value.idArticulo,
+    cantidad: statePointSaleDetail.value.cantidad,
+    accion: 0,
+  })
   statePointSaleDetail.value.idPuntoVenta = statePointSale.value._id
   if (action === ACTION_REGISTER || action === ACTION_UPDATE) statePointSaleDetail.value.loading = true
-  const response = await sendForm(statePointSaleDetail, urlApiPointSaleDetail, titleNotificationPointSaleDetail, action, _id)
+  const response = await sendForm(statePointSaleDetailFinal, urlApiPointSaleDetail, titleNotificationPointSaleDetail, action, _id)
   if (action === ACTION_REGISTER || action === ACTION_UPDATE) statePointSaleDetail.value.loading = false
   return response
 }

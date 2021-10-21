@@ -44,6 +44,6 @@ export default {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 .navbar__time {
-  font-size: 1.5rem;
+  font-size: 1.25rem;
 }
 </style>
