@@ -23,7 +23,7 @@
       </div>
       <div class="pointsale-plus">
         <point-sale-tools class="pointsale-tools" />
-        <point-sale-amount />
+        <point-sale-amount class="pointsale-amount" />
       </div>
     </div>
   </b-overlay>

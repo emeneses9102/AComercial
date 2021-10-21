@@ -20,7 +20,7 @@
         </p>
         <div class="product-item__info mt-75">
           <div class="product-item__info__column mr-1">
-            <span class="d-block product-item__price">Precio S/. {{ precio.toFixed(2) }}</span>
+            <span class="d-block product-item__price">Precio: {{ precio.toFixed(2) }}</span>
             <span class="d-block product-item__quantity mt-25">Cantidad: {{ cantidad }}</span>
           </div>
           <div class="product-item__info__column mr-1">

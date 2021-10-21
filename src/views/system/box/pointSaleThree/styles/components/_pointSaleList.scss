@@ -157,7 +157,18 @@
 
 .pointsale {
   & &-list {
-    grid-template-columns: 1fr;   
+    grid-template-columns: 1fr;
+    grid-template-rows: 1fr auto;
+    
+    @media screen and (min-width: 1000px) {
+      grid-template-rows: auto;
+    }
+
+    & .detail-amount {
+      @media screen and (min-width: 1000px) {
+        display: none;
+      }
+    }
 
     &__input-code {
       background-color: $search-product-background;
@@ -242,8 +253,11 @@
         height: 70px;
         width: 70px;
         
-        @include min-mq('mobile-landscape') {
+        @media screen and (min-width: 1000px) {
           display: block;
+        }
+
+        @include min-mq('mobile-landscape') {
           margin-right: 1em;
         }
         @include min-mq('tablet-landscape') {

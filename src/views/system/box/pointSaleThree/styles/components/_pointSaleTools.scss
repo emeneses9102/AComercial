@@ -6,15 +6,28 @@
     
     .card-body {
       padding: .5em .025em !important;
+      display: grid;
     }
     
     &__text-status {
       font-size: .9rem;
     }
 
+    &__actions {
+      @media screen and (max-width: 999px) {
+        margin-top: auto !important;
+        align-content: end;
+      }
+    }
+
     &__buttons {
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
+      
+      @media screen and (orientation: portrait) {
+        grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+      }
+
       
       button {
         font-size: 1rem;
@@ -73,8 +86,20 @@
     &__operations {
       display: grid;
       grid-template-columns: 1fr 1fr;
+
+      @media screen and (orientation: portrait) {
+        grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      }
     }
 
+  }
+}
+
+.pointsale-amount {
+  display: none;
+  
+  @media screen and (min-width: 1000px) {
+    display: block;
   }
 }
 
@@ -103,8 +128,11 @@
     font-size: .8rem;
     
     @include min-mq('mobile-landscape'){
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: 1fr;
     }
+    // @include min-mq('mobile-landscape'){
+    //   grid-template-columns: 1fr 1fr;
+    // }
     
     @include min-mq('tablet') {
       grid-template-columns: 1fr;

@@ -24,8 +24,9 @@
 
   & &-client {
     .client-id,
-    .client-number-document,
-    .client-phone {
+    .client-phone,
+    .client-address,
+    .client-email {
       display: none;
       margin-bottom: 0;
       
