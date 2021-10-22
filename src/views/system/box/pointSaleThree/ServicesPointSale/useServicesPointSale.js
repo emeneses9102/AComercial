@@ -20,6 +20,9 @@ import {
   titleNotificationPointSale,
   clearStatePointSale,
 } from './useVariablesPointSale'
+import {
+  clearListPointSaleTributeSummary,
+} from '../ServicesPointSaleTributeSummary/useVariablesPointSaleTributeSummary'
 
 // Función para obtener un recurso por _id desde la Api y almacenarlo en la variable statePointSale
 export const getPointSaleById = async _id => {
@@ -43,17 +46,19 @@ const verifyBoxSessionActive = async () => {
   const response = await getBoxSessionByIdCollaborator(store.state.authentication.user.idColaborador)
   store.commit('pointSale/DESACTIVE_LOADING')
   if (response) {
+    store.commit('pointSale/ACTIVE_LOADING')
     const responseCurrency = await getCurrencyLocal()
     if (responseCurrency) {
       store.dispatch('boxSession/login', { ...response, idMoneda: responseCurrency._id })
     } else {
       store.dispatch('boxSession/login', { ...response, idMoneda: 0 })
     }
-    setTimeout(() => {
+    setTimeout(async () => {
       statePointSale.value.idSesionCaja = store.state.boxSession.boxSession._id
       statePointSale.value.idVendedor = store.state.boxSession.boxSession.idCajero
       statePointSale.value.idMoneda = store.state.boxSession.boxSession.idMoneda
-      loadCombos(combosVoucher, ['voucher'], `${endPointsCombo.comprobantePuntoVenta}/1/${store.state.boxSession.boxSession._id}/0`, 'Comprobante')
+      await loadCombos(combosVoucher, ['voucher'], `${endPointsCombo.comprobantePuntoVenta}/1/${store.state.boxSession.boxSession._id}/0`, 'Comprobante')
+      store.commit('pointSale/DESACTIVE_LOADING')
     }, 10)
   } else {
     messageToast('danger', 'Sesión Caja', 'No tienes una sesión aperturada')
@@ -67,6 +72,7 @@ export const clearViewPointSale = async () => {
   clearStatePointSale()
   clearStatePointSaleDetail()
   clearListPointSaleDetail()
+  clearListPointSaleTributeSummary()
   resetCombos(combosVoucher, ['voucher', 'correlative'])
   verifyBoxSessionActive()
 }

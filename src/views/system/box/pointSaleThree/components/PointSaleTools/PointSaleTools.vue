@@ -446,7 +446,7 @@ export default {
 .d-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: .25em;
+  gap: .5em;
 
   @media screen and (orientation: portrait) {
     grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
