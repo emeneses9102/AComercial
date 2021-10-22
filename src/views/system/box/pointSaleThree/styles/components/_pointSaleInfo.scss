@@ -35,5 +35,11 @@
         margin-bottom: 1.5em;
       }
     }
+
+    .client-id {
+      @include min-mq('tablet-landscape') {
+        display: block;
+      }
+    }
   }
 }
