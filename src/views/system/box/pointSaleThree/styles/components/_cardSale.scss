@@ -31,6 +31,7 @@
     
     &__input {
       font-size: var(--font-size-text) !important;
+      font-weight: 500;
       
       @media screen and (min-width: map-get($pointsale-media-query, pointsale-tablet-landscape)) {
         --font-size-text: 15px;

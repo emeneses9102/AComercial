@@ -22,15 +22,16 @@
 
     &__buttons {
       display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr;
       
       @media screen and (orientation: portrait) {
-        grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
       }
 
       
       button {
-        font-size: 1rem;
+        font-size: .9rem;
+        padding: .75em !important;
         // background-color: $bg-buttons !important;
         // border-color: darken($bg-buttons, 10) !important;
 
@@ -89,6 +90,10 @@
 
       @media screen and (orientation: portrait) {
         grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      }
+
+      button {
+        padding: .75em !important;
       }
     }
 

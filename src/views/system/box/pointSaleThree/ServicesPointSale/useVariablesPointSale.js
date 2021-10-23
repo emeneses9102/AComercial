@@ -149,3 +149,5 @@ export const optionsFiledFilterArticle = [
 export const urlApiPointSale = 'puntoventa'
 
 export const titleNotificationPointSale = 'Punto de Venta'
+
+export const tabIndexOptionsTools = ref(0)

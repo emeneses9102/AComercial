@@ -16,9 +16,11 @@ import { clearListPointSaleDetail, clearStatePointSaleDetail } from '../Services
 import { clearStateProductSelected } from '../ServicesProduct/useVariablesProduct'
 import {
   statePointSale,
+  keySelectedOfBoard,
   urlApiPointSale,
   titleNotificationPointSale,
   clearStatePointSale,
+  tabIndexOptionsTools,
 } from './useVariablesPointSale'
 import {
   clearListPointSaleTributeSummary,
@@ -71,6 +73,12 @@ const verifyBoxSessionActive = async () => {
 
 export const clearViewPointSale = async () => {
   store.dispatch('boxSession/logout')
+  store.commit('pointSale/TOGGLE_SHOW_PRODUCT_DETAIL', false)
+  if (!store.state.pointSale.showProductDetail) {
+    clearStateProductSelected()
+    keySelectedOfBoard.value = ''
+  }
+  tabIndexOptionsTools.value = 0
   clearStateClient()
   clearStateProductSelected()
   clearStatePointSale()
