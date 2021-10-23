@@ -57,161 +57,213 @@
       </div>
     </div>
     <div class="pointsale-tools__actions">
-      <div class="text-center pointsale-tools__buttons mt-1">
-        <modal-options-currency />
-        <modal-options-payment-method />
-        <modal-description-sale />
-        <modal-options-vendor />
-        <modal-options-voucher />
-        <modal-save-point-sale-movement />
-        <modal-show-point-sale-movement />
-        <modal-query-point-sale
-          server-query-filtro-fecha="a.fecha"
-          :server-query-finicio="`${formatDateBySeparator()}`"
-          :server-query-ffin="`${formatDateBySeparator()}`"
-          :server-query-opcional="`a.idSesionCaja=${$store.state.boxSession.boxSession._id}`"
-          @on-point-sale-selected="pointSaleSelected"
-        />
-        <modal-payment />
-        <modal-point-sale-tribute-detail />
-        <!-- Botón para seleccionar un vendedor -->
-        <button-component
-          :variant="statePointSale.idVendedor ? 'success': 'warning'"
-          icon-button="UserIcon"
-          icon-size="24"
-          :method-function="()=>$bvModal.show('modal-options-vendor')"
-          :disabled="!!!boxSession._id || !!statePointSale.cancelado"
-        />
-        <!-- Botón para Seleccionar Forma de Pago -->
-        <button-component
-          :variant="statePointSale.idFormaPago ? 'success' : 'warning'"
-          icon-button="CreditCardIcon"
-          icon-size="24"
-          :method-function="()=>$bvModal.show('modal-options-payment-method')"
-          :disabled="!!!boxSession._id || !!statePointSale.cancelado"
-        />
-        <!-- Botón para Selecionar Moneda -->
-        <button-component
-          :variant="statePointSale.idMoneda ? 'success' : 'warning'"
-          icon-button="DollarSignIcon"
-          icon-size="24"
-          :method-function="()=>$bvModal.show('modal-options-currency')"
-          :disabled="!!!boxSession._id || !!statePointSale.cancelado"
-        />
-        <!-- Botón para ingresar la descripción de la Operación -->
-        <button-component
-          variant="success"
-          icon-button="EditIcon"
-          icon-size="24"
-          :method-function="()=>$bvModal.show('modal-description-sale')"
-          :disabled="!!!boxSession._id"
-        />
-        <!-- Botón para seleccionar un comprobante -->
-        <button-component
-          :variant="statePointSale.idComprobante ? 'success' : 'warning'"
-          icon-button="FileIcon"
-          icon-size="24"
-          :method-function="()=>$bvModal.show('modal-options-voucher')"
-          :disabled="!!!boxSession._id || !!statePointSale.cancelado"
-        />
-        <!-- Botón para seleccionar si esta despachado o no -->
-        <button-component
-          :variant="statePointSale.despachado ? 'success' : 'secondary'"
-          icon-button="ShoppingBagIcon"
-          icon-size="24"
-          :method-function="()=>dispatchOperation()"
-          :disabled="!!!boxSession._id || !!statePointSale.cancelado"
-        />
-        <!-- Botón para seleccionar una Orden de Pedido -->
-        <button-component
-          icon-button="ArchiveIcon"
-          icon-size="24"
-          :disabled="!!!boxSession._id"
-        />
-        <!-- Botón para seleccionar una Orden de Servicio -->
-        <button-component
-          icon-button="TruckIcon"
-          icon-size="24"
-          :disabled="!!!boxSession._id"
-        />
-        <!-- Botón para buscar una operacion -->
-        <button-component
-          icon-button="CrosshairIcon"
-          icon-size="24"
-          :method-function="()=>$bvModal.show('modal-query-point-sale')"
-          :disabled="!!!boxSession._id"
-        />
-        <!-- Botón para mostrar u ocultar el detalle articulo -->
-        <button-component
-          icon-button="EyeIcon"
-          icon-size="24"
-          :method-function="showProductDetail"
-          :disabled="!!!boxSession._id"
-        />
-        <!-- Imprimir un ticket -->
-        <button-component
-          icon-button="PrinterIcon"
-          icon-size="24"
-          :method-function="printTicket"
-          :disabled="!!!boxSession._id || !!statePointSale.anulado || (!!!statePointSale.cerrado && !!!statePointSale.cancelado)"
-        />
-        <!-- Botón para Consultar Tributos -->
-        <button-component
-          icon-button="InfoIcon"
-          icon-size="24"
-          :method-function="()=>$bvModal.show('modal-point-sale-tribute-detail')"
-          :disabled="!!!boxSession._id || !!!listPointSaleDetail.rows.length"
-        />
-        <!-- Botón para Consultar los Pagos -->
-        <button-component
-          icon-button="DollarSignIcon"
-          icon-size="18"
-          :method-function="()=>openModalPointSaleMovement('SHOW')"
-          :disabled="!!!boxSession._id || !!!listPointSaleDetail.rows.length"
-        />
-        <!-- Limpiar Operación -->
-        <button-component
-          icon-button="DeleteIcon"
-          icon-size="24"
-          :method-function="()=>clearViewPointSale()"
-          :disabled="!!!boxSession._id"
-        />
-      </div>
-      <div class="pointsale-tools__operations">
-        <!-- Botón para Pagar Operación -->
-        <button-component
-          text-default="Pagar"
-          icon-button="ShoppingBagIcon"
-          icon-size="18"
-          :method-function="()=>openModalPointSaleMovement()"
-          :disabled="!!!boxSession._id || !!!listPointSaleDetail.rows.length || !!statePointSale.cancelado"
-        />
-        <!-- Botón para Cerrar Operación -->
-        <button-component
-          text-default="Cerrar"
-          icon-button="ShoppingBagIcon"
-          icon-size="18"
-          :method-function="()=>closeOperation()"
-          :disabled="(!!!boxSession._id || !!!listPointSaleDetail.rows.length || !!statePointSale.cancelado || !!statePointSale.cerrado)"
-        />
-        <!-- Botón para Facturar Operación -->
-        <button-component
-          text-default="Facturar"
-          icon-button="ShoppingBagIcon"
-          icon-size="18"
-          :method-function="()=>$bvModal.show('modal-pointsale-payment')"
-          :disabled="!!!boxSession._id || !!!listPointSaleDetail.rows.length || !!!statePointSale.cancelado || !!!statePointSale.cerrado"
-        />
-        <!-- Botón para Anular Operación -->
-        <button-component
-          variant="danger"
-          text-default="Anular"
-          icon-button="PowerIcon"
-          icon-size="18"
-          :disabled="!boxSession._id || !statePointSale._id"
-          :method-function="()=>cancelOperation()"
-        />
-      </div>
+      <b-tabs
+        v-model="tabIndexOptionsTools"
+        fill
+      >
+        <b-tab>
+          <template #title>
+            <feather-icon icon="ArrowLeftIcon" />
+            <span>Opc. Inicio</span>
+          </template>
+          <div class="text-center pointsale-tools__buttons mt-1">
+            <modal-options-currency />
+            <modal-options-payment-method />
+            <modal-description-sale />
+            <modal-options-vendor />
+            <modal-options-voucher />
+            <modal-save-point-sale-movement />
+            <modal-show-point-sale-movement />
+            <modal-query-point-sale
+              server-query-filtro-fecha="a.fecha"
+              :server-query-finicio="`${formatDateBySeparator()}`"
+              :server-query-ffin="`${formatDateBySeparator()}`"
+              :server-query-opcional="`a.idSesionCaja=${$store.state.boxSession.boxSession._id}`"
+              @on-point-sale-selected="pointSaleSelected"
+            />
+            <modal-payment />
+            <modal-point-sale-tribute-detail />
+
+            <!-- Botón para seleccionar un vendedor -->
+            <button-component
+              :vertical="true"
+              text-default="Vendedor"
+              :variant="statePointSale.idVendedor ? 'success': 'warning'"
+              icon-button="UserIcon"
+              icon-size="24"
+              :method-function="()=>$bvModal.show('modal-options-vendor')"
+              :disabled="!!!boxSession._id || !!statePointSale.cancelado"
+            />
+            <!-- Botón para Seleccionar Forma de Pago -->
+            <button-component
+              :vertical="true"
+              text-default="Form. Pago"
+              :variant="statePointSale.idFormaPago ? 'success' : 'warning'"
+              icon-button="CreditCardIcon"
+              icon-size="24"
+              :method-function="()=>$bvModal.show('modal-options-payment-method')"
+              :disabled="!!!boxSession._id || !!statePointSale.cancelado"
+            />
+            <!-- Botón para Selecionar Moneda -->
+            <button-component
+              :vertical="true"
+              text-default="Moneda"
+              :variant="statePointSale.idMoneda ? 'success' : 'warning'"
+              icon-button="DollarSignIcon"
+              icon-size="24"
+              :method-function="()=>$bvModal.show('modal-options-currency')"
+              :disabled="!!!boxSession._id || !!statePointSale.cancelado"
+            />
+            <!-- Botón para ingresar la descripción de la Operación -->
+            <button-component
+              :vertical="true"
+              text-default="Descrip"
+              variant="success"
+              icon-button="EditIcon"
+              icon-size="24"
+              :method-function="()=>$bvModal.show('modal-description-sale')"
+              :disabled="!!!boxSession._id"
+            />
+            <!-- Botón para seleccionar un comprobante -->
+            <button-component
+              :vertical="true"
+              text-default="Comprobant."
+              :variant="statePointSale.idComprobante ? 'success' : 'warning'"
+              icon-button="FileIcon"
+              icon-size="24"
+              :method-function="()=>$bvModal.show('modal-options-voucher')"
+              :disabled="!!!boxSession._id || !!statePointSale.cancelado"
+            />
+            <!-- Botón para seleccionar si esta despachado o no -->
+            <button-component
+              :vertical="true"
+              text-default="Despachado"
+              :variant="statePointSale.despachado ? 'success' : 'secondary'"
+              icon-button="ShoppingBagIcon"
+              icon-size="24"
+              :method-function="()=>dispatchOperation()"
+              :disabled="!!!boxSession._id || !!statePointSale.cancelado"
+            />
+            <!-- Botón para seleccionar una Orden de Pedido -->
+            <button-component
+              :vertical="true"
+              text-default="Pedidos"
+              icon-button="ArchiveIcon"
+              icon-size="24"
+              :disabled="!!!boxSession._id"
+            />
+            <!-- Botón para seleccionar una Orden de Servicio -->
+            <button-component
+              :vertical="true"
+              text-default="Servicios"
+              icon-button="TruckIcon"
+              icon-size="24"
+              :disabled="!!!boxSession._id"
+            />
+            <!-- Botón para buscar una operacion -->
+            <button-component
+              :vertical="true"
+              text-default="Operaciones"
+              icon-button="CrosshairIcon"
+              icon-size="24"
+              :method-function="()=>$bvModal.show('modal-query-point-sale')"
+              :disabled="!!!boxSession._id"
+            />
+            <!-- Botón para mostrar u ocultar el detalle articulo -->
+            <button-component
+              :vertical="true"
+              text-default="Teclado"
+              icon-button="EyeIcon"
+              icon-size="24"
+              :method-function="showProductDetail"
+              :disabled="!!!boxSession._id"
+            />
+          </div>
+        </b-tab>
+
+        <b-tab>
+          <template #title>
+            <feather-icon icon="ArrowRightIcon" />
+            <span>Opc.Fin</span>
+          </template>
+
+          <div class="pointsale-tools__operations">
+            <!-- Imprimir un ticket -->
+            <button-component
+              :vertical="true"
+              text-default="Imprimir"
+              icon-button="PrinterIcon"
+              icon-size="24"
+              :method-function="printTicket"
+              :disabled="!!!boxSession._id || !!statePointSale.anulado || (!!!statePointSale.cerrado && !!!statePointSale.cancelado)"
+            />
+            <!-- Botón para Consultar Tributos -->
+            <button-component
+              :vertical="true"
+              text-default="Tributos"
+              icon-button="InfoIcon"
+              icon-size="24"
+              :method-function="()=>$bvModal.show('modal-point-sale-tribute-detail')"
+              :disabled="!!!boxSession._id || !!!listPointSaleDetail.rows.length"
+            />
+            <!-- Botón para Consultar los Pagos -->
+            <button-component
+              :vertical="true"
+              text-default="Pagos"
+              icon-button="DollarSignIcon"
+              icon-size="18"
+              :method-function="()=>openModalPointSaleMovement('SHOW')"
+              :disabled="!!!boxSession._id || !!!listPointSaleDetail.rows.length"
+            />
+            <!-- Limpiar Operación -->
+            <button-component
+              :vertical="true"
+              text-default="Limpiar"
+              icon-button="DeleteIcon"
+              icon-size="24"
+              :method-function="()=>clearViewPointSale()"
+              :disabled="!!!boxSession._id"
+            />
+            <!-- Botón para Pagar Operación -->
+            <button-component
+              :vertical="true"
+              text-default="Pagar"
+              icon-button="ShoppingBagIcon"
+              icon-size="18"
+              :method-function="()=>openModalPointSaleMovement()"
+              :disabled="!!!boxSession._id || !!!listPointSaleDetail.rows.length || !!statePointSale.cancelado"
+            />
+            <!-- Botón para Cerrar Operación -->
+            <button-component
+              :vertical="true"
+              text-default="Cerrar"
+              icon-button="ShoppingBagIcon"
+              icon-size="18"
+              :method-function="()=>closeOperation()"
+              :disabled="(!!!boxSession._id || !!!listPointSaleDetail.rows.length || !!statePointSale.cancelado || !!statePointSale.cerrado)"
+            />
+            <!-- Botón para Facturar Operación -->
+            <button-component
+              :vertical="true"
+              text-default="Facturar"
+              icon-button="ShoppingBagIcon"
+              icon-size="18"
+              :method-function="()=>$bvModal.show('modal-pointsale-payment')"
+              :disabled="!!!boxSession._id || !!!listPointSaleDetail.rows.length || !!!statePointSale.cancelado || !!!statePointSale.cerrado"
+            />
+            <!-- Botón para Anular Operación -->
+            <button-component
+              :vertical="true"
+              variant="danger"
+              text-default="Anular"
+              icon-button="PowerIcon"
+              icon-size="18"
+              :disabled="!boxSession._id || !statePointSale._id"
+              :method-function="()=>cancelOperation()"
+            />
+          </div>
+        </b-tab>
+      </b-tabs>
     </div>
   </b-card>
 </template>
@@ -220,6 +272,8 @@
 import {
   BCard,
   BBadge,
+  BTabs,
+  BTab,
 } from 'bootstrap-vue'
 import { mapState } from 'vuex'
 import store from '@/store'
@@ -238,7 +292,7 @@ import { generateContentTicketHTMLPointSale } from '@/helpers/printPointSale'
 import { endPointsCombo, loadCombos, resetCombos } from '@/helpers/combos'
 import {
   clearStatePointSale,
-  keySelectedOfBoard, statePointSale,
+  keySelectedOfBoard, statePointSale, tabIndexOptionsTools,
 } from '../../ServicesPointSale/useVariablesPointSale'
 import {
   clearStateProductSelected,
@@ -267,6 +321,8 @@ export default {
   components: {
     BCard,
     BBadge,
+    BTabs,
+    BTab,
     ModalQueryPointSale,
     ModalOptionsCurrency,
     ModalOptionsPaymentMethod,
@@ -441,6 +497,7 @@ export default {
       clearPointSaleData,
       formatDateBySeparator,
       openModalPointSaleMovement,
+      tabIndexOptionsTools,
     }
   },
 }

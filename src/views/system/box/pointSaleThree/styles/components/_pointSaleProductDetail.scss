@@ -61,20 +61,19 @@
       font-size: 1rem;
       padding: .5em 1em;
       font-weight: 900;
+      margin-bottom: 0;
     }
   
     &-ref,
     &-code {
       font-weight: 600;
       display: none;
+      margin-top: .8em;
+      margin-bottom: .8em;
   
-      @include min-mq('laptop') {
+      @include min-mq('tablet-landscape') {
         display: block;
       }
-    }
-  
-    &-code {
-      margin-bottom: 1.5em;
     }
   
     &-price {
@@ -82,7 +81,12 @@
       font-weight: 900;
       color: black;
       margin-bottom: .05em;
-      margin-top: .5em;
+      margin-top: .8em;
+      display: none;
+
+      @include min-mq('tablet-landscape') {
+        display: block;
+      }
   
       .dark-layout & {
         color: white;

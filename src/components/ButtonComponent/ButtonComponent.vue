@@ -8,7 +8,10 @@
     :title="titleToolTip"
     @click.stop="methodFunction"
   >
-    <div class="d-flex justify-content-center align-items-center">
+    <div
+      class="d-flex justify-content-center align-items-center"
+      :class="[vertical ? 'flex-column' : '']"
+    >
       <b-spinner
         v-if="loading"
         small
@@ -22,7 +25,7 @@
       </template>
       <span
         v-if="iconButton && textDefault"
-        :class="[responsive ? 'd-none d-sm-inline-block ml-0 ml-sm-50' : 'd-inline-block ml-50']"
+        :class="[responsive ? `d-none d-sm-inline-block ${vertical ? 'mt-0 mt-sm-50' : 'ml-0 ml-sm-50'}` : `d-inline-block ${vertical ? 'mt-50' : 'ml-50'}`]"
       >
         {{ textDefault }}
       </span>
@@ -105,6 +108,11 @@ export default {
       type: String,
       required: false,
       default: '',
+    },
+    vertical: {
+      type: Boolean,
+      required: false,
+      default: false,
     },
   },
 }
