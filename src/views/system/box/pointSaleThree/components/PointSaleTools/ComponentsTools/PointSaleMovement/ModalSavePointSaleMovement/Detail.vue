@@ -169,6 +169,7 @@ export default {
 
       clearStatePointSaleMovement()
       context.refs['validation-point-sale-movement'].reset()
+      statePointSaleMovement.value.idMoneda = statePointSale.value.idMoneda
       loadItemsPointSaleMovement(1)
       getPointSaleById(statePointSale.value._id)
     }

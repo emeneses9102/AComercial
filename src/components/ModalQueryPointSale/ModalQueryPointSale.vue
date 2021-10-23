@@ -76,6 +76,11 @@ export default {
       required: false,
       default: '',
     },
+    loadOnShow: {
+      type: Boolean,
+      required: false,
+      default: true,
+    },
   },
   setup(props, context) {
     let timer = null
@@ -83,6 +88,15 @@ export default {
 
     const showModal = () => {
       clearDataTablePointSale()
+      if (props.loadOnShow) {
+        serverQueryPointSale.value.opcional = props.serverQueryOpcional || ''
+        serverQueryPointSale.value.campofiltro = ''
+        serverQueryPointSale.value.filtro = ''
+        serverQueryPointSale.value.filtrofecha = props.serverQueryFiltroFecha
+        serverQueryPointSale.value.finicio = props.serverQueryFinicio
+        serverQueryPointSale.value.ffin = props.serverQueryFfin
+        loadItemsPointSale(1)
+      }
       serverQueryPointSale.value.campofiltro = ''
       serverQueryPointSale.value.filtro = ''
     }

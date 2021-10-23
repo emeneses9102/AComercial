@@ -34,7 +34,7 @@
       >
     </div>
     <input
-      id="inputFile"
+      :id="id"
       type="file"
       class="input-file"
       accept=".jpeg,.jpg,.png"
@@ -50,6 +50,11 @@ import { messageToast } from '@/helpers/messageExtensions'
 export default {
   name: 'UploadFile',
   props: {
+    id: {
+      type: String,
+      required: false,
+      default: 'inputFile',
+    },
     image: {
       type: String,
       required: true,
@@ -76,7 +81,7 @@ export default {
     // Logica que se ejecutara cuando el componente ya esta insertado en el DOM
     onMounted(() => {
       // Capturar el elemento inputFile
-      inputFile = document.getElementById('inputFile')
+      inputFile = document.getElementById(props.id)
     })
 
     // Método para abrir el seleccionar de un archivo

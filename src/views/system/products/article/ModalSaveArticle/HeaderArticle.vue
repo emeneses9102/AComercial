@@ -154,19 +154,6 @@
                 label="Cod Interno"
                 label-for="article-internal-code"
               >
-                <!-- <validation-provider
-                  #default="{ errors }"
-                  name="Cod Interno"
-                  rules="required"
-                >
-                  <b-form-input
-                    id="article-internal-code"
-                    v-model.trim="stateArticle.codInterno"
-                    type="text"
-                    :state="errors.length > 0 ? false:null"
-                  />
-                  <small class="text-danger">{{ errors[0] }}</small>
-                </validation-provider> -->
                 <b-form-input
                   id="article-internal-code"
                   v-model.trim="stateArticle.codInterno"
@@ -213,19 +200,6 @@
                 label="Cod Fabricante"
                 label-for="article-maker-code"
               >
-                <!-- <validation-provider
-                  #default="{ errors }"
-                  name="Cod Fabricante"
-                  rules="required"
-                >
-                  <b-form-input
-                    id="article-maker-code"
-                    v-model.trim="stateArticle.codFabricante"
-                    type="text"
-                    :state="errors.length > 0 ? false:null"
-                  />
-                  <small class="text-danger">{{ errors[0] }}</small>
-                </validation-provider> -->
                 <b-form-input
                   id="article-maker-code"
                   v-model.trim="stateArticle.codFabricante"

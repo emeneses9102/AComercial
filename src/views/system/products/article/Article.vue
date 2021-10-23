@@ -52,7 +52,12 @@ import {
 import {
   clearFiltersTributeFactor, clearStateTributeFactor,
 } from '../../sunat/tribute/ServicesTributeFactor/useVariablesTributeFactor'
-import { combosArticleBusinessDetail } from './ServicesArticleBusinessDetail/useVariablesArticleBusinessDetail'
+import {
+  clearDataTableArticleBusinessDetail, clearFiltersArticleBusinessDetail, clearStateArticleBusinessDetail, combosArticleBusinessDetail,
+} from './ServicesArticleBusinessDetail/useVariablesArticleBusinessDetail'
+import {
+  clearDataTableArticleChildrenDetail, clearFiltersArticleChildrenDetail, clearStateArticleChildrenDetail, equalizeStateArticleChildrenDetail,
+} from './ServicesArticleChildrenDetail/useVariablesArticleChildrenDetail'
 
 export default {
   name: 'Article',
@@ -82,6 +87,13 @@ export default {
       clearStateTributeFactor()
       clearFiltersTributeFactor()
       clearDataTableArticleTributeDetail()
+      clearStateArticleBusinessDetail()
+      clearFiltersArticleBusinessDetail()
+      clearDataTableArticleBusinessDetail()
+      clearStateArticleChildrenDetail()
+      equalizeStateArticleChildrenDetail()
+      clearFiltersArticleChildrenDetail()
+      clearDataTableArticleChildrenDetail()
     }
 
     onMounted(() => {

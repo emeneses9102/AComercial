@@ -5,6 +5,7 @@
     size="lg"
     title="Agregar Pagos"
     no-close-on-backdrop
+    @show="showModal"
   >
     <detail
       class="mt-1"
@@ -45,9 +46,12 @@ import {
   titleNotificationPointSale, statePointSale,
 } from '../../../../../ServicesPointSale/useVariablesPointSale'
 import {
+  getPointSaleById,
   sendPointSale,
 } from '../../../../../ServicesPointSale/useServicesPointSale'
-import { combosPointSaleMovement, dataTablePointSaleMovement, MODAL_ID } from '../../../../../ServicesPointSaleMovement/useVariablesPointSaleMovement'
+import {
+  combosPointSaleMovement, dataTablePointSaleMovement, MODAL_ID, statePointSaleMovement,
+} from '../../../../../ServicesPointSaleMovement/useVariablesPointSaleMovement'
 
 export default {
   name: 'ModalSavePointSaleMovement',
@@ -63,18 +67,28 @@ export default {
       loadCombos(combosPointSaleMovement, ['paymentMethod'], `${endPointsCombo.medioPago}/1`, 'Medio de Pago')
     })
 
+    const showModal = () => {
+      statePointSaleMovement.value.idMoneda = statePointSale.value.idMoneda
+    }
+
     const finishedOperation = async () => {
       if (!dataTablePointSaleMovement.value.rows.length) {
         messageToast('warning', 'Punto de Venta', 'La tabla esta vacía')
-      } else {
-        statePointSale.value.loading = true
-        store.commit('pointSale/ACTIVE_LOADING')
-        await sendPointSale(ACTION_POINT_SALE_PAY)
-        store.commit('pointSale/DESACTIVE_LOADING')
-        context.root.$bvModal.hide('modal-point-sale-movement')
-        statePointSale.value.cancelado = 1
-        statePointSale.value.loading = false
+        return true
       }
+      statePointSale.value.loading = true
+      store.commit('pointSale/ACTIVE_LOADING')
+      const { data, status } = await sendPointSale(ACTION_POINT_SALE_PAY)
+      store.commit('pointSale/DESACTIVE_LOADING')
+      statePointSale.value.loading = false
+      if (!status || !data) return false
+      statePointSale.value.loading = true
+      context.root.$bvModal.hide('modal-point-sale-movement')
+      store.commit('pointSale/ACTIVE_LOADING')
+      await getPointSaleById(statePointSale.value._id)
+      store.commit('pointSale/DESACTIVE_LOADING')
+      statePointSale.value.loading = false
+      return true
     }
 
     return {
@@ -82,6 +96,7 @@ export default {
       titleNotificationPointSale,
       statePointSale,
       finishedOperation,
+      showModal,
     }
   },
 }

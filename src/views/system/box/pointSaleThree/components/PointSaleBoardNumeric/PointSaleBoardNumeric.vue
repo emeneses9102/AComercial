@@ -113,6 +113,7 @@ import {
 } from 'bootstrap-vue'
 import { toRef } from '@vue/composition-api'
 import store from '@/store'
+import { messageToast } from '@/helpers/messageExtensions'
 import ButtonBoardNumeric from './ButtonBoardNumeric.vue'
 import {
   stateProductSelected,
@@ -167,7 +168,9 @@ export default {
             refInput.value = refInput.value.toString().substring(0, refInput.value.length - 1)
             break
           case 'ENTER':
-            if (keySelectedOfBoard.value === optionsOfKeysOnBoard.cantidad && stateProductSelected.value._id) {
+            if (!refInput.value) {
+              messageToast('warning', 'Teclado Numérico', 'Ingrese un valor a la Caja del Teclado')
+            } else if (keySelectedOfBoard.value === optionsOfKeysOnBoard.cantidad && stateProductSelected.value._id) {
               updateQuantity('UPDATE', stateProductSelected.value._id, stateProductSelected.value.cantidad)
               clearStateProductSelected()
               store.commit('pointSale/TOGGLE_SHOW_PRODUCT_DETAIL', false)

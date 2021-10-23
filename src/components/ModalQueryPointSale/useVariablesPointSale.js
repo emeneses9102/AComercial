@@ -42,7 +42,7 @@ export const columnsPointSale = ref([
     pdf: true,
   },
   {
-    field: 'subtotal',
+    field: 'subTotal',
     label: 'SUBTOTAL',
     thClass: 'align-middle',
     tdClass: 'align-middle',

@@ -19,6 +19,7 @@
       :option-status="false"
       :option-show="false"
       :option-edit="false"
+      @delete-row="deleteRow"
     />
   </field-set-component>
 </template>
@@ -28,6 +29,7 @@ import HeaderSearchDetailComponent from '@/components/HeaderSearchDetailComponen
 import FieldSetComponent from '@/components/FieldSetComponent/FieldSetComponent.vue'
 import TableGoodComponent from '@/components/TableComponent/TableGoodComponent.vue'
 import { statePointSale } from '../../../../../ServicesPointSale/useVariablesPointSale'
+import { getPointSaleById } from '../../../../../ServicesPointSale/useServicesPointSale'
 import {
   columnsPointSaleMovement, serverQueryPointSaleMovement, dataTablePointSaleMovement, columnsFilterPointSaleMovement, titleNotificationPointSaleMovement,
 } from '../../../../../ServicesPointSaleMovement/useVariablesPointSaleMovement'
@@ -60,6 +62,10 @@ export default {
       }, timeForLoad)
     }
 
+    const deleteRow = () => {
+      getPointSaleById(statePointSale.value._id)
+    }
+
     return {
       statePointSale,
       columnsPointSaleMovement,
@@ -71,6 +77,7 @@ export default {
       titleNotificationPointSaleMovement,
       onChangeField,
       onSearchForValue,
+      deleteRow,
     }
   },
 }

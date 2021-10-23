@@ -2,7 +2,7 @@
   <field-set-component legend="Listado">
     <header-search-detail-component
       v-if="stateArticle._id"
-      id="header-search-feature"
+      id="header-search-business"
       :columns-filter="columnsFilterArticleBusinessDetail"
       :column-filter-selected-default="'_id'"
       @on-change-field="onChangeField"
