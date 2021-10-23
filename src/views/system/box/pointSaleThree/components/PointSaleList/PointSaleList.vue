@@ -49,7 +49,7 @@
             :key="product.idArticulo"
             :codigo="product.idArticulo"
             :nombre="product.nombreArticulo"
-            :imagen="product.imagenArticulo"
+            :imagen="product.imagen"
             :precio="product.precio"
             :cantidad="product.cantidad"
             :sub-total="product.subTotal"

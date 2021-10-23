@@ -62,6 +62,17 @@
         />
         <detail-business-table class="mt-1" />
       </b-tab>
+      <b-tab>
+        <template #title>
+          <feather-icon icon="UserIcon" />
+          <span class="d-none d-md-inline">Dar de alta</span>
+        </template>
+        <detail-children
+          class="mt-1"
+          :send-header="sendForm"
+        />
+        <detail-children-table class="mt-1" />
+      </b-tab>
     </b-tabs>
 
     <template #modal-footer>
@@ -116,6 +127,8 @@ import DetailTribute from './DetailTribute.vue'
 import DetailTributeTable from './DetailTributeTable.vue'
 import DetailBusiness from './DetailBusiness.vue'
 import DetailBusinessTable from './DetailBusinessTable.vue'
+import DetailChildren from './DetailChildren.vue'
+import DetailChildrenTable from './DetailChildrenTable.vue'
 import {
   MODAL_ID, titleNotificationArticle, stateArticle, selectedArticleType, routeNameArticle,
 } from '../ServicesArticle/useVariablesArticle'
@@ -124,6 +137,7 @@ import { serverQueryArticleFeatureDetail } from '../ServicesArticleFeatureDetail
 import { serverQueryArticleRecipeDetail } from '../ServicesArticleRecipeDetail/useVariablesArticleRecipeDetail'
 import { serverQueryArticleTributeDetail } from '../ServicesArticleTributeDetail/useVariablesArticleTributeDetail'
 import { serverQueryArticleBusinessDetail } from '../ServicesArticleBusinessDetail/useVariablesArticleBusinessDetail'
+import { serverQueryArticleChildrenDetail } from '../ServicesArticleChildrenDetail/useVariablesArticleChildrenDetail'
 
 export default {
   name: 'ModalSaveArticle',
@@ -140,6 +154,8 @@ export default {
     DetailTributeTable,
     DetailBusiness,
     DetailBusinessTable,
+    DetailChildren,
+    DetailChildrenTable,
     ButtonComponent,
     ValidationObserver,
   },
@@ -165,6 +181,7 @@ export default {
       serverQueryArticleRecipeDetail.value.indice = data.id
       serverQueryArticleTributeDetail.value.indice = data.id
       serverQueryArticleBusinessDetail.value.indice = data.id
+      serverQueryArticleChildrenDetail.value.indice = data.id
       await loadItemsArticle()
       return true
     }

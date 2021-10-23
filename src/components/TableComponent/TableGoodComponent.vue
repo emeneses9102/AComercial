@@ -457,6 +457,7 @@ export default {
         const { status } = await this.manageRow(ACTION_DELETE, _id)
         this.loadingLocal = false
         if (status) this.loadItems()
+        this.$emit('delete-row', _id)
       }
     },
     openModalFor(row, openFor) {

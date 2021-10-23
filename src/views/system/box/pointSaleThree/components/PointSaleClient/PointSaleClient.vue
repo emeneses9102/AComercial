@@ -44,21 +44,21 @@
         icon-button="SearchIcon"
         icon-size="20"
         :method-function="()=>$bvModal.show('modal-query-partner')"
-        :disabled="!boxSession._id"
+        :disabled="!boxSession._id || !!statePointSale.cerrado || !!statePointSale.cancelado || !!statePointSale.anulado || !!statePointSale.facturado"
       />
       <button-component
         margin-class="mr-1"
         icon-button="UserPlusIcon"
         icon-size="20"
         :method-function="()=>$bvModal.show('modal-partner')"
-        :disabled="!boxSession._id"
+        :disabled="!boxSession._id || !!statePointSale.cerrado || !!statePointSale.cancelado || !!statePointSale.anulado || !!statePointSale.facturado"
       />
       <button-component
         margin-class=""
         icon-button="UserXIcon"
         icon-size="20"
         :method-function="()=>clearStateClient()"
-        :disabled="!boxSession._id"
+        :disabled="!boxSession._id || !!statePointSale.cerrado || !!statePointSale.cancelado || !!statePointSale.anulado || !!statePointSale.facturado"
       />
       <modal-query-partner
         @on-partner-selected="partnerSelected"
@@ -129,6 +129,7 @@ export default {
       partnerSelected,
       stateClient,
       clearStateClient,
+      statePointSale,
     }
   },
 }

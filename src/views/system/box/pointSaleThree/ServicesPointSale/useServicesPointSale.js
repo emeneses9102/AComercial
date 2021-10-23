@@ -28,6 +28,10 @@ import {
 export const getPointSaleById = async _id => {
   const { data, status } = await getDataById(urlApiPointSale, _id, titleNotificationPointSale)
   if (status && data) {
+    statePointSale.value.facturado = data.facturado
+    statePointSale.value.cerrado = data.cerrado
+    statePointSale.value.cancelado = data.cancelado
+    statePointSale.value.anulado = data.anulado
     statePointSale.value.subTotal = data.subTotal
     statePointSale.value.total = data.total
     statePointSale.value.totalPagado = data.totalPagado

@@ -46,6 +46,14 @@
         </template>
         <detail-table-business class="mt-1" />
       </b-tab>
+
+      <b-tab>
+        <template #title>
+          <feather-icon icon="UserIcon" />
+          <span class="d-none d-md-inline">Altas</span>
+        </template>
+        <detail-table-children class="mt-1" />
+      </b-tab>
     </b-tabs>
 
     <template #modal-footer>
@@ -69,6 +77,7 @@ import DetailTableFeature from './DetailTableFeature.vue'
 import DetailTableRecipe from './DetailTableRecipe.vue'
 import DetailTableTribute from './DetailTableTribute.vue'
 import DetailTableBusiness from './DetailTableBusiness.vue'
+import DetailTableChildren from './DetailTableChildren.vue'
 import { MODAL_ID, titleNotificationArticle } from '../ServicesArticle/useVariablesArticle'
 
 export default {
@@ -83,6 +92,7 @@ export default {
     DetailTableRecipe,
     DetailTableTribute,
     DetailTableBusiness,
+    DetailTableChildren,
   },
   setup() {
     return {

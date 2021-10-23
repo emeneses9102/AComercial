@@ -28,6 +28,10 @@ import { clearFiltersArticleTributeDetail, clearStateArticleTributeDetail, serve
 import { loadItemsArticleTributeDetail } from '../ServicesArticleTributeDetail/useServicesArticleTributeDetail'
 import { clearStateArticleBusinessDetail, serverQueryArticleBusinessDetail } from '../ServicesArticleBusinessDetail/useVariablesArticleBusinessDetail'
 import { loadItemsArticleBusinessDetail } from '../ServicesArticleBusinessDetail/useServicesArticleBusinessDetail'
+import {
+  clearFiltersArticleChildrenDetail, clearStateArticleChildrenDetail, equalizeStateArticleChildrenDetail, serverQueryArticleChildrenDetail,
+} from '../ServicesArticleChildrenDetail/useVariablesArticleChildrenDetail'
+import { loadItemsArticleChildrenDetail } from '../ServicesArticleChildrenDetail/useServicesArticleChildrenDetail'
 
 export default {
   name: 'TableArticle',
@@ -54,15 +58,20 @@ export default {
       clearStateArticleTributeDetail()
       clearFiltersArticleTributeDetail()
       clearStateArticleBusinessDetail()
+      clearFiltersArticleChildrenDetail()
+      clearStateArticleChildrenDetail()
+      equalizeStateArticleChildrenDetail()
       serverQueryArticleFeatureDetail.value.indice = row._id
       serverQueryArticleRecipeDetail.value.indice = row._id
       serverQueryArticleTributeDetail.value.indice = row._id
       serverQueryArticleBusinessDetail.value.indice = row._id
+      serverQueryArticleChildrenDetail.value.indice = row._id
       await Promise.all([
         loadItemsArticleFeatureDetail(1),
         loadItemsArticleRecipeDetail(1),
         loadItemsArticleTributeDetail(1),
         loadItemsArticleBusinessDetail(1),
+        loadItemsArticleChildrenDetail(1),
       ])
       dataTableArticle.value.loading = false
       context.root.$bvModal.show(actionOpenModal === 'edit' ? MODAL_ID : `${MODAL_ID}-show`)

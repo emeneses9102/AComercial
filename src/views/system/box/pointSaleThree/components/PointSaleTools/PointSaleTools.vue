@@ -160,7 +160,7 @@
           icon-button="InfoIcon"
           icon-size="24"
           :method-function="()=>$bvModal.show('modal-point-sale-tribute-detail')"
-          :disabled="!!!boxSession._id && !!!listPointSaleDetail.rows"
+          :disabled="!!!boxSession._id || !!!listPointSaleDetail.rows.length"
         />
         <!-- Botón para Consultar los Pagos -->
         <button-component
@@ -252,7 +252,7 @@ import ModalPayment from './ComponentsTools/ModalPayment/ModalPayment.vue'
 import ModalSavePointSaleMovement from './ComponentsTools/PointSaleMovement/ModalSavePointSaleMovement/ModalSavePointSaleMovement.vue'
 import ModalShowPointSaleMovement from './ComponentsTools/PointSaleMovement/ModalShowPointSaleMovement/ModalShowPointSaleMovement.vue'
 import ModalPointSaleTributeDetail from './ComponentsTools/ModalPointSaleTributeDetail/ModalPointSaleTributeDetail.vue'
-import { clearViewPointSale, sendPointSale } from '../../ServicesPointSale/useServicesPointSale'
+import { clearViewPointSale, getPointSaleById, sendPointSale } from '../../ServicesPointSale/useServicesPointSale'
 import {
   clearListPointSaleDetail, clearStatePointSaleDetail, listPointSaleDetail,
 } from '../../ServicesPointSaleDetail/useVariablesPointSaleDetail'
@@ -376,8 +376,10 @@ export default {
         store.commit('pointSale/ACTIVE_LOADING')
         const { data, status } = await sendPointSale(ACTION_POINT_SALE_CANCEL)
         store.commit('pointSale/DESACTIVE_LOADING')
-        statePointSale.value.anulado = 1
         if (!status || !data) return false
+        store.commit('pointSale/ACTIVE_LOADING')
+        await getPointSaleById(statePointSale.value._id)
+        store.commit('pointSale/DESACTIVE_LOADING')
         return true
       }
       return false
@@ -388,7 +390,9 @@ export default {
       const { data, status } = await sendPointSale(ACTION_POINT_SALE_CLOSE)
       store.commit('pointSale/DESACTIVE_LOADING')
       if (!status || !data) return false
-      statePointSale.value.cerrado = 1
+      store.commit('pointSale/ACTIVE_LOADING')
+      await getPointSaleById(statePointSale.value._id)
+      store.commit('pointSale/DESACTIVE_LOADING')
       return true
     }
 
