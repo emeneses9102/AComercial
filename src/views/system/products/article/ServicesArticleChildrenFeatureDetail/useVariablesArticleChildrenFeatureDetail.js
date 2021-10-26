@@ -66,9 +66,9 @@ export const clearDataTableArticleChildrenFeatureDetail = () => {
 // Variable reactiva para manjear los consultas del lado del servidor de la tabla Detalle Articulo Caracteristica
 export const serverQueryArticleChildrenFeatureDetail = ref({
   ...serverQueryDefault,
-  tabla: 'articulocaracteristica',
+  tabla: 'tarticulocaracteristica',
   pfin: 5,
-  campo: 'a.idarticulo',
+  campo: 'a.idtarticulo',
 })
 
 // Función para limpiar filtros en la consulta de la tabla Detalle Articulo Caracteristica
@@ -92,7 +92,12 @@ export const stateArticleChildrenFeatureDetail = ref({ ...initialStateArticleChi
 
 // Función para regresar al estado inicial la variable reactiva que gestiona el mantenimiento de  Detalle Articulo Caracteristica
 export const clearStateArticleChildrenFeatureDetail = () => {
-  stateArticleChildrenFeatureDetail.value = { ...initialStateArticleChildrenFeatureDetail }
+  stateArticleChildrenFeatureDetail.value._id = 0
+  stateArticleChildrenFeatureDetail.value.idCaracteristica = 0
+  stateArticleChildrenFeatureDetail.value.idDtlCaracteristica = 0
+  stateArticleChildrenFeatureDetail.value.orden = 0
+  stateArticleChildrenFeatureDetail.value.accion = 0
+  stateArticleChildrenFeatureDetail.value.loading = false
 }
 
 // Variable reactiva para almacenar el listado de los combos del mantenimiento Detalle Articulo Caracteristica
@@ -104,21 +109,21 @@ export const combosArticleChildrenFeatureDetail = ref({
 // Constante para almacenar las columnas permitidas para el filtro del mantenimiento Detalle Articulo Caracteristica
 export const columnsFilterArticleChildrenFeatureDetail = [
   {
-    title: 'Id',
+    title: 'ID',
     field: '_id',
   },
   {
-    title: 'Característica',
+    title: 'CARACTERÍSTICA',
     field: 'a.nombrecaracteristica',
   },
   {
-    title: 'Valor',
+    title: 'VALOR',
     field: 'a.nombreDCaracteristica',
   },
 ]
 
 // Constante para almacenar la url base de la petición del mantenimiento Detalle Articulo Caracteristica
-export const urlApiArticleChildrenFeatureDetail = '/articulocaracteristica'
+export const urlApiArticleChildrenFeatureDetail = '/tarticulocaracteristica'
 
 // Constante para almacenar el titulo de las notificaciónes de Detalle Articulo Caracteristica
 export const titleNotificationArticleChildrenFeatureDetail = 'Detalle Articulo Caracteristica'

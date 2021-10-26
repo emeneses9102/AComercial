@@ -42,7 +42,7 @@ export default {
     const timeForLoad = 500
 
     const openModalForShow = row => {
-      stateArticleChildrenFeatureDetail.value._id = row._id
+      stateArticleChildrenFeatureDetail.value.idTArticulo = row._id
       context.root.$bvModal.show('modal-article-children-detail-show')
     }
 

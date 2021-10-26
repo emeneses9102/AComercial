@@ -20,12 +20,12 @@
       @open-modal-for-edit="row=>openModalFor(row, 'edit')"
     >
       <template
-        #options-pluss
+        #options-pluss="{ props }"
       >
         <template
           v-if="true"
         >
-          <b-dropdown-item @click="$bvModal.show('modal-article-children-detail')">
+          <b-dropdown-item @click="openModalChildrenFeature(props.row)">
             <div class="d-flex align-items-center">
               <feather-icon
                 icon="FlagIcon"
@@ -52,6 +52,7 @@ import {
   columnsArticleChildrenDetail, serverQueryArticleChildrenDetail, dataTableArticleChildrenDetail, columnsFilterArticleChildrenDetail, titleNotificationArticleChildrenDetail, stateArticleChildrenDetail, clearStateArticleChildrenDetail,
 } from '../ServicesArticleChildrenDetail/useVariablesArticleChildrenDetail'
 import { loadItemsArticleChildrenDetail, sendArticleChildrenDetail } from '../ServicesArticleChildrenDetail/useServicesArticleChildrenDetail'
+import { stateArticleChildrenFeatureDetail } from '../ServicesArticleChildrenFeatureDetail/useVariablesArticleChildrenFeatureDetail'
 
 export default {
   name: 'DetailTableFeature',
@@ -61,9 +62,14 @@ export default {
     TableGoodComponent,
     HeaderSearchDetailComponent,
   },
-  setup() {
+  setup(props, context) {
     let timer = null
     const timeForLoad = 500
+
+    const openModalChildrenFeature = ({ _id }) => {
+      stateArticleChildrenFeatureDetail.value.idTArticulo = _id
+      context.root.$bvModal.show('modal-article-children-detail')
+    }
 
     const openModalFor = async ({
       _id, codBarra, codInterno, codFabricante, descripcion, idArticulo, imagen, nombre, precioCompra, precioMinimoVenta, precioVenta, stockMaximo, stockMinimo,
@@ -112,6 +118,7 @@ export default {
       sendArticleChildrenDetail,
       columnsFilterArticleChildrenDetail,
       titleNotificationArticleChildrenDetail,
+      openModalChildrenFeature,
       openModalFor,
       onChangeField,
       onSearchForValue,

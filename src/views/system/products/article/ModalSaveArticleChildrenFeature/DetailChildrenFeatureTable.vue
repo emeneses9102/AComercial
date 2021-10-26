@@ -31,7 +31,7 @@ import { stateArticle } from '../ServicesArticle/useVariablesArticle'
 import {
   columnsArticleChildrenFeatureDetail, serverQueryArticleChildrenFeatureDetail, dataTableArticleChildrenFeatureDetail, columnsFilterArticleChildrenFeatureDetail, titleNotificationArticleChildrenFeatureDetail, stateArticleChildrenFeatureDetail, combosArticleChildrenFeatureDetail,
 } from '../ServicesArticleChildrenFeatureDetail/useVariablesArticleChildrenFeatureDetail'
-import { getArticleChildrenFeatureDetailById, loadItemsArticleChildrenFeatureDetail, sendArticleChildrenFeatureDetail } from '../ServicesArticleChildrenFeatureDetail/useServicesArticleChildrenFeatureDetail'
+import { loadItemsArticleChildrenFeatureDetail, sendArticleChildrenFeatureDetail } from '../ServicesArticleChildrenFeatureDetail/useServicesArticleChildrenFeatureDetail'
 
 export default {
   name: 'DetailTableChildrenFeature',
@@ -44,19 +44,16 @@ export default {
     let timer = null
     const timeForLoad = 500
 
-    const openModalFor = async ({ _id }) => {
+    const openModalFor = async ({
+      _id, idTArticulo, idCaracteristica, idDtlCaracteristica, orden,
+    }) => {
       dataTableArticleChildrenFeatureDetail.value.loading = true
-      const { status, data } = await getArticleChildrenFeatureDetailById(_id)
-      if (!status) {
-        dataTableArticleChildrenFeatureDetail.value.loading = false
-        return false
-      }
-      await loadCombos(combosArticleChildrenFeatureDetail, ['featureDetail'], `${endPointsCombo.detalleCaracteristica}/1/${data.idCaracteristica}/0`, 'Valores Característica')
-      stateArticleChildrenFeatureDetail.value._id = data._id
-      stateArticleChildrenFeatureDetail.value.idTArticulo = data.idArticulo
-      stateArticleChildrenFeatureDetail.value.idCaracteristica = data.idCaracteristica
-      stateArticleChildrenFeatureDetail.value.idDtlCaracteristica = data.idDtlCaracteristica
-      stateArticleChildrenFeatureDetail.value.orden = data.orden
+      await loadCombos(combosArticleChildrenFeatureDetail, ['featureDetail'], `${endPointsCombo.detalleCaracteristica}/1/${idCaracteristica}/0`, 'Valores Característica')
+      stateArticleChildrenFeatureDetail.value._id = _id
+      stateArticleChildrenFeatureDetail.value.idTArticulo = idTArticulo
+      stateArticleChildrenFeatureDetail.value.idCaracteristica = idCaracteristica
+      stateArticleChildrenFeatureDetail.value.idDtlCaracteristica = idDtlCaracteristica
+      stateArticleChildrenFeatureDetail.value.orden = orden
       dataTableArticleChildrenFeatureDetail.value.loading = false
       return true
     }

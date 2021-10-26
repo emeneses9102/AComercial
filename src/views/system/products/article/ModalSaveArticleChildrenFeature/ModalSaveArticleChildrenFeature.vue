@@ -44,18 +44,16 @@ import ButtonComponent from '@/components/ButtonComponent/ButtonComponent.vue'
 import DetailChildrenFeature from './DetailChildrenFeature.vue'
 import DetailChildrenFeatureTable from './DetailChildrenFeatureTable.vue'
 import {
-  // MODAL_ID,
-  // titleNotificationArticle,
-  // stateArticle,
   routeNameArticle,
 } from '../ServicesArticle/useVariablesArticle'
 import {
   MODAL_ID,
   clearDataTableArticleChildrenFeatureDetail,
-  clearStateArticleChildrenFeatureDetail,
   stateArticleChildrenFeatureDetail,
   titleNotificationArticleChildrenFeatureDetail,
+  clearStateArticleChildrenFeatureDetail,
 } from '../ServicesArticleChildrenFeatureDetail/useVariablesArticleChildrenFeatureDetail'
+import { loadItemsArticleChildrenFeatureDetail } from '../ServicesArticleChildrenFeatureDetail/useServicesArticleChildrenFeatureDetail'
 
 export default {
   name: 'ModalSaveArticle',
@@ -76,6 +74,7 @@ export default {
     const clearViewModalArticleChildrenFeature = () => {
       clearStateArticleChildrenFeatureDetail()
       clearDataTableArticleChildrenFeatureDetail()
+      loadItemsArticleChildrenFeatureDetail(1)
     }
 
     return {

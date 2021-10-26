@@ -89,13 +89,14 @@
               <validation-provider
                 #default="{ errors }"
                 name="Órden"
-                rules="required"
+                rules="required|min_value:1"
               >
                 <b-form-input
                   id="article-children-feature-detail-order"
-                  v-model.trim="stateArticleChildrenFeatureDetail.orden"
+                  v-model.number="stateArticleChildrenFeatureDetail.orden"
                   type="number"
                   :state="errors.length > 0 ? false:null"
+                  min="0"
                 />
                 <small class="text-danger">{{ errors[0] }}</small>
               </validation-provider>
@@ -127,7 +128,6 @@
                 text-default="Agregar"
                 icon-button="PlusCircleIcon"
                 :loading="stateArticleChildrenFeatureDetail.loading"
-                :disabled="stateArticle._id ? false : true"
               />
             </div>
           </b-col>
@@ -154,7 +154,7 @@ import ButtonComponent from '@/components/ButtonComponent/ButtonComponent.vue'
 import { ACTION_REGISTER, ACTION_UPDATE } from '@/helpers/actionsApi'
 import { validatePermission } from '@/helpers/validateActions'
 import { endPointsCombo, loadCombos, resetCombos } from '@/helpers/combos'
-import { routeNameArticle, stateArticle } from '../ServicesArticle/useVariablesArticle'
+import { routeNameArticle } from '../ServicesArticle/useVariablesArticle'
 import {
   stateArticleChildrenFeatureDetail, clearStateArticleChildrenFeatureDetail, combosArticleChildrenFeatureDetail, titleNotificationArticleChildrenFeatureDetail,
 } from '../ServicesArticleChildrenFeatureDetail/useVariablesArticleChildrenFeatureDetail'
@@ -214,7 +214,6 @@ export default {
     }
 
     return {
-      stateArticle,
       stateArticleChildrenFeatureDetail,
       sendForm,
       featureSelected,

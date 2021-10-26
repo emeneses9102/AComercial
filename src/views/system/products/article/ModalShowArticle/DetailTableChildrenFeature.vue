@@ -5,6 +5,7 @@
     size="lg"
     :title="`Ver ${titleNotificationArticleChildrenFeatureDetail}`"
     no-close-on-backdrop
+    @show="modalShow"
   >
     <field-set-component legend="Listado">
       <header-search-detail-component
@@ -50,6 +51,7 @@ import {
   serverQueryArticleChildrenFeatureDetail,
   dataTableArticleChildrenFeatureDetail,
   columnsFilterArticleChildrenFeatureDetail,
+  clearDataTableArticleChildrenFeatureDetail,
 } from '../ServicesArticleChildrenFeatureDetail/useVariablesArticleChildrenFeatureDetail'
 import { loadItemsArticleChildrenFeatureDetail } from '../ServicesArticleChildrenFeatureDetail/useServicesArticleChildrenFeatureDetail'
 
@@ -66,10 +68,17 @@ export default {
     let timer = null
     const timeForLoad = 500
 
+    const modalShow = () => {
+      clearDataTableArticleChildrenFeatureDetail()
+      loadItemsArticleChildrenFeatureDetail(1)
+    }
+
     const onChangeField = (field, value) => {
       serverQueryArticleChildrenFeatureDetail.value.campofiltro = field
       serverQueryArticleChildrenFeatureDetail.value.filtro = value
-      loadItemsArticleChildrenFeatureDetail(1)
+      if (value) {
+        loadItemsArticleChildrenFeatureDetail(1)
+      }
     }
 
     const onSearchForValue = (field, value) => {
@@ -92,6 +101,7 @@ export default {
       columnsFilterArticleChildrenFeatureDetail,
       onChangeField,
       onSearchForValue,
+      modalShow,
     }
   },
 }
