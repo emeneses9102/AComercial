@@ -1,5 +1,8 @@
 <template>
-  <field-set-component legend="Detalle">
+  <field-set-component
+    legend="Detalle"
+    collapse="show"
+  >
     <validation-observer
       ref="validation-article-children"
     >

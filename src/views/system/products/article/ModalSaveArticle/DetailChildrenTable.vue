@@ -1,5 +1,8 @@
 <template>
-  <field-set-component legend="Listado">
+  <field-set-component
+    legend="Listado"
+    collapse="show"
+  >
     <header-search-detail-component
       v-if="stateArticle._id"
       id="header-search-children"
