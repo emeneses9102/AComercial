@@ -12,6 +12,10 @@
       :server-query="serverQueryArticleChildrenDetail"
       :data-table="dataTableArticleChildrenDetail"
       :load-items="loadItemsArticleChildrenDetail"
+      :option-status="false"
+      :option-edit="false"
+      :option-delete="false"
+      @open-modal-for-show="row=>openModalForShow(row)"
     />
   </field-set-component>
 </template>
@@ -24,6 +28,7 @@ import {
   columnsArticleChildrenDetailForShow, serverQueryArticleChildrenDetail, dataTableArticleChildrenDetail, columnsFilterArticleChildrenDetail,
 } from '../ServicesArticleChildrenDetail/useVariablesArticleChildrenDetail'
 import { loadItemsArticleChildrenDetail } from '../ServicesArticleChildrenDetail/useServicesArticleChildrenDetail'
+import { stateArticleChildrenFeatureDetail } from '../ServicesArticleChildrenFeatureDetail/useVariablesArticleChildrenFeatureDetail'
 
 export default {
   name: 'DetailTable',
@@ -32,9 +37,14 @@ export default {
     TableGoodComponent,
     HeaderSearchDetailComponent,
   },
-  setup() {
+  setup(props, context) {
     let timer = null
     const timeForLoad = 500
+
+    const openModalForShow = row => {
+      stateArticleChildrenFeatureDetail.value.idTArticulo = row._id
+      context.root.$bvModal.show('modal-article-children-detail-show')
+    }
 
     const onChangeField = (field, value) => {
       serverQueryArticleChildrenDetail.value.campofiltro = field
@@ -60,6 +70,7 @@ export default {
       columnsFilterArticleChildrenDetail,
       onChangeField,
       onSearchForValue,
+      openModalForShow,
     }
   },
 }

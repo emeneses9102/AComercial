@@ -58,6 +58,7 @@ import {
 import {
   clearDataTableArticleChildrenDetail, clearFiltersArticleChildrenDetail, clearStateArticleChildrenDetail, equalizeStateArticleChildrenDetail,
 } from './ServicesArticleChildrenDetail/useVariablesArticleChildrenDetail'
+import { combosArticleChildrenFeatureDetail } from './ServicesArticleChildrenFeatureDetail/useVariablesArticleChildrenFeatureDetail'
 
 export default {
   name: 'Article',
@@ -101,6 +102,7 @@ export default {
       loadCombos(combosArticle, ['serviceType'], `${endPointsCombo.tipoServicio}/1`, 'Tipo Servicio')
       loadCombos(combosArticle, ['unitGroup'], `${endPointsCombo.grupo}/1`, 'Grupo Unidad')
       loadCombos(combosArticleFeatureDetail, ['feature'], `${endPointsCombo.caracteristica}/1`, 'Característica')
+      loadCombos(combosArticleChildrenFeatureDetail, ['feature'], `${endPointsCombo.caracteristica}/1`, 'Característica')
       loadCombos(combosArticleTributeDetail, ['tribute'], `${endPointsCombo.tributoSunat}/1`, 'Tributo')
       loadCombos(combosArticleBusinessDetail, ['businessUnit'], `${endPointsCombo.negocio}/1`, 'Negocio')
     })
