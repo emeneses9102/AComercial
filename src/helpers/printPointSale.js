@@ -10,7 +10,7 @@ export const generateContentTicketHTMLPointSale = (pointSale, pointSaleDetail = 
       *,
       html,
       body {
-        font-family: Courier, "Lucida Console", monospace !important;
+        font-family: Arial, Helvetica, sans-serif !important;
         font-size: 10px;
       }
       *,
@@ -41,7 +41,7 @@ export const generateContentTicketHTMLPointSale = (pointSale, pointSaleDetail = 
         margin-bottom: .5em;
       }
       .title-print {
-        font-family: Courier, "Lucida Console", monospace !important;
+        font-family: Arial, Helvetica, sans-serif !important;
         margin-top: .05em;
         margin-bottom: .05em;
         text-align: center;

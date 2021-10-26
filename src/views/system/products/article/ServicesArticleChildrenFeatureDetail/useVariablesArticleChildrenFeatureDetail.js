@@ -12,7 +12,7 @@ export const MODAL_ID = 'modal-article-children-detail'
 // Variables inicializadora para almacenar la configuración de cada columna de la tabla Detalle Articulo Caracteristica
 export const initialColumnsArticleChildrenFeatureDetail = [
   {
-    field: '_id',
+    field: 'idt',
     label: 'ID',
     thClass: 'align-middle',
     tdClass: 'align-middle',
@@ -64,11 +64,18 @@ export const clearDataTableArticleChildrenFeatureDetail = () => {
 }
 
 // Variable reactiva para manjear los consultas del lado del servidor de la tabla Detalle Articulo Caracteristica
+// export const serverQueryArticleChildrenFeatureDetail = ref({
+//   ...serverQueryDefault,
+//   tabla: 'tarticulocaracteristica',
+//   pfin: 5,
+//   campo: 'a.idtarticulo',
+// })
+
 export const serverQueryArticleChildrenFeatureDetail = ref({
   ...serverQueryDefault,
-  tabla: 'tarticulocaracteristica',
+  _id: 512,
+  tabla: 'uarticulocaracteristica',
   pfin: 5,
-  campo: 'a.idtarticulo',
 })
 
 // Función para limpiar filtros en la consulta de la tabla Detalle Articulo Caracteristica
@@ -124,6 +131,8 @@ export const columnsFilterArticleChildrenFeatureDetail = [
 
 // Constante para almacenar la url base de la petición del mantenimiento Detalle Articulo Caracteristica
 export const urlApiArticleChildrenFeatureDetail = '/tarticulocaracteristica'
+// Constante para almacenar la url base de la peticion de la Union Detalle Articulo Caracteristica y Detalle Tabla Articulo Caracteristica
+export const urlApiUnionArticleChildrenFeatureDetail = '/uarticulocaracteristica'
 
 // Constante para almacenar el titulo de las notificaciónes de Detalle Articulo Caracteristica
 export const titleNotificationArticleChildrenFeatureDetail = 'Detalle Articulo Caracteristica'

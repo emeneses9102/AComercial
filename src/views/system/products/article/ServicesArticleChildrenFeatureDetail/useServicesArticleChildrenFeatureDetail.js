@@ -2,15 +2,16 @@
 import { ACTION_REGISTER, ACTION_UPDATE } from '@/helpers/actionsApi'
 import { getDataById, loadTable, sendForm } from '@/helpers/manageTables'
 import {
-  serverQueryArticleChildrenFeatureDetail, dataTableArticleChildrenFeatureDetail, stateArticleChildrenFeatureDetail, urlApiArticleChildrenFeatureDetail, titleNotificationArticleChildrenFeatureDetail,
+  serverQueryArticleChildrenFeatureDetail, dataTableArticleChildrenFeatureDetail, stateArticleChildrenFeatureDetail, urlApiArticleChildrenFeatureDetail, titleNotificationArticleChildrenFeatureDetail, urlApiUnionArticleChildrenFeatureDetail,
 } from './useVariablesArticleChildrenFeatureDetail'
 // import { stateArticle } from '../ServicesArticle/useVariablesArticle'
 // import { stateArticleChildrenDetail } from '../ServicesArticleChildrenDetail/useVariablesArticleChildrenDetail'
 
 // Función para obtener los datos desde la API y actualizar los valores de dataTableFeatures
 export const loadItemsArticleChildrenFeatureDetail = async (page = null, perPage = null) => {
-  serverQueryArticleChildrenFeatureDetail.value.indice = stateArticleChildrenFeatureDetail.value.idTArticulo
-  const status = await loadTable(serverQueryArticleChildrenFeatureDetail, dataTableArticleChildrenFeatureDetail, urlApiArticleChildrenFeatureDetail, titleNotificationArticleChildrenFeatureDetail, page, perPage)
+  // serverQueryArticleChildrenFeatureDetail.value.indice = stateArticleChildrenFeatureDetail.value.idTArticulo
+  serverQueryArticleChildrenFeatureDetail.value._id = stateArticleChildrenFeatureDetail.value.idTArticulo
+  const status = await loadTable(serverQueryArticleChildrenFeatureDetail, dataTableArticleChildrenFeatureDetail, urlApiUnionArticleChildrenFeatureDetail, titleNotificationArticleChildrenFeatureDetail, page, perPage)
   return status
 }
 
