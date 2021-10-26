@@ -18,6 +18,7 @@ import {
 
 // Variables inicializadora para almacenar la configuración de cada columna de la tabla Detalle Artículo Hijos
 export const initialColumnsArticleChildrenDetail = [
+  columnAction,
   {
     field: '_id',
     label: 'ID',
@@ -114,7 +115,7 @@ export const initialColumnsArticleChildrenDetail = [
 
 // Variable reactiva para almacenar la configuración de cada columna de la tabla Detalle Artículo Hijos
 export const columnsArticleChildrenDetail = ref([
-  columnAction,
+  // columnAction,
   ...initialColumnsArticleChildrenDetail,
 ])
 

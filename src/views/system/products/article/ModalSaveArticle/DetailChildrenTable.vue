@@ -18,11 +18,32 @@
       :pagination-enabled="!!stateArticle._id"
       :option-show="false"
       @open-modal-for-edit="row=>openModalFor(row, 'edit')"
-    />
+    >
+      <template
+        #options-pluss
+      >
+        <template
+          v-if="true"
+        >
+          <b-dropdown-item @click="$bvModal.show('modal-article-children-detail')">
+            <div class="d-flex align-items-center">
+              <feather-icon
+                icon="FlagIcon"
+                class="mr-50"
+              />
+              <span class="d-inline-block">Características</span>
+            </div>
+          </b-dropdown-item>
+        </template>
+      </template>
+    </table-good-component>
   </field-set-component>
 </template>
 
 <script>
+import {
+  BDropdownItem,
+} from 'bootstrap-vue'
 import HeaderSearchDetailComponent from '@/components/HeaderSearchDetailComponent/HeaderSearchDetailComponent.vue'
 import FieldSetComponent from '@/components/FieldSetComponent/FieldSetComponent.vue'
 import TableGoodComponent from '@/components/TableComponent/TableGoodComponent.vue'
@@ -35,6 +56,7 @@ import { loadItemsArticleChildrenDetail, sendArticleChildrenDetail } from '../Se
 export default {
   name: 'DetailTableFeature',
   components: {
+    BDropdownItem,
     FieldSetComponent,
     TableGoodComponent,
     HeaderSearchDetailComponent,

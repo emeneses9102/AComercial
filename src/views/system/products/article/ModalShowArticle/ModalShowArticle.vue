@@ -56,6 +56,8 @@
       </b-tab>
     </b-tabs>
 
+    <detail-table-children-feature />
+
     <template #modal-footer>
       <button-component
         variant="primary"
@@ -79,6 +81,7 @@ import DetailTableTribute from './DetailTableTribute.vue'
 import DetailTableBusiness from './DetailTableBusiness.vue'
 import DetailTableChildren from './DetailTableChildren.vue'
 import { MODAL_ID, titleNotificationArticle } from '../ServicesArticle/useVariablesArticle'
+import DetailTableChildrenFeature from './DetailTableChildrenFeature.vue'
 
 export default {
   name: 'ModalShowArticle',
@@ -93,6 +96,7 @@ export default {
     DetailTableTribute,
     DetailTableBusiness,
     DetailTableChildren,
+    DetailTableChildrenFeature,
   },
   setup() {
     return {

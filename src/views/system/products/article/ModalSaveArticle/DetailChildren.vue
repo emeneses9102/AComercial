@@ -293,7 +293,7 @@
             </b-form-group>
           </b-col>
         </b-row>
-
+        <modal-save-article-children-feature />
         <b-row>
           <b-col
             cols="12"
@@ -353,6 +353,7 @@ import UploadPhotoComponent from '@/components/UploadPhotoComponent/UploadPhotoC
 import ButtonComponent from '@/components/ButtonComponent/ButtonComponent.vue'
 import { ACTION_REGISTER, ACTION_UPDATE } from '@/helpers/actionsApi'
 import { validatePermission } from '@/helpers/validateActions'
+import ModalSaveArticleChildrenFeature from '../ModalSaveArticleChildrenFeature/ModalSaveArticleChildrenFeature.vue'
 import { routeNameArticle, stateArticle } from '../ServicesArticle/useVariablesArticle'
 import {
   stateArticleChildrenDetail, clearStateArticleChildrenDetail, titleNotificationArticleChildrenDetail, equalizeStateArticleChildrenDetail,
@@ -362,6 +363,7 @@ import { loadItemsArticleChildrenDetail, sendArticleChildrenDetail } from '../Se
 export default {
   name: 'DetailBusiness',
   components: {
+    ModalSaveArticleChildrenFeature,
     BForm,
     BRow,
     BCol,
