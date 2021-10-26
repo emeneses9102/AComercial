@@ -54,7 +54,7 @@ import { stateArticle } from '../ServicesArticle/useVariablesArticle'
 import {
   columnsArticleChildrenDetail, serverQueryArticleChildrenDetail, dataTableArticleChildrenDetail, columnsFilterArticleChildrenDetail, titleNotificationArticleChildrenDetail, stateArticleChildrenDetail, clearStateArticleChildrenDetail,
 } from '../ServicesArticleChildrenDetail/useVariablesArticleChildrenDetail'
-import { loadItemsArticleChildrenDetail, sendArticleChildrenDetail } from '../ServicesArticleChildrenDetail/useServicesArticleChildrenDetail'
+import { getArticleChildrenDetailById, loadItemsArticleChildrenDetail, sendArticleChildrenDetail } from '../ServicesArticleChildrenDetail/useServicesArticleChildrenDetail'
 import { stateArticleChildrenFeatureDetail } from '../ServicesArticleChildrenFeatureDetail/useVariablesArticleChildrenFeatureDetail'
 
 export default {
@@ -75,10 +75,13 @@ export default {
     }
 
     const openModalFor = async ({
-      _id, codBarra, codInterno, codFabricante, descripcion, idArticulo, imagen, nombre, precioCompra, precioMinimoVenta, precioVenta, stockMaximo, stockMinimo,
+      _id, codBarra, codInterno, codFabricante, descripcion, idArticulo, nombre, precioCompra, precioMinimoVenta, precioVenta, stockMaximo, stockMinimo,
     }) => {
       clearStateArticleChildrenDetail()
       dataTableArticleChildrenDetail.value.loading = true
+      const { data, status } = await getArticleChildrenDetailById(_id)
+      dataTableArticleChildrenDetail.value.loading = false
+      if (!status || !data) return false
       stateArticleChildrenDetail.value._id = _id
       stateArticleChildrenDetail.value.idArticulo = idArticulo
       stateArticleChildrenDetail.value.nombre = nombre
@@ -86,7 +89,7 @@ export default {
       stateArticleChildrenDetail.value.codBarra = codBarra
       stateArticleChildrenDetail.value.codFabricante = codFabricante
       stateArticleChildrenDetail.value.descripcion = descripcion
-      stateArticleChildrenDetail.value.imagen = imagen
+      stateArticleChildrenDetail.value.imagen = data.imagen
       stateArticleChildrenDetail.value.precioCompra = precioCompra
       stateArticleChildrenDetail.value.precioVenta = precioVenta
       stateArticleChildrenDetail.value.precioMinimoVenta = precioMinimoVenta

@@ -56,7 +56,13 @@
 
       <!-- Columna Acción -->
       <span v-if="props.column.field === 'action'">
-        <span>
+        <slot
+          name="options"
+          :props="props"
+        />
+        <span
+          v-if="!slotOptions"
+        >
           <b-dropdown
             variant="link"
             toggle-class="text-decoration-none"
@@ -318,6 +324,11 @@ export default {
       type: String,
       required: false,
       default: '',
+    },
+    slotOptions: {
+      type: Boolean,
+      required: false,
+      default: false,
     },
     serverQuery: {
       type: Object,
