@@ -8,7 +8,7 @@
               margin-class="0"
               variant="primary"
               icon-button="CastIcon"
-              :method-function="()=>$bvModal.show('modal-query-article')"
+              :method-function="()=>$bvModal.show('modal-query-table-article')"
               :disabled="!boxSession._id || !!statePointSale.cerrado || !!statePointSale.cancelado || !!statePointSale.anulado"
             />
           </b-input-group-prepend>
@@ -32,7 +32,7 @@
             />
           </b-input-group-append>
         </b-input-group>
-        <modal-query-article
+        <modal-query-table-article
           @on-article-selected="articleSelected"
         />
         <modal-options-filter-article />
@@ -46,8 +46,8 @@
         >
           <point-sale-list-item
             v-for="product in listPointSaleDetail.rows"
-            :key="product.idArticulo"
-            :codigo="product.idArticulo"
+            :key="product._id"
+            :codigo="product.idTArticulo"
             :nombre="product.nombreArticulo"
             :imagen="product.imagen"
             :precio="product.precio"
@@ -82,7 +82,7 @@ import {
 import {
   mapState,
 } from 'vuex'
-import ModalQueryArticle from '@/components/ModalQueryArticle/ModalQueryArticle.vue'
+import ModalQueryTableArticle from '@/components/ModalQueryTableArticle/ModalQueryTableArticle.vue'
 import ButtonComponent from '@/components/ButtonComponent/ButtonComponent.vue'
 import PointSaleListItem from './PointSaleListItem.vue'
 import PointSaleAmount from '../PointSaleAmount/PointSaleAmount.vue'
@@ -113,7 +113,7 @@ export default {
     VuePerfectScrollbar,
     PointSaleListItem,
     PointSaleAmount,
-    ModalQueryArticle,
+    ModalQueryTableArticle,
     ButtonComponent,
     ModalOptionsFilterArticle,
   },
@@ -130,7 +130,7 @@ export default {
       precioVenta,
       descuento,
     }) => {
-      statePointSaleDetail.value.idArticulo = _id
+      statePointSaleDetail.value.idTArticulo = _id
       statePointSaleDetail.value.cantidad = 1
       statePointSaleDetail.value.nombreArticulo = nombre
       statePointSaleDetail.value.imagenArticulo = imagen || ''

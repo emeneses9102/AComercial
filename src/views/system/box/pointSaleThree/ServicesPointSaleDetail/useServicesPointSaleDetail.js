@@ -36,6 +36,7 @@ import {
   searchProductById,
   stateFieldFilterArticle,
   statePointSale,
+  tabIndexOptionsTools,
 } from '../ServicesPointSale/useVariablesPointSale'
 import {
   getPointSaleById,
@@ -65,7 +66,7 @@ export const sendPointSaleDetail = async (action, _id = null) => {
   const statePointSaleDetailFinal = ref({
     _id: statePointSaleDetail.value._id,
     idPuntoVenta: statePointSale.value._id,
-    idArticulo: statePointSaleDetail.value.idArticulo,
+    idTArticulo: statePointSaleDetail.value.idTArticulo,
     cantidad: statePointSaleDetail.value.cantidad,
     accion: 0,
   })
@@ -108,7 +109,7 @@ export const addArticleToList = async newArticle => {
       store.commit('pointSale/DESACTIVE_LOADING')
       clearStatePointSaleDetail()
     } else {
-      const articleExists = listPointSaleDetail.value.rows.find(article => article.idArticulo === newArticle.idArticulo)
+      const articleExists = listPointSaleDetail.value.rows.find(article => article.idTArticulo === newArticle.idTArticulo)
       if (articleExists) {
         statePointSaleDetail.value = { ...articleExists }
         statePointSaleDetail.value._id = articleExists._id
@@ -143,6 +144,7 @@ export const addArticleToList = async newArticle => {
       }
     }
     recoverFocusInputSearchProduct()
+    tabIndexOptionsTools.value = 1
     return true
   }
   messageToast('warning', 'Punto de Venta', 'Ingresa los campos que se encuentran de color amarillo (Advertencia)')
@@ -151,11 +153,11 @@ export const addArticleToList = async newArticle => {
 
 // Función para actualizar la cantidad de un articulo de lista, recibira como parametro la opracion - +
 export const updateQuantity = async (operation, _id, quantity) => {
-  const articleExists = listPointSaleDetail.value.rows.find(article => article.idArticulo === _id)
+  const articleExists = listPointSaleDetail.value.rows.find(article => article.idTArticulo === _id)
   if (articleExists) {
     statePointSaleDetail.value = { ...articleExists }
     statePointSaleDetail.value._id = articleExists._id
-    statePointSaleDetail.value.idArticulo = articleExists.idArticulo
+    statePointSaleDetail.value.idTArticulo = articleExists.idTArticulo
     switch (operation) {
       case '+':
         statePointSaleDetail.value.cantidad = articleExists.cantidad + 1
@@ -191,7 +193,7 @@ export const updateQuantity = async (operation, _id, quantity) => {
 export const removeArticle = async _id => {
   const result = await confirmSwal('Artículo', null, '¿Desea eliminar el Artículo de la lista?', 'Si, elimínalo')
   if (result) {
-    const articleExists = listPointSaleDetail.value.rows.find(article => article.idArticulo === _id)
+    const articleExists = listPointSaleDetail.value.rows.find(article => article.idTArticulo === _id)
     store.commit('pointSale/ACTIVE_LOADING')
     const { status, data } = await sendPointSaleDetail(ACTION_DELETE, articleExists._id)
     store.commit('pointSale/DESACTIVE_LOADING')
@@ -229,7 +231,7 @@ export const searchArticle = async () => {
       precioVenta,
       descuento,
     } = data[0]
-    statePointSaleDetail.value.idArticulo = _id
+    statePointSaleDetail.value.idTArticulo = _id
     statePointSaleDetail.value.cantidad = 1
     statePointSaleDetail.value.nombreArticulo = nombre
     statePointSaleDetail.value.imagenArticulo = imagen

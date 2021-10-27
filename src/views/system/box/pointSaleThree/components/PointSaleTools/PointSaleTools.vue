@@ -118,7 +118,7 @@
             <button-component
               :vertical="true"
               text-default="Descrip"
-              variant="success"
+              :variant="statePointSale.descripcion ? 'success' : 'secondary'"
               icon-button="EditIcon"
               icon-size="24"
               :method-function="()=>$bvModal.show('modal-description-sale')"
@@ -128,7 +128,7 @@
             <button-component
               :vertical="true"
               text-default="Comprobant."
-              :variant="statePointSale.idComprobante ? 'success' : 'warning'"
+              :variant="statePointSale.idCorrelativo ? 'success' : 'warning'"
               icon-button="FileIcon"
               icon-size="24"
               :method-function="()=>$bvModal.show('modal-options-voucher')"
@@ -389,6 +389,7 @@ export default {
       loadCombos(combosVoucher, ['correlative'], `${endPointsCombo.correlativoPuntoVenta}/1/${store.state.boxSession.boxSession._id}/${statePointSale.value.idComprobante}`, 'Correlativos')
       const { data, error } = await getRequest(`/socio/?_id=0&tabla=socios&pinicio=1&pfin=1&campo=a.id&indice=${pointSale.idSocio}`)
       store.commit('pointSale/DESACTIVE_LOADING')
+      tabIndexOptionsTools.value = 1
       if (error || !data) return false
       stateClient.value._id = data[0]._id
       stateClient.value.nombreDocumento = data[0].nombreDocumento

@@ -9,7 +9,7 @@
     <b-tabs>
       <b-tab>
         <template #title>
-          <feather-icon icon="UserIcon" />
+          <feather-icon icon="FileTextIcon" />
           <span class="d-none d-md-inline">General</span>
         </template>
         <header-tribute />
@@ -17,7 +17,7 @@
 
       <b-tab>
         <template #title>
-          <feather-icon icon="UserIcon" />
+          <feather-icon icon="TrendingUpIcon" />
           <span class="d-none d-md-inline">Factor</span>
         </template>
         <detail-table class="mt-1" />
@@ -25,7 +25,7 @@
 
       <b-tab>
         <template #title>
-          <feather-icon icon="UserIcon" />
+          <feather-icon icon="Edit3Icon" />
           <span class="d-none d-md-inline">Tipo</span>
         </template>
         <detail-table-type class="mt-1" />

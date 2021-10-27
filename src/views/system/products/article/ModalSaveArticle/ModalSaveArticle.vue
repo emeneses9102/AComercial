@@ -9,7 +9,7 @@
     <b-tabs>
       <b-tab>
         <template #title>
-          <feather-icon icon="UserIcon" />
+          <feather-icon icon="FileTextIcon" />
           <span class="d-none d-md-inline">General</span>
         </template>
         <validation-observer
@@ -20,7 +20,7 @@
       </b-tab>
       <b-tab>
         <template #title>
-          <feather-icon icon="UserIcon" />
+          <feather-icon icon="AlertCircleIcon" />
           <span class="d-none d-md-inline">Característica</span>
         </template>
         <detail-feature
@@ -31,7 +31,7 @@
       </b-tab>
       <b-tab>
         <template #title>
-          <feather-icon icon="UserIcon" />
+          <feather-icon icon="BookIcon" />
           <span class="d-none d-md-inline">Receta</span>
         </template>
         <detail-recipe
@@ -42,7 +42,7 @@
       </b-tab>
       <b-tab>
         <template #title>
-          <feather-icon icon="UserIcon" />
+          <feather-icon icon="DollarSignIcon" />
           <span class="d-none d-md-inline">Tributo</span>
         </template>
         <detail-tribute
@@ -53,7 +53,7 @@
       </b-tab>
       <b-tab>
         <template #title>
-          <feather-icon icon="UserIcon" />
+          <feather-icon icon="ServerIcon" />
           <span class="d-none d-md-inline">Negocio</span>
         </template>
         <detail-business
@@ -64,7 +64,7 @@
       </b-tab>
       <b-tab>
         <template #title>
-          <feather-icon icon="UserIcon" />
+          <feather-icon icon="ArchiveIcon" />
           <span class="d-none d-md-inline">Dar de alta</span>
         </template>
         <detail-children
