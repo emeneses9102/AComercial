@@ -23,7 +23,7 @@ export const clearStateProductSelected = () => {
 
 export const serverQueryArticlePointSale = ref({
   ...serverQueryDefault,
-  tabla: 'articulos',
+  tabla: 'tarticulos',
   pinicio: '1',
   pfin: '1',
 })

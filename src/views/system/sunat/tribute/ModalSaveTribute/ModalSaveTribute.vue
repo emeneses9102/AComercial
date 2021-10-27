@@ -9,7 +9,7 @@
     <b-tabs>
       <b-tab>
         <template #title>
-          <feather-icon icon="UserIcon" />
+          <feather-icon icon="FileTextIcon" />
           <span class="d-none d-md-inline">General</span>
         </template>
         <validation-observer
@@ -20,7 +20,7 @@
       </b-tab>
       <b-tab>
         <template #title>
-          <feather-icon icon="UserIcon" />
+          <feather-icon icon="TrendingUpIcon" />
           <span class="d-none d-md-inline">Factor</span>
         </template>
         <detail
@@ -31,7 +31,7 @@
       </b-tab>
       <b-tab>
         <template #title>
-          <feather-icon icon="UserIcon" />
+          <feather-icon icon="Edit3Icon" />
           <span class="d-none d-md-inline">Tipo</span>
         </template>
         <detail-type

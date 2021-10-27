@@ -9,7 +9,7 @@
     <b-tabs>
       <b-tab>
         <template #title>
-          <feather-icon icon="UserIcon" />
+          <feather-icon icon="FileTextIcon" />
           <span class="d-none d-md-inline">General</span>
         </template>
         <header-article />
@@ -17,7 +17,7 @@
 
       <b-tab>
         <template #title>
-          <feather-icon icon="UserIcon" />
+          <feather-icon icon="AlertCircleIcon" />
           <span class="d-none d-md-inline">Característica</span>
         </template>
         <detail-table-feature class="mt-1" />
@@ -25,7 +25,7 @@
 
       <b-tab>
         <template #title>
-          <feather-icon icon="UserIcon" />
+          <feather-icon icon="BookIcon" />
           <span class="d-none d-md-inline">Receta</span>
         </template>
         <detail-table-recipe class="mt-1" />
@@ -33,7 +33,7 @@
 
       <b-tab>
         <template #title>
-          <feather-icon icon="UserIcon" />
+          <feather-icon icon="DollarSignIcon" />
           <span class="d-none d-md-inline">Tributo</span>
         </template>
         <detail-table-tribute class="mt-1" />
@@ -41,7 +41,7 @@
 
       <b-tab>
         <template #title>
-          <feather-icon icon="UserIcon" />
+          <feather-icon icon="ServerIcon" />
           <span class="d-none d-md-inline">Negocio</span>
         </template>
         <detail-table-business class="mt-1" />
@@ -49,7 +49,7 @@
 
       <b-tab>
         <template #title>
-          <feather-icon icon="UserIcon" />
+          <feather-icon icon="ArchiveIcon" />
           <span class="d-none d-md-inline">Altas</span>
         </template>
         <detail-table-children class="mt-1" />

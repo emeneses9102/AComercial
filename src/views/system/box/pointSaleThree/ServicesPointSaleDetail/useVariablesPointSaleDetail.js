@@ -38,7 +38,7 @@ export const clearFiltersPointSaleDetail = () => {
 const initialStatePointSaleDetail = {
   _id: 0,
   idPuntoVenta: 0,
-  idArticulo: 0,
+  idTArticulo: 0,
   nombreArticulo: '',
   imagenArticulo: '',
   cantidad: 0,
