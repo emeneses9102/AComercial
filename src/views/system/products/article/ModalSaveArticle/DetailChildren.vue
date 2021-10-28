@@ -297,6 +297,7 @@
           </b-col>
         </b-row>
         <modal-save-article-children-feature />
+        <modal-save-article-children-serie />
         <b-row>
           <b-col
             cols="12"
@@ -357,6 +358,7 @@ import ButtonComponent from '@/components/ButtonComponent/ButtonComponent.vue'
 import { ACTION_REGISTER, ACTION_UPDATE } from '@/helpers/actionsApi'
 import { validatePermission } from '@/helpers/validateActions'
 import ModalSaveArticleChildrenFeature from '../ModalSaveArticleChildrenFeature/ModalSaveArticleChildrenFeature.vue'
+import ModalSaveArticleChildrenSerie from '../ModalSaveArticleChildrenSerie/ModalSaveArticleChildrenSerie.vue'
 import { routeNameArticle, stateArticle } from '../ServicesArticle/useVariablesArticle'
 import {
   stateArticleChildrenDetail, clearStateArticleChildrenDetail, titleNotificationArticleChildrenDetail, equalizeStateArticleChildrenDetail,
@@ -364,9 +366,10 @@ import {
 import { loadItemsArticleChildrenDetail, sendArticleChildrenDetail } from '../ServicesArticleChildrenDetail/useServicesArticleChildrenDetail'
 
 export default {
-  name: 'DetailBusiness',
+  name: 'DetailChildren',
   components: {
     ModalSaveArticleChildrenFeature,
+    ModalSaveArticleChildrenSerie,
     BForm,
     BRow,
     BCol,

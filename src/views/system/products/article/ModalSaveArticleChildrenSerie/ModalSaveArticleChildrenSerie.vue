@@ -3,14 +3,14 @@
     :id="MODAL_ID"
     centered
     size="lg"
-    :title="`${stateArticleChildrenFeatureDetail._id ? 'Modificar' : 'Registrar'} ${titleNotificationArticleChildrenFeatureDetail}`"
+    :title="`${stateArticleChildrenSerieDetail._id ? 'Modificar' : 'Registrar'} ${titleNotificationArticleChildrenSerieDetail}`"
     no-close-on-backdrop
-    @show="clearViewModalArticleChildrenFeature"
+    @show="clearViewModalArticleChildrenSerie"
   >
-    <detail-children-feature
+    <detail-children-serie
       class="mt-1"
     />
-    <detail-children-feature-table class="mt-1" />
+    <detail-children-serie-table class="mt-1" />
 
     <template #modal-footer>
       <button-component
@@ -40,26 +40,26 @@ import {
   GUARDAR,
 } from '@/options'
 import ButtonComponent from '@/components/ButtonComponent/ButtonComponent.vue'
-import DetailChildrenFeature from './DetailChildrenFeature.vue'
-import DetailChildrenFeatureTable from './DetailChildrenFeatureTable.vue'
+import DetailChildrenSerie from './DetailChildrenSerie.vue'
+import DetailChildrenSerieTable from './DetailChildrenSerieTable.vue'
 import {
   routeNameArticle,
 } from '../ServicesArticle/useVariablesArticle'
 import {
   MODAL_ID,
-  clearDataTableArticleChildrenFeatureDetail,
-  stateArticleChildrenFeatureDetail,
-  titleNotificationArticleChildrenFeatureDetail,
-  clearStateArticleChildrenFeatureDetail,
-} from '../ServicesArticleChildrenFeatureDetail/useVariablesArticleChildrenFeatureDetail'
-import { loadItemsArticleChildrenFeatureDetail } from '../ServicesArticleChildrenFeatureDetail/useServicesArticleChildrenFeatureDetail'
+  clearDataTableArticleChildrenSerieDetail,
+  stateArticleChildrenSerieDetail,
+  titleNotificationArticleChildrenSerieDetail,
+  clearStateArticleChildrenSerieDetail,
+} from '../ServicesArticleChildrenSerieDetail/useVariablesArticleChildrenSerieDetail'
+import { loadItemsArticleChildrenSerieDetail } from '../ServicesArticleChildrenSerieDetail/useServicesArticleChildrenSerieDetail'
 
 export default {
-  name: 'ModalSaveArticle',
+  name: 'ModalSaveArticleChildrenSerie',
   components: {
     BModal,
-    DetailChildrenFeature,
-    DetailChildrenFeatureTable,
+    DetailChildrenSerie,
+    DetailChildrenSerieTable,
     ButtonComponent,
   },
   setup() {
@@ -70,17 +70,17 @@ export default {
       return []
     })
 
-    const clearViewModalArticleChildrenFeature = () => {
-      clearStateArticleChildrenFeatureDetail()
-      clearDataTableArticleChildrenFeatureDetail()
-      loadItemsArticleChildrenFeatureDetail(1)
+    const clearViewModalArticleChildrenSerie = () => {
+      clearStateArticleChildrenSerieDetail()
+      clearDataTableArticleChildrenSerieDetail()
+      loadItemsArticleChildrenSerieDetail(1)
     }
 
     return {
       MODAL_ID,
-      titleNotificationArticleChildrenFeatureDetail,
-      stateArticleChildrenFeatureDetail,
-      clearViewModalArticleChildrenFeature,
+      titleNotificationArticleChildrenSerieDetail,
+      stateArticleChildrenSerieDetail,
+      clearViewModalArticleChildrenSerie,
 
       optionsPermissions,
       EDITAR,
@@ -91,7 +91,7 @@ export default {
 </script>
 
 <style lang="scss">
-#modal-article-children-detail {
+#modal-article-children-serie-detail {
   .modal-dialog {
     @media screen and (min-width: 576px) {
       max-width: 700px;

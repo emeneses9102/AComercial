@@ -38,6 +38,19 @@
             </div>
           </b-dropdown-item>
         </template>
+        <template
+          v-if="true"
+        >
+          <b-dropdown-item @click="openModalChildrenSerie(props.row)">
+            <div class="d-flex align-items-center">
+              <feather-icon
+                icon="GridIcon"
+                class="mr-50"
+              />
+              <span class="d-inline-block">Serie</span>
+            </div>
+          </b-dropdown-item>
+        </template>
       </template>
     </table-good-component>
   </field-set-component>
@@ -55,7 +68,8 @@ import {
   columnsArticleChildrenDetail, serverQueryArticleChildrenDetail, dataTableArticleChildrenDetail, columnsFilterArticleChildrenDetail, titleNotificationArticleChildrenDetail, stateArticleChildrenDetail, clearStateArticleChildrenDetail,
 } from '../ServicesArticleChildrenDetail/useVariablesArticleChildrenDetail'
 import { getArticleChildrenDetailById, loadItemsArticleChildrenDetail, sendArticleChildrenDetail } from '../ServicesArticleChildrenDetail/useServicesArticleChildrenDetail'
-import { stateArticleChildrenFeatureDetail } from '../ServicesArticleChildrenFeatureDetail/useVariablesArticleChildrenFeatureDetail'
+import { serverQueryArticleChildrenFeatureDetail, stateArticleChildrenFeatureDetail } from '../ServicesArticleChildrenFeatureDetail/useVariablesArticleChildrenFeatureDetail'
+import { serverQueryArticleChildrenSerieDetail, stateArticleChildrenSerieDetail } from '../ServicesArticleChildrenSerieDetail/useVariablesArticleChildrenSerieDetail'
 
 export default {
   name: 'DetailTableFeature',
@@ -71,7 +85,14 @@ export default {
 
     const openModalChildrenFeature = ({ _id }) => {
       stateArticleChildrenFeatureDetail.value.idTArticulo = _id
+      serverQueryArticleChildrenFeatureDetail.value.filtro = ''
       context.root.$bvModal.show('modal-article-children-detail')
+    }
+
+    const openModalChildrenSerie = ({ _id }) => {
+      stateArticleChildrenSerieDetail.value.idTArticulo = _id
+      serverQueryArticleChildrenSerieDetail.value.filtro = ''
+      context.root.$bvModal.show('modal-article-children-serie-detail')
     }
 
     const openModalFor = async ({
@@ -125,6 +146,7 @@ export default {
       columnsFilterArticleChildrenDetail,
       titleNotificationArticleChildrenDetail,
       openModalChildrenFeature,
+      openModalChildrenSerie,
       openModalFor,
       onChangeField,
       onSearchForValue,
