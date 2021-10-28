@@ -14,7 +14,7 @@
             rules-validation="required"
             :name-article="stateArticleRecipeDetail.nombreReceta"
             :disabled-button="stateArticle._id && stateArticle.flgReceta ? false : true"
-            :server-query-opcional="`a.id<>${stateArticle._id}`"
+            :server-query-opcional="`a.id<>${stateArticle._id} and a.flgReceta<>1`"
             @on-article-selected="recipeSelected"
           />
           <!-- Unidad -->

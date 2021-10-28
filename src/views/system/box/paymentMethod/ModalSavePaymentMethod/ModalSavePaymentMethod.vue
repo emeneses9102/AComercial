@@ -69,6 +69,24 @@
                 </validation-provider>
               </b-form-group>
             </b-col>
+            <!-- Defecto -->
+            <b-col
+              cols="12"
+            >
+              <b-form-group
+                label="Defecto"
+                label-for="payment-method-defect"
+              >
+                <b-form-checkbox
+                  id="payment-method-defect"
+                  v-model="statePaymentMethod.defecto"
+                  class="custom-control-success"
+                  :value="1"
+                  :unchecked-value="0"
+                  switch
+                />
+              </b-form-group>
+            </b-col>
           </b-row>
         </field-set-component>
       </b-form>
@@ -98,7 +116,7 @@
 
 <script>
 import {
-  BModal, BForm, BRow, BCol, BFormGroup, BFormInput,
+  BModal, BForm, BRow, BCol, BFormGroup, BFormInput, BFormCheckbox,
 } from 'bootstrap-vue'
 import { ValidationObserver, ValidationProvider } from 'vee-validate'
 import { VueSelect } from 'vue-select'
@@ -126,6 +144,7 @@ export default {
     BCol,
     BFormGroup,
     BFormInput,
+    BFormCheckbox,
     ButtonComponent,
     FieldSetComponent,
     ValidationObserver,

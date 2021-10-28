@@ -24,6 +24,13 @@ export const columnsPaymentMethod = ref([
     pdf: true,
   },
   {
+    field: 'nombre',
+    label: 'NOMBRE',
+    thClass: 'align-middle',
+    tdClass: 'align-middle',
+    pdf: true,
+  },
+  {
     field: 'nombreMedioPago',
     label: 'DESCRIPCIÓN SUNAT',
     thClass: 'align-middle',
@@ -31,11 +38,12 @@ export const columnsPaymentMethod = ref([
     pdf: true,
   },
   {
-    field: 'nombre',
-    label: 'NOMBRE',
-    thClass: 'align-middle',
-    tdClass: 'align-middle',
+    field: 'defecto',
+    label: 'DEFECTO',
+    thClass: 'align-middle text-center',
+    tdClass: 'align-middle text-center',
     pdf: true,
+    type: 'boolean',
   },
   columnStatus,
 ])
@@ -64,6 +72,7 @@ const initialStatePaymentMethod = {
   idCodigoSunat: 0,
   nombreMedioPago: '',
   nombre: '',
+  defecto: 0,
   accion: 0,
   loading: false,
 }

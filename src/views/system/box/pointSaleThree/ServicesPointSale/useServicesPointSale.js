@@ -10,7 +10,7 @@ import {
 } from '@/helpers/manageTables'
 import { messageToast } from '@/helpers/messageExtensions'
 import { combosVoucher } from '../components/PointSaleTools/ComponentsTools/ModalOptionsVoucher/useVariablesVoucher'
-import { getBoxSessionByIdCollaborator, getCurrencyLocal } from '../ServicesBoxSession/useServicesBoxSession'
+import { getBoxSessionByIdCollaborator } from '../ServicesBoxSession/useServicesBoxSession'
 import { clearStateClient } from '../ServicesClient/useVariablesClient'
 import { clearListPointSaleDetail, clearStatePointSaleDetail } from '../ServicesPointSaleDetail/useVariablesPointSaleDetail'
 import { clearStateProductSelected } from '../ServicesProduct/useVariablesProduct'
@@ -53,16 +53,12 @@ const verifyBoxSessionActive = async () => {
   store.commit('pointSale/DESACTIVE_LOADING')
   if (response) {
     store.commit('pointSale/ACTIVE_LOADING')
-    const responseCurrency = await getCurrencyLocal()
-    if (responseCurrency) {
-      store.dispatch('boxSession/login', { ...response, idMoneda: responseCurrency._id })
-    } else {
-      store.dispatch('boxSession/login', { ...response, idMoneda: 0 })
-    }
+    store.dispatch('boxSession/login', { ...response })
     setTimeout(async () => {
       statePointSale.value.idSesionCaja = store.state.boxSession.boxSession._id
       statePointSale.value.idVendedor = store.state.boxSession.boxSession.idCajero
       statePointSale.value.idMoneda = store.state.boxSession.boxSession.idMoneda
+      statePointSale.value.idFormaPago = store.state.boxSession.boxSession.idFormaPago
       await loadCombos(combosVoucher, ['voucher'], `${endPointsCombo.comprobantePuntoVenta}/1/${store.state.boxSession.boxSession._id}/0`, 'Comprobante')
       store.commit('pointSale/DESACTIVE_LOADING')
     }, 10)

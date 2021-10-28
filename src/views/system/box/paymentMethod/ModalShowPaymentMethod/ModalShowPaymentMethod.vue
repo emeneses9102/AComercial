@@ -42,6 +42,25 @@
               />
             </b-form-group>
           </b-col>
+          <!-- Defecto -->
+          <b-col
+            cols="12"
+          >
+            <b-form-group
+              label="Defecto"
+              label-for="payment-method-defect"
+            >
+              <b-badge
+                class="mt-50"
+                :variant="statePaymentMethod.defecto ? 'light-success' : 'light-danger'"
+              >
+                <feather-icon
+                  :icon="statePaymentMethod.defecto ? 'CheckIcon' : 'SlashIcon'"
+                  size="16"
+                />
+              </b-badge>
+            </b-form-group>
+          </b-col>
         </b-row>
       </field-set-component>
     </b-form>
@@ -59,7 +78,7 @@
 
 <script>
 import {
-  BModal, BForm, BRow, BCol, BFormGroup, BFormInput, BFormTextarea,
+  BModal, BForm, BRow, BCol, BFormGroup, BFormInput, BFormTextarea, BBadge,
 } from 'bootstrap-vue'
 import FieldSetComponent from '@/components/FieldSetComponent/FieldSetComponent.vue'
 import ButtonComponent from '@/components/ButtonComponent/ButtonComponent.vue'
@@ -75,6 +94,7 @@ export default {
     BFormGroup,
     BFormInput,
     BFormTextarea,
+    BBadge,
     FieldSetComponent,
     ButtonComponent,
   },
