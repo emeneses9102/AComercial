@@ -36,6 +36,14 @@ export const columnsPaymentForm = ref([
     tdClass: 'align-middle',
     pdf: true,
   },
+  {
+    field: 'defecto',
+    label: 'DEFECTO',
+    thClass: 'align-middle text-center',
+    tdClass: 'align-middle text-center',
+    pdf: true,
+    type: 'boolean',
+  },
   columnStatus,
 ])
 
@@ -62,6 +70,7 @@ const initialStatePaymentForm = {
   _id: 0,
   nombre: '',
   dias: 0,
+  defecto: 0,
   accion: 0,
   loading: false,
 }

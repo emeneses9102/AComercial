@@ -64,7 +64,7 @@
                 :options="combosBoxSession.storage.data"
                 :loading="combosBoxSession.storage.loading"
                 :clearable="false"
-                :disabled="combosBoxSession.storage.disabled || !!stateBoxSession.apertura"
+                :disabled="combosBoxSession.storage.disabled || !!stateBoxSession.apertura || !!dataTableBoxSessionVoucherDetail.rows.length"
               >
                 <template v-slot:no-options>
                   No se encontraron resultados.
@@ -90,6 +90,7 @@ import { ValidationProvider } from 'vee-validate'
 import { VueSelect } from 'vue-select'
 import FieldSetComponent from '@/components/FieldSetComponent/FieldSetComponent.vue'
 import { stateBoxSession, combosBoxSession } from '../ServicesBoxSession/useVariablesBoxSession'
+import { dataTableBoxSessionVoucherDetail } from '../ServicesBoxSessionVoucherDetail/useVariablesBoxSessionVoucherDetail'
 
 export default {
   name: 'HeaderBoxSession',
@@ -125,6 +126,7 @@ export default {
     return {
       stateBoxSession,
       combosBoxSession,
+      dataTableBoxSessionVoucherDetail,
     }
   },
 }

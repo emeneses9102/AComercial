@@ -69,6 +69,8 @@ export default {
 
     const showModal = () => {
       statePointSaleMovement.value.idMoneda = statePointSale.value.idMoneda
+      console.log(store.state.boxSession.boxSession)
+      statePointSaleMovement.value.idMedioPago = store.state.boxSession?.boxSession?.idMedioPago || 0
     }
 
     const finishedOperation = async () => {
