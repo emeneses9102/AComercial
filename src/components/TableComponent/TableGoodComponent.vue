@@ -189,7 +189,7 @@
             <template v-if="validateOptionsByRoute && optionsPermissions.includes(ELIMINAR)">
               <b-dropdown-item
                 v-if="optionDelete"
-                @click.stop="deleteRow(props.row._id)"
+                @click.stop="deleteRow(props.row)"
               >
                 <div class="d-flex align-items-center">
                   <feather-icon
@@ -203,7 +203,7 @@
             <template v-else-if="!validateOptionsByRoute">
               <b-dropdown-item
                 v-if="optionDelete"
-                @click.stop="deleteRow(props.row._id)"
+                @click.stop="deleteRow(props.row)"
               >
                 <div class="d-flex align-items-center">
                   <feather-icon
@@ -461,14 +461,17 @@ export default {
         if (status) this.loadItems()
       }
     },
-    async deleteRow(_id) {
+    async deleteRow(row) {
       const confirm = await confirmSwal(this.titleNotification, ACTION_DELETE)
       if (confirm) {
         this.loadingLocal = true
-        const { status } = await this.manageRow(ACTION_DELETE, _id)
+        const { status } = await this.manageRow(ACTION_DELETE, row._id)
         this.loadingLocal = false
-        if (status) this.loadItems()
-        this.$emit('delete-row', _id)
+        if (status) {
+          this.loadItems()
+          this.$emit('delete-row', row._id)
+          this.$emit('delete-row-info', row)
+        }
       }
     },
     openModalFor(row, openFor) {

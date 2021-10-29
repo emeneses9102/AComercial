@@ -41,6 +41,7 @@ const initialStatePointSaleDetail = {
   idTArticulo: 0,
   nombreArticulo: '',
   imagenArticulo: '',
+  flgSerie: 0,
   cantidad: 0,
   precio: 0.00,
   descuento: 0.00,
