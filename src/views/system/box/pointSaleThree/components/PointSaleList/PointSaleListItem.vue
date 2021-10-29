@@ -175,7 +175,6 @@ export default {
       serverQueryPointSaleSerie.value.indice = props.id
       statePointSaleSerie.value.idDPuntoVenta = props.id
       countPointSaleDetailSelected.value = props.cantidad
-      console.log(countPointSaleDetailSelected.value)
       context.root.$bvModal.show('modal-point-sale-serie')
     }
 
