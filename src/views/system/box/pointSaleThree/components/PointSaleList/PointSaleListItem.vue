@@ -8,7 +8,7 @@
     <div class="d-flex align-items-center">
       <div>
         <b-img
-          :src="imagen || require('@/assets/images/icons/no-photos.svg')"
+          :src="imagen.trim() || require('@/assets/images/icons/no-photos.svg')"
           :alt="nombre"
           class="product-item__image"
           draggable="false"
@@ -36,6 +36,15 @@
     </div>
     <div class="product-item-right">
       <div class="product-item__actions">
+        <button-component
+          v-if="!!serie"
+          icon-button="GridIcon"
+          :variant="scantidad === cantidad ? 'info' : 'warning'"
+          icon-size="20"
+          class="p-1"
+          :method-function="()=>openModalSerie()"
+          :disabled="!!statePointSale.cancelado || !!statePointSale.cerrado || !!statePointSale.anulado || !!statePointSale.facturado"
+        />
         <button-component
           icon-button="XIcon"
           variant="danger"
@@ -68,6 +77,8 @@ import {
   updateQuantity,
   removeArticle,
 } from '../../ServicesPointSaleDetail/useServicesPointSaleDetail'
+import { stateArticleChildrenSerieDetail } from '../../ServicesArticleSerieDetail/useVariablesArticleSerieDetail'
+import { countPointSaleDetailSelected, serverQueryPointSaleSerie, statePointSaleSerie } from '../../ServicesPointSaleSerieDetail/useVariablesPointSaleSerieDetail'
 
 export default {
   name: 'PointSaleListItem',
@@ -76,6 +87,11 @@ export default {
     BImg,
   },
   props: {
+    id: {
+      type: Number,
+      required: true,
+      default: 0,
+    },
     codigo: {
       type: Number,
       required: true,
@@ -85,6 +101,11 @@ export default {
       type: String,
       required: true,
       default: '',
+    },
+    serie: {
+      type: Number,
+      required: true,
+      default: 0,
     },
     imagen: {
       type: String,
@@ -97,6 +118,11 @@ export default {
       default: 0,
     },
     cantidad: {
+      type: Number,
+      required: true,
+      default: 0,
+    },
+    scantidad: {
       type: Number,
       required: true,
       default: 0,
@@ -123,7 +149,7 @@ export default {
     },
 
   },
-  setup(props) {
+  setup(props, context) {
     const selectedItem = () => {
       if (!statePointSale.value.cerrado && !statePointSale.value.cancelado && !statePointSale.value.anulado && !statePointSale.value.facturado) {
         if (store.state.pointSale.showProductDetail && stateProductSelected.value._id) {
@@ -144,12 +170,22 @@ export default {
       }
     }
 
+    const openModalSerie = () => {
+      stateArticleChildrenSerieDetail.value.idTArticulo = props.codigo
+      serverQueryPointSaleSerie.value.indice = props.id
+      statePointSaleSerie.value.idDPuntoVenta = props.id
+      countPointSaleDetailSelected.value = props.cantidad
+      console.log(countPointSaleDetailSelected.value)
+      context.root.$bvModal.show('modal-point-sale-serie')
+    }
+
     return {
       selectedItem,
       stateProductSelected,
       statePointSale,
       updateQuantity,
       removeArticle,
+      openModalSerie,
     }
   },
 }

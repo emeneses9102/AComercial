@@ -36,6 +36,7 @@
           @on-article-selected="articleSelected"
         />
         <modal-options-filter-article />
+        <modal-point-sale-serie />
       </div>
       <div class="pointsale-list-products">
         <vue-perfect-scrollbar
@@ -46,12 +47,15 @@
         >
           <point-sale-list-item
             v-for="product in listPointSaleDetail.rows"
+            :id="product._id"
             :key="product._id"
             :codigo="product.idTArticulo"
             :nombre="product.nombreArticulo"
             :imagen="product.imagen"
+            :serie="product.flgSerie"
             :precio="product.precio"
             :cantidad="product.cantidad"
+            :scantidad="product.scantidad"
             :sub-total="product.subTotal"
             :descuento="product.descuento"
             :tributo="product.tributo"
@@ -87,6 +91,7 @@ import ButtonComponent from '@/components/ButtonComponent/ButtonComponent.vue'
 import PointSaleListItem from './PointSaleListItem.vue'
 import PointSaleAmount from '../PointSaleAmount/PointSaleAmount.vue'
 import ModalOptionsFilterArticle from './ModalOptionsFilterArticle.vue'
+import ModalPointSaleSerie from './ModalPointSaleSerie.vue'
 import {
   searchProductById,
   stateFieldFilterArticle,
@@ -116,6 +121,7 @@ export default {
     ModalQueryTableArticle,
     ButtonComponent,
     ModalOptionsFilterArticle,
+    ModalPointSaleSerie,
   },
   computed: {
     ...mapState('pointSale', ['loadingProductList']),

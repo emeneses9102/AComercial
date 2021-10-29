@@ -4,7 +4,7 @@
       <div class="product-container-img">
         <div class="product-card-img">
           <b-img
-            :src="stateProductSelected.imagen || require('@/assets/images/icons/no-photos.svg')"
+            :src="stateProductSelected.imagen.trim() || require('@/assets/images/icons/no-photos.svg')"
             :alt="stateProductSelected.nombre"
             class="product-img"
             draggable="false"
