@@ -43,8 +43,8 @@
           icon-size="20"
           class="p-1"
           :method-function="()=>openModalSerie()"
-          :disabled="!!statePointSale.cancelado || !!statePointSale.cerrado || !!statePointSale.anulado || !!statePointSale.facturado"
         />
+        <!-- :disabled="!!statePointSale.cancelado || !!statePointSale.cerrado || !!statePointSale.anulado || !!statePointSale.facturado" -->
         <button-component
           icon-button="XIcon"
           variant="danger"

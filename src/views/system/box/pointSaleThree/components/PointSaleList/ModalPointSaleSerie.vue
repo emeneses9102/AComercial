@@ -7,7 +7,9 @@
     no-close-on-backdrop
     @show="showModal"
   >
-    <b-tabs>
+    <b-tabs
+      v-if="!statePointSale.cancelado && !statePointSale.cerrado && !statePointSale.anulado && !statePointSale.facturado"
+    >
       <b-tab>
         <template #title>
           <feather-icon icon="SearchIcon" />
@@ -64,6 +66,33 @@
       </b-tab>
     </b-tabs>
 
+    <field-set-component
+      v-else
+      legend="Consulta de Series Ingresadas"
+      class="mt-1"
+    >
+      <header-search-detail-component
+        id="header-search-point-sale-show-article-serie"
+        :columns-filter="columnsFilterPointSaleSerie"
+        :column-filter-selected-default="'a.serie'"
+        @on-change-field="onChangeFieldPointSaleSerie"
+        @on-search-for-value="onSearchForValuePointSaleSerie"
+      />
+      <table-good-component
+        :title-notification="titleNotificationPointSaleSerie"
+        :columns="columnsPointSaleSerieForShow"
+        :server-query="serverQueryPointSaleSerie"
+        :data-table="dataTablePointSaleSerie"
+        :load-items="loadItemsPointSaleSerie"
+        :manage-row="sendPointSaleSerie"
+        :option-status="false"
+        :option-edit="false"
+        :option-show="false"
+        :validate-options-by-route="false"
+        @delete-row-info="deleteRowPointSaleSerie"
+      />
+    </field-set-component>
+
     <template #modal-footer>
       <button-component
         variant="outline-primary"
@@ -75,7 +104,7 @@
         variant="primary"
         icon-button="CheckIcon"
         text-default="Ok"
-        :method-function="()=>$bvModal.show(MODAL_ID)"
+        :method-function="()=>$bvModal.hide(MODAL_ID)"
       />
     </template>
   </b-modal>
@@ -94,7 +123,10 @@ import ButtonComponent from '@/components/ButtonComponent/ButtonComponent.vue'
 import { ACTION_REGISTER } from '@/helpers/actionsApi'
 import { messageToast } from '@/helpers/messageExtensions'
 import {
-  columnsPointSaleSerie, serverQueryPointSaleSerie, dataTablePointSaleSerie, columnsFilterPointSaleSerie, clearDataTablePointSaleSerie, clearFiltersPointSaleSerie,
+  statePointSale,
+} from '../../ServicesPointSale/useVariablesPointSale'
+import {
+  columnsPointSaleSerie, serverQueryPointSaleSerie, dataTablePointSaleSerie, columnsFilterPointSaleSerie, columnsPointSaleSerieForShow, clearDataTablePointSaleSerie, clearFiltersPointSaleSerie,
   MODAL_ID, titleNotificationPointSaleSerie, statePointSaleSerie, countPointSaleDetailSelected,
 } from '../../ServicesPointSaleSerieDetail/useVariablesPointSaleSerieDetail'
 import { loadItemsPointSaleSerie, sendPointSaleSerie } from '../../ServicesPointSaleSerieDetail/useServicesPointSaleSerieDetail'
@@ -125,7 +157,7 @@ export default {
       clearDataTableArticleChildrenSerieDetail()
       clearFiltersPointSaleSerie()
       clearDataTablePointSaleSerie()
-      loadItemsArticleChildrenSerieDetail(1)
+      if (!statePointSale.value.cancelado && !statePointSale.value.cerrado && !statePointSale.value.anulado && !statePointSale.value.facturado) loadItemsArticleChildrenSerieDetail(1)
       loadItemsPointSaleSerie(1)
     }
 
@@ -215,6 +247,9 @@ export default {
       sendPointSaleSerie,
       articleSerieSelected,
       deleteRowPointSaleSerie,
+      columnsPointSaleSerieForShow,
+
+      statePointSale,
     }
   },
 }
