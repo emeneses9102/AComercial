@@ -55,22 +55,6 @@ export default [
   },
   {
     path: '/sesion-caja',
-    name: 'boxSession',
-    component: () => import('@/views/system/box/boxSession/BoxSession.vue'),
-    meta: {
-      auth: true,
-      pageTitle: 'Sesión Caja',
-      breadcrumb: [
-        moduleBreadCrumb,
-        {
-          text: 'Sesión Caja',
-          active: true,
-        },
-      ],
-    },
-  },
-  {
-    path: '/sesion-caja2',
     name: 'boxSession2',
     component: () => import('@/views/system/box/boxSession2/BoxSession.vue'),
     meta: {
@@ -102,7 +86,7 @@ export default [
     },
   },
   {
-    path: '/punto-venta-three',
+    path: '/punto-venta',
     name: 'pointSaleThree',
     component: () => import('@/views/system/box/pointSaleThree/PointSaleThree.vue'),
     meta: {
