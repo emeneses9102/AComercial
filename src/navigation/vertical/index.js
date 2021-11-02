@@ -100,6 +100,10 @@ export default [
         title: 'Áreas',
         route: 'area',
       },
+      {
+        title: 'Pedido Compra',
+        route: 'purchaseOrder',
+      },
     ],
   },
   {
