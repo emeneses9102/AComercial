@@ -108,6 +108,10 @@ export default [
         title: 'Formato',
         route: 'format',
       },
+      {
+        title: 'Motivo Compra',
+        route: 'purchaseReason',
+      },
     ],
   },
   {

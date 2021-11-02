@@ -55,4 +55,20 @@ export default [
       ],
     },
   },
+  {
+    path: '/motivo-compra',
+    name: routesName.motivoCompra,
+    component: () => import('@/views/system/shopping/purchaseReason/PurchaseReason.vue'),
+    meta: {
+      auth: true,
+      pageTitle: 'Motivo Compra',
+      breadcrumb: [
+        moduleBreadCrumb,
+        {
+          text: 'Motivo Compra',
+          active: true,
+        },
+      ],
+    },
+  },
 ]

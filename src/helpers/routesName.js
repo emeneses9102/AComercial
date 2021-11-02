@@ -42,4 +42,5 @@ export default {
   area: 'area',
   pedidoCompra: 'purchaseOrder',
   formato: 'format',
+  motivoCompra: 'purchaseReason',
 }
