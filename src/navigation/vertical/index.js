@@ -104,6 +104,10 @@ export default [
         title: 'Pedido Compra',
         route: 'purchaseOrder',
       },
+      {
+        title: 'Formato',
+        route: 'format',
+      },
     ],
   },
   {
