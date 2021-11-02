@@ -39,4 +39,20 @@ export default [
       ],
     },
   },
+  {
+    path: '/formato',
+    name: routesName.formato,
+    component: () => import('@/views/system/shopping/format/Format.vue'),
+    meta: {
+      auth: true,
+      pageTitle: 'Formato',
+      breadcrumb: [
+        moduleBreadCrumb,
+        {
+          text: 'Formato',
+          active: true,
+        },
+      ],
+    },
+  },
 ]

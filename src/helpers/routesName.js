@@ -41,4 +41,5 @@ export default {
   // COMPRAS
   area: 'area',
   pedidoCompra: 'purchaseOrder',
+  formato: 'format',
 }
