@@ -38,4 +38,7 @@ export default {
   familias: 'familySunat',
   clases: 'classSunat',
   codigoUnico: 'uniqueCodeSunat',
+  // COMPRAS
+  area: 'area',
+  pedidoCompra: 'purchaseOrder',
 }

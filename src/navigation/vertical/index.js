@@ -93,6 +93,16 @@ export default [
     ],
   },
   {
+    title: 'Compras',
+    icon: 'ShoppingBagIcon',
+    children: [
+      {
+        title: 'Áreas',
+        route: 'area',
+      },
+    ],
+  },
+  {
     title: 'Administración',
     icon: 'SettingsIcon',
     children: [
