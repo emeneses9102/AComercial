@@ -72,8 +72,19 @@ export const sendData = async (urlApi, body, titleNotification) => {
 
   const { data, error } = await useFetchApiSimsac(urlApi, null, newBody)
   if (error) {
-    messageToast('danger', titleNotification, error)
     response.status = false
+    if (typeof error === 'string') {
+      messageToast('danger', titleNotification, error)
+    } else if (typeof error === 'object') {
+      const keysErrors = Object.keys(error)
+      keysErrors.forEach(key => {
+        error[key].forEach(err => {
+          messageToast('danger', titleNotification, err)
+        })
+      })
+    } else {
+      messageToast('danger', titleNotification, 'Error de Servidor...')
+    }
     response.data = error
   } else if (data) {
     data.forEach(({ id, mensaje }) => {

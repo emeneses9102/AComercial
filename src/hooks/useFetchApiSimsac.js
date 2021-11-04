@@ -30,6 +30,10 @@ const useFetchApiSimsac = async (path = '/', query = {}, body = {}) => {
     if (error?.response?.status === 401) {
       response.data = null
       response.error = null
+    } else if (error?.response?.status === 400) {
+      response.data = null
+      // response.error = `Ocurrio un error con los campos: ${Object.keys(error.response.data.errors).toString().replace(/i\g/)}`
+      response.error = error.response.data.errors
     } else {
       response.error = error.response || 'Ocurrio un error en el servidor...'
     }

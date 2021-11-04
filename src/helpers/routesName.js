@@ -43,4 +43,5 @@ export default {
   pedidoCompra: 'purchaseOrder',
   formato: 'format',
   motivoCompra: 'purchaseReason',
+  ordenCompra: 'buyOrder',
 }

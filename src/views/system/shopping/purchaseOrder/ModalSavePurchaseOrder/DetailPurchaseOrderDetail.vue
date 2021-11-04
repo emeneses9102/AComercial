@@ -34,7 +34,7 @@
                       icon-button="SearchIcon"
                       margin-class="m-0"
                       :method-function="openModalQueryTableArticle"
-                      :disabled="!!statePurchaseOrder._id"
+                      :disabled="!!!statePurchaseOrder._id"
                     />
                   </b-input-group-append>
                 </b-input-group>
@@ -94,6 +94,7 @@
                   v-model="statePurchaseOrderDetail.necesario"
                   :state="errors.length > 0 ? false:null"
                   v-bind="labelsFormDate"
+                  :min="dateCurrent"
                 />
                 <small class="text-danger">{{ errors[0] }}</small>
               </b-form-group>
@@ -179,6 +180,7 @@ export default {
   },
   data() {
     return {
+      dateCurrent: new Date(),
       labelsFormDate: {
         labelPrevDecade: 'Década anterior',
         labelPrevYear: 'Año anterior',
@@ -209,7 +211,6 @@ export default {
     }
 
     const onArticleSelected = ({ _id, nombre }) => {
-      console.log(_id, nombre)
       statePurchaseOrderDetail.value.idTArticulo = _id
       statePurchaseOrderDetail.value.nombreTArticulo = nombre
     }

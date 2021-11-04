@@ -45,17 +45,14 @@
         >
           <b-form-group
             label="Prioridad"
-            label-for="purchase-order-production"
+            label-for="purchase-order-priority"
           >
-            <b-badge
-              class="mt-50"
-              :variant="statePurchaseOrder.priority ? 'light-success' : 'light-danger'"
-            >
-              <feather-icon
-                :icon="statePurchaseOrder.priority ? 'CheckIcon' : 'SlashIcon'"
-                size="16"
-              />
-            </b-badge>
+            <b-form-input
+              id="purchase-order-priority"
+              v-model.number="statePurchaseOrder.prioridad"
+              type="number"
+              readonly
+            />
           </b-form-group>
         </b-col>
 
@@ -68,11 +65,10 @@
             label="Necesario"
             label-for="purchase-order-necessary"
           >
-            <b-form-input
+            <b-form-datepicker
               id="purchase-order-necessary"
-              v-model.trim="statePurchaseOrder.necesario"
-              type="text"
-              readonly
+              v-model="statePurchaseOrder.necesario"
+              disabled
             />
           </b-form-group>
         </b-col>
@@ -86,11 +82,10 @@
             label="Valido hasta"
             label-for="purchase-order-validity"
           >
-            <b-form-input
+            <b-form-datepicker
               id="purchase-order-validity"
-              v-model.trim="statePurchaseOrder.validohasta"
-              type="text"
-              readonly
+              v-model="statePurchaseOrder.validohasta"
+              disabled
             />
           </b-form-group>
         </b-col>
@@ -120,7 +115,7 @@
 
 <script>
 import {
-  BForm, BRow, BCol, BFormGroup, BFormInput, BFormTextarea, BBadge,
+  BForm, BRow, BCol, BFormGroup, BFormInput, BFormTextarea, BFormDatepicker,
 } from 'bootstrap-vue'
 import FieldSetComponent from '@/components/FieldSetComponent/FieldSetComponent.vue'
 import { statePurchaseOrder } from '../ServicesPurchaseOrder/useVariablesPurchaseOrder'
@@ -134,7 +129,7 @@ export default {
     BFormGroup,
     BFormInput,
     BFormTextarea,
-    BBadge,
+    BFormDatepicker,
     FieldSetComponent,
   },
   setup() {

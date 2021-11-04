@@ -12,3 +12,11 @@ export const ACTION_POINT_SALE_CHECKIN = 6 // Facturar Operacion (Punto de Venta
 export const ACTION_POINT_SALE_CLOSE = 7 // Cerrar Operación (Punto de Venta)
 export const ACTION_POINT_SALE_CANCEL = 8 // Anular Operación (Punto de Venta)
 export const ACTION_POINT_SALE_CHECKIN_CLOSE = 9 // Pagar y Cerrar Operación (Punto de Venta)
+
+// ORDEN COMPRA
+
+export const ACTION_APPROVE = 5 // Orden de Compra - Pedido Compra Aprobada
+export const ACTION_CANCEL = 6 // Orden de Compra Anulada
+export const ACTION_ATTENDED = 7 // Orden de Compra Atendida
+
+export const ACTION_REJECT = 6 // Pedido Compra Rechazar

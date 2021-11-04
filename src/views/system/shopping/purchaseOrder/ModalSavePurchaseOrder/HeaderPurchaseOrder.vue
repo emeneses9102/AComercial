@@ -79,19 +79,30 @@
           cols="12"
           lg="6"
         >
-          <b-form-group
-            label="Prioridad"
-            label-for="purchase-order-priority"
+          <validation-provider
+            #default="{ errors }"
+            name="Prioridad"
+            rules="requiredComboVueSelect"
           >
-            <b-form-checkbox
-              id="purchase-order-priority"
-              v-model="statePurchaseOrder.prioridad"
-              class="custom-control-success"
-              :value="1"
-              :unchecked-value="0"
-              switch
-            />
-          </b-form-group>
+            <b-form-group
+              label="Prioridad *"
+              label-for="purchase-order-priority"
+              :state="errors.length > 0 ? false:null"
+            >
+              <vue-select
+                id="purchase-order-priority"
+                v-model="statePurchaseOrder.prioridad"
+                :dir="$store.state.appConfig.isRTL ? 'rtl' : 'ltr'"
+                :options="[1, 2, 3, 4, 5, 6, 7, 8, 9]"
+                :clearable="false"
+              >
+                <template v-slot:no-options>
+                  No se encontraron resultados.
+                </template>
+              </vue-select>
+              <small class="text-danger">{{ errors[0] }}</small>
+            </b-form-group>
+          </validation-provider>
         </b-col>
 
         <!-- Necesario -->
@@ -113,6 +124,7 @@
                 v-model="statePurchaseOrder.necesario"
                 :state="errors.length > 0 ? false:null"
                 v-bind="labelsFormDate"
+                :min="dateCurrent"
               />
               <small class="text-danger">{{ errors[0] }}</small>
             </b-form-group>
@@ -138,6 +150,7 @@
                 v-model="statePurchaseOrder.validohasta"
                 :state="errors.length > 0 ? false:null"
                 v-bind="labelsFormDate"
+                :min="minDateValidity"
               />
               <small class="text-danger">{{ errors[0] }}</small>
             </b-form-group>
@@ -167,7 +180,7 @@
 
 <script>
 import {
-  BForm, BRow, BCol, BFormGroup, BFormTextarea, BFormCheckbox, BFormDatepicker,
+  BForm, BRow, BCol, BFormGroup, BFormTextarea, BFormDatepicker,
 } from 'bootstrap-vue'
 import { ValidationProvider } from 'vee-validate'
 import { VueSelect } from 'vue-select'
@@ -182,7 +195,6 @@ export default {
     BCol,
     BFormGroup,
     BFormTextarea,
-    BFormCheckbox,
     BFormDatepicker,
     VueSelect,
     ValidationProvider,
@@ -190,6 +202,9 @@ export default {
   },
   data() {
     return {
+      dateCurrent: new Date(),
+      // minDateDelivery: new Date(),
+      minDateValidity: new Date((new Date()).setDate((new Date()).getDate() + 1)),
       labelsFormDate: {
         labelPrevDecade: 'Década anterior',
         labelPrevYear: 'Año anterior',

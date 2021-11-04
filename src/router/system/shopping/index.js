@@ -71,4 +71,20 @@ export default [
       ],
     },
   },
+  {
+    path: '/orden-compra',
+    name: routesName.ordenCompra,
+    component: () => import('@/views/system/shopping/buyOrder/BuyOrder.vue'),
+    meta: {
+      auth: true,
+      pageTitle: 'Órden Compra',
+      breadcrumb: [
+        moduleBreadCrumb,
+        {
+          text: 'Órden Compra',
+          active: true,
+        },
+      ],
+    },
+  },
 ]
