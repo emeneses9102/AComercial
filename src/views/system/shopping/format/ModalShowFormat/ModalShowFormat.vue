@@ -33,11 +33,9 @@
               label="Título *"
               label-for="format-title"
             >
-              <b-form-input
-                id="format-title"
-                v-model.trim="stateFormat.titulo"
-                type="text"
-                readonly
+              <quill-editor
+                v-model="stateFormat.titulo"
+                :options="snowOptionTitle"
               />
             </b-form-group>
           </b-col>
@@ -49,11 +47,9 @@
               label="Texto *"
               label-for="format-text"
             >
-              <b-form-input
-                id="format-text"
-                v-model.trim="stateFormat.texto"
-                type="text"
-                readonly
+              <quill-editor
+                v-model="stateFormat.texto"
+                :options="snowOptionText"
               />
             </b-form-group>
           </b-col>
@@ -73,9 +69,16 @@
 </template>
 
 <script>
+// eslint-disable-next-line
+import 'quill/dist/quill.core.css'
+// eslint-disable-next-line
+import 'quill/dist/quill.snow.css'
+// eslint-disable-next-line
+import 'quill/dist/quill.bubble.css'
 import {
   BModal, BForm, BRow, BCol, BFormGroup, BFormInput,
 } from 'bootstrap-vue'
+import { quillEditor } from 'vue-quill-editor'
 import FieldSetComponent from '@/components/FieldSetComponent/FieldSetComponent.vue'
 import ButtonComponent from '@/components/ButtonComponent/ButtonComponent.vue'
 import { MODAL_ID, titleNotificationFormat, stateFormat } from '../ServicesFormat/useVariablesFormat'
@@ -89,8 +92,23 @@ export default {
     BCol,
     BFormGroup,
     BFormInput,
+    quillEditor,
     FieldSetComponent,
     ButtonComponent,
+  },
+  data() {
+    return {
+      snowOptionTitle: {
+        theme: 'snow',
+        placeholder: 'Ingrese el título',
+        readOnly: true,
+      },
+      snowOptionText: {
+        theme: 'snow',
+        placeholder: 'Ingrese el texto',
+        readOnly: true,
+      },
+    }
   },
   setup() {
     return {

@@ -48,12 +48,9 @@
                   name="Título"
                   rules="required|min:3"
                 >
-                  <b-form-input
-                    id="format-title"
-                    v-model.trim="stateFormat.titulo"
-                    type="text"
-                    :state="errors.length > 0 ? false:null"
-                    @keydown.enter="()=>sendForm()"
+                  <quill-editor
+                    v-model="stateFormat.titulo"
+                    :options="snowOptionTitle"
                   />
                   <small class="text-danger">{{ errors[0] }}</small>
                 </validation-provider>
@@ -72,12 +69,9 @@
                   name="Texto"
                   rules="required|min:3"
                 >
-                  <b-form-input
-                    id="format-text"
-                    v-model.trim="stateFormat.texto"
-                    type="text"
-                    :state="errors.length > 0 ? false:null"
-                    @keydown.enter="()=>sendForm()"
+                  <quill-editor
+                    v-model="stateFormat.texto"
+                    :options="snowOptionText"
                   />
                   <small class="text-danger">{{ errors[0] }}</small>
                 </validation-provider>
@@ -111,6 +105,12 @@
 </template>
 
 <script>
+// eslint-disable-next-line
+import 'quill/dist/quill.core.css'
+// eslint-disable-next-line
+import 'quill/dist/quill.snow.css'
+// eslint-disable-next-line
+import 'quill/dist/quill.bubble.css'
 import {
   BModal, BForm, BRow, BCol, BFormGroup, BFormInput,
 } from 'bootstrap-vue'
@@ -121,6 +121,7 @@ import {
   EDITAR,
   GUARDAR,
 } from '@/options'
+import { quillEditor } from 'vue-quill-editor'
 import { ACTION_REGISTER, ACTION_UPDATE } from '@/helpers/actionsApi'
 import { validatePermission } from '@/helpers/validateActions'
 import ButtonComponent from '@/components/ButtonComponent/ButtonComponent.vue'
@@ -140,9 +141,22 @@ export default {
     BFormGroup,
     BFormInput,
     ButtonComponent,
+    quillEditor,
     FieldSetComponent,
     ValidationObserver,
     ValidationProvider,
+  },
+  data() {
+    return {
+      snowOptionTitle: {
+        theme: 'snow',
+        placeholder: 'Ingrese el título',
+      },
+      snowOptionText: {
+        theme: 'snow',
+        placeholder: 'Ingrese el texto',
+      },
+    }
   },
   setup(props, context) {
     const optionsPermissions = computed(() => {
@@ -181,3 +195,21 @@ export default {
   },
 }
 </script>
+
+<style lang="scss">
+@import '@core/scss/vue/libs/quill.scss';
+#modal-format {
+  .modal-dialog {
+    @media screen and (min-width: 576px) {
+      max-width: 900px;
+      width: 90%;
+    }
+  }
+  // .modal-lg {
+  //   @media screen and (min-width: 992px) {
+  //     max-width: 1000px;
+  //     width: 90%;
+  //   }
+  // }
+}
+</style>
