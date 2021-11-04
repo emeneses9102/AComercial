@@ -9,59 +9,64 @@
         :title="`Filtrar ${titleNotification}`"
         no-close-on-backdrop
       >
-        <b-row>
-          <slot name="before" />
-          <b-col
-            cols="12"
-          >
-            <validation-provider
-              #default="{ errors }"
-              name="Columna"
-              :rules="rulesColumn"
-            >
-              <b-form-group
-                label="Columna"
-                label-for="modal-search-search-field"
-                :state="errors.length > 0 ? false:null"
-              >
-                <vue-select
-                  id="modal-search-search-field"
-                  :value="serverQuery.campofiltro"
-                  :reduce="option => option.field"
-                  label="title"
-                  :options="columnsFilter"
-                  @input="selectField"
-                />
-                <small class="text-danger">{{ errors[0] }}</small>
-              </b-form-group>
-            </validation-provider>
-          </b-col>
-          <b-col
-            cols="12"
-          >
-            <b-form-group
-              label="Filtro"
-              label-for="modal-search-search-value"
+        <field-set-component
+          legend="Campos de Filtro"
+          collapse="show"
+        >
+          <b-row>
+            <slot name="before" />
+            <b-col
+              cols="12"
             >
               <validation-provider
                 #default="{ errors }"
-                name="Filtro"
-                :rules="rulesValue"
+                name="Columna"
+                :rules="rulesColumn"
               >
-                <b-form-input
-                  id="modal-search-search-value"
-                  v-model="serverQuery.filtro"
-                  type="text"
+                <b-form-group
+                  label="Columna"
+                  label-for="modal-search-search-field"
                   :state="errors.length > 0 ? false:null"
-                  @keypress="e=>$emit('update:serverQuery.filtro', e.target.value)"
-                  @keydown.enter="sendSearch"
-                />
-                <small class="text-danger">{{ errors[0] }}</small>
+                >
+                  <vue-select
+                    id="modal-search-search-field"
+                    :value="serverQuery.campofiltro"
+                    :reduce="option => option.field"
+                    label="title"
+                    :options="columnsFilter"
+                    @input="selectField"
+                  />
+                  <small class="text-danger">{{ errors[0] }}</small>
+                </b-form-group>
               </validation-provider>
-            </b-form-group>
-          </b-col>
-          <slot name="after" />
-        </b-row>
+            </b-col>
+            <b-col
+              cols="12"
+            >
+              <b-form-group
+                label="Filtro"
+                label-for="modal-search-search-value"
+              >
+                <validation-provider
+                  #default="{ errors }"
+                  name="Filtro"
+                  :rules="rulesValue"
+                >
+                  <b-form-input
+                    id="modal-search-search-value"
+                    v-model="serverQuery.filtro"
+                    type="text"
+                    :state="errors.length > 0 ? false:null"
+                    @keypress="e=>$emit('update:serverQuery.filtro', e.target.value)"
+                    @keydown.enter="sendSearch"
+                  />
+                  <small class="text-danger">{{ errors[0] }}</small>
+                </validation-provider>
+              </b-form-group>
+            </b-col>
+            <slot name="after" />
+          </b-row>
+        </field-set-component>
 
         <template #modal-footer>
           <button-component
@@ -91,6 +96,7 @@ import {
 import { VueSelect } from 'vue-select'
 import { ValidationObserver, ValidationProvider } from 'vee-validate'
 import ButtonComponent from '@/components/ButtonComponent/ButtonComponent.vue'
+import FieldSetComponent from '@/components/FieldSetComponent/FieldSetComponent.vue'
 
 export default {
   name: 'ModalSearch',
@@ -105,6 +111,7 @@ export default {
     ValidationObserver,
     ValidationProvider,
     ButtonComponent,
+    FieldSetComponent,
   },
   props: {
     modalId: {

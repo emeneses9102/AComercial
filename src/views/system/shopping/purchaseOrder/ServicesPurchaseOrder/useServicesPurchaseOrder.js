@@ -1,4 +1,6 @@
 // Importar funciones y variables necesarias para crear los servicios del mantenimiento Pedido Compra
+import { ref } from '@vue/composition-api'
+import { ACTION_APPROVE, ACTION_REJECT } from '@/helpers/actionsApi'
 import { getDataById, loadTable, sendForm } from '@/helpers/manageTables'
 import {
   serverQueryPurchaseOrder, dataTablePurchaseOrder, statePurchaseOrder, urlApiPurchaseOrder, titleNotificationPurchaseOrder,
@@ -20,6 +22,26 @@ export const getPurchaseOrderById = async _id => {
 
 // Función para gestionar un Pedido Compra
 export const sendPurchaseOrder = async (action, _id = null) => {
-  const response = await sendForm(statePurchaseOrder, urlApiPurchaseOrder, titleNotificationPurchaseOrder, action, _id)
+  let newStatePurchaseOrder
+  if (action === ACTION_APPROVE || action === ACTION_REJECT) {
+    newStatePurchaseOrder = ref({
+      _id: statePurchaseOrder.value._id,
+      accion: statePurchaseOrder.value.accion,
+      loading: statePurchaseOrder.value.loading,
+    })
+  } else {
+    newStatePurchaseOrder = ref({
+      _id: statePurchaseOrder.value._id,
+      idArea: statePurchaseOrder.value.idArea,
+      idSucursal: statePurchaseOrder.value.idSucursal,
+      prioridad: statePurchaseOrder.value.prioridad,
+      necesario: statePurchaseOrder.value.necesario,
+      validohasta: statePurchaseOrder.value.validohasta,
+      observacion: statePurchaseOrder.value.observacion,
+      accion: statePurchaseOrder.value.accion,
+      loading: statePurchaseOrder.value.loading,
+    })
+  }
+  const response = await sendForm(newStatePurchaseOrder, urlApiPurchaseOrder, titleNotificationPurchaseOrder, action, _id)
   return response
 }

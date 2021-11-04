@@ -112,6 +112,10 @@ export default [
         title: 'Motivo Compra',
         route: 'purchaseReason',
       },
+      {
+        title: 'Órden Compra',
+        route: 'buyOrder',
+      },
     ],
   },
   {

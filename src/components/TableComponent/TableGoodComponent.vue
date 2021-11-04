@@ -469,8 +469,7 @@ export default {
         this.loadingLocal = false
         if (status) {
           this.loadItems()
-          this.$emit('delete-row', row._id)
-          this.$emit('delete-row-info', row)
+          this.$emit('delete-row', row)
         }
       }
     },

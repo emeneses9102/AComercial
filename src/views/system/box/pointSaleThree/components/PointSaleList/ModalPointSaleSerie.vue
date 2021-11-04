@@ -60,7 +60,7 @@
             :option-edit="false"
             :option-show="false"
             :validate-options-by-route="false"
-            @delete-row-info="deleteRowPointSaleSerie"
+            @delete-row="deleteRowPointSaleSerie"
           />
         </field-set-component>
       </b-tab>
@@ -89,7 +89,7 @@
         :option-edit="false"
         :option-show="false"
         :validate-options-by-route="false"
-        @delete-row-info="deleteRowPointSaleSerie"
+        @delete-row="deleteRowPointSaleSerie"
       />
     </field-set-component>
 

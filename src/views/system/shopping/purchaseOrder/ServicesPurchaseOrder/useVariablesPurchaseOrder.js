@@ -78,6 +78,14 @@ export const columnsPurchaseOrder = ref([
     pdf: true,
   },
   {
+    field: 'rechazado',
+    label: 'RECHAZADO',
+    thClass: 'align-middle text-center',
+    tdClass: 'align-middle text-center',
+    type: 'boolean',
+    pdf: true,
+  },
+  {
     field: 'cerrado',
     label: 'CERRADO',
     thClass: 'align-middle text-center',
@@ -86,8 +94,8 @@ export const columnsPurchaseOrder = ref([
     pdf: true,
   },
   {
-    field: 'faceptado',
-    label: 'FECHA ACEPTADO',
+    field: 'faprobado',
+    label: 'FECHA APROBADO',
     thClass: 'align-middle',
     tdClass: 'align-middle',
     formatFn: formatDate,
