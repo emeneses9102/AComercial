@@ -29,20 +29,20 @@ export const columnsFormat = ref([
     tdClass: 'align-middle',
     pdf: true,
   },
-  {
-    field: 'titulo',
-    label: 'TÍTULO',
-    thClass: 'align-middle',
-    tdClass: 'align-middle',
-    pdf: true,
-  },
-  {
-    field: 'texto',
-    label: 'TEXTO',
-    thClass: 'align-middle',
-    tdClass: 'align-middle',
-    pdf: true,
-  },
+  // {
+  //   field: 'titulo',
+  //   label: 'TÍTULO',
+  //   thClass: 'align-middle',
+  //   html: true,
+  //   pdf: true,
+  // },
+  // {
+  //   field: 'texto',
+  //   label: 'TEXTO',
+  //   thClass: 'align-middle',
+  //   html: true,
+  //   pdf: true,
+  // },
   columnStatus,
 ])
 

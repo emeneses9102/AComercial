@@ -49,7 +49,7 @@
                   rules="required|min:3"
                 >
                   <b-form-input
-                    id="format-title"
+                    id="fotmat-title"
                     v-model.trim="stateFormat.titulo"
                     type="text"
                     :state="errors.length > 0 ? false:null"
@@ -72,12 +72,12 @@
                   name="Texto"
                   rules="required|min:3"
                 >
-                  <b-form-input
+                  <b-form-textarea
                     id="format-text"
                     v-model.trim="stateFormat.texto"
                     type="text"
                     :state="errors.length > 0 ? false:null"
-                    @keydown.enter="()=>sendForm()"
+                    rows="4"
                   />
                   <small class="text-danger">{{ errors[0] }}</small>
                 </validation-provider>
@@ -112,7 +112,7 @@
 
 <script>
 import {
-  BModal, BForm, BRow, BCol, BFormGroup, BFormInput,
+  BModal, BForm, BRow, BCol, BFormGroup, BFormInput, BFormTextarea,
 } from 'bootstrap-vue'
 import { ValidationObserver, ValidationProvider } from 'vee-validate'
 import { computed } from '@vue/composition-api'
@@ -139,6 +139,7 @@ export default {
     BCol,
     BFormGroup,
     BFormInput,
+    BFormTextarea,
     ButtonComponent,
     FieldSetComponent,
     ValidationObserver,
@@ -181,3 +182,14 @@ export default {
   },
 }
 </script>
+
+<style lang="scss">
+#modal-format {
+  .modal-dialog {
+    @media screen and (min-width: 576px) {
+      max-width: 900px;
+      width: 90%;
+    }
+  }
+}
+</style>

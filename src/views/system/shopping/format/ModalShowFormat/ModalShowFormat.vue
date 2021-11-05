@@ -34,7 +34,7 @@
               label-for="format-title"
             >
               <b-form-input
-                id="format-title"
+                id="fotmat-title"
                 v-model.trim="stateFormat.titulo"
                 type="text"
                 readonly
@@ -49,10 +49,10 @@
               label="Texto *"
               label-for="format-text"
             >
-              <b-form-input
+              <b-form-textarea
                 id="format-text"
                 v-model.trim="stateFormat.texto"
-                type="text"
+                rows="4"
                 readonly
               />
             </b-form-group>
@@ -74,7 +74,7 @@
 
 <script>
 import {
-  BModal, BForm, BRow, BCol, BFormGroup, BFormInput,
+  BModal, BForm, BRow, BCol, BFormGroup, BFormInput, BFormTextarea,
 } from 'bootstrap-vue'
 import FieldSetComponent from '@/components/FieldSetComponent/FieldSetComponent.vue'
 import ButtonComponent from '@/components/ButtonComponent/ButtonComponent.vue'
@@ -89,6 +89,7 @@ export default {
     BCol,
     BFormGroup,
     BFormInput,
+    BFormTextarea,
     FieldSetComponent,
     ButtonComponent,
   },
@@ -101,3 +102,14 @@ export default {
   },
 }
 </script>
+
+<style lang="scss">
+#modal-format-show {
+  .modal-dialog {
+    @media screen and (min-width: 576px) {
+      max-width: 900px;
+      width: 90%;
+    }
+  }
+}
+</style>
