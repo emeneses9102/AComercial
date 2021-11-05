@@ -14,6 +14,7 @@
       #options-pluss="{ props }"
     >
       <b-dropdown-item
+        v-if="(props.row.aprobado || props.row.atendido) && optionsPermissions.includes(EXP_PDF)"
         @click="generateReport(props.row)"
       >
         <div class="d-flex align-items-center">
@@ -74,6 +75,7 @@ import {
   APROBAR,
   ANULAR,
   ATENDER,
+  EXP_PDF,
 } from '@/options'
 import { ACTION_APPROVE, ACTION_ATTENDED, ACTION_CANCEL } from '@/helpers/actionsApi'
 import { confirmSwal } from '@/helpers/messageExtensions'
@@ -193,6 +195,7 @@ export default {
       APROBAR,
       ANULAR,
       ATENDER,
+      EXP_PDF,
     }
   },
 }

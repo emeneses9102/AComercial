@@ -262,68 +262,68 @@ export const generateReportBuyOrder = async row => {
     },
   })
 
-  let endYEstado = 0
+  // let endYEstado = 0
 
-  // APROBADO | ATENDIDO | ANULADO
-  autoTable(doc, {
-    tableWidth: (doc.internal.pageSize.getWidth() - 80) / 2 - 100,
-    headStyles: {
-      font: 'helvetica',
-      fontSize: 8,
-      textColor: '#222',
-      lineColor: '#777',
-      lineWidth: 1,
-      valign: 'middle',
-    },
-    bodyStyles: {
-      font: 'helvetica',
-      fontSize: 7,
-      fillColor: '#FFF',
-      lineWidth: 1,
-      lineColor: '#777',
-    },
-    theme: 'plain',
-    // startY: endYFecha + 20,
-    margin: {
-      bottom: 60,
-      left: 398,
-    },
-    columnStyles: {
-      title: {
-        fontStyle: 'bold',
-      },
-      value: {
-        halign: 'center',
-      },
-    },
-    columns: [
-      {
-        dataKey: 'title',
-      },
-      {
-        dataKey: 'value',
-      },
-    ],
-    body: [
-      {
-        title: 'APROBADO:',
-        value: row.aprobado ? 'SI' : 'NO',
-      },
-      {
-        title: 'ATENDIDO',
-        value: row.atendido ? 'SI' : 'NO',
-      },
-      {
-        title: 'ANULADO',
-        value: row.anulado ? 'SI' : 'NO',
-      },
-    ],
-    cellWidth: 'wrap',
-    pageBreak: 'auto',
-    didDrawPage(data) {
-      endYEstado = data.cursor.y
-    },
-  })
+  // // APROBADO | ATENDIDO | ANULADO
+  // autoTable(doc, {
+  //   tableWidth: (doc.internal.pageSize.getWidth() - 80) / 2 - 100,
+  //   headStyles: {
+  //     font: 'helvetica',
+  //     fontSize: 8,
+  //     textColor: '#222',
+  //     lineColor: '#777',
+  //     lineWidth: 1,
+  //     valign: 'middle',
+  //   },
+  //   bodyStyles: {
+  //     font: 'helvetica',
+  //     fontSize: 7,
+  //     fillColor: '#FFF',
+  //     lineWidth: 1,
+  //     lineColor: '#777',
+  //   },
+  //   theme: 'plain',
+  //   // startY: endYFecha + 20,
+  //   margin: {
+  //     bottom: 60,
+  //     left: 398,
+  //   },
+  //   columnStyles: {
+  //     title: {
+  //       fontStyle: 'bold',
+  //     },
+  //     value: {
+  //       halign: 'center',
+  //     },
+  //   },
+  //   columns: [
+  //     {
+  //       dataKey: 'title',
+  //     },
+  //     {
+  //       dataKey: 'value',
+  //     },
+  //   ],
+  //   body: [
+  //     {
+  //       title: 'APROBADO:',
+  //       value: row.aprobado ? 'SI' : 'NO',
+  //     },
+  //     {
+  //       title: 'ATENDIDO',
+  //       value: row.atendido ? 'SI' : 'NO',
+  //     },
+  //     {
+  //       title: 'ANULADO',
+  //       value: row.anulado ? 'SI' : 'NO',
+  //     },
+  //   ],
+  //   cellWidth: 'wrap',
+  //   pageBreak: 'auto',
+  //   didDrawPage(data) {
+  //     endYEstado = data.cursor.y
+  //   },
+  // })
 
   // DATOS DE LA EMPRESA
   autoTable(doc, {
@@ -396,11 +396,12 @@ export const generateReportBuyOrder = async row => {
 
   // let startYVendedor = 0
   let endYVendedor = 0
+  let startYVendedor = 0
 
   // DATOS DEL PROVEEDOR
   autoTable(doc, {
     tableWidth: (doc.internal.pageSize.getWidth() - 90) / 2,
-    startY: endYEstado + 20,
+    // startY: endYEstado + 20,
     headStyles: {
       font: 'helvetica',
       fontSize: 8,
@@ -459,9 +460,64 @@ export const generateReportBuyOrder = async row => {
     cellWidth: 'wrap',
     pageBreak: 'auto',
     didDrawPage(data) {
-      // startYVendedor = data.settings.startY
+      startYVendedor = data.settings.startY
       endYVendedor = data.cursor.y
     },
+  })
+
+  // APROBADO | ATENDIDO | ANULADO
+  autoTable(doc, {
+    tableWidth: (doc.internal.pageSize.getWidth() - 80) / 2 - 100,
+    startY: startYVendedor,
+    headStyles: {
+      font: 'helvetica',
+      fontSize: 8,
+      textColor: '#222',
+      lineColor: '#777',
+      lineWidth: 1,
+      valign: 'middle',
+    },
+    bodyStyles: {
+      font: 'helvetica',
+      fontSize: 7,
+      fillColor: '#FFF',
+      lineWidth: 1,
+      lineColor: '#777',
+    },
+    theme: 'plain',
+    // startY: endYFecha + 20,
+    margin: {
+      bottom: 60,
+      left: 398,
+    },
+    columnStyles: {
+      title: {
+        fontStyle: 'bold',
+      },
+      value: {
+        halign: 'center',
+      },
+    },
+    columns: [
+      {
+        dataKey: 'title',
+      },
+      {
+        dataKey: 'value',
+      },
+    ],
+    body: [
+      {
+        title: 'APROBADO:',
+        value: row.aprobado ? 'SI' : 'NO',
+      },
+      {
+        title: 'ATENDIDO',
+        value: row.atendido ? 'SI' : 'NO',
+      },
+    ],
+    cellWidth: 'wrap',
+    pageBreak: 'auto',
   })
 
   // ENVIAR A
