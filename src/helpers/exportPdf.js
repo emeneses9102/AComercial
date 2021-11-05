@@ -34,7 +34,7 @@ export default (
     const newRow = { ...row, activo: row.activo ? 'ACTIVO' : 'DESACTIVO' }
     columns.forEach(column => {
       if (column.type === 'boolean') newRow[column.dataKey] = newRow[column.dataKey] ? 'SI' : 'NO'
-      if (column.type === 'numberMoney') newRow[column.dataKey] = `S./ ${newRow[column.dataKey].toFixed(2)}`
+      if (column.type === 'numberMoney') newRow[column.dataKey] = `${newRow[column.dataKey].toFixed(2)}`
     })
     return newRow
   })

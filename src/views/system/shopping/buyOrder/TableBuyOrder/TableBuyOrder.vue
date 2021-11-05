@@ -14,6 +14,17 @@
       #options-pluss="{ props }"
     >
       <b-dropdown-item
+        @click="generateReport(props.row)"
+      >
+        <div class="d-flex align-items-center">
+          <feather-icon
+            icon="PrinterIcon"
+            class="mr-50"
+          />
+          <span class="d-inline-block">Reporte</span>
+        </div>
+      </b-dropdown-item>
+      <b-dropdown-item
         v-if="!props.row.aprobado && !props.row.anulado && optionsPermissions.includes(APROBAR)"
         @click="eventRowTable(props.row, 'approve')"
       >
@@ -67,6 +78,7 @@ import {
 import { ACTION_APPROVE, ACTION_ATTENDED, ACTION_CANCEL } from '@/helpers/actionsApi'
 import { confirmSwal } from '@/helpers/messageExtensions'
 import TableGoodComponent from '@/components/TableComponent/TableGoodComponent.vue'
+import { generateReportBuyOrder } from '../ReportBuyOrder/useReportBuyOrder'
 import {
   MODAL_ID, stateBuyOrder, columnsBuyOrder, serverQueryBuyOrder, dataTableBuyOrder, titleNotificationBuyOrder, routeNameBuyOrder, clearStateBuyOrder,
 } from '../ServicesBuyOrder/useVariablesBuyOrder'
@@ -93,6 +105,19 @@ export default {
       }
       return []
     })
+
+    const generateReport = row => {
+      const newRow = { ...row }
+      /* eslint no-param-reassign: "error" */
+      delete newRow.originalIndex
+      delete newRow.vgt_id
+      delete newRow.id
+      delete newRow.activo
+      delete newRow.accion
+      delete newRow.numberRow
+      delete newRow.idUsuario
+      generateReportBuyOrder(row)
+    }
 
     const eventRowTable = async (row, event) => {
       const newRow = { ...row }
@@ -161,6 +186,7 @@ export default {
       titleNotificationBuyOrder,
       sendBuyOrder,
       eventRowTable,
+      generateReport,
       openModalFor,
 
       optionsPermissions,

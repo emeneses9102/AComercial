@@ -33,9 +33,11 @@
               label="Título *"
               label-for="format-title"
             >
-              <quill-editor
-                v-model="stateFormat.titulo"
-                :options="snowOptionTitle"
+              <b-form-input
+                id="fotmat-title"
+                v-model.trim="stateFormat.titulo"
+                type="text"
+                readonly
               />
             </b-form-group>
           </b-col>
@@ -47,9 +49,11 @@
               label="Texto *"
               label-for="format-text"
             >
-              <quill-editor
-                v-model="stateFormat.texto"
-                :options="snowOptionText"
+              <b-form-textarea
+                id="format-text"
+                v-model.trim="stateFormat.texto"
+                rows="4"
+                readonly
               />
             </b-form-group>
           </b-col>
@@ -69,16 +73,9 @@
 </template>
 
 <script>
-// eslint-disable-next-line
-import 'quill/dist/quill.core.css'
-// eslint-disable-next-line
-import 'quill/dist/quill.snow.css'
-// eslint-disable-next-line
-import 'quill/dist/quill.bubble.css'
 import {
-  BModal, BForm, BRow, BCol, BFormGroup, BFormInput,
+  BModal, BForm, BRow, BCol, BFormGroup, BFormInput, BFormTextarea,
 } from 'bootstrap-vue'
-import { quillEditor } from 'vue-quill-editor'
 import FieldSetComponent from '@/components/FieldSetComponent/FieldSetComponent.vue'
 import ButtonComponent from '@/components/ButtonComponent/ButtonComponent.vue'
 import { MODAL_ID, titleNotificationFormat, stateFormat } from '../ServicesFormat/useVariablesFormat'
@@ -92,23 +89,9 @@ export default {
     BCol,
     BFormGroup,
     BFormInput,
-    quillEditor,
+    BFormTextarea,
     FieldSetComponent,
     ButtonComponent,
-  },
-  data() {
-    return {
-      snowOptionTitle: {
-        theme: 'snow',
-        placeholder: 'Ingrese el título',
-        readOnly: true,
-      },
-      snowOptionText: {
-        theme: 'snow',
-        placeholder: 'Ingrese el texto',
-        readOnly: true,
-      },
-    }
   },
   setup() {
     return {
@@ -119,3 +102,14 @@ export default {
   },
 }
 </script>
+
+<style lang="scss">
+#modal-format-show {
+  .modal-dialog {
+    @media screen and (min-width: 576px) {
+      max-width: 900px;
+      width: 90%;
+    }
+  }
+}
+</style>
