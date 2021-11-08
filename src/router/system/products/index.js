@@ -1,3 +1,5 @@
+import routesName from '@/helpers/routesName'
+
 const moduleBreadCrumb = {
   text: 'Productos',
   active: true,
@@ -80,6 +82,22 @@ export default [
         moduleBreadCrumb,
         {
           text: 'Artículo',
+          active: true,
+        },
+      ],
+    },
+  },
+  {
+    path: '/empaque',
+    name: routesName.empaque,
+    component: () => import('@/views/system/products/packing/Packing.vue'),
+    meta: {
+      auth: true,
+      pageTitle: 'Empaque',
+      breadcrumb: [
+        moduleBreadCrumb,
+        {
+          text: 'Empaque',
           active: true,
         },
       ],
