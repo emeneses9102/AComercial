@@ -103,4 +103,20 @@ export default [
       ],
     },
   },
+  {
+    path: '/presentacion',
+    name: routesName.presentacion,
+    component: () => import('@/views/system/products/presentation/Presentation.vue'),
+    meta: {
+      auth: true,
+      pageTitle: 'Presentación',
+      breadcrumb: [
+        moduleBreadCrumb,
+        {
+          text: 'Presentación',
+          active: true,
+        },
+      ],
+    },
+  },
 ]
