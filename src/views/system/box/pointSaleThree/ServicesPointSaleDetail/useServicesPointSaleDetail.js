@@ -217,7 +217,7 @@ export const searchArticle = async () => {
     serverQueryArticlePointSale.value.campofiltro = stateFieldFilterArticle.value
     serverQueryArticlePointSale.value.filtro = searchProductById.value
     store.commit('pointSale/ACTIVE_LOADING')
-    const { data, error } = await getRequest('/articulos', 'Buscando Artículo', serverQueryArticlePointSale.value)
+    const { data, error } = await getRequest('/tarticulos', 'Buscando Artículo', serverQueryArticlePointSale.value)
     store.commit('pointSale/DESACTIVE_LOADING')
     if (error || !data) return false
     if (data.length !== 1) {
