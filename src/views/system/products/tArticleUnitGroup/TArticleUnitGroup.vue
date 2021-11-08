@@ -24,7 +24,7 @@
 import { BCard } from 'bootstrap-vue'
 import { onMounted } from '@vue/composition-api'
 import HeaderMaintenanceComponent from '@/components/HeaderMaintenanceComponent/HeaderMaintenanceComponent.vue'
-import { endPointsCombo, loadCombos } from '@/helpers/combos'
+import { endPointsCombo, loadCombos, resetCombos } from '@/helpers/combos'
 import ModalSaveTArticleUnitGroup from './ModalSaveTArticleUnitGroup/ModalSaveTArticleUnitGroup.vue'
 import ModalSearchTArticleUnitGroup from './ModalSearchTArticleUnitGroup/ModalSearchTArticleUnitGroup.vue'
 import ModalShowTArticleUnitGroup from './ModalShowTArticleUnitGroup/ModalShowTArticleUnitGroup.vue'
@@ -47,6 +47,7 @@ export default {
     // Función para limpiar los datos del Modal
     const clearModal = () => {
       clearStateTArticleUnitGroup()
+      resetCombos(combosTArticleUnitGroup, ['unitMeasure'])
     }
 
     onMounted(() => {
