@@ -12,6 +12,8 @@
           <!-- Nombre Tabla Articulo -->
           <b-col
             cols="12"
+            sm="6"
+            lg="6"
           >
             <b-form-group
               label="Artículo"
@@ -28,6 +30,8 @@
           <!-- Grupo -->
           <b-col
             cols="12"
+            sm="6"
+            lg="6"
           >
             <b-form-group
               label="Grupo Unidad"
@@ -44,6 +48,8 @@
           <!-- Grupo Unidad -->
           <b-col
             cols="12"
+            sm="6"
+            lg="6"
           >
             <b-form-group
               label="Detalle Unidad"
@@ -60,6 +66,8 @@
           <!-- Presentacion -->
           <b-col
             cols="12"
+            sm="6"
+            lg="6"
           >
             <b-form-group
               label="Presentacion"
@@ -76,6 +84,8 @@
           <!-- Empaque -->
           <b-col
             cols="12"
+            sm="6"
+            lg="6"
           >
             <b-form-group
               label="Empaque"
@@ -92,6 +102,8 @@
           <!-- Cantidad -->
           <b-col
             cols="12"
+            sm="6"
+            lg="6"
           >
             <b-form-group
               label="Cantidad"
@@ -149,3 +161,20 @@ export default {
   },
 }
 </script>
+
+<style lang="scss">
+#modal-t-article-unit-group-show {
+  .modal-dialog {
+    @media screen and (min-width: 576px) {
+      max-width: 700px;
+      width: 90%;
+    }
+  }
+  .modal-lg {
+    @media screen and (min-width: 992px) {
+      max-width: 1000px;
+      width: 90%;
+    }
+  }
+}
+</style>

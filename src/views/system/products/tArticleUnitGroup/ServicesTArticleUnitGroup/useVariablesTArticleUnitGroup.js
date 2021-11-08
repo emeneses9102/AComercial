@@ -11,7 +11,7 @@ import routesName from '@/helpers/routesName'
 export const routeNameTArticleUnitGroup = routesName.articulosGrupoUnidad
 
 // Constante para almacenar el id base de los modales del mantenimiento Artículo Grupo Unidad
-export const MODAL_ID = 'modal-article-unit-group'
+export const MODAL_ID = 'modal-t-article-unit-group'
 
 // Variable reactiva para almacenar la configuración de cada columna del mantenimiento Artículo Grupo Unidad
 export const columnsTArticleUnitGroup = ref([
@@ -21,6 +21,48 @@ export const columnsTArticleUnitGroup = ref([
     label: 'ID',
     thClass: 'align-middle',
     tdClass: 'align-middle',
+    pdf: true,
+  },
+  {
+    field: 'nombreTablaArticulo',
+    label: 'ARTICULO',
+    thClass: 'align-middle',
+    tdClass: 'align-middle',
+    pdf: true,
+  },
+  {
+    field: 'nombreGrupoUnidad',
+    label: 'GRUPO UNIDAD',
+    thClass: 'align-middle',
+    tdClass: 'align-middle',
+    pdf: true,
+  },
+  {
+    field: 'nombreDetalleUnidad',
+    label: 'DETALLE GRUPO UNIDAD',
+    thClass: 'align-middle',
+    tdClass: 'align-middle',
+    pdf: true,
+  },
+  {
+    field: 'nombreEmpaque',
+    label: 'EMPAQUE',
+    thClass: 'align-middle',
+    tdClass: 'align-middle',
+    pdf: true,
+  },
+  {
+    field: 'nombrePresentacion',
+    label: 'PRESENTACION',
+    thClass: 'align-middle',
+    tdClass: 'align-middle',
+    pdf: true,
+  },
+  {
+    field: 'cantidad',
+    label: 'CANTIDAD',
+    thClass: 'align-middle text-center',
+    tdClass: 'align-middle text-center',
     pdf: true,
   },
   columnStatus,

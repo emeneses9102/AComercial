@@ -199,6 +199,8 @@
             <!-- Cantidad -->
             <b-col
               cols="12"
+              sm="6"
+              lg="6"
             >
               <b-form-group
                 label="Cantidad *"
@@ -207,12 +209,12 @@
                 <validation-provider
                   #default="{ errors }"
                   name="Cantidad"
-                  rules="required|min:3"
+                  rules="required|min_value:1"
                 >
                   <b-form-input
                     id="tarticle-unit-group-quantity"
-                    v-model.trim="stateTArticleUnitGroup.cantidad"
-                    type="text"
+                    v-model.number="stateTArticleUnitGroup.cantidad"
+                    type="number"
                     :state="errors.length > 0 ? false:null"
                     @keydown.enter="()=>sendForm()"
                   />
@@ -313,6 +315,10 @@ export default {
       return true
     }
 
+    const openModalQueryTableArticle = () => {
+      context.root.$bvModal.show('modal-query-table-article')
+    }
+
     const unitGroupSelected = ({ _id }) => {
       stateTArticleUnitGroup.value.idDetalleGrupoUnidad = 0
       loadCombos(combosTArticleUnitGroup, ['unitMeasure'], `${endPointsCombo.grupoUnidad}/${_id}`, 'Unidad de Medida')
@@ -330,6 +336,7 @@ export default {
       titleNotificationTArticleUnitGroup,
       stateTArticleUnitGroup,
       combosTArticleUnitGroup,
+      openModalQueryTableArticle,
       onArticleSelected,
       unitGroupSelected,
       sendForm,
@@ -341,3 +348,20 @@ export default {
   },
 }
 </script>
+
+<style lang="scss">
+#modal-t-article-unit-group {
+  .modal-dialog {
+    @media screen and (min-width: 576px) {
+      max-width: 700px;
+      width: 90%;
+    }
+  }
+  .modal-lg {
+    @media screen and (min-width: 992px) {
+      max-width: 1000px;
+      width: 90%;
+    }
+  }
+}
+</style>
