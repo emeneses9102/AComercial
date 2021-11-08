@@ -141,8 +141,20 @@ export const combosTArticleUnitGroup = ref({
 // Constante para almacenar las columas permitidas para el filtro del mantenimiento Artículo Grupo Unidad
 export const columnsFilterTArticleUnitGroup = [
   {
-    title: 'NOMBRE',
-    field: 'a.nombre',
+    title: 'ARTICULO',
+    field: 'a.nombreTablaArticulo',
+  },
+  {
+    title: 'GRUPO',
+    field: 'a.nombreGrupoUnidad',
+  },
+  {
+    title: 'EMPAQUE',
+    field: 'a.nombreEmpaque',
+  },
+  {
+    title: 'PRESENTACION',
+    field: 'a.nombrePresentacion',
   },
 ]
 
