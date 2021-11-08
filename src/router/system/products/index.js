@@ -119,4 +119,20 @@ export default [
       ],
     },
   },
+  {
+    path: '/articulo-grupo-unidad',
+    name: routesName.articulosGrupoUnidad,
+    component: () => import('@/views/system/products/tArticleUnitGroup/TArticleUnitGroup.vue'),
+    meta: {
+      auth: true,
+      pageTitle: 'Artículo Grupo Unidad',
+      breadcrumb: [
+        moduleBreadCrumb,
+        {
+          text: 'Artículo Grupo Unidad',
+          active: true,
+        },
+      ],
+    },
+  },
 ]
