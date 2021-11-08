@@ -10,6 +10,8 @@ export default {
   mensajeSistema: 'systemMessage',
   errorSistema: 'systemError',
   // MODULO CATALOGO
+  empaque: 'packing',
+  presentacion: 'presentation',
   tipoProducto: 'productType',
   tipoServicio: 'serviceType',
   caracteristicas: 'feature',
@@ -26,6 +28,7 @@ export default {
   clientes: 'partner',
   predios: 'predio',
   articulos: 'article',
+  articulosGrupoUnidad: 'articleUnitGroup',
   // ALMACÉN
   tipoAlmacen: 'storageType',
   almacen: 'storage',
