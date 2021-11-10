@@ -12,7 +12,7 @@ export const routeNameStorageType = routesName.tipoAlmacen
 // Constante para almacenar el id base de los modales del mantenimiento Tipo Almacén
 export const MODAL_ID = 'modal-storage-type'
 
-// Variable reactiva para almacenar la configuración de cada columna de la tabla Tipo Almacén
+// Variable reactiva para almacenar la configuración de cada columna del mantenimiento Tipo Almacén
 export const columnsStorageType = ref([
   columnAction,
   {
@@ -32,25 +32,25 @@ export const columnsStorageType = ref([
   columnStatus,
 ])
 
-// Variable reactiva para almacenar las propiedades necesarias para el listado de la tabla Tipo Almacén
+// Variable reactiva para almacenar las propiedades necesarias para el listado del mantenimiento Tipo Almacén
 export const dataTableStorageType = ref({
   rows: [],
   totalRows: 0,
   loading: false,
 })
 
-// Variable reactiva para manjear los consultas del lado del servidor de la tabla Tipo Almacén
+// Variable reactiva para manejar los consultas del lado del servidor del mantenimiento Tipo Almacén
 export const serverQueryStorageType = ref({
   ...serverQueryDefault,
   tabla: 'tipoalmacen',
 })
 
-// Función para limpiar filtros en la consulta de la tabla Tipo Almacén
+// Función para limpiar filtros en la consulta del mantenimiento Tipo Almacén
 export const clearFiltersStorageType = () => {
   clearServerQueryDefaultFilter(serverQueryStorageType)
 }
 
-// Variable inicializadora para almacenar el estado de un registro, actualización, cambio de estado, eliminación en la tabla Tipo Almacén
+// Variable inicializadora para almacenar el estado de un registro, actualización, cambio de estado, eliminación en el mantenimiento Tipo Almacén
 const initialStateStorageType = {
   _id: 0,
   nombre: '',
@@ -58,7 +58,7 @@ const initialStateStorageType = {
   loading: false,
 }
 
-// Variable reactiva para almacenar el estado de un registro, actualización, cambio de estado, eliminación en la tabla Tipo Almacén
+// Variable reactiva para almacenar el estado de un registro, actualización, cambio de estado, eliminación en el mantenimiento Tipo Almacén
 export const stateStorageType = ref({ ...initialStateStorageType })
 
 // Función para regresar al estado inicial la variable reactiva que gestiona Tipo Almacén
@@ -66,10 +66,14 @@ export const clearStateStorageType = () => {
   stateStorageType.value = { ...initialStateStorageType }
 }
 
-// Constante para almacenar las columas permitidas para el filtro de la table Tipo Almacén
+// Constante para almacenar las columas permitidas para el filtro del mantenimiento Tipo Almacén
 export const columnsFilterStorageType = [
   {
-    title: 'Nombre',
+    title: 'ID',
+    field: 'a._id',
+  },
+  {
+    title: 'NOMBRE',
     field: 'a.nombre',
   },
 ]
@@ -81,4 +85,4 @@ export const urlApiStorageType = '/tipoalmacen'
 export const titleNotificationStorageType = 'Tipo Almacén'
 
 // Constante para almacenar el titulo de los reportes del mantenimiento Tipo Almacén
-export const titleReportStorageType = 'REPORTE DE TIPO DE ALMACENES'
+export const titleReportStorageType = 'REPORTE DE TIPOS DE ALMACÉN'

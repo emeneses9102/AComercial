@@ -31,23 +31,24 @@ export default {
     // Función que se ejecutará cuando el usuario haga click en el botón editar o ver
     const openModalFor = async (row, actionOpenModal) => {
       dataTableStorage.value.loading = true
-      if (actionOpenModal === 'show') {
-        stateStorage.value = { ...stateStorage.value, ...row }
-      } else if (actionOpenModal === 'edit') {
-        await getStorageById(row._id)
-      }
       clearStateSubStorage()
       clearFiltersSubStorage()
+      stateStorage.value = { ...stateStorage.value, ...row }
       serverQuerySubStorage.value.indice = row._id
-      await loadItemsSubStorage(1)
+      await Promise.all([
+        actionOpenModal === 'edit' ? getStorageById(row._id) : true,
+        loadItemsSubStorage(1),
+      ])
       dataTableStorage.value.loading = false
       context.root.$bvModal.show(actionOpenModal === 'edit' ? MODAL_ID : `${MODAL_ID}-show`)
     }
 
+    // Función que se ejecutará cuando el componente se monte en el DOM
     onMounted(() => {
       loadItemsStorage()
     })
 
+    // Retorno de variables y funciones que se utilizaran en el template
     return {
       columnsStorage,
       serverQueryStorage,

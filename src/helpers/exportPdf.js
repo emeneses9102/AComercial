@@ -28,7 +28,6 @@ export default (
 
   // Crear la instancia de jsPDF y armar los datos que se mostrarán en la tabla
   const doc = new jsPDF(orientation, 'pt', 'a4')
-  // const body = rows.map(row => ({ ...row, activo: row.activo ? 'ACTIVO' : 'DESACTIVO' }))
 
   const newBody = rows.map(row => {
     const newRow = { ...row, activo: row.activo ? 'ACTIVO' : 'DESACTIVO' }
@@ -51,22 +50,22 @@ export default (
 
   let linesUsedInFirstRow = 1
 
-  doc.setFont('times')
-  doc.setFontSize(8)
+  doc.setFont('helvetica')
+  doc.setFontSize(6)
   doc.setTextColor('#444')
   const nameCompany = 'SISTEMAS INTEGRADOS Y MERCADEO S.A.C.'
   const linesUsedInNameCompany = Math.ceil(doc.getTextWidth(nameCompany) / partColumn)
   if (linesUsedInNameCompany > linesUsedInFirstRow) linesUsedInFirstRow = linesUsedInNameCompany
 
-  doc.setFont('times')
+  doc.setFont('helvetica')
   doc.setFontSize(9)
   doc.setTextColor('#222')
   const titleDocument = title
   const linesUsedInTitleDocument = Math.ceil(doc.getTextWidth(titleDocument) / (partColumn * 2))
   if (linesUsedInTitleDocument > linesUsedInFirstRow) linesUsedInFirstRow = linesUsedInTitleDocument
 
-  doc.setFont('times')
-  doc.setFontSize(8)
+  doc.setFont('helvetica')
+  doc.setFontSize(6)
   doc.setTextColor('#444')
   const date = `${(new Date()).toLocaleDateString()} ${(new Date()).toLocaleTimeString()}`
   const linesUsedInDate = Math.ceil(doc.getTextWidth(date) / partColumn)
@@ -83,16 +82,16 @@ export default (
 
   let linesUsedInSecondRow = 1
 
-  doc.setFont('times')
-  doc.setFontSize(8)
+  doc.setFont('helvetica')
+  doc.setFontSize(6)
   doc.setTextColor('#444')
   const userName = `USUARIO: ${store.state.authentication.user.usuario.toString().toUpperCase()}`
   const linesUsedInUserName = Math.ceil(doc.getTextWidth(userName) / partColumn)
   if (linesUsedInUserName > linesUsedInSecondRow) linesUsedInSecondRow = linesUsedInUserName
 
   if (subtitle) {
-    doc.setFont('times')
-    doc.setFontSize(9)
+    doc.setFont('helvetica')
+    doc.setFontSize(8)
     doc.setTextColor('#333')
     const linesUsedInSubTitle = Math.ceil(doc.getTextWidth(subtitle) / (partColumn * 2))
     if (linesUsedInSubTitle > linesUsedInSecondRow) linesUsedInSecondRow = linesUsedInSubTitle
@@ -114,30 +113,34 @@ export default (
   let descriptionFilters = ''
   if (exportMode === 'filter') {
     const columnSelected = optionsColumnsFilter.find(column => column.field === serverQuery.campofiltro)
-    descriptionFilters = `FILTRADO POR: ${columnSelected.title.toUpperCase()} = ${serverQuery.filtro}`
-    doc.setFont('times')
-    doc.setFontSize(8)
-    doc.setTextColor('#444')
-    const lineUsedInDescriptionFilters = Math.ceil(doc.getTextWidth(descriptionFilters) / (partColumn * 4))
-    if (lineUsedInDescriptionFilters > linesUsedInThirdRow) linesUsedInThirdRow = lineUsedInDescriptionFilters
-    if (linesUsedInThirdRow === 1) topFourLine += 18
-    else topFourLine += (lineHeight * linesUsedInThirdRow)
+    if (columnSelected) {
+      descriptionFilters = `FILTRADO POR: ${columnSelected.title.toUpperCase()} = ${serverQuery.filtro}`
+      doc.setFont('helvetica')
+      doc.setFontSize(6)
+      doc.setTextColor('#444')
+      const lineUsedInDescriptionFilters = Math.ceil(doc.getTextWidth(descriptionFilters) / (partColumn * 4))
+      if (lineUsedInDescriptionFilters > linesUsedInThirdRow) linesUsedInThirdRow = lineUsedInDescriptionFilters
+      if (linesUsedInThirdRow === 1) topFourLine += 18
+      else topFourLine += (lineHeight * linesUsedInThirdRow)
+    }
   }
 
   autoTable(doc, {
     headStyles: {
-      font: 'times',
+      font: 'helvetica',
       fontSize: 7,
-      textColor: '#444',
-      lineColor: '#888',
+      textColor: '#222',
+      lineColor: '#777',
       lineWidth: 1,
+      fillColor: '#D1D1D1',
       valign: 'middle',
     },
     bodyStyles: {
-      font: 'times',
+      font: 'helvetica',
       fontSize: 7,
       fillColor: '#FFF',
-      lineWidth: 0,
+      lineColor: '#777',
+      lineWidth: 1,
     },
     theme: 'plain',
     margin: {
@@ -154,15 +157,15 @@ export default (
       // ==================================================================================
 
       // Izquierda
-      doc.setFont('times')
-      doc.setFontSize(8)
+      doc.setFont('helvetica')
+      doc.setFontSize(6)
       doc.setTextColor('#444')
       doc.text(nameCompany, 40, topFirstLine, {
         maxWidth: partColumn,
       })
 
       // Centro
-      doc.setFont('times')
+      doc.setFont('helvetica')
       doc.setFontSize(9)
       doc.setTextColor('#222')
       doc.text(title.toUpperCase(), doc.internal.pageSize.getWidth() / 2, topFirstLine, {
@@ -171,8 +174,8 @@ export default (
       })
 
       // Derecha
-      doc.setFont('times')
-      doc.setFontSize(8)
+      doc.setFont('helvetica')
+      doc.setFontSize(6)
       doc.setTextColor('#444')
       doc.text(date, doc.internal.pageSize.getWidth() - 40 - doc.getTextWidth(date), topFirstLine, {
         maxWidth: partColumn,
@@ -183,8 +186,8 @@ export default (
       // ==================================================================================
 
       // Izquierda
-      doc.setFont('times')
-      doc.setFontSize(8)
+      doc.setFont('helvetica')
+      doc.setFontSize(6)
       doc.setTextColor('#444')
       doc.text(userName, 40, topSecondLine, {
         maxWidth: partColumn,
@@ -192,8 +195,8 @@ export default (
 
       // Centro
       if (subtitle) {
-        doc.setFont('times')
-        doc.setFontSize(9)
+        doc.setFont('helvetica')
+        doc.setFontSize(8)
         doc.setTextColor('#333')
         doc.text(subtitle.toUpperCase(), doc.internal.pageSize.getWidth() / 2, topSecondLine, {
           maxWidth: partColumn * 2,
@@ -203,8 +206,8 @@ export default (
 
       // Derecha
       const paginador = `PÁGINA ${data.pageNumber}`
-      doc.setFont('times')
-      doc.setFontSize(8)
+      doc.setFont('helvetica')
+      doc.setFontSize(6)
       doc.setTextColor('#444')
       doc.text(paginador, doc.internal.pageSize.getWidth() - 40 - doc.getTextWidth(paginador), topSecondLine, {
         maxWidth: partColumn,
@@ -215,9 +218,9 @@ export default (
       // ==================================================================================
 
       // Verificar si tiene filtro la exportacipon de datos
-      if (exportMode === 'filter') {
-        doc.setFont('times')
-        doc.setFontSize(8)
+      if (exportMode === 'filter' && descriptionFilters) {
+        doc.setFont('helvetica')
+        doc.setFontSize(6)
         doc.setTextColor('#444')
         doc.text(descriptionFilters, 40, topThirdLine, {
           maxWidth: partColumn * 4,
@@ -229,7 +232,7 @@ export default (
       // ==================================================================================
 
       doc.line(40, doc.internal.pageSize.getHeight() - 52, doc.internal.pageSize.getWidth() - 40, doc.internal.pageSize.getHeight() - 52, 'DF')
-      doc.setFont('times')
+      doc.setFont('helvetica')
       doc.setFontSize(8)
       doc.setTextColor('#222')
       doc.text(`CÓDIGO: ${store.state.authentication.user.secret}`, 40, doc.internal.pageSize.getHeight() - 38)

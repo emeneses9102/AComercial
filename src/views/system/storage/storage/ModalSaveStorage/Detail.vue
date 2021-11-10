@@ -1,84 +1,91 @@
 <template>
   <field-set-component legend="Sub Almacén">
-    <validation-observer
-      ref="validation-sub-storage"
+    <b-form
+      @submit.prevent="sendForm"
+      @reset="clearStateSubStorage"
     >
-      <b-form
-        @submit.prevent="sendForm"
-        @reset="clearStateSubStorage"
-      >
-        <b-row>
-          <!-- Nombre -->
-          <b-col
-            cols="12"
-            lg="6"
+      <b-row>
+        <!-- Nombre -->
+        <b-col
+          cols="12"
+          lg="6"
+        >
+          <b-form-group
+            label="Nombre *"
+            label-for="sub-storage-name"
           >
-            <b-form-group
-              label="Nombre *"
-              label-for="sub-storage-name"
+            <validation-provider
+              #default="{ errors }"
+              name="Nombre Detalle"
+              rules="required|min:3|max:100"
             >
-              <validation-provider
-                #default="{ errors }"
-                name="Nombre Detalle"
-                rules="required|min:3"
-              >
-                <b-form-input
-                  id="sub-storage-name"
-                  v-model.trim="stateSubStorage.nombre"
-                  type="text"
-                  :state="errors.length > 0 ? false:null"
-                />
-                <small class="text-danger">{{ errors[0] }}</small>
-              </validation-provider>
-            </b-form-group>
-          </b-col>
-          <!-- Ubicacipin -->
-          <b-col
-            cols="12"
-            lg="6"
+              <b-form-input
+                id="sub-storage-name"
+                v-model.trim="stateSubStorage.nombre"
+                type="text"
+                maxlength="100"
+                :state="errors.length > 0 ? false:null"
+              />
+              <small class="text-danger">{{ errors[0] }}</small>
+            </validation-provider>
+          </b-form-group>
+        </b-col>
+        <!-- Ubicacipin -->
+        <b-col
+          cols="12"
+          lg="6"
+        >
+          <b-form-group
+            label="Ubicación"
+            label-for="sub-storage-location"
           >
-            <b-form-group
-              label="Ubicación *"
-              label-for="sub-storage-location"
+            <validation-provider
+              #default="{ errors }"
+              name="Ubicación"
+              rules="max:100"
             >
               <b-form-input
                 id="sub-storage-location"
                 v-model.trim="stateSubStorage.ubicacion"
                 type="text"
+                maxlength="100"
+                :state="errors.length > 0 ? false:null"
               />
-            </b-form-group>
-          </b-col>
-          <b-col
-            cols="12"
-          >
-            <div class="d-flex flex-wrap justify-content-end">
-              <button-component
-                type="reset"
-                variant="outline-primary"
-                text-default="Limpiar"
-                icon-button="DeleteIcon"
-              />
-              <button-component
-                v-if="stateSubStorage._id && optionsPermissions.includes(EDITAR)"
-                type="submit"
-                variant="success"
-                text-default="Modificar"
-                icon-button="RefreshCwIcon"
-                :loading="stateSubStorage.loading"
-              />
-              <button-component
-                v-else-if="!stateSubStorage._id && optionsPermissions.includes(GUARDAR)"
-                type="submit"
-                variant="primary"
-                text-default="Agregar"
-                icon-button="PlusCircleIcon"
-                :loading="stateSubStorage.loading"
-              />
-            </div>
-          </b-col>
-        </b-row>
-      </b-form>
-    </validation-observer>
+              <small class="text-danger">{{ errors[0] }}</small>
+            </validation-provider>
+          </b-form-group>
+        </b-col>
+        <b-col
+          cols="12"
+        >
+          <div class="d-flex flex-wrap justify-content-end">
+            <button-component
+              type="reset"
+              variant="outline-primary"
+              text-default="Limpiar"
+              icon-button="DeleteIcon"
+              :method-function="resetSubStorage"
+            />
+            <button-component
+              v-if="stateSubStorage._id && optionsPermissions.includes(EDITAR)"
+              type="submit"
+              variant="success"
+              text-default="Modificar"
+              icon-button="RefreshCwIcon"
+              :loading="stateSubStorage.loading"
+            />
+            <button-component
+              v-else-if="!stateSubStorage._id && optionsPermissions.includes(GUARDAR)"
+              type="submit"
+              variant="primary"
+              text-default="Agregar"
+              icon-button="PlusCircleIcon"
+              :loading="stateSubStorage.loading"
+            />
+          </div>
+        </b-col>
+      </b-row>
+    </b-form>
   </field-set-component>
 </template>
 
@@ -86,9 +93,8 @@
 import {
   BForm, BRow, BCol, BFormGroup, BFormInput,
 } from 'bootstrap-vue'
-import { computed } from '@vue/composition-api'
-import { ValidationObserver, ValidationProvider } from 'vee-validate'
-import store from '@/store'
+import { inject } from '@vue/composition-api'
+import { ValidationProvider } from 'vee-validate'
 import {
   EDITAR,
   GUARDAR,
@@ -97,7 +103,7 @@ import FieldSetComponent from '@/components/FieldSetComponent/FieldSetComponent.
 import ButtonComponent from '@/components/ButtonComponent/ButtonComponent.vue'
 import { ACTION_REGISTER, ACTION_UPDATE } from '@/helpers/actionsApi'
 import { validatePermission } from '@/helpers/validateActions'
-import { routeNameStorage, stateStorage } from '../ServicesStorage/useVariablesStorage'
+import { stateStorage } from '../ServicesStorage/useVariablesStorage'
 import { stateSubStorage, clearStateSubStorage, titleNotificationSubStorage } from '../ServicesSubStorage/useVariablesSubStorage'
 import { loadItemsSubStorage, sendSubStorage } from '../ServicesSubStorage/useServicesSubStorage'
 
@@ -109,7 +115,6 @@ export default {
     BCol,
     BFormGroup,
     BFormInput,
-    ValidationObserver,
     ValidationProvider,
     FieldSetComponent,
     ButtonComponent,
@@ -119,15 +124,20 @@ export default {
       type: Function,
       required: true,
     },
+    validateSubStorage: {
+      type: Function,
+      required: true,
+    },
+    resetSubStorage: {
+      type: Function,
+      required: true,
+    },
   },
-  setup(props, context) {
-    const optionsPermissions = computed(() => {
-      if (store.state.rolesAndPermissions.options[routeNameStorage]) {
-        return store.state.rolesAndPermissions.options[routeNameStorage]
-      }
-      return []
-    })
+  setup(props) {
+    // Propiedad computada para almacenar los permisos por rol
+    const optionsPermissions = inject('optionsPermissions')
 
+    // Función para enviar los datos del formulario a la API
     const sendForm = async () => {
       if (!validatePermission(optionsPermissions.value, !stateSubStorage.value._id ? GUARDAR : EDITAR, titleNotificationSubStorage)) return
 
@@ -140,7 +150,7 @@ export default {
         }
       }
 
-      const successValidationSubStorage = await context.refs['validation-sub-storage'].validate()
+      const successValidationSubStorage = await props.validateSubStorage()
       if (!successValidationSubStorage) {
         stateSubStorage.value.loading = false
         return
@@ -149,11 +159,12 @@ export default {
       if (!statusSubStorage) return
 
       clearStateSubStorage()
-      context.refs['validation-sub-storage'].reset()
+      props.resetSubStorage()
       document.getElementById('sub-storage-name').focus()
       loadItemsSubStorage(1)
     }
 
+    // Retorno de variables y funciones que se utilizaran en el template
     return {
       stateSubStorage,
       sendForm,

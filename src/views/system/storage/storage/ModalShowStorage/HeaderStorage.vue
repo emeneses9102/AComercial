@@ -115,6 +115,7 @@ export default {
     FieldSetComponent,
   },
   setup() {
+    // Retorno de variables y funciones que se utilizaran en el DOM
     return {
       stateStorage,
     }

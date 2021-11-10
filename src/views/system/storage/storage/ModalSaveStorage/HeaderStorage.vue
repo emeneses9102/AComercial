@@ -13,11 +13,20 @@
             label="Nombre *"
             label-for="storage-name"
           >
-            <b-form-input
-              id="storage-name"
-              v-model.trim="stateStorage.nombre"
-              type="text"
-            />
+            <validation-provider
+              #default="{ errors }"
+              name="Nombre"
+              rules="required|min:3|max:100"
+            >
+              <b-form-input
+                id="storage-name"
+                v-model.trim="stateStorage.nombre"
+                type="text"
+                maxlength="100"
+                :state="errors.length > 0 ? false:null"
+              />
+              <small class="text-danger">{{ errors[0] }}</small>
+            </validation-provider>
           </b-form-group>
         </b-col>
 
@@ -99,7 +108,7 @@
           <validation-provider
             #default="{ errors }"
             name="Unidad Negocio"
-            rules="requiredComboVueSelect:m"
+            rules="requiredComboVueSelect"
           >
             <b-form-group
               label="Unidad Negocio *"
@@ -134,12 +143,21 @@
             label="Observación"
             label-for="storage-observation"
           >
-            <b-form-textarea
-              id="storage-observation"
-              v-model="stateStorage.observacion"
-              rows="2"
-              no-resize
-            />
+            <validation-provider
+              #default="{ errors }"
+              name="Observación"
+              rules="max:150"
+            >
+              <b-form-textarea
+                id="storage-observation"
+                v-model="stateStorage.observacion"
+                rows="2"
+                no-resize
+                maxlength="150"
+                :state="errors.length > 0 ? false:null"
+              />
+              <small class="text-danger">{{ errors[0] }}</small>
+            </validation-provider>
           </b-form-group>
         </b-col>
       </b-row>
@@ -170,6 +188,7 @@ export default {
     FieldSetComponent,
   },
   setup() {
+    // Retorno de variables y funciones que se utilizaran en el template
     return {
       stateStorage,
       combosStorage,

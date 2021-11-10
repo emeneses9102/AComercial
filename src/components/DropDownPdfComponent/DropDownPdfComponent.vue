@@ -40,7 +40,7 @@
 
         <!-- Modo de Exportación -->
         <field-set-component
-          class="field-set-pdf mt-75"
+          class="field-set-pdf mt-1"
           legend="Datos a exportar"
         >
           <b-row>
@@ -66,7 +66,7 @@
         <!-- Columnas a exportar -->
 
         <field-set-component
-          class="field-set-pdf mt-75"
+          class="field-set-pdf mt-1"
           legend="Columnas"
         >
           <b-row>
@@ -274,8 +274,5 @@ export default {
 }
 .list-group-item {
   transition: all 1s
-}
-.field-set-pdf legend {
-  margin-bottom: 0;
 }
 </style>

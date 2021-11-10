@@ -61,6 +61,7 @@ export default {
     ButtonComponent,
   },
   setup() {
+    // Retorno de variables y funciones que se utilizaran en el template
     return {
       MODAL_ID,
       titleNotificationStorageType,

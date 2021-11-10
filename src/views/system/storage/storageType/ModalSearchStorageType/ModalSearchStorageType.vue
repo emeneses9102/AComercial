@@ -17,10 +17,12 @@ import {
 import { loadItemsStorageType } from '../ServicesStorageType/useServicesStorageType'
 
 export default {
+  name: 'ModalSearchStorageType',
   components: {
     ModalSearchComponent,
   },
   setup() {
+    // Retorno de variables y funciones que se utilizaran en el template
     return {
       MODAL_ID,
       titleNotificationStorageType,

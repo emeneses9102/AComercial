@@ -1,4 +1,4 @@
-// Importar funciones y variables necesarias para crear los servicios de la tabla Sub Almacén
+// Importar funciones y variables necesarias para crear los servicios del mantenimiento Sub Almacén
 import { ACTION_REGISTER, ACTION_UPDATE } from '@/helpers/actionsApi'
 import { getDataById, loadTable, sendForm } from '@/helpers/manageTables'
 import {

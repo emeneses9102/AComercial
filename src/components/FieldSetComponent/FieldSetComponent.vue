@@ -6,7 +6,8 @@
     <div
       ref="fieldset-component__body"
       class="fieldset-component__body"
-      :style="initialHieghtBody"
+      :class="[collapse === 'collapse' ? 'collapse-fieldset' : '']"
+      :style="{ height: collapse === 'collapse' ? '0px' : '', transform: collapse === 'collapse' ? 'scaleY(0)' : ''}"
     >
       <slot />
     </div>
@@ -37,33 +38,32 @@ export default {
     collapse: {
       type: String,
       required: false,
-      default: '',
+      default: 'show',
     },
   },
-  computed: {
-    // Verificar si la prop collapse tiene el valor colapse
-    initialHieghtBody() {
-      if (this.collapse === 'collapse') {
-        return 'height: 0px; transform: scaleY(0);'
-      }
-      return ''
-    },
+  data() {
+    return {
+      interval: null,
+    }
   },
   methods: {
     // Método para mostrar u ocultar el body
     collapseBody() {
-      if (getComputedStyle(this.$refs['fieldset-component__body']).height === '0px' || getComputedStyle(this.$refs['fieldset-component__body']).height === '') {
+      if (this.$refs['fieldset-component__body'].classList.contains('collapse-fieldset')) {
         this.$refs['fieldset-component__body'].style.height = `${this.$refs['fieldset-component__body'].scrollHeight}px`
         this.$refs['fieldset-component__body'].style.transform = 'scaleY(1)'
-        setTimeout(() => {
+        this.$refs['fieldset-component__body'].classList.remove('collapse-fieldset')
+        this.interval = setTimeout(() => {
           this.$refs['fieldset-component__body'].removeAttribute('style')
-        }, 1000)
+        }, 300)
       } else {
         this.$refs['fieldset-component__body'].style.height = `${this.$refs['fieldset-component__body'].scrollHeight}px`
         setTimeout(() => {
+          this.$refs['fieldset-component__body'].classList.add('collapse-fieldset')
+          clearInterval(this.interval)
           this.$refs['fieldset-component__body'].style.height = '0px'
           this.$refs['fieldset-component__body'].style.transform = 'scaleY(0)'
-        }, 10)
+        }, 1)
       }
     },
   },
@@ -73,7 +73,7 @@ export default {
 <style lang="scss" scoped>
 .fieldset-component {
   position: relative;
-  border: 1px solid darken($color: #ebe9f1, $amount: 10%);
+  border: 1px solid darken($color: #ebe9f1, $amount: 20%);
   padding: 1em 1.5em;
   border-radius: .25em;
 
@@ -88,27 +88,31 @@ export default {
     width: auto;
     font-size: 1rem;
     line-height: inherit;
-    color: inherit;
+    color: #222;
+
+    .dark-layout & {
+      color: inherit;
+    }
   }
 
   &__body {
-    // overflow: hidden;
     transform-origin: top center;
     transition: height .3s ease-in-out, transform .3s ease-in-out;
   }
 
   &__button {
-    width: 28px;
-    height: 24px;
+    width: 32px;
+    height: 26px;
     display: flex;
     justify-content: center;
     align-items: center;
     border-radius: .25em;
-    background-color: #f8f8f8;
+    background-color: #e8e8e8;
     position: absolute;
     right: 20px;
     top: -26px;
     cursor: pointer;
+    user-select: none;
 
     .dark-layout & {
       background-color: #3b4253;

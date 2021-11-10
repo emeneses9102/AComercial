@@ -7,6 +7,8 @@ import { messageToast } from './messageExtensions'
 export const endPointsCombo = {
   area: '/combo/area',
   almacen: '/combo/almacen',
+  articuloGrupoUnidad: '/comboadv/articulogrupounidad',
+  articuloUnidad: '/comboadv/tablaarticulounidad',
   caracteristica: '/combo/caracteristica',
   claseSunat: '/comboadv/sntclase',
   colaborador: '/combo/colaborador',

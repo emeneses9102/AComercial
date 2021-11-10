@@ -30,11 +30,10 @@
                 >
                   <vue-select
                     id="modal-search-search-field"
-                    :value="serverQuery.campofiltro"
+                    v-model="campofiltro"
                     :reduce="option => option.field"
                     label="title"
                     :options="columnsFilter"
-                    @input="selectField"
                   />
                   <small class="text-danger">{{ errors[0] }}</small>
                 </b-form-group>
@@ -54,10 +53,9 @@
                 >
                   <b-form-input
                     id="modal-search-search-value"
-                    v-model="serverQuery.filtro"
+                    v-model="filtro"
                     type="text"
                     :state="errors.length > 0 ? false:null"
-                    @keypress="e=>$emit('update:serverQuery.filtro', e.target.value)"
                     @keydown.enter="sendSearch"
                   />
                   <small class="text-danger">{{ errors[0] }}</small>
@@ -160,38 +158,39 @@ export default {
       default: 'required',
     },
   },
+  data() {
+    return {
+      campofiltro: this.serverQuery.campofiltro,
+      filtro: this.serverQuery.filtro,
+    }
+  },
   methods: {
-    selectField(option) {
-      if (option === null) {
-        this.$emit('update:serverQuery', { ...this.serverQuery, campofiltro: '' })
-      } else {
-        this.$emit('update:serverQuery', { ...this.serverQuery, campofiltro: option })
+    async sendSearch() {
+      const successValidationSearch = await this.$refs['validation-modal-search'].validate()
+      if (!successValidationSearch) return
+      this.$root.$bvModal.hide(`${this.modalId}-search`)
+      this.$emit('update:serverQuery', {
+        ...this.serverQuery,
+        campofiltro: this.campofiltro,
+        filtro: this.filtro,
+      })
+      this.loadItems(1)
+    },
+    async clearSearch() {
+      this.clearFilters()
+      this.$refs['validation-modal-search'].reset()
+      this.$root.$bvModal.hide(`${this.modalId}-search`)
+      this.$emit('update:serverQuery', {
+        ...this.serverQuery,
+        campofiltro: '',
+        filtro: '',
+      })
+      this.campofiltro = ''
+      this.filtro = ''
+      if (this.executeLoadItemsWhereClearFilters) {
+        await this.loadItems(1)
       }
     },
-  },
-  setup(props, context) {
-    // Funcion para buscar
-    const sendSearch = async () => {
-      const successValidationSearch = await context.refs['validation-modal-search'].validate()
-      if (!successValidationSearch) return
-      context.root.$bvModal.hide(`${props.modalId}-search`)
-      await props.loadItems(1)
-    }
-
-    // Función para limpiar la búsqueda
-    const clearSearch = async () => {
-      props.clearFilters()
-      context.refs['validation-modal-search'].reset()
-      context.root.$bvModal.hide(`${props.modalId}-search`)
-      if (props.executeLoadItemsWhereClearFilters) {
-        await props.loadItems(1)
-      }
-    }
-
-    return {
-      sendSearch,
-      clearSearch,
-    }
   },
 }
 </script>

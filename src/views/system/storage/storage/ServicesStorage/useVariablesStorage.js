@@ -13,7 +13,7 @@ export const routeNameStorage = routesName.almacen
 // Constante para almacenar el id base de los modales del mantenimiento Almacén
 export const MODAL_ID = 'modal-storage'
 
-// Variable reactiva para almacenar la configuración de cada columna de la tabla Almacén
+// Variable reactiva para almacenar la configuración de cada columna del mantenimiento Almacén
 export const columnsStorage = ref([
   columnAction,
   {
@@ -61,25 +61,25 @@ export const columnsStorage = ref([
   columnStatus,
 ])
 
-// Variable reactiva para almacenar las propiedades necesarias para el listado de la tabla Almacén
+// Variable reactiva para almacenar las propiedades necesarias para el listado del mantenimiento Almacén
 export const dataTableStorage = ref({
   rows: [],
   totalRows: 0,
   loading: false,
 })
 
-// Variable reactiva para manjear los consultas del lado del servidor de la tabla Almacén
+// Variable reactiva para manejar los consultas del lado del servidor del mantenimiento Almacén
 export const serverQueryStorage = ref({
   ...serverQueryDefault,
   tabla: 'almacen',
 })
 
-// Función para limpiar filtros en la consulta de la tabla Almacén
+// Función para limpiar filtros en la consulta del mantenimiento Almacén
 export const clearFiltersStorage = () => {
   clearServerQueryDefaultFilter(serverQueryStorage)
 }
 
-// Variable inicializadora para almacenar el estado de un registro, actualización, cambio de estado, eliminación en la tabla Almacén
+// Variable inicializadora para almacenar el estado de un registro, actualización, cambio de estado, eliminación en el mantenimiento Almacén
 const initialStateStorage = {
   _id: 0,
   idPredio: 0,
@@ -94,7 +94,7 @@ const initialStateStorage = {
   loading: false,
 }
 
-// Variable reactiva para almacenar el estado de un registro, actualización, cambio de estado, eliminación en la tabla Almacén
+// Variable reactiva para almacenar el estado de un registro, actualización, cambio de estado, eliminación en el mantenimiento Almacén
 export const stateStorage = ref({ ...initialStateStorage })
 
 // Función para regresar al estado inicial la variable reactiva que gestiona Almacén
@@ -109,11 +109,27 @@ export const combosStorage = ref({
   businessUnit: { ...initialStateCombo },
 })
 
-// Constante para almacenar las columas permitidas para el filtro de la tabla Almacén
+// Constante para almacenar las columas permitidas para el filtro del mantenimiento Almacén
 export const columnsFilterStorage = [
   {
-    title: 'Nombre',
+    title: 'ID',
+    field: 'a._id',
+  },
+  {
+    title: 'NOMBRE',
     field: 'a.nombre',
+  },
+  {
+    title: 'PREDIO',
+    field: 'a.nombrePredio',
+  },
+  {
+    title: 'TIPO ALMACÉN',
+    field: 'a.nombreTipoAlmacen',
+  },
+  {
+    title: 'NEGOCIO',
+    field: 'a.nombreNegocio',
   },
 ]
 

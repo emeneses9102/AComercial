@@ -35,12 +35,14 @@ export default {
     let timer = null
     const timeForLoad = 500
 
+    // Función que se ejecutara cuando cambia el campo de busqueda
     const onChangeField = (field, value) => {
       serverQuerySubStorage.value.campofiltro = field
       serverQuerySubStorage.value.filtro = value
-      loadItemsSubStorage(1)
+      if (value.trim().length) loadItemsSubStorage(1)
     }
 
+    // Función que se ejecutara cuando ingresa caracteres al buscador
     const onSearchForValue = (field, value) => {
       dataTableSubStorage.value.loading = true
       clearTimeout(timer)
@@ -51,6 +53,7 @@ export default {
       }, timeForLoad)
     }
 
+    // Retorno de variables y funciones que se utilizaran en el template
     return {
       columnsSubStorageForShow,
       serverQuerySubStorage,

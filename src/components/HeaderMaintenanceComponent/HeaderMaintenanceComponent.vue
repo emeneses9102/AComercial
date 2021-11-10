@@ -50,7 +50,7 @@
       </template>
       <button-component
         v-if="optionsPermissions.includes(FILTRAR)"
-        variant="primary"
+        :variant="exportData.serverQuery.campofiltro && exportData.serverQuery.filtro ? 'warning' : 'primary'"
         text-default="Filtrar"
         icon-button="FilterIcon"
         :method-function="openSearch"

@@ -85,7 +85,7 @@
             <template v-if="validateOptionsByRoute && optionsPermissions.includes(CAMBIAR_ESTADO)">
               <b-dropdown-item
                 v-if="optionStatus"
-                @click.stop="changeStatus(props.row._id)"
+                @click.stop="changeStatus(props.row)"
               >
                 <div class="d-flex align-items-center">
                   <feather-icon
@@ -101,7 +101,7 @@
             <template v-else-if="!validateOptionsByRoute">
               <b-dropdown-item
                 v-if="optionStatus"
-                @click.stop="changeStatus(props.row._id)"
+                @click.stop="changeStatus(props.row)"
               >
                 <div class="d-flex align-items-center">
                   <feather-icon
@@ -452,13 +452,25 @@ export default {
     onPerPageChange(params) {
       this.loadItems(1, params.currentPerPage)
     },
-    async changeStatus(_id) {
+    async changeStatus(row) {
       const confirm = await confirmSwal(this.titleNotification, ACTION_STATUS)
       if (confirm) {
         this.loadingLocal = true
-        const { status } = await this.manageRow(ACTION_STATUS, _id)
+        const { status } = await this.manageRow(ACTION_STATUS, row._id)
         this.loadingLocal = false
-        if (status) this.loadItems()
+        if (status) {
+          this.loadItems()
+          const newRow = { ...row }
+          /* eslint no-param-reassign: "error" */
+          delete newRow.originalIndex
+          delete newRow.vgt_id
+          delete newRow.id
+          delete newRow.activo
+          delete newRow.accion
+          delete newRow.numberRow
+          delete newRow.idUsuario
+          this.$emit('change-status', newRow)
+        }
       }
     },
     async deleteRow(row) {
@@ -468,8 +480,21 @@ export default {
         const { status } = await this.manageRow(ACTION_DELETE, row._id)
         this.loadingLocal = false
         if (status) {
-          this.loadItems()
-          this.$emit('delete-row', row)
+          const newRow = { ...row }
+          /* eslint no-param-reassign: "error" */
+          delete newRow.originalIndex
+          delete newRow.vgt_id
+          delete newRow.id
+          delete newRow.activo
+          delete newRow.accion
+          delete newRow.numberRow
+          delete newRow.idUsuario
+          this.$emit('delete-row', newRow)
+          if (this.serverQuery.pinicio !== 1 && this.dataTable.rows.length === 1) {
+            this.loadItems(1)
+          } else {
+            this.loadItems()
+          }
         }
       }
     },

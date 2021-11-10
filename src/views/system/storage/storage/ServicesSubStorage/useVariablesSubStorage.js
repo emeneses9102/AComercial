@@ -5,7 +5,7 @@ import { ref } from '@vue/composition-api'
 import { columnAction, columnStatus } from '@/helpers/columnsTable'
 import { clearServerQueryDefaultFilter, serverQueryDefault } from '@/helpers/serverQuery'
 
-// Variables inicializadora para almacenar la configuración de cada columna de la tabla Sub Almacén
+// Variables inicializadora para almacenar la configuración de cada columna del mantenimiento Sub Almacén
 export const initialColumnsSubStorage = [
   {
     field: '_id',
@@ -15,10 +15,14 @@ export const initialColumnsSubStorage = [
     field: 'nombre',
     label: 'NOMBRE',
   },
+  {
+    field: 'ubicacion',
+    label: 'UBICACIÓN',
+  },
   columnStatus,
 ]
 
-// Variable reactiva para almacenar la configuración de cada columna de la tabla Sub Almacén con Acciones
+// Variable reactiva para almacenar la configuración de cada columna del mantenimiento Sub Almacén con Acciones
 export const columnsSubStorage = ref([
   columnAction,
   ...initialColumnsSubStorage,
@@ -27,22 +31,22 @@ export const columnsSubStorage = ref([
 // Variable reactiva para almacenar la configuracion de cada columna de la tabla Sub Almacén cuando solo se desea mostrar
 export const columnsSubStorageForShow = ref([...initialColumnsSubStorage])
 
-// Variable inicializadora para almacenar las propiedades necesarias para el listado de la tabla Sub Almacén
+// Variable inicializadora para almacenar las propiedades necesarias para el listado del mantenimiento Sub Almacén
 const initialDataTableSubStorage = {
   rows: [],
   totalRows: 0,
   loading: false,
 }
 
-// Variable reactiva para almacenar las propiedades necesarias para el listado de la tabla Sub Almacén
+// Variable reactiva para almacenar las propiedades necesarias para el listado del mantenimiento Sub Almacén
 export const dataTableSubStorage = ref({ ...initialDataTableSubStorage })
 
-// Función para regresar al estado inicial la variable reactiva que tiene las propiedades necesarias para el listado de la tabla Sub Almacén
+// Función para regresar al estado inicial la variable reactiva que tiene las propiedades necesarias para el listado del mantenimiento Sub Almacén
 export const clearDataTableSubStorage = () => {
   dataTableSubStorage.value = { ...initialDataTableSubStorage }
 }
 
-// Variable reactiva para manjear los consultas del lado del servidor de la tabla Sub Almacén
+// Variable reactiva para manjear los consultas del lado del servidor del mantenimiento Sub Almacén
 export const serverQuerySubStorage = ref({
   ...serverQueryDefault,
   tabla: 'dalmacen',
@@ -50,12 +54,12 @@ export const serverQuerySubStorage = ref({
   campo: 'a.idalmacen',
 })
 
-// Función para limpiar filtros en la consulta de la tabla Sub Almacén
+// Función para limpiar filtros en la consulta del mantenimiento Sub Almacén
 export const clearFiltersSubStorage = () => {
   clearServerQueryDefaultFilter(serverQuerySubStorage)
 }
 
-// Variable inicializadora para almacenar el estado de un registro, actualización, cambio de estado, eliminación en la tabla Sub Almacén
+// Variable inicializadora para almacenar el estado de un registro, actualización, cambio de estado, eliminación en el mantenimiento Sub Almacén
 const initialStateSubStorage = {
   _id: 0,
   nombre: '',
@@ -65,10 +69,10 @@ const initialStateSubStorage = {
   loading: false,
 }
 
-// Variable reactiva para almacenar el estado de un registro, actualización, cambio de estado, eliminación en la tabla Sub Almacén
+// Variable reactiva para almacenar el estado de un registro, actualización, cambio de estado, eliminación en el mantenimiento Sub Almacén
 export const stateSubStorage = ref({ ...initialStateSubStorage })
 
-// Función para regresar al estado inicial la variable reactiva que gestiona el mantenimiento de  Sub Almacén
+// Función para regresar al estado inicial la variable reactiva que gestiona el mantenimiento de Sub Almacén
 export const clearStateSubStorage = () => {
   stateSubStorage.value = { ...initialStateSubStorage }
 }
@@ -76,12 +80,16 @@ export const clearStateSubStorage = () => {
 // Constante para almacenar las columnas permitidas para el filtro del mantenimiento Sub Almacén
 export const columnsFilterSubStorage = [
   {
-    title: 'Id',
-    field: '_id',
+    title: 'ID',
+    field: 'a._id',
   },
   {
-    title: 'Nombre',
+    title: 'NOMBRE',
     field: 'a.nombre',
+  },
+  {
+    title: 'UBICACIÓN',
+    field: 'a.ubicacion',
   },
 ]
 

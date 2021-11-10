@@ -17,6 +17,8 @@
       :pagination-enabled="!!stateStorage._id"
       :option-show="false"
       @open-modal-for-edit="openModalForEdit"
+      @delete-row="onAfter"
+      @change-status="onAfter"
     />
   </field-set-component>
 </template>
@@ -27,7 +29,7 @@ import FieldSetComponent from '@/components/FieldSetComponent/FieldSetComponent.
 import TableGoodComponent from '@/components/TableComponent/TableGoodComponent.vue'
 import { stateStorage } from '../ServicesStorage/useVariablesStorage'
 import {
-  stateSubStorage, columnsSubStorage, serverQuerySubStorage, dataTableSubStorage, columnsFilterSubStorage, titleNotificationSubStorage,
+  stateSubStorage, columnsSubStorage, serverQuerySubStorage, dataTableSubStorage, columnsFilterSubStorage, titleNotificationSubStorage, clearStateSubStorage,
 } from '../ServicesSubStorage/useVariablesSubStorage'
 import { loadItemsSubStorage, sendSubStorage } from '../ServicesSubStorage/useServicesSubStorage'
 
@@ -38,22 +40,31 @@ export default {
     TableGoodComponent,
     HeaderSearchDetailComponent,
   },
-  setup() {
+  props: {
+    resetSubStorage: {
+      type: Function,
+      required: true,
+    },
+  },
+  setup(props) {
     let timer = null
     const timeForLoad = 500
 
+    // Función que se ejecutara cuando se de click en el botón editar
     const openModalForEdit = ({ _id, nombre, ubicacion }) => {
       stateSubStorage.value._id = _id
       stateSubStorage.value.nombre = nombre
       stateSubStorage.value.ubicacion = ubicacion
     }
 
+    // Función que se ejecutara cuando se cambie el campo de busqueda
     const onChangeField = (field, value) => {
       serverQuerySubStorage.value.campofiltro = field
       serverQuerySubStorage.value.filtro = value
-      loadItemsSubStorage(1)
+      if (value.trim().length) loadItemsSubStorage(1)
     }
 
+    // Función que se ejecutara cuando ingrese un caracter en el buscador
     const onSearchForValue = (field, value) => {
       dataTableSubStorage.value.loading = true
       clearTimeout(timer)
@@ -64,6 +75,13 @@ export default {
       }, timeForLoad)
     }
 
+    // Función que se ejecutara despues de eliminar o cambiar el estado de un registro
+    const onAfter = () => {
+      clearStateSubStorage()
+      props.resetSubStorage()
+    }
+
+    // Retorno de variables y funciones que se utilizaran en el template
     return {
       stateStorage,
       columnsSubStorage,
@@ -72,6 +90,7 @@ export default {
       loadItemsSubStorage,
       sendSubStorage,
       openModalForEdit,
+      onAfter,
       columnsFilterSubStorage,
       titleNotificationSubStorage,
       onChangeField,

@@ -22,12 +22,13 @@
                 <validation-provider
                   #default="{ errors }"
                   name="Nombre"
-                  rules="required|min:3"
+                  rules="required|min:3|max:100"
                 >
                   <b-form-input
                     id="storage-type-name"
                     v-model.trim="stateStorageType.nombre"
                     type="text"
+                    maxlength="100"
                     :state="errors.length > 0 ? false:null"
                     @keydown.enter="()=>sendForm()"
                   />
@@ -43,9 +44,9 @@
     <template #modal-footer>
       <button-component
         variant="outline-primary"
-        icon-button="PowerIcon"
-        text-default="Cerrar"
-        :method-function="()=>$bvModal.hide(MODAL_ID)"
+        icon-button="DeleteIcon"
+        text-default="Limpiar"
+        :method-function="()=>clearFormSave()"
       />
       <button-component
         v-if="(
@@ -97,6 +98,7 @@ export default {
     ValidationProvider,
   },
   setup(props, context) {
+    // Propiedad computada para almacenar los permisos por rol
     const optionsPermissions = computed(() => {
       if (store.state.rolesAndPermissions.options[routeNameStorageType]) {
         return store.state.rolesAndPermissions.options[routeNameStorageType]
@@ -104,6 +106,13 @@ export default {
       return []
     })
 
+    // Función para limpiar el formulario
+    const clearFormSave = () => {
+      clearStateStorageType()
+      context.refs['validation-storage-type'].reset()
+    }
+
+    // Función para enviar los datos del formulario a la API
     const sendForm = async (actionSend = null, loading = true) => {
       if (!validatePermission(optionsPermissions.value, !stateStorageType.value._id ? GUARDAR : EDITAR, titleNotificationStorageType)) return false
       const successValidationStorageType = await context.refs['validation-storage-type'].validate()
@@ -120,11 +129,13 @@ export default {
       return true
     }
 
+    // Retorno de variables y funciones que se utilizaran en el template
     return {
       MODAL_ID,
       titleNotificationStorageType,
       stateStorageType,
       sendForm,
+      clearFormSave,
 
       optionsPermissions,
       EDITAR,

@@ -38,6 +38,7 @@ export default {
     DetailTable,
   },
   setup() {
+    // Retorno de variables y funciones que se utilizaran en el DOM
     return {
       MODAL_ID,
       titleNotificationStorage,
